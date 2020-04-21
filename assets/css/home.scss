@@ -1,0 +1,20 @@
+// style for homepage
+// Colors
+$darkBlue: #7fadc5;
+
+.jumboHome {
+    background-color: $darkBlue;
+}
+
+.home-title {
+    color: #ffffff;
+    text-align: center;
+}
+
+.home-img {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    max-width: 80%;
+    max-height:400px;
+}

@@ -1,0 +1,20 @@
+// custom Bootstrap
+// $darkBlue: #415ba5;
+$darkBlue: #7fadc5;
+
+$theme-colors: (
+  dark: $darkBlue
+);
+
+// import bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+//
+body {
+  margin-top: 80px;
+}
+
+.flags {
+  max-width: 28px;
+  max-height: 28px;
+};
