@@ -1,14 +1,27 @@
 // style for homepage
 // Colors
-$darkBlue: #7fadc5;
+$happyDarkBlue: #7fadc5;
+$happyGreen: #b1c18c;
+$happyOrange: #f5853b;
 
 .jumboHome {
-    background-color: $darkBlue;
+    background-color: $happyDarkBlue;
 }
 
 .home-title {
     color: #ffffff;
     text-align: center;
+    
+    &.home-subtitle {
+        font-size: 1.8em;
+    }
+}
+
+// for smalk screen
+@media (max-width: 576px) {
+    .home-img {
+        margin-bottom: 1rem;
+    }
 }
 
 .home-img {
@@ -18,3 +31,26 @@ $darkBlue: #7fadc5;
     max-width: 80%;
     max-height:400px;
 }
+
+.card-header {
+    background-color: $happyGreen;
+    color: #ffffff;
+}
+
+.btn-register {
+    background-color: $happyGreen;
+    color: #ffffff;
+    font-weight: bold;
+    &:hover {
+        background-color: $happyOrange;
+        color: #ffffff;
+    }
+}
+
+.concept-title,.pricing-title {
+    text-align: center;
+    color: $happyOrange;
+    font-size: 3rem;
+    margin-left: 0.5rem;
+}
+

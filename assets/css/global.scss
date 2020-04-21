@@ -1,9 +1,9 @@
 // custom Bootstrap
-// $darkBlue: #415ba5;
-$darkBlue: #7fadc5;
-
+$happyDarkBlue: #7fadc5;
+$happyOrange: #f5853b;
 $theme-colors: (
-  dark: $darkBlue
+  happyDarkBlue: $happyDarkBlue,
+  happyOrange: $happyOrange
 );
 
 // import bootstrap
@@ -11,7 +11,15 @@ $theme-colors: (
 
 //
 body {
-  margin-top: 80px;
+  margin-top: 60px;
+}
+
+.btn-outline-darkblue:hover {
+  color: #ffffff;
+}
+
+#navhome {
+  background-color: #ffffff;
 }
 
 .flags {

@@ -9,13 +9,41 @@
         <source>Home</source>
         <target>Accueil</target>
       </trans-unit>
-      <trans-unit id="VpfQPa7" resname="Features">
-        <source>Features</source>
-        <target>Concept</target>
-      </trans-unit>
       <trans-unit id="3_lXg_3" resname="Pricing">
         <source>Pricing</source>
         <target>Tarifs</target>
+      </trans-unit>
+      <trans-unit id="DiImtSN" resname="Welcome">
+        <source>Welcome</source>
+        <target>Bienvenue</target>
+      </trans-unit>
+      <trans-unit id="v9QCsvb" resname="Sign in">
+        <source>Sign in</source>
+        <target>Se Connecter</target>
+      </trans-unit>
+      <trans-unit id="hjJeXpS" resname="Welcome to HappyBizTrip">
+        <source>Welcome to HappyBizTrip</source>
+        <target>Bienvenue sur HappyBizTrip</target>
+      </trans-unit>
+      <trans-unit id="OrMR2WS" resname="Make your trip a fun...">
+        <source>Make your trip a fun...</source>
+        <target>Prenez plaisir à vous déplacer...</target>
+      </trans-unit>
+      <trans-unit id="9QR755x" resname="Not registered ?">
+        <source>Not registered ?</source>
+        <target>Pas encore inscrit(e) ?</target>
+      </trans-unit>
+      <trans-unit id="THCGpOq" resname="It's time to get started !">
+        <source>It's time to get started !</source>
+        <target>C'est le moment de se lancer !</target>
+      </trans-unit>
+      <trans-unit id="VCh76AY" resname="Concept">
+        <source>Concept</source>
+        <target>Concept</target>
+      </trans-unit>
+      <trans-unit id="LUgjLU5" resname="Registrer">
+        <source>Registrer</source>
+        <target>S'inscrire</target>
       </trans-unit>
     </body>
   </file>
