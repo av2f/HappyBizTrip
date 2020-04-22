@@ -7,189 +7,160 @@
 {% endblock %}
 
 {% block body %}
-    <nav id="navhome" class="navbar navbar-expand-lg navbar-light fixed-top">
-        <a class="navbar-brand" href="#">
-            <img src="{{ asset('img/library/hbtlogo.png') }}" width="32" height="32" class="d-inline-block align-top" alt="">
-            HappyBizTrip
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">{% trans %}Home{% endtrans %} <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">{% trans %}Concept{% endtrans %}</a>
-                <a class="nav-item nav-link" href="#">{% trans %}Pricing{% endtrans %}</a>
-                <a class="nav-item nav-link" href="#">{{ locale }}</a>
+<div class="jumbotron jumbotron-fluid jumboHome">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h1 class="display-4 home-title">{% trans %}Welcome to HappyBizTrip {% endtrans %}</h1>
+                <p class="lead home-title home-subtitle">{% trans %}Make your trip a fun...{% endtrans %}</p>
+                <img class="home-img" src="{{ asset('img/library/imgHomepage.png') }}" alt="">
             </div>
-            <ul class="navbar-nav ml-auto mr-4">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="false">
-                        <img class="flags" src="{{ asset('img/library/en.png') }}" alt="en"> En
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-center" aria-labelledby="language">
-                        <a href="#" class="dropdown-item">
-                            <img class="flags" src="{{ asset('img/library/fr.png') }}" alt="fr"> Fr
-                        </a>
+            <div class="col-md-4">
+                <div class="card mt-1">
+                    <div class="card-header text-center card-entete">
+                        <h4><strong>{% trans %}Not registered ?{% endtrans %}</strong></h4>
+                        <h4><strong>{% trans %}It's time to get started !{% endtrans %}</strong></h4>
                     </div>
-                </li>
-            </ul>
-            <a href="#">
-                <button class="btn btn-outline-happyDarkBlue btn-sm my-2 my-sm-0">{% trans %}Sign in{% endtrans %}</button>
-            </a>
-        </div>
-    </nav>
-    
-    <div class="jumbotron jumbotron-fluid jumboHome">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-md-7">
-                    <h1 class="display-4 home-title">{% trans %}Welcome to HappyBizTrip {% endtrans %}</h1>
-                    <p class="lead home-title home-subtitle">{% trans %}Make your trip a fun...{% endtrans %}</p>
-                    <img class="home-img" src="{{ asset('img/library/imgHomepage.png') }}" alt="">
-                </div>
-                <div class="col-md-4">
-                    <div class="card mt-1">
-                        <div class="card-header text-center card-entete">
-                            <h4><strong>{% trans %}Not registered ?{% endtrans %}</strong></h4>
-                            <h4><strong>{% trans %}It's time to get started !{% endtrans %}</strong></h4>
+                    <form>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <span class="pr-2">{% trans %}I am a{% endtrans %}</span>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="radioWoman" name="radioGender" class="custom-control-input" value="W" checked>
+                                    <label class="custom-control-label" for="radioWoman"><i class="fas fa-female pr-1"></i>{% trans %}Woman{% endtrans %}</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="radioMan" name="radioGender" class="custom-control-input" value="M">
+                                    <label class="custom-control-label" for="radioMan"><i class="fas fa-male pr-1"></i>{% trans %}Man{% endtrans %}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pseudo">{% trans %}Pseudonym{% endtrans %}</label>
+                                <input type="text" class="form-control" id="pseudo" aria-describedby="pseudoHelp" placeholder="Define a Pseudonym">
+                                <small id="pseudoHelp" class="form-text text-muted">{% trans %}Minimum Length : 5 characters{% endtrans %}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
                         </div>
-                        <form>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <span class="pr-2">{% trans %}Gender{% endtrans %}  </span>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="radioWoman" name="radioGender" class="custom-control-input" value="W" checked>
-                                        <label class="custom-control-label" for="radioWoman"><i class="fas fa-female"></i> Woman</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="radioMan" name="radioGender" class="custom-control-input" value="M">
-                                        <label class="custom-control-label" for="radioMan"><i class="fas fa-male"></i> Man</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="card-footer text-center">
-                                <button type="submit" class="btn btn-register btn-block">{% trans %}Registrer{% endtrans %}</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-register btn-block">{% trans %}Registrer{% endtrans %}</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <p class="concept-title">{% trans %}The Concept{% endtrans %}</p>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ullamcorper eget nulla facilisi etiam dignissim. Elementum sagittis vitae et leo duis ut. 
-            Dictum at tempor commodo ullamcorper a. Ornare lectus sit amet est placerat in egestas. 
-            Lectus magna fringilla urna porttitor rhoncus. Ut pharetra sit amet aliquam id diam. 
-            Est velit egestas dui id ornare arcu odio. Elit sed vulputate mi sit. Odio euismod lacinia at quis. 
-            Duis at consectetur lorem donec massa sapien faucibus. Tempor orci dapibus ultrices in iaculis nunc sed augue lacus. 
-            Fusce id velit ut tortor pretium viverra suspendisse potenti. Id diam maecenas ultricies mi eget. 
-            Aliquam eleifend mi in nulla posuere sollicitudin aliquam. Porttitor massa id neque aliquam vestibulum. 
-            Molestie nunc non blandit massa enim nec. 
-            Maecenas volutpat blandit aliquam etiam.
-        </p>
-        <p>
-            Non blandit massa enim nec dui nunc mattis enim ut. Ante metus dictum at tempor commodo ullamcorper. Mattis pellentesque id nibh tortor. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien. Sit amet aliquam id diam maecenas ultricies. Fringilla urna porttitor rhoncus dolor purus non enim. Malesuada fames ac turpis egestas integer eget aliquet nibh. Faucibus a pellentesque sit amet porttitor eget dolor morbi. Ut pharetra sit amet aliquam. Et sollicitudin ac orci phasellus egestas tellus rutrum tellus. Et malesuada fames ac turpis egestas sed tempus urna. Consequat interdum varius sit amet mattis.
-        </p>
-        <p class="pricing-title mt-5 mb-4">{% trans %}Pricing{% endtrans %}</p>
-        <div class="row">
-            <div class="col-md-4 col-lg-4">
-                <div class="card border-happyGreen mb-3">
-                    <div class="card-header">
-                        Free
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">0,00 &euro;</span>
-                        <span class="frequency"> / mois</span>
-                        <ul class="list-unstyled">
-                            <li>Discover the website</li>
-                        </ul>
-                        <hr>
-                        <h6 class="card-text">Features limited</h6>
-                    </div>
+</div>
+<div class="container">
+    <p class="concept-title">{% trans %}The Concept{% endtrans %}</p>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ullamcorper eget nulla facilisi etiam dignissim. Elementum sagittis vitae et leo duis ut. 
+        Dictum at tempor commodo ullamcorper a. Ornare lectus sit amet est placerat in egestas. 
+        Lectus magna fringilla urna porttitor rhoncus. Ut pharetra sit amet aliquam id diam. 
+        Est velit egestas dui id ornare arcu odio. Elit sed vulputate mi sit. Odio euismod lacinia at quis. 
+        Duis at consectetur lorem donec massa sapien faucibus. Tempor orci dapibus ultrices in iaculis nunc sed augue lacus. 
+        Fusce id velit ut tortor pretium viverra suspendisse potenti. Id diam maecenas ultricies mi eget. 
+        Aliquam eleifend mi in nulla posuere sollicitudin aliquam. Porttitor massa id neque aliquam vestibulum. 
+        Molestie nunc non blandit massa enim nec. 
+        Maecenas volutpat blandit aliquam etiam.
+    </p>
+    <p>
+        Non blandit massa enim nec dui nunc mattis enim ut. Ante metus dictum at tempor commodo ullamcorper. Mattis pellentesque id nibh tortor. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien. Sit amet aliquam id diam maecenas ultricies. Fringilla urna porttitor rhoncus dolor purus non enim. Malesuada fames ac turpis egestas integer eget aliquet nibh. Faucibus a pellentesque sit amet porttitor eget dolor morbi. Ut pharetra sit amet aliquam. Et sollicitudin ac orci phasellus egestas tellus rutrum tellus. Et malesuada fames ac turpis egestas sed tempus urna. Consequat interdum varius sit amet mattis.
+    </p>
+    <p class="pricing-title mt-5 mb-4">{% trans %}Pricing{% endtrans %}</p>
+    <div class="row">
+        <div class="col-md-4 col-lg-4">
+            <div class="card border-happyGreen mb-3">
+                <div class="card-header">
+                    Free
                 </div>
-            </div>
-            <div class="col-md-4 col-lg-4">
-                <div class="card border-happyGreen mb-3">
-                    <div class="card-header">
-                        Permanent
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">15,99 &euro;</span>
-                        <span class="frequency"> / mois</span>
-                        <hr>
-                        <h6 class="card-text">Engagement minimum de 12 mois</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-4">
-                <div class="card border-happyGreen mb-3">
-                    <div class="card-header">
-                        Permanent
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">15,99 &euro;</span>
-                        <span class="frequency"> / mois</span>
-                        <hr>
-                        <h6 class="card-text">Engagement minimum de 12 mois</h6>
-                    </div>
+                <div class="card-body">
+                    <span class="card-title">0,00 &euro;</span>
+                    <span class="frequency"> / mois</span>
+                    <ul class="list-unstyled">
+                        <li>Discover the website</li>
+                    </ul>
+                    <hr>
+                    <h6 class="card-text">Features limited</h6>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 col-lg-4">
-                <div class="card border-happyGreen mb-3">
-                    <div class="card-header">
-                        Permanent
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">15,99 &euro;</span>
-                        <span class="frequency"> / mois</span>
-                        <hr>
-                        <h6 class="card-text">Engagement minimum de 12 mois</h6>
-                    </div>
+        <div class="col-md-4 col-lg-4">
+            <div class="card border-happyGreen mb-3">
+                <div class="card-header">
+                    Permanent
+                </div>
+                <div class="card-body">
+                    <span class="card-title">15,99 &euro;</span>
+                    <span class="frequency"> / mois</span>
+                    <hr>
+                    <h6 class="card-text">Engagement minimum de 12 mois</h6>
                 </div>
             </div>
-            <div class="col-md-4 col-lg-4">
-                <div class="card border-happyGreen mb-3">
-                    <div class="card-header">
-                        Permanent
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">15,99 &euro;</span>
-                        <span class="frequency"> / mois</span>
-                        <hr>
-                        <h6 class="card-text">Engagement minimum de 12 mois</h6>
-                    </div>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <div class="card border-happyGreen mb-3">
+                <div class="card-header">
+                    Permanent
                 </div>
-            </div>
-            <div class="col-md-4 col-lg-4">
-                <div class="card border-happyGreen mb-3">
-                    <div class="card-header">
-                        Permanent
-                    </div>
-                    <div class="card-body">
-                        <span class="card-title">15,99 &euro;</span>
-                        <span class="frequency"> / mois</span>
-                        <hr>
-                        <h6 class="card-text">Engagement minimum de 12 mois</h6>
-                    </div>
+                <div class="card-body">
+                    <span class="card-title">15,99 &euro;</span>
+                    <span class="frequency"> / mois</span>
+                    <hr>
+                    <h6 class="card-text">Engagement minimum de 12 mois</h6>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-4">
+            <div class="card border-happyGreen mb-3">
+                <div class="card-header">
+                    Permanent
+                </div>
+                <div class="card-body">
+                    <span class="card-title">15,99 &euro;</span>
+                    <span class="frequency"> / mois</span>
+                    <hr>
+                    <h6 class="card-text">Engagement minimum de 12 mois</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <div class="card border-happyGreen mb-3">
+                <div class="card-header">
+                    Permanent
+                </div>
+                <div class="card-body">
+                    <span class="card-title">15,99 &euro;</span>
+                    <span class="frequency"> / mois</span>
+                    <hr>
+                    <h6 class="card-text">Engagement minimum de 12 mois</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <div class="card border-happyGreen mb-3">
+                <div class="card-header">
+                    Permanent
+                </div>
+                <div class="card-body">
+                    <span class="card-title">15,99 &euro;</span>
+                    <span class="frequency"> / mois</span>
+                    <hr>
+                    <h6 class="card-text">Engagement minimum de 12 mois</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}

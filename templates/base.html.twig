@@ -10,8 +10,10 @@
         {% endblock %}
     </head>
     <body>
+        {# include header #}
+        {% include 'include/header.html.twig' %}
+        
         {% block body %}{% endblock %}
-
          
         {# include footer #}
         {% include 'include/footer.html.twig' %}
