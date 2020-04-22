@@ -9,7 +9,7 @@
 {% block body %}
     <nav id="navhome" class="navbar navbar-expand-lg navbar-light fixed-top">
         <a class="navbar-brand" href="#">
-            <img src="{{ asset('img/library/maptrip.png') }}" width="32" height="32" class="d-inline-block align-top" alt="">
+            <img src="{{ asset('img/library/hbtlogo.png') }}" width="32" height="32" class="d-inline-block align-top" alt="">
             HappyBizTrip
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,6 +56,17 @@
                         </div>
                         <form>
                             <div class="card-body">
+                                <div class="form-group">
+                                    <span class="pr-2">I am </span>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadioInline1">a woman</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadioInline2">a man</label>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
                                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -179,47 +190,6 @@
             </div>
         </div>
     </div>
-    <footer class="pt-4 my-md-5 pt-md-5 border-top">
-        <div class="container">
-            <div class="row">
-            <div class="col-4 col-md">
-                <h5>Features</h5>
-                <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Cool stuff</a></li>
-                <li><a class="text-muted" href="#">Random feature</a></li>
-                <li><a class="text-muted" href="#">Team feature</a></li>
-                <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                <li><a class="text-muted" href="#">Another one</a></li>
-                <li><a class="text-muted" href="#">Last time</a></li>
-                </ul>
-            </div>
-            <div class="col-4 col-md">
-                <h5>Resources</h5>
-                <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Resource</a></li>
-                <li><a class="text-muted" href="#">Resource name</a></li>
-                <li><a class="text-muted" href="#">Another resource</a></li>
-                <li><a class="text-muted" href="#">Final resource</a></li>
-                </ul>
-            </div>
-            <div class="col-4 col-md">
-                <h5>About</h5>
-                <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Team</a></li>
-                <li><a class="text-muted" href="#">Locations</a></li>
-                <li><a class="text-muted" href="#">Privacy</a></li>
-                <li><a class="text-muted" href="#">Terms</a></li>
-                </ul>
-            </div>
-            
-            </div>
-            <div class="row">
-                <div class="col-12 col-md">
-                    <small class="d-block mb-3 text-muted">&copy; 2020 av2f</small>
-                </div>
-            </div>
-        </div>
-    </footer>
 {% endblock %}
 
 {% block javascripts %}

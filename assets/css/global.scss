@@ -1,17 +1,27 @@
-// custom Bootstrap
+// Colors
 $happyDarkBlue: #7fadc5;
 $happyOrange: #f5853b;
+$happyGrey: #f5f5f5;
+
+// Custom Bootstrap
 $theme-colors: (
   happyDarkBlue: $happyDarkBlue,
   happyOrange: $happyOrange
 );
 
-// import bootstrap
+// Import bootstrap
 @import "~bootstrap/scss/bootstrap";
 
 //
 body {
   margin-top: 60px;
+  background-color: $happyGrey;
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  background-color: white;
 }
 
 .btn-outline-darkblue:hover {
@@ -19,7 +29,7 @@ body {
 }
 
 #navhome {
-  background-color: #ffffff;
+  background-color: white;
 }
 
 .flags {
