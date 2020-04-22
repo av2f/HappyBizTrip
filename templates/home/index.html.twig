@@ -57,14 +57,14 @@
                         <form>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <span class="pr-2">I am </span>
+                                    <span class="pr-2">{% trans %}Gender{% endtrans %}  </span>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline1">a woman</label>
+                                        <input type="radio" id="radioWoman" name="radioGender" class="custom-control-input" value="W" checked>
+                                        <label class="custom-control-label" for="radioWoman"><i class="fas fa-female"></i> Woman</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline2">a man</label>
+                                        <input type="radio" id="radioMan" name="radioGender" class="custom-control-input" value="M">
+                                        <label class="custom-control-label" for="radioMan"><i class="fas fa-male"></i> Man</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
