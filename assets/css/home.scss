@@ -54,3 +54,8 @@ $happyOrange: #f5853b;
     margin-left: 0.5rem;
 }
 
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: white;
+    border-color: $happyDarkBlue;
+    background-color: $happyDarkBlue;
+}

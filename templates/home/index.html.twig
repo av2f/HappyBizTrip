@@ -36,16 +36,26 @@
                             </div>
                             <div class="form-group">
                                 <label for="pseudo">{% trans %}Pseudonym{% endtrans %}</label>
-                                <input type="text" class="form-control" id="pseudo" aria-describedby="pseudoHelp" placeholder="Define a Pseudonym">
+                                <input type="text" class="form-control" id="pseudo" aria-describedby="pseudoHelp" placeholder="{% trans %}Define a pseudonym{% endtrans %}">
                                 <small id="pseudoHelp" class="form-text text-muted">{% trans %}Minimum Length : 5 characters{% endtrans %}</small>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="email">{% trans %}Email address{% endtrans %}</label>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="{% trans %}Enter email{% endtrans %}">
+                            </div>
+                            <label for="birthday">{% trans %}Date of birth{% endtrans %}</label>
+                            <div class="input-group date mb-3" id="date-container">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input type="text" id="home_register_birthdayDate" name="home_register[birthdayDate]" required="required" class="js-datepicker form-control" />
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <label for="password">{% trans %}Password{% endtrans %}</label>
+                                <input type="password" class="form-control" id="Password" aria-describedby="passwordHelp" placeholder="{% trans %}Define a password{% endtrans %}">
+                                <small id="passwordHelp" class="form-text text-muted">{% trans %}Minimum Length : 8 characters{% endtrans %}</small>
                             </div>
                         </div>
                         <div class="card-footer text-center">
