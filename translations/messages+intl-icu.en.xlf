@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
       <trans-unit id="ommPVy2" resname="home.block_title">
         <source>home.block_title</source>
-        <target>Bienvenue</target>
+        <target>Welcome</target>
       </trans-unit>
       <trans-unit id="3P24U.9" resname="home.title">
         <source>home.title</source>
-        <target>Bienvenue sur HappyBizTrip</target>
+        <target>Welcome to HappyBizTrip</target>
       </trans-unit>
       <trans-unit id="9pZLgHn" resname="home.subtitle">
         <source>home.subtitle</source>
-        <target>Prenez plaisir à vous déplacer</target>
+        <target>Make your trip a fun...</target>
       </trans-unit>
       <trans-unit id="MAwg1kM" resname="form.register_title">
         <source>form.register_title</source>
-        <target>Pas encore inscrit(e) ?</target>
+        <target>Not registered ?</target>
       </trans-unit>
       <trans-unit id="51P0lnQ" resname="form.register_subtitle">
         <source>form.register_subtitle</source>
-        <target>C'est le moment de se lancer !</target>
+        <target>It's time to get started ?</target>
       </trans-unit>
       <trans-unit id="m0a7dH2" resname="form.label_pseudo">
         <source>form.label_pseudo</source>
-        <target>Pseudonyme</target>
+        <target>Pseudonym</target>
       </trans-unit>
       <trans-unit id="KKICzkh" resname="form.placeholder_pseudo">
         <source>form.placeholder_pseudo</source>
-        <target>Créer votre pseudonyme</target>
+        <target>Define your pseudonym</target>
       </trans-unit>
       <trans-unit id="47ERAn3" resname="form.help_pseudo">
         <source>form.help_pseudo</source>
-        <target>Longueur minimale : 5 caractères</target>
+        <target>Minimum length : 5 characters</target>
       </trans-unit>
       <trans-unit id="21vgKwn" resname="form.label_email">
         <source>form.label_email</source>
-        <target>Adresse email</target>
+        <target>Email address</target>
       </trans-unit>
       <trans-unit id="aC0sJvC" resname="form.placeholder_email">
         <source>form.placeholder_email</source>
-        <target>Saisissez votre adresse mail</target>
+        <target>Enter your email</target>
       </trans-unit>
       <trans-unit id="FmVXM4O" resname="form.label_birth">
         <source>form.label_birth</source>
-        <target>Date de naissance</target>
+        <target>Date of birth</target>
       </trans-unit>
       <trans-unit id="dJyfrTZ" resname="form.label_password">
         <source>form.label_password</source>
-        <target>Mot de passe</target>
+        <target>Password</target>
       </trans-unit>
       <trans-unit id="evDEAGU" resname="form.placeholder_password">
         <source>form.placeholder_password</source>
-        <target>Votre mot de passe</target>
+        <target>Define a password</target>
       </trans-unit>
       <trans-unit id="_In6p8V" resname="form.help_password">
         <source>form.help_password</source>
-        <target>Longueur minimale : 8 caractères</target>
+        <target>Minimum length : 8 characters</target>
       </trans-unit>
       <trans-unit id="XSMuB1X" resname="form.btn_register">
         <source>form.btn_register</source>
-        <target>S'inscrire</target>
+        <target>Register</target>
       </trans-unit>
       <trans-unit id="zpGSMx1" resname="home.concept_title">
         <source>home.concept_title</source>
-        <target>Le Concept</target>
+        <target>The Concept</target>
       </trans-unit>
       <trans-unit id="2AoFMiA" resname="home.price_title">
         <source>home.price_title</source>
-        <target>Tarifs</target>
+        <target>Pricing</target>
       </trans-unit>
       <trans-unit id="HF1xQoF" resname="menu.home_home">
         <source>menu.home_home</source>
-        <target>Accueil</target>
+        <target>Home</target>
       </trans-unit>
       <trans-unit id="a9zjOfN" resname="menu.home_concept">
         <source>menu.home_concept</source>
@@ -83,11 +83,11 @@
       </trans-unit>
       <trans-unit id="0bB_BAD" resname="menu.home_price">
         <source>menu.home_price</source>
-        <target>Tarifs</target>
+        <target>Pricing</target>
       </trans-unit>
       <trans-unit id="A503Qcq" resname="menu.home_sign_in">
         <source>menu.home_sign_in</source>
-        <target>Se connecter</target>
+        <target>Sign in</target>
       </trans-unit>
     </body>
   </file>

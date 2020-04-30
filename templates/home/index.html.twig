@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% trans %}Welcome{% endtrans %}{% endblock %}
+{% block title %}{{ 'home.block_title'|trans }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('css/home') }}
@@ -11,28 +11,28 @@
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-md-7">
-                <h1 class="display-4 home-title">{% trans %}Welcome to HappyBizTrip {% endtrans %}</h1>
-                <p class="lead home-title home-subtitle">{% trans %}Make your trip a fun...{% endtrans %}</p>
+                <h1 class="display-4 home-title">{{ 'home.title'|trans }}</h1>
+                <p class="lead home-title home-subtitle">{{ 'home.subtitle'|trans }}</p>
                 <img class="home-img" src="{{ asset('img/library/imgHomepage.png') }}" alt="">
             </div>
             <div class="col-md-4">
                 <div class="card mt-1">
                     <div class="card-header text-center card-entete">
-                        <h4><strong>{% trans %}Not registered ?{% endtrans %}</strong></h4>
-                        <h4><strong>{% trans %}It's time to get started !{% endtrans %}</strong></h4>
+                        <h4><strong>{{ 'form.register_title'|trans }}</strong></h4>
+                        <h4><strong>{{ 'form.register_subtitle'|trans }}</strong></h4>
                     </div>
                     <form>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="pseudo">{% trans %}Pseudonym{% endtrans %}</label>
-                                <input type="text" class="form-control" id="pseudo" aria-describedby="pseudoHelp" placeholder="{% trans %}Define a pseudonym{% endtrans %}">
-                                <small id="pseudoHelp" class="form-text text-muted">{% trans %}Minimum Length : 5 characters{% endtrans %}</small>
+                                <label for="pseudo">{{ 'form.label_pseudo'|trans }}</label>
+                                <input type="text" class="form-control" id="pseudo" aria-describedby="pseudoHelp" placeholder="{{ 'form.placeholder_pseudo'|trans }}">
+                                <small id="pseudoHelp" class="form-text text-muted">{{ 'form.help_pseudo'|trans }}</small>
                             </div>
                             <div class="form-group">
-                                <label for="email">{% trans %}Email address{% endtrans %}</label>
-                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="{% trans %}Enter email{% endtrans %}">
+                                <label for="email">{{ 'form.label_email'|trans }}</label>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="{{ 'form.placeholder_email'|trans }}">
                             </div>
-                            <label for="birthday">{% trans %}Date of birth{% endtrans %}</label>
+                            <label for="birthday">{{ 'form.label_birth'|trans }}</label>
                             <div class="input-group date mb-3" id="date-container">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
@@ -42,13 +42,13 @@
                                 <input type="text" id="home_register_birthdayDate" name="home_register[birthdayDate]" required="required" class="js-datepicker form-control" />
                             </div>
                             <div class="form-group">
-                                <label for="password">{% trans %}Password{% endtrans %}</label>
-                                <input type="password" class="form-control" id="Password" aria-describedby="passwordHelp" placeholder="{% trans %}Define a password{% endtrans %}">
-                                <small id="passwordHelp" class="form-text text-muted">{% trans %}Minimum Length : 8 characters{% endtrans %}</small>
+                                <label for="password">{{ 'form.label_password'|trans }}</label>
+                                <input type="password" class="form-control" id="Password" aria-describedby="passwordHelp" placeholder="{{ 'form.placeholder_password'|trans }}">
+                                <small id="passwordHelp" class="form-text text-muted">{{ 'form.help_password'|trans }}</small>
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="submit" class="btn btn-register btn-block">{% trans %}Register{% endtrans %}</button>
+                            <button type="submit" class="btn btn-register btn-block">{{ 'form.btn_register'|trans }}</button>
                         </div>
                     </form>
                 </div>
@@ -57,7 +57,7 @@
     </div>
 </div>
 <div class="container">
-    <p class="concept-title">{% trans %}The Concept{% endtrans %}</p>
+    <p class="concept-title">{{ 'home.concept_title'|trans }}</p>
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
         Ullamcorper eget nulla facilisi etiam dignissim. Elementum sagittis vitae et leo duis ut. 
@@ -73,7 +73,7 @@
     <p>
         Non blandit massa enim nec dui nunc mattis enim ut. Ante metus dictum at tempor commodo ullamcorper. Mattis pellentesque id nibh tortor. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien. Sit amet aliquam id diam maecenas ultricies. Fringilla urna porttitor rhoncus dolor purus non enim. Malesuada fames ac turpis egestas integer eget aliquet nibh. Faucibus a pellentesque sit amet porttitor eget dolor morbi. Ut pharetra sit amet aliquam. Et sollicitudin ac orci phasellus egestas tellus rutrum tellus. Et malesuada fames ac turpis egestas sed tempus urna. Consequat interdum varius sit amet mattis.
     </p>
-    <p class="pricing-title mt-5 mb-4">{% trans %}Pricing{% endtrans %}</p>
+    <p class="pricing-title mt-5 mb-4">{{ 'home.price_title'|trans }}</p>
     <div class="row">
         <div class="col-md-4 col-lg-4">
             <div class="card border-happyGreen mb-3">

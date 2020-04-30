@@ -3,11 +3,25 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * 
+ * @UniqueEntity (
+ *  fields = {"pseudo"},
+ *  message = "user.pseudo.unique"
+ * )
+ * 
+ * @UniqueEntity (
+ *  fields = {"email"},
+ *  message = "user.email.unique"
+ * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -18,23 +32,48 @@ class User
 
     /**
      * @ORM\Column(type="string", length=100)
+     * 
+     * @Assert\NotBlank(
+     *  message = "user.pseudo.not_blank"
+     * )
+     * 
+     * @Assert\Length(
+     *  min=5,
+     *  minMessage="user.pseudo.length"
+     * )
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\NotBlank(
+     *  message = "user.email.not_blank"
+     * )
+     * @Assert\Email(
+     *  message = "user.email.invalid"
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\NotBlank(
+     *  message="user.password.not_blank"
+     * )
+     * @Assert\Length(
+     *  min=8,
+     *  minMessage="le mot de passe doit contenir au moins {{ limit }} caractères"
+     * )
+     * 
      */
     private $password;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=1, nullable=true)
      */
-    private $birthDate;
+    private $gender;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -47,12 +86,26 @@ class User
     private $lastName;
 
     /**
+     * @ORM\Column(type="date")
+     * 
+     * @Assert\NotNull(
+     *  message="user.birthDate.not_null"
+     * )
+     */
+    private $birthDate;
+
+    /**
+     * @ORM\Column(type="string", length=2, nullable=true)
+     */
+    private $situation;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $avatar;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $profession;
 
@@ -60,6 +113,21 @@ class User
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isSubscribed;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $completed;
 
     /**
      * @ORM\Column(type="datetime")
@@ -70,11 +138,6 @@ class User
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
-
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $completed;
 
     public function getId(): ?int
     {
@@ -117,14 +180,14 @@ class User
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTimeInterface
+    public function getGender(): ?string
     {
-        return $this->birthDate;
+        return $this->gender;
     }
 
-    public function setBirthDate(\DateTimeInterface $birthDate): self
+    public function setGender(?string $gender): self
     {
-        $this->birthDate = $birthDate;
+        $this->gender = $gender;
 
         return $this;
     }
@@ -149,6 +212,30 @@ class User
     public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    public function getSituation(): ?string
+    {
+        return $this->situation;
+    }
+
+    public function setSituation(?string $situation): self
+    {
+        $this->situation = $situation;
 
         return $this;
     }
@@ -189,6 +276,42 @@ class User
         return $this;
     }
 
+    public function getIsSubscribed(): ?bool
+    {
+        return $this->isSubscribed;
+    }
+
+    public function setIsSubscribed(bool $isSubscribed): self
+    {
+        $this->isSubscribed = $isSubscribed;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getCompleted(): ?int
+    {
+        return $this->completed;
+    }
+
+    public function setCompleted(int $completed): self
+    {
+        $this->completed = $completed;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -213,15 +336,51 @@ class User
         return $this;
     }
 
-    public function getCompleted(): ?int
+    // for implementation of UserInterface
+    public function getUsername()
     {
-        return $this->completed;
+        return $this->email;
     }
 
-    public function setCompleted(int $completed): self
+    public function getSalt()
     {
-        $this->completed = $completed;
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
 
-        return $this;
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function eraseCredentials(){}
+    //
+
+    // lifecycleCallbacks functions
+    /**
+     * Setup default avatar image if not defined in prePersist
+     * and creation date
+     * 
+     * @ORM\PrePersist
+     *
+     * @return void
+     */
+    public function setInitialUser(){
+        $this->createdAt = new \DateTime();
+        if (is_null($this->getAvatar())) {
+            $this->setAvatar("./img/library/defaultAvatar.png");
+        }
+    }
+
+    /**
+     * Generate the date of last modified date of profile in preUpdate
+     * 
+     * @ORM\PreUpdate
+     *
+     * @return void
+     */
+    public function setModifiedAtDate(){
+        $this->modifiedAt = new \DateTime();
     }
 }

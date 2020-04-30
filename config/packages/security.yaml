@@ -1,4 +1,9 @@
 security:
+    encoders:
+        # user class
+        App\Entity\User:
+            # native password encoder
+            algorithm: auto
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         users_in_memory: { memory: null }
