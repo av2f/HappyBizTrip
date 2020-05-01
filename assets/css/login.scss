@@ -1,0 +1,44 @@
+// style for login page
+// Colors
+$happyDarkBlue: #7fadc5;
+$happyGreen: #b1c18c;
+$happyOrange: #f5853b;
+
+.card {
+    max-width: 30rem;
+    min-width: 20rem;
+}
+
+.card-header {
+    background-color: $happyGreen;
+}
+
+.btn-login {
+    background-color: $happyGreen;
+    color: #ffffff;
+    font-weight: 400;
+    &:hover {
+        background-color: $happyOrange;
+        color: #ffffff;
+    }
+}
+
+.card-footer {
+    p {
+        font-size: .7rem;
+    }
+    a {
+        color: #000000;
+    }
+    #p-left {
+        color: #000000;
+        text-align: left;
+    }
+    #p-right {
+        color: #000000;
+        text-align: right;
+    }
+    &.card-footer-logout {
+        background-color: $happyDarkBlue;
+    }
+}

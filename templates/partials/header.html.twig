@@ -11,7 +11,7 @@
             <a class="nav-item nav-link active" href="#">{{ 'menu.home_home'|trans }} <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href="#">{{ 'menu.home_concept'|trans }}</a>
             <a class="nav-item nav-link" href="#">{{ 'menu.home_price'|trans }}</a>
-            <a class="nav-item nav-link" href="#">{{ locale }}</a>
+            <a class="nav-item nav-link" href="#">{{ app.request.locale }}</a>
         </div>
         <ul class="navbar-nav ml-auto mr-4">
             <li class="nav-item dropdown">
@@ -27,7 +27,7 @@
                 </div>
             </li>
         </ul>
-        <a href="#">
+        <a href="{{ path('hbt_login') }}">
             <button class="btn btn-outline-happyDarkBlue btn-sm my-2 my-sm-0">{{ 'menu.home_sign_in'|trans }}</button>
         </a>
     </div>

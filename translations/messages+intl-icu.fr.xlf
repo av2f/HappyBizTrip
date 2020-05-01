@@ -5,89 +5,109 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="ommPVy2" resname="home.block_title">
+      <trans-unit id="home.block_title">
         <source>home.block_title</source>
         <target>Bienvenue</target>
       </trans-unit>
-      <trans-unit id="3P24U.9" resname="home.title">
+      <trans-unit id="home.title">
         <source>home.title</source>
         <target>Bienvenue sur HappyBizTrip</target>
       </trans-unit>
-      <trans-unit id="9pZLgHn" resname="home.subtitle">
+      <trans-unit id="home.subtitle">
         <source>home.subtitle</source>
         <target>Prenez plaisir à vous déplacer</target>
       </trans-unit>
-      <trans-unit id="MAwg1kM" resname="form.register_title">
+      <trans-unit id="form.register_title">
         <source>form.register_title</source>
         <target>Pas encore inscrit(e) ?</target>
       </trans-unit>
-      <trans-unit id="51P0lnQ" resname="form.register_subtitle">
+      <trans-unit id="form.register_subtitle">
         <source>form.register_subtitle</source>
         <target>C'est le moment de se lancer !</target>
       </trans-unit>
-      <trans-unit id="m0a7dH2" resname="form.label_pseudo">
+      <trans-unit id="form.label_pseudo">
         <source>form.label_pseudo</source>
         <target>Pseudonyme</target>
       </trans-unit>
-      <trans-unit id="KKICzkh" resname="form.placeholder_pseudo">
+      <trans-unit id="form.placeholder_pseudo">
         <source>form.placeholder_pseudo</source>
         <target>Créer votre pseudonyme</target>
       </trans-unit>
-      <trans-unit id="47ERAn3" resname="form.help_pseudo">
+      <trans-unit id="form.help_pseudo">
         <source>form.help_pseudo</source>
         <target>Longueur minimale : 5 caractères</target>
       </trans-unit>
-      <trans-unit id="21vgKwn" resname="form.label_email">
+      <trans-unit id="form.label_email">
         <source>form.label_email</source>
         <target>Adresse email</target>
       </trans-unit>
-      <trans-unit id="aC0sJvC" resname="form.placeholder_email">
+      <trans-unit id="form.placeholder_email">
         <source>form.placeholder_email</source>
         <target>Saisissez votre adresse mail</target>
       </trans-unit>
-      <trans-unit id="FmVXM4O" resname="form.label_birth">
+      <trans-unit id="form.label_birth">
         <source>form.label_birth</source>
         <target>Date de naissance</target>
       </trans-unit>
-      <trans-unit id="dJyfrTZ" resname="form.label_password">
+      <trans-unit id="form.label_password">
         <source>form.label_password</source>
         <target>Mot de passe</target>
       </trans-unit>
-      <trans-unit id="evDEAGU" resname="form.placeholder_password">
+      <trans-unit id="form.placeholder_password">
         <source>form.placeholder_password</source>
         <target>Votre mot de passe</target>
       </trans-unit>
-      <trans-unit id="_In6p8V" resname="form.help_password">
+      <trans-unit id="form.help_password">
         <source>form.help_password</source>
         <target>Longueur minimale : 8 caractères</target>
       </trans-unit>
-      <trans-unit id="XSMuB1X" resname="form.btn_register">
+      <trans-unit id="form.btn_register">
         <source>form.btn_register</source>
         <target>S'inscrire</target>
       </trans-unit>
-      <trans-unit id="zpGSMx1" resname="home.concept_title">
+      <trans-unit id="home.concept_title">
         <source>home.concept_title</source>
         <target>Le Concept</target>
       </trans-unit>
-      <trans-unit id="2AoFMiA" resname="home.price_title">
+      <trans-unit id="home.price_title">
         <source>home.price_title</source>
         <target>Tarifs</target>
       </trans-unit>
-      <trans-unit id="HF1xQoF" resname="menu.home_home">
+      <trans-unit id="menu.home_home">
         <source>menu.home_home</source>
         <target>Accueil</target>
       </trans-unit>
-      <trans-unit id="a9zjOfN" resname="menu.home_concept">
+      <trans-unit id="menu.home_concept">
         <source>menu.home_concept</source>
         <target>Concept</target>
       </trans-unit>
-      <trans-unit id="0bB_BAD" resname="menu.home_price">
+      <trans-unit id="menu.home_price">
         <source>menu.home_price</source>
         <target>Tarifs</target>
       </trans-unit>
-      <trans-unit id="A503Qcq" resname="menu.home_sign_in">
+      <trans-unit id="menu.home_sign_in">
         <source>menu.home_sign_in</source>
         <target>Se connecter</target>
+      </trans-unit>
+      <trans-unit id="login.block_title">
+        <source>login.block_title</source>
+        <target>Se connecter</target>
+      </trans-unit>
+      <trans-unit id="login.card_header">
+        <source>login.card_header</source>
+        <target>Veuillez vous identifier</target>
+      </trans-unit>
+      <trans-unit id="form.btn_login">
+        <source>form.btn_login</source>
+        <target>Se connecter</target>
+      </trans-unit>
+      <trans-unit id="login.home.card_footer">
+        <source>login.home.card_footer</source>
+        <target>Acceuil</target>
+      </trans-unit>
+      <trans-unit id="login.password.card_footer">
+        <source>login.password.card_footer</source>
+        <target>Mot de passe oublié ?</target>
       </trans-unit>
     </body>
   </file>

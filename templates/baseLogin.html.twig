@@ -10,17 +10,14 @@
         {% endblock %}
     </head>
     <body>
-        {# include header #}
-        {% include 'partials/header.html.twig' %}
         
         {% block body %}{% endblock %}
          
         {# include footer #}
-        {% include 'partials/footer.html.twig' with {'positionFooter' : 'relative'} %}
+        {% include 'partials/footer.html.twig' with {'positionFooter' : 'absolute'}%}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('js/app') }}
         {% endblock %}
     </body>
 </html>
-
