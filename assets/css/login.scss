@@ -4,6 +4,13 @@ $happyDarkBlue: #7fadc5;
 $happyGreen: #b1c18c;
 $happyOrange: #f5853b;
 
+// adapt the position of footer according to screen size
+@media (min-width: 768px){
+    .footer {
+        position: absolute;
+    }
+}
+
 .card {
     max-width: 30rem;
     min-width: 20rem;

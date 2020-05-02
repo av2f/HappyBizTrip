@@ -19,7 +19,7 @@ body {
 }
 
 .footer {
-  // the position is defined in twig templates
+  // by default, position is relative
   bottom: 0;
   width: 100%;
   background-color: $happyGrey;

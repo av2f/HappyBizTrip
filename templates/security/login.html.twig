@@ -7,102 +7,68 @@
 {% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+    <div class="container">
+        <div class="d-flex justify-content-center p-2">
+            <img src="{{ asset('img/library/hbtlogo.png') }}" width="72" height="72" alt="">
         </div>
-    {% endif %}
-    
-    
+        <div class="d-flex justify-content-center pt-2">
+            <div class="card mb-3">
+                <div class="card-header text-white text-center">
+                    <h4>{{ 'login.card_header'|trans }}</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
 
+                        {% if app.user %}
+                            <div class="mb-3">
+                                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        {% endif %}
 
-    
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-
-<div class="container">
-    <div class="d-flex justify-content-center p-2">
-        <img src="{{ asset('img/library/hbtlogo.png') }}" width="72" height="72" alt="">
-    </div>
-    <div class="d-flex justify-content-center pt-2">
-        <div class="card mb-3">
-            <div class="card-header text-white text-center">
-                <h4>{{ 'login.card_header'|trans }}</h4>
-            </div>
-            <div class="card-body">
-                <form method="POST">
-                    <div class="form-group">
-                        <label for="inputEmail">{{ 'form.label_email'|trans }}</label>
-                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword">{{ 'form.label_password'|trans }}</label>
-                        <input type="password" name="password" id="inputPassword" class="form-control" required>
-                    </div>
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    {#
-                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                        See https://symfony.com/doc/current/security/remember_me.html
-
-                        <div class="checkbox mb-3">
-                            <label>
-                                <input type="checkbox" name="_remember_me"> Remember me
-                            </label>
+                        <div class="form-group">
+                            <label for="inputEmail">{{ 'form.label_email'|trans }}</label>
+                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
                         </div>
-                    #}
-                    <button type="submit" class="btn btn-login btn-block">
-                        <i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;{{ 'form.btn_login'|trans }}
-                    </button>
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="row mt-2">
-                    <div class="col-4">
-                        <p id="p-left">
-                            <i class="fas fa-home"></i>&nbsp;
-                            <a href="{{ path('homepage')}}">{{ 'login.home.card_footer'|trans }}</a>
-                        </p>
-                    </div>
-                    <div class="col-8">
-                        <p id="p-right">
-                            <i class="fas fa-user-lock"></i>&nbsp;
-                            <a href="#">{{ 'login.password.card_footer'|trans }}</a>
-                        </p>
+                        <div class="form-group">
+                            <label for="inputPassword">{{ 'form.label_password'|trans }}</label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" required>
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        {#
+                            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                            See https://symfony.com/doc/current/security/remember_me.html
+
+                            <div class="checkbox mb-3">
+                                <label>
+                                    <input type="checkbox" name="_remember_me"> Remember me
+                                </label>
+                            </div>
+                        #}
+                        <button type="submit" class="btn btn-login btn-block">
+                            <i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;{{ 'form.btn_login'|trans }}
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <p id="p-left">
+                                <i class="fas fa-home"></i>&nbsp;
+                                <a href="{{ path('homepage')}}">{{ 'login.home.card_footer'|trans }}</a>
+                            </p>
+                        </div>
+                        <div class="col-8">
+                            <p id="p-right">
+                                <i class="fas fa-user-lock"></i>&nbsp;
+                                <a href="#">{{ 'login.password.card_footer'|trans }}</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-
-</div>
 {% endblock %}
