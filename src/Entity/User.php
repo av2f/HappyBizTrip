@@ -371,6 +371,7 @@ class User implements UserInterface
         if (is_null($this->getAvatar())) {
             $this->setAvatar("./img/library/defaultAvatar.png");
         }
+        // add for subscribed value
     }
 
     /**
