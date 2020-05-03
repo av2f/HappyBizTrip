@@ -109,6 +109,30 @@
         <source>login.password.card_footer</source>
         <target>Mot de passe oublié ?</target>
       </trans-unit>
+      <trans-unit id="login.form.feedback_email">
+        <source>login.form.feedback_email</source>
+        <target>Adresse mail inconnue</target>
+      </trans-unit>
+      <trans-unit id="login.form.feedback_password">
+        <source>login.form.feedback_password</source>
+        <target>Mot de passe incorrect</target>
+      </trans-unit>
+      <trans-unit id="login.alert.heading">
+        <source>login.alert.heading</source>
+        <target>Déjà connecté(e) !</target>
+      </trans-unit>
+      <trans-unit id="login.alert.btn_home">
+        <source>login.alert.btn_home</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id="login.alert.btn_disconnect">
+        <source>login.alert.btn_disconnect</source>
+        <target>Me déconnecter</target>
+      </trans-unit>
+      <trans-unit id="login.alert.msg_loggued">
+        <source>login.alert.msg_loggued</source>
+        <target>Vous êtes déjà connectés sous</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

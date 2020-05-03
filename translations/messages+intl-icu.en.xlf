@@ -109,6 +109,30 @@
         <source>login.password.card_footer</source>
         <target>Password forgotten ?</target>
       </trans-unit>
+      <trans-unit id="login.form.feedback_email">
+        <source>login.form.feedback_email</source>
+        <target>Email could not be found</target>
+      </trans-unit>
+      <trans-unit id="login.form.feedback_password">
+        <source>login.form.feedback_password</source>
+        <target>Bad password</target>
+      </trans-unit>
+      <trans-unit id="login.alert.heading">
+        <source>login.alert.heading</source>
+        <target>Already connected !</target>
+      </trans-unit>
+      <trans-unit id="login.alert.btn_home">
+        <source>login.alert.btn_home</source>
+        <target>Home</target>
+      </trans-unit>
+      <trans-unit id="login.alert.btn_disconnect">
+        <source>login.alert.btn_disconnect</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="login.alert.msg_loggued">
+        <source>login.alert.msg_loggued</source>
+        <target>You are loggued in as</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

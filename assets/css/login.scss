@@ -55,3 +55,18 @@ $happyOrange: #f5853b;
         background-color: $happyDarkBlue;
     }
 }
+
+.alert-connected {
+    text-align: center;
+}
+
+.btn {
+    &.btn-disconnect {
+        background-color: $happyOrange;
+        color: #ffffff
+    }
+    &.btn-homepage {
+        background-color: $happyDarkBlue;
+        color: #ffffff;
+    }
+}
