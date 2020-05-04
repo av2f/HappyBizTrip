@@ -103,7 +103,7 @@
       </trans-unit>
       <trans-unit id="login.home.card_footer">
         <source>login.home.card_footer</source>
-        <target>Acceuil</target>
+        <target>Accueil</target>
       </trans-unit>
       <trans-unit id="login.password.card_footer">
         <source>login.password.card_footer</source>
