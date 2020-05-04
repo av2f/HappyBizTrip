@@ -5,6 +5,12 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
+      <!-- custom translation -->
+      <trans-unit id="user.pseudo.length">
+        <source>user.pseudo.length</source>
+        <target>Le pseudonyme doit avoir au moins {{ limit }} caractères.</target>
+      </trans-unit>
+      <!-- standard translation -->
       <trans-unit id="zh5oKD9" resname="This value should be false.">
         <source>This value should be false.</source>
         <target>Cette valeur doit être fausse.</target>
