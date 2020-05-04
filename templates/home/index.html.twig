@@ -21,36 +21,16 @@
                         <h4><strong>{{ 'form.register_title'|trans }}</strong></h4>
                         <h4><strong>{{ 'form.register_subtitle'|trans }}</strong></h4>
                     </div>
-                    <form>
+                    {{ form_start(form) }}
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="pseudo">{{ 'form.label_pseudo'|trans }}</label>
-                                <input type="text" class="form-control" id="pseudo" aria-describedby="pseudoHelp" placeholder="{{ 'form.placeholder_pseudo'|trans }}">
-                                <small id="pseudoHelp" class="form-text text-muted">{{ 'form.help_pseudo'|trans }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">{{ 'form.label_email'|trans }}</label>
-                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="{{ 'form.placeholder_email'|trans }}">
-                            </div>
-                            <label for="birthday">{{ 'form.label_birth'|trans }}</label>
-                            <div class="input-group date mb-3" id="date-container">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="far fa-calendar-alt"></i>
-                                    </span>
-                                </div>
-                                <input type="text" id="home_register_birthdayDate" name="home_register[birthdayDate]" required="required" class="js-datepicker form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="password">{{ 'form.label_password'|trans }}</label>
-                                <input type="password" class="form-control" id="Password" aria-describedby="passwordHelp" placeholder="{{ 'form.placeholder_password'|trans }}">
-                                <small id="passwordHelp" class="form-text text-muted">{{ 'form.help_password'|trans }}</small>
-                            </div>
+                            {{ form_row(form.pseudo) }}
+                            {{ form_row(form.email) }}
+                            {{ form_row(form.password) }}
                         </div>
                         <div class="card-footer text-center">
                             <button type="submit" class="btn btn-register btn-block">{{ 'form.btn_register'|trans }}</button>
                         </div>
-                    </form>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
