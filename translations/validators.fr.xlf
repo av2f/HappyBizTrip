@@ -6,9 +6,41 @@
     </header>
     <body>
       <!-- custom translation -->
+      <trans-unit id="user.pseudo.unique">
+        <source>user.pseudo.unique</source>
+        <target>Pseudonyme déjà utilisé. Merci d'en choisir un autre.</target>
+      </trans-unit>
+      <trans-unit id="user.email.unique">
+        <source>user.email.unique</source>
+        <target>Adresse mail déjà enregistrée. Merci d'en choisir une autre.</target>
+      </trans-unit>
+      <trans-unit id="user.pseudo.not_blank">
+        <source>user.pseudo.not_blank</source>
+        <target>Veuillez définir un pseudonyme.</target>
+      </trans-unit>
       <trans-unit id="user.pseudo.length">
         <source>user.pseudo.length</source>
         <target>Le pseudonyme doit avoir au moins {{ limit }} caractères.</target>
+      </trans-unit>
+      <trans-unit id="user.email.not_blank">
+        <source>user.email.not_blank</source>
+        <target>Veuillez renseigner votre adresse mail.</target>
+      </trans-unit>
+      <trans-unit id="user.email.invalid">
+        <source>user.email.invalid</source>
+        <target>Veuillez renseigner une adresse valide.</target>
+      </trans-unit>
+      <trans-unit id="user.password.not_blank">
+        <source>user.password.not_blank</source>
+        <target>Veuillez définir un mot de passe.</target>
+      </trans-unit>
+      <trans-unit id="user.password.length">
+        <source>user.password.length</source>
+        <target>Le mot de passe doit avoir au moins {{ limit }} caractères.</target>
+      </trans-unit>
+      <trans-unit id="user.birthDate.not_null">
+        <source>user.birthDate.not_null</source>
+        <target>Veuillez renseigner votre date de naissance.</target>
       </trans-unit>
       <!-- standard translation -->
       <trans-unit id="zh5oKD9" resname="This value should be false.">

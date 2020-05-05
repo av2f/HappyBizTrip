@@ -12,7 +12,6 @@
     {% set boolEmail = false %}
     {% set boolPassword = false %}
     {% if error %}
-        <p>{{ error.messageKey }}</p>
         {% if 'Email' in error.messageKey %}
             {% set boolEmail = true %}
         {% endif %}

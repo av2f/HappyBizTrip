@@ -1,4 +1,6 @@
 {% extends 'base.html.twig' %}
+{# use macro to customize the render of the form #}
+{% import 'macros/formRender.html.twig' as fieldRender %}
 
 {% block title %}{{ 'home.block_title'|trans }}{% endblock %}
 {% block stylesheets %}
@@ -23,9 +25,9 @@
                     </div>
                     {{ form_start(form) }}
                         <div class="card-body">
-                            {{ form_row(form.pseudo) }}
-                            {{ form_row(form.email) }}
-                            {{ form_row(form.password) }}
+                            {{ fieldRender.formFieldRender('pseudo', form.pseudo) }}
+                            {{ fieldRender.formFieldRender('email', form.email) }}
+                            {{ fieldRender.formFieldRender('password', form.password) }}
                         </div>
                         <div class="card-footer text-center">
                             <button type="submit" class="btn btn-register btn-block">{{ 'form.btn_register'|trans }}</button>

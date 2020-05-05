@@ -5,10 +5,42 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-     <!-- custom translation -->
+      <!-- custom translation -->
+      <trans-unit id="user.pseudo.unique">
+        <source>user.pseudo.unique</source>
+        <target>This pseudonym already exists. Please choose another.</target>
+      </trans-unit>
+      <trans-unit id="user.email.unique">
+        <source>user.email.unique</source>
+        <target>This email address already exists. Please choose another.</target>
+      </trans-unit>
+      <trans-unit id="user.pseudo.not_blank">
+        <source>user.pseudo.not_blank</source>
+        <target>Please, define a pseudonym.</target>
+      </trans-unit>
       <trans-unit id="user.pseudo.length">
         <source>user.pseudo.length</source>
         <target>The pseudonym must have at least {{ limit }} characters.</target>
+      </trans-unit>
+      <trans-unit id="user.email.not_blank">
+        <source>user.email.not_blank</source>
+        <target>Please, enter your email address.</target>
+      </trans-unit>
+      <trans-unit id="user.email.invalid">
+        <source>user.email.invalid</source>
+        <target>Please, enter a valid email address.</target>
+      </trans-unit>
+      <trans-unit id="user.password.not_blank">
+        <source>user.password.not_blank</source>
+        <target>Please, define a password.</target>
+      </trans-unit>
+      <trans-unit id="user.password.length">
+        <source>user.password.length</source>
+        <target>The password must have at least {{ limit }} characters.</target>
+      </trans-unit>
+      <trans-unit id="user.birthDate.not_null">
+        <source>user.birthDate.not_null</source>
+        <target>Please enter your date of birth.</target>
       </trans-unit>
       <!-- standard translation -->
       <trans-unit id="zh5oKD9" resname="This value should be false.">

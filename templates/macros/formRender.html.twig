@@ -1,0 +1,25 @@
+{# 
+  Macro for form rendering
+  Custom the error message
+  input : field name, form field name (form."field")
+  Author : Frederic Parmentier
+  Created At : 04/05/2020 
+#}
+
+{% macro formFieldRender(field, formName) %}
+  {% set labelName = 'form.label_'~field %}
+  <div class="form-group">
+    <label for="home_register_{{ field }}">{{ labelName|trans }}</label>
+    {{ form_widget(formName) }}
+    {% if formName.vars.valid %}
+        {{ form_help(formName) }}
+    {% else %}
+        {% for error in formName.vars.errors %}
+            <div class="invalid-feedback">
+                {{ error.message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+  </div>
+{% endmacro %}
+

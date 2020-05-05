@@ -16,21 +16,18 @@ class HomeRegisterType extends AbstractType
     {
         $builder
             ->add('pseudo', TextType::class, [
-                'label' => 'form.label_pseudo',
                 'help' => 'form.help_pseudo',
                 'attr' => [
                     'placeholder' => 'form.placeholder_pseudo'
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'form.label_email',
                 'attr' => [
                     'placeholder' => 'form.placeholder_email'
                 ]
             ])
             // ->add('birthDate')
             ->add('password', PasswordType::class, [
-                'label' => 'form.label_password',
                 'help' => 'form.help_password',
                 'attr' => [
                     'placeholder' => 'form.placeholder_password'
