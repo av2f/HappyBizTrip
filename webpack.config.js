@@ -26,10 +26,12 @@ Encore
     .addStyleEntry('css/global', './assets/css/global.scss')
     .addStyleEntry('css/home', './assets/css/home.scss')
     .addStyleEntry('css/login', './assets/css/login.scss')
+    .addStyleEntry('css/datepicker/datepicker', './assets/css/datepicker/bootstrap-datepicker.min.css')
 
     .addEntry('js/app', './assets/js/app.js')
+    .addEntry('js/datepicker/datepicker', './assets/js/datepicker/bootstrap-datepicker.min.js')
+    .addEntry('js/datepicker/datepicker-fr', './assets/js/datepicker/bootstrap-datepicker.fr.min.js')
     //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

@@ -56,7 +56,7 @@
                         <h4>{{ 'login.card_header'|trans }}</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST">
+                        <form method="POST" novalidate>
                             {% if error %}
                                 {% if boolEmail == false and boolPassword == false %}
                                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

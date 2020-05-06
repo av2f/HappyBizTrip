@@ -49,6 +49,10 @@
         <source>form.label_birth</source>
         <target>Date of birth</target>
       </trans-unit>
+      <trans-unit id="form.help_birth">
+        <source>form.help_birth</source>
+        <target>You must have at least 18 years old</target>
+      </trans-unit>
       <trans-unit id="form.label_password">
         <source>form.label_password</source>
         <target>Password</target>

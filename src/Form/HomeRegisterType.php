@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -26,7 +27,12 @@ class HomeRegisterType extends AbstractType
                     'placeholder' => 'form.placeholder_email'
                 ]
             ])
-            // ->add('birthDate')
+            ->add('birthDate', DateType::class, [
+                'help' => 'form.help_birth',
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker'],
+            ])
             ->add('password', PasswordType::class, [
                 'help' => 'form.help_password',
                 'attr' => [
