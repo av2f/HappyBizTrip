@@ -30,7 +30,6 @@ class HomeRegisterType extends AbstractType
             ->add('birthDate', DateType::class, [
                 'help' => 'form.help_birthDate',
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
                 'html5' => false,
                 'attr' => ['class' => 'js-datepicker'],
             ])
