@@ -23,3 +23,27 @@
   </div>
 {% endmacro %}
 
+{% macro formDateRender(field, formName) %}
+  {% set labelName = 'form.label_'~field %}
+  <div class="form-group">
+    <label for="home_register_{{ field }}">{{ labelName|trans }}</label>
+    <div class="input-group" id="date-container">
+      <div class="input-group-prepend">
+          <span class="input-group-text">
+              <i class="far fa-calendar-alt"></i>
+          </span>
+      </div>
+      {{ form_widget(formName)}}
+    </div>
+    {% if formName.vars.valid %}
+      {{ form_help(formName) }}
+    {% else %}
+      {% for error in formName.vars.errors %}
+        <div class="invalid-feedback">
+            {{ error.message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endmacro %}
+

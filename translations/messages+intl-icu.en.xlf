@@ -45,12 +45,12 @@
         <source>form.placeholder_email</source>
         <target>Enter your email</target>
       </trans-unit>
-      <trans-unit id="form.label_birth">
-        <source>form.label_birth</source>
+      <trans-unit id="form.label_birthDate">
+        <source>form.label_birthDate</source>
         <target>Date of birth</target>
       </trans-unit>
-      <trans-unit id="form.help_birth">
-        <source>form.help_birth</source>
+      <trans-unit id="form.help_birthDate">
+        <source>form.help_birthDate</source>
         <target>You must have at least 18 years old</target>
       </trans-unit>
       <trans-unit id="form.label_password">

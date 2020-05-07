@@ -88,7 +88,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="date")
      * 
-     * @Assert\NotNull(
+     * @Assert\NotBlank(
      *  message="user.birthDate.not_null"
      * )
      */

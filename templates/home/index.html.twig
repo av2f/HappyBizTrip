@@ -28,18 +28,7 @@
                         <div class="card-body">
                             {{ fieldRender.formFieldRender('pseudo', form.pseudo) }}
                             {{ fieldRender.formFieldRender('email', form.email) }}
-                            <div class="form-group">
-                                <label for="home_register_birthDate">{{ 'form.label_birth'|trans }}</label>
-                                <div class="input-group" id="date-container">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </span>
-                                    </div>
-                                    {{ form_widget(form.birthDate)}}
-                                </div>
-                                {{ form_help(form.birthDate) }}
-                            </div>
+                            {{ fieldRender.formDateRender('birthDate', form.birthDate) }}
                             {{ fieldRender.formFieldRender('password', form.password) }}
                         </div>
                         <div class="card-footer text-center">
@@ -47,6 +36,7 @@
                         </div>
                     {{ form_end(form) }}
                 </div>
+                {{ dump(form.birthDate) }}
             </div>
         </div>
     </div>
@@ -163,24 +153,6 @@
     {% if app.request.locale == 'fr' %}
         {{ encore_entry_script_tags('js/datepicker/datepicker-fr') }}
     {% endif %}
-    <script>
-        $(document).ready(function () {
-            var lang = '{{ app.request.locale }}'
-            var formatDate = 'mm-dd-yyyy'
-            if (lang === 'fr') {
-              formatDate = 'dd-mm-yyyy'
-            }
-            $('.js-datepicker').datepicker({
-              container: '#date-container',
-              format: formatDate,
-              language: lang,
-              orientation: 'bottom auto',
-              startView: 2,
-              endDate: '-18y',
-              startDate: '-105y',
-              clearBtn: true,
-              autoclose: true
-            })
-        })
-    </script>
+    {# management of datepicker options #}
+    {% include '/partials/_datepickerManagement.html.twig' %}
 {% endblock %}

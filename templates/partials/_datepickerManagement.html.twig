@@ -1,0 +1,20 @@
+<script>
+  $(document).ready(function () {
+      var lang = '{{ app.request.locale }}'
+      var formatDate = 'mm-dd-yyyy'
+      if (lang === 'fr') {
+        formatDate = 'dd-mm-yyyy'
+      }
+      $('.js-datepicker').datepicker({
+        container: '#date-container',
+        format: formatDate,
+        language: lang,
+        orientation: 'bottom auto',
+        startView: 2,
+        endDate: '-18y',
+        startDate: '-105y',
+        clearBtn: true,
+        autoclose: true
+      })
+  })
+</script>
