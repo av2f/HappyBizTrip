@@ -74,12 +74,7 @@ class AppFixtures extends Fixture
                     -> setBirthDate($birthDate)
                     -> setSituation($situation)
                     -> setAvatar($picture)
-                    -> setDescription($faker->sentence())
-                    -> setIsSubscribed(false)
-                    -> setIsActive(true)
-                    -> setCompleted(31)
-                    -> setUpdatedAt(new \DateTime());
-                    
+                    -> setDescription($faker->sentence());
 
             $manager->persist($user);
         }

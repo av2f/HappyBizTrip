@@ -42,6 +42,14 @@
         <source>user.birthDate.not_null</source>
         <target>Please enter your date of birth.</target>
       </trans-unit>
+      <trans-unit id="user.date.error_null">
+        <source>user.date.error_null</source>
+        <target>Please, enter your date of birth.</target>
+      </trans-unit>
+      <trans-unit id="user.date.error_format">
+        <source>user.date.error_format</source>
+        <target>Bad format of date.</target>
+      </trans-unit>
       <!-- standard translation -->
       <trans-unit id="zh5oKD9" resname="This value should be false.">
         <source>This value should be false.</source>

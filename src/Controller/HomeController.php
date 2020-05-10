@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\HomeRegisterType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class HomeController extends AbstractController
 {
@@ -14,10 +16,9 @@ class HomeController extends AbstractController
      * @Route("/", name="homepage")
      * 
      */
-    public function index(Request $request)
+    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager)
     {
         $locale = $request->getLocale();
-
         $user = new User;
         
         // create form
@@ -26,6 +27,23 @@ class HomeController extends AbstractController
         // handle the submit
         $form->handleRequest($request);
         
+        if ($form -> isSubmitted() && $form -> isValid()){
+            // encode password
+            $password=$passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+
+            // store the new user
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Super tu as réussi ton enregistrement'
+            );
+
+            return $this->redirectToRoute('hbt_login');
+        } 
+
         return $this->render('home/index.html.twig', [
             'locale' => $locale,
             'form' => $form->createView()

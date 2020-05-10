@@ -368,10 +368,18 @@ class User implements UserInterface
      */
     public function setInitialUser(){
         $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+        
+        // set default img avatar
         if (is_null($this->getAvatar())) {
             $this->setAvatar("./img/library/defaultAvatar.png");
         }
-        // add for subscribed value
+        // set isActive to true
+        $this->setIsActive(true);
+        // set isSubscribed to false
+        $this->setIsSubscribed(false);
+        // set % completed of profile
+        $this->setCompleted(31);
     }
 
     /**
@@ -381,7 +389,7 @@ class User implements UserInterface
      *
      * @return void
      */
-    public function setModifiedAtDate(){
-        $this->modifiedAt = new \DateTime();
+    public function setUpdatedAtDate(){
+        $this->updatedAt = new \DateTime();
     }
 }

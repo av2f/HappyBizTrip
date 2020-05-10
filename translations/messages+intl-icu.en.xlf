@@ -51,7 +51,7 @@
       </trans-unit>
       <trans-unit id="form.help_birthDate">
         <source>form.help_birthDate</source>
-        <target>You must have at least 18 years old</target>
+        <target>You must have at least 18</target>
       </trans-unit>
       <trans-unit id="form.label_password">
         <source>form.label_password</source>

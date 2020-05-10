@@ -34,16 +34,16 @@
           </span>
       </div>
       {{ form_widget(formName)}}
+      {% if formName.vars.valid %}
+        {{ form_help(formName) }}
+      {% else %}
+        {% for error in formName.vars.errors %}
+          <div class="invalid-feedback">
+              {{ error.message }}
+          </div>
+        {% endfor %}
+      {% endif %}
     </div>
-    {% if formName.vars.valid %}
-      {{ form_help(formName) }}
-    {% else %}
-      {% for error in formName.vars.errors %}
-        <div class="invalid-feedback">
-            {{ error.message }}
-        </div>
-      {% endfor %}
-    {% endif %}
   </div>
 {% endmacro %}
 
