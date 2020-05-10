@@ -11,15 +11,16 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
+    {% if app.session.flashbag.peek('success')|length > 0 %}
+        <h1>MEC, tu as un message de succès</h1>
+    {% endif %}
+
+    {#
     {% for message in app.flashes('success') %}
     <div class="flash-notice">
         {{ message }}
     </div>
-    {% endfor %}
-    
-    {% if app.flashes('success')|length > 0 %}
-        <h1>tu as un message de succès</h1>
-    {% endif %}
+    {% endfor %}#}
 
     {% if app.user %}
         <p>hello {{ app.user.email }}</p>
