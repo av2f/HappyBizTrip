@@ -27,3 +27,35 @@
     </ul>
 </div>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if app.flashes|length > 0 %}
+        <script>
+            $(document).ready(function () {
+                toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-left",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                'escapeHtml': true
+                }
+                toastr["success"]('bonjour','tput est ok')
+            })
+        </script>
+    {% else %}
+        <script>
+            toastr["error"]('pas de notifications')
+        </script>        
+    {% endif %}
+{% endblock %}

@@ -19,6 +19,9 @@ $theme-colors: (
 // Import bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+// import toastr
+@import "toastr";
+
 //
 body {
   margin-top: 60px;
