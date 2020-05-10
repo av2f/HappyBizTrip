@@ -11,7 +11,13 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
-    {% if app.flashes|length > 0 %}
+    {% for message in app.flashes('success') %}
+    <div class="flash-notice">
+        {{ message }}
+    </div>
+    {% endfor %}
+    
+    {% if app.flashes('success')|length > 0 %}
         <h1>tu as un message de succès</h1>
     {% endif %}
 
@@ -32,6 +38,7 @@
     {% if app.flashes|length > 0 %}
         <script>
             $(document).ready(function () {
+                console.log ("bonjour")
                 toastr.options = {
                 "closeButton": true,
                 "debug": false,
