@@ -28,6 +28,7 @@ Encore
     .addStyleEntry('css/login', './assets/css/login.scss')
     .addStyleEntry('css/datepicker/datepicker', './assets/css/datepicker/bootstrap-datepicker.min.css')
 
+
     .addEntry('js/app', './assets/js/app.js')
     .addEntry('js/datepicker/datepicker', './assets/js/datepicker/bootstrap-datepicker.min.js')
     .addEntry('js/datepicker/datepicker-fr', './assets/js/datepicker/bootstrap-datepicker.fr.min.js')

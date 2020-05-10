@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use App\Security\LoginFormAuthenticator;
 
 class HomeController extends AbstractController
 {
@@ -16,7 +18,8 @@ class HomeController extends AbstractController
      * @Route("/", name="homepage")
      * 
      */
-    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager)
+    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager,
+        LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler)
     {
         $locale = $request->getLocale();
         $user = new User;
@@ -41,7 +44,12 @@ class HomeController extends AbstractController
                 'Super tu as réussi ton enregistrement'
             );
 
-            return $this->redirectToRoute('hbt_login');
+            return $guardHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $authenticator, // authenticator whose onAuthenticationSuccess you want to use
+                'main'          // name firewall in security.yaml
+            );
         } 
 
         return $this->render('home/index.html.twig', [

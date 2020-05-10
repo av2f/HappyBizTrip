@@ -372,7 +372,7 @@ class User implements UserInterface
         
         // set default img avatar
         if (is_null($this->getAvatar())) {
-            $this->setAvatar("./img/library/defaultAvatar.png");
+            $this->setAvatar("/img/library/defaultAvatar.png");
         }
         // set isActive to true
         $this->setIsActive(true);

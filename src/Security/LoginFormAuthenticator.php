@@ -96,8 +96,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-        // Changer la route -> mettre la page principale quand elle existera
-        return new RedirectResponse($this->urlGenerator->generate('homepage'));
+        // one login successfull, redirect page
+        return new RedirectResponse($this->urlGenerator->generate('hbt_main'));
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
