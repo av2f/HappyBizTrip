@@ -1,0 +1,58 @@
+<div class="col col-lg-3">
+  
+  <div class="card mt-3">
+    <div class="card-header">
+        <div class="text-center">
+          <img src="{{ app.user.avatar }}" class="avatar avatar-medium" alt="Avatar de {{ app.user.pseudo }}">
+          <h6 class="mt-1">{{ app.user.pseudo }}<h6>
+          <p class="col-text-profile">{{ app.user.getCalculateAge() }} {{ 'profile.age'|trans }}</p>
+          {# revoir le format de la date suivant la langue #}
+          <p class="col-text-profile">{{ 'profile.register_date'|trans }} {{ app.user.createdAt|date('d/m/Y') }}</p>
+        </div>
+    </div>
+    <div class="card-body">
+      <p class="col-text-profile"><i class="far fa-id-card"></i> {{ 'profile.completed'|trans }} {{ app.user.completed }}%</p>
+      <div class="progress mb-2">
+          {% if app.user.completed <= 50 %}
+              {% set progressClass = "bg-warning" %}
+          {% elseif app.user.completed > 50 and app.user.completed <= 75 %}
+              {% set progressClass = "bg-info" %}
+          {% else %}
+              {% set progressClass = "bg-success" %}
+          {% endif %}
+          <div class="progress-bar {{ progressClass }}" role="progressbar" style="width:{{ app.user.completed }}%" aria-valuenow="{{ app.user.completed }}" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <hr>
+      {% if not app.user.isSubscribed %}
+        <p class="col-text-profile text-center">Vous n'avez souscrit à aucun abonnement.</p>
+        <div class="text-center">
+            <a href="#">
+                <button type="button" class="btn btn-info btn-sm"><i class="fas fa-route"></i>&nbsp;m'abonner</button>
+            </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="card mt-2">
+    <div class="card-header">
+      Quote
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+      </blockquote>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">
+      Quote
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+      </blockquote>
+    </div>
+  </div>
+</div>

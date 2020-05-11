@@ -141,6 +141,22 @@
         <source>registration.message_successfull</source>
         <target>Bienvenue! Vous êtes maintenant enregistré(e)s</target>
       </trans-unit>
+      <trans-unit id="main.block_title">
+        <source>main.block_title</source>
+        <target>Bienvenue!</target>
+      </trans-unit>
+      <trans-unit id="profile.register_date">
+        <source>profile.register_date</source>
+        <target>Inscrit(e) depuis le</target>
+      </trans-unit>
+      <trans-unit id="profile.age">
+        <source>profile.age</source>
+        <target>ans</target>
+      </trans-unit>
+      <trans-unit id="profile.completed">
+        <source>profile.completed</source>
+        <target>Renseigné à</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

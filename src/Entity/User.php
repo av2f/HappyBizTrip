@@ -392,4 +392,17 @@ class User implements UserInterface
     public function setUpdatedAtDate(){
         $this->updatedAt = new \DateTime();
     }
+
+    /**
+     * Caclculate age with date of birth
+     * Author : Frederic Parmentier
+     * Created at : 2019/08/07
+     *
+     * @return void
+     */
+    public function getCalculateAge(){
+        $today = new \DateTime('now');
+        $age = $today->diff($this->getBirthDate());
+        return $age->format('%y');
+    }
 }

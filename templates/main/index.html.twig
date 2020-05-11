@@ -1,34 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainPageController!{% endblock %}
+{% block title %}{{ 'main.block_title'|trans }}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('css/mainPage') }}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-
-    {#}
-    {% if app.session.flashbag.peek('success')|length > 0 %}
-        <h1>MEC, tu as un message de succès</h1>
-    {% endif %}
-    #}
-
-    {% if app.user %}
-        <p>hello {{ app.user.email }}</p>
-
-    {% endif %}
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Serveur/www/HappyBizTrip/src/Controller/MainPageController.php'|file_link(0) }}">src/Controller/MainPageController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Serveur/www/HappyBizTrip/templates/main_page/index.html.twig'|file_link(0) }}">templates/main_page/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="container">
+        <div class="row">
+            {# diplay the profile info #}
+            {% include './partials/_profileInfo.html.twig' %}   
+            <div class="col col-lg-6">
+                <h1 class="text-center">Derniers articles</h1>
+            </div>
+            <div class="col col-lg-3">
+                <h1 class="text-center">Derniers articles</h1>
+            </div>
+        </div>
+    </div>
+        
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
