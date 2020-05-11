@@ -24,24 +24,49 @@
       </div>
       <hr>
       {% if not app.user.isSubscribed %}
-        <p class="col-text-profile text-center">Vous n'avez souscrit à aucun abonnement.</p>
+        <p class="col-text-profile text-center">{{ 'profile.text_register'|trans }}</p>
         <div class="text-center">
             <a href="#">
-                <button type="button" class="btn btn-info btn-sm"><i class="fas fa-route"></i>&nbsp;m'abonner</button>
+                <button type="button" class="btn btn-register btn-sm"><i class="fas fa-route"></i>&nbsp;{{ 'profile.btn_register'|trans }}</button>
             </a>
         </div>
       {% endif %}
+      {# 
+        Gérer si la personne est abonnée
+      #}
     </div>
   </div>
   <div class="card mt-2">
     <div class="card-header">
-      Quote
+      <div class="text-center">Tableau de bord</div>
     </div>
     <div class="card-body">
-      <blockquote class="blockquote mb-0">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-      </blockquote>
+      <div class="row row-dashboard">
+        <div class="col col-lg-8">
+          <span>toto</span>
+        </div>
+        <div class="col col-lg4">
+          <span class="text-right">cucu</span>
+        </div>
+      </div>
+      <hr>
+      <div class="row row-dashboard">
+        <div class="col col-lg-8">
+          <span class="col-text-profile">toto</span>
+        </div>
+        <div class="col col-lg4">
+          <span class="text-right">cucu</span>
+        </div>
+      </div>
+      <hr>
+      <div class="row row-dashboard">
+        <div class="col col-lg-8">
+          <span>toto</span>
+        </div>
+        <div class="col col-lg4">
+          <span class="text-right">cucu</span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="card mt-3">

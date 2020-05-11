@@ -157,6 +157,14 @@
         <source>profile.completed</source>
         <target>Completed at</target>
       </trans-unit>
+      <trans-unit id="profile.btn_register">
+        <source>profile.btn_register</source>
+        <target>Register</target>
+      </trans-unit>
+      <trans-unit id="profile.text_register">
+        <source>profile.text_register</source>
+        <target>You have not subscribed to any subscription.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

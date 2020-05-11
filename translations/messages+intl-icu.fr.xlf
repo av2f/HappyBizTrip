@@ -157,6 +157,14 @@
         <source>profile.completed</source>
         <target>Renseigné à</target>
       </trans-unit>
+      <trans-unit id="profile.btn_register">
+        <source>profile.btn_register</source>
+        <target>M'abonner</target>
+      </trans-unit>
+      <trans-unit id="profile.text_register">
+        <source>profile.text_register</source>
+        <target>Vous n'avez souscrit à aucun abonnement.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
