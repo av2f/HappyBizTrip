@@ -12,12 +12,8 @@
     <body>
         {# include header #}
         {% include 'partials/header.html.twig' %}
-        
-        {% block body %}
-            {% if (app.session.flashbag.peek('success')|length >0) or (app.session.flashbag.peek('error')|length >0) %}
-                <h1>j'ai bien un message</h1>
-            {% endif %}
-        {% endblock %}
+     
+        {% block body %}{% endblock %}
          
         {# include footer #}
         {% include 'partials/footer.html.twig' with {'positionFooter' : 'relative'} %}
