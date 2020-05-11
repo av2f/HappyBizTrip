@@ -31,32 +31,5 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-    {% if (app.session.flashbag.peek('success')|length >0) or (app.session.flashbag.peek('error')|length >0) %}
-        {{ parent() }}
-        <script>
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-top-left",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "slideUp",
-                'escapeHtml': true
-            }
-        </script>
-        {% for label, messages in app.flashes(['success', 'error']) %}
-            {% for message in messages %}    
-                <script>toastr["{{ label }}"]("{{ message|trans }}")</script>
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
+    {{ parent() }}
 {% endblock %}
