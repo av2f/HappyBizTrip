@@ -11,16 +11,12 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
+
+    {#}
     {% if app.session.flashbag.peek('success')|length > 0 %}
         <h1>MEC, tu as un message de succès</h1>
     {% endif %}
-
-    {#
-    {% for message in app.flashes('success') %}
-    <div class="flash-notice">
-        {{ message }}
-    </div>
-    {% endfor %}#}
+    #}
 
     {% if app.user %}
         <p>hello {{ app.user.email }}</p>
@@ -35,12 +31,10 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-    {{ parent() }}
-    {% if app.flashes|length > 0 %}
+    {% if (app.session.flashbag.peek('success')|length >0) or (app.session.flashbag.peek('error')|length >0) %}
+        {{ parent() }}
         <script>
-            $(document).ready(function () {
-                console.log ("bonjour")
-                toastr.options = {
+            toastr.options = {
                 "closeButton": true,
                 "debug": false,
                 "newestOnTop": false,
@@ -55,15 +49,14 @@
                 "showEasing": "swing",
                 "hideEasing": "linear",
                 "showMethod": "fadeIn",
-                "hideMethod": "fadeOut",
+                "hideMethod": "slideUp",
                 'escapeHtml': true
-                }
-                toastr["success"]('bonjour','tput est ok')
-            })
+            }
         </script>
-    {% else %}
-        <script>
-            toastr["error"]('pas de notifications')
-        </script>        
+        {% for label, messages in app.flashes(['success', 'error']) %}
+            {% for message in messages %}    
+                <script>toastr["{{ label }}"]("{{ message|trans }}")</script>
+            {% endfor %}
+        {% endfor %}
     {% endif %}
 {% endblock %}

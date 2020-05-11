@@ -137,6 +137,10 @@
         <source>login.alert.msg_loggued</source>
         <target>Vous êtes déjà connectés sous</target>
       </trans-unit>
+      <trans-unit id="registration.message_successfull">
+        <source>registration.message_successfull</source>
+        <target>Bienvenue! Vous êtes maintenant enregistré(e)s</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -41,7 +41,7 @@ class HomeController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Super tu as réussi ton enregistrement'
+                'registration.message_successfull'
             );
 
             return $guardHandler->authenticateUserAndHandleSuccess(
