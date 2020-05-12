@@ -169,6 +169,10 @@
         <source>profile.title_dashboard</source>
         <target>Tableau de bord</target>
       </trans-unit>
+      <trans-unit id="profile.block_title">
+        <source>profile.block_title</source>
+        <target>Mon profil</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

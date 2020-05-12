@@ -169,6 +169,10 @@
         <source>profile.title_dashboard</source>
         <target>Dashboard</target>
       </trans-unit>
+       <trans-unit id="profile.block_title">
+        <source>profile.block_title</source>
+        <target>My profile</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
