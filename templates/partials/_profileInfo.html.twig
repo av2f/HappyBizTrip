@@ -1,9 +1,8 @@
-<div class="col col-lg-3">
-  
+<div class="col col-lg-3 col-md-3">
   <div class="card mt-3">
     <div class="card-header">
         <div class="text-center">
-          <img src="{{ app.user.avatar }}" class="avatar avatar-medium" alt="Avatar de {{ app.user.pseudo }}">
+          <a href="{{ path('hbt_profile', {'id':app.user.id}) }}"><img src="{{ app.user.avatar }}" class="avatar avatar-medium" alt="Avatar de {{ app.user.pseudo }}"></a>
           <h6 class="mt-1">{{ app.user.pseudo }}<h6>
           <p class="col-text-profile">{{ app.user.getCalculateAge() }} {{ 'profile.age'|trans }}</p>
           {# revoir le format de la date suivant la langue #}
@@ -38,33 +37,51 @@
   </div>
   <div class="card mt-2">
     <div class="card-header">
-      <div class="text-center">Tableau de bord</div>
+      <div class="text-center">{{ 'profile.title_dashboard'|trans }}</div>
     </div>
     <div class="card-body">
       <div class="row row-dashboard">
-        <div class="col col-lg-8">
-          <span>toto</span>
+        <div class="col-9">
+          <span class="col-text-profile"><i class="fas fa-plane-departure"></i> Mes BizTrips</span>
         </div>
-        <div class="col col-lg4">
-          <span class="text-right">cucu</span>
-        </div>
-      </div>
-      <hr>
-      <div class="row row-dashboard">
-        <div class="col col-lg-8">
-          <span class="col-text-profile">toto</span>
-        </div>
-        <div class="col col-lg4">
-          <span class="text-right">cucu</span>
+        <div class="col-3">
+          <span class="col-text-profile text-right badge badge-blue">01</span>
         </div>
       </div>
       <hr>
       <div class="row row-dashboard">
-        <div class="col col-lg-8">
-          <span>toto</span>
+        <div class="col-9">
+          <span class="col-text-profile"><i class="fas fa-newspaper"></i> Mes articles</span>
         </div>
-        <div class="col col-lg4">
-          <span class="text-right">cucu</span>
+        <div class="col-3">
+          <span class="col-text-profile text-right badge badge-blue">01</span>
+        </div>
+      </div>
+      <hr>
+      <div class="row row-dashboard">
+        <div class="col-9">
+          <span class="col-text-profile"><i class="fas fa-envelope"></i> Nouveaux messages</span>
+        </div>
+        <div class="col-3">
+          <span class="col-text-profile text-right badge badge-blue">01</span>
+        </div>
+      </div>
+      <hr>
+      <div class="row row-dashboard">
+        <div class="col-9">
+          <span class="col-text-profile"><i class="fas fa-eye"></i> Nouvelles visites</span>
+        </div>
+        <div class="col-3">
+          <span class="col-text-profile text-right badge badge-blue">01</span>
+        </div>
+      </div>
+      <hr>
+      <div class="row row-dashboard">
+        <div class="col-9">
+          <span class="col-text-profile"><i class="fas fa-user-friends"></i> Nouvelles Sollicitations</span>
+        </div>
+        <div class="col-3">
+          <span class="col-text-profile text-right badge badge-blue">01</span>
         </div>
       </div>
     </div>

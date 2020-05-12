@@ -165,6 +165,10 @@
         <source>profile.text_register</source>
         <target>Vous n'avez souscrit à aucun abonnement.</target>
       </trans-unit>
+      <trans-unit id="profile.title_dashboard">
+        <source>profile.title_dashboard</source>
+        <target>Tableau de bord</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
