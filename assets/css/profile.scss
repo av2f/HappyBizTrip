@@ -1,0 +1,19 @@
+// css for profile page
+// Author : Frederic Parmentier
+
+// Colors
+$happyDarkBlue: #7fadc5;
+$happyBlue: #415ba5;
+$HappyPurple: #3f4253;
+$happyOrange: #f5853b;
+$happyGrey: #f5f5f5;
+
+.card-profile {
+  width: 100%;
+  text-align: center;
+}
+
+.card-profile-header-avatar {
+  background-color: $happyDarkBlue;
+  border-color: $happyDarkBlue;
+}
