@@ -37,6 +37,22 @@
         <source>form.help_pseudo</source>
         <target>Minimum length : 5 characters</target>
       </trans-unit>
+      <trans-unit id="form.label_firstname">
+        <source>form.label_firstname</source>
+        <target>Firstname</target>
+      </trans-unit>
+      <trans-unit id="form.placeholder_firstname">
+        <source>form.placeholder_firstname</source>
+        <target>Your firstname</target>
+      </trans-unit>
+       <trans-unit id="form.label_lastname">
+        <source>form.label_lastname</source>
+        <target>Lastname</target>
+      </trans-unit>
+      <trans-unit id="form.placeholder_lastname">
+        <source>form.placeholder_lastname</source>
+        <target>Your lastname</target>
+      </trans-unit>
       <trans-unit id="form.label_email">
         <source>form.label_email</source>
         <target>Email address</target>

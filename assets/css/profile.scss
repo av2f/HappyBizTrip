@@ -17,3 +17,9 @@ $happyGrey: #f5f5f5;
   background-color: $happyDarkBlue;
   border-color: $happyDarkBlue;
 }
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: white;
+  border-color: $happyDarkBlue;
+  background-color: $happyDarkBlue;
+}

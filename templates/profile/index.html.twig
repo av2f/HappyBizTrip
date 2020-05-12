@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{# use macro to customize the render of the form #}
+{% import 'macros/formRender.html.twig' as fieldRender %}
+
 {% block title %}{{ 'profile.block_title'|trans }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('css/profile') }}
+    {{ encore_entry_link_tags('css/datepicker/datepicker') }}
     <style>
        
     </style>
@@ -15,20 +19,42 @@
             <div class="card card-profile">
                 <div class="card-header card-profile-header-avatar">
                     <img src="{{ user.avatar }}" class="avatar" alt="Avatar de {{ user.pseudo }}">
+                    <p>{{ app.request.locale }}</p>
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center pt-2">
-            <div class="card card-profile mt-2">
-                <div class="card-header text-left"><i class="far fa-address-card"></i>  Informations Générales</div>
-                <div class="card-body">
-                    toto
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="d-flex justify-content-center pt-2">
+                <div class="card card-profile mt-2">
+                    <div class="card-header text-left"><i class="far fa-address-card"></i>  Informations Générales</div>
+                    <div class="card-body text-left">
+                        <div class="form-group">
+                            <span class="pr-2">{% trans %}I am a{% endtrans %}</span>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="radioWoman" name="radioGender" class="custom-control-input" value="W">
+                                <label class="custom-control-label" for="radioWoman"><i class="fas fa-female pr-1"></i>{% trans %}Woman{% endtrans %}</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="radioMan" name="radioGender" class="custom-control-input" value="M">
+                                <label class="custom-control-label" for="radioMan"><i class="fas fa-male pr-1"></i>{% trans %}Man{% endtrans %}</label>
+                            </div>
+                        </div>
+                        {{ fieldRender.formFieldRender('pseudo', form.pseudo) }}
+                        {{ form_row(form.firstName) }}
+                        {{ form_row(form.lastName) }}
+                    </div>
                 </div>
             </div>
-        </div>
+        {{ form_end(form, {'render_rest': false}) }}
     </div>
     
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('js/datepicker/datepicker') }}
+    {% if app.request.locale == 'fr' %}
+        {{ encore_entry_script_tags('js/datepicker/datepicker-fr') }}
+    {% endif %}
+    {# management of datepicker options #}
+    {% include '/partials/_datepickerManagement.html.twig' %}
 {% endblock %}
