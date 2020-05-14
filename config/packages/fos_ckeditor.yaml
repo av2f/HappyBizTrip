@@ -1,0 +1,17 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+
+    base_path: "build/ckeditor"
+    js_path:   "build/ckeditor/ckeditor.js"
+    
+    default_config: hbt_config
+
+    configs:
+        hbt_config:
+            uiColor: "#ffffff"
+            toolbar: [[ 'Cut', 'Copy', 'Paste','-', 'Undo', 'Redo','-', 'Link', 'Unlink' ],'/',['Bold','Italic','Strike','Blockquote','-','RemoveFormat','-', 'NumberedList', 'BulledtedList','-', 'Outdent', 'Indent','-', 'Blockquote','-', 'Styles', 'Format']]
+            resize_enabled: false
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

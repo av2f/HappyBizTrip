@@ -4,12 +4,12 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\DataTransformer\DateStringToDateTransformer;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ProfileType extends AbstractType
 {
@@ -49,10 +49,10 @@ class ProfileType extends AbstractType
                 'label' => 'form.label_profession',
                 'attr' => ['placeholder' => 'form.placeholder_profession']
             ])
+            ->add('description', CKEditorType::class)
             
             ->add('situation')
             ->add('avatar')
-            ->add('description')
         ;
 
         // manage date format
