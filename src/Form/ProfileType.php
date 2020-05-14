@@ -50,8 +50,6 @@ class ProfileType extends AbstractType
                 'attr' => ['placeholder' => 'form.placeholder_password']
             ])
             
-            ->add('firstName')
-            ->add('lastName')
             ->add('situation')
             ->add('avatar')
             ->add('profession')

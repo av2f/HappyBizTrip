@@ -19,8 +19,9 @@ class ProfileController extends AbstractController
      * @return Response
      * 
      */
-    public function index(Request $request, User $user)
+    public function editProfile(Request $request, User $user)
     {
+        print($user->getId());
         
         // create form
         $form = $this->createForm(ProfileType::class, $user);
@@ -28,7 +29,7 @@ class ProfileController extends AbstractController
         // handle the submit
         $form->handleRequest($request);
 
-        return $this->render('profile/index.html.twig', [
+        return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
             'user' => $user
         ]);
