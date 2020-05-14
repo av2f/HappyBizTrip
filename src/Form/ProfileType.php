@@ -45,14 +45,13 @@ class ProfileType extends AbstractType
                 'attr' => ['class' => 'js-datepicker'],
                 'help_attr' => ['class' => 'form-date-help'],
             ])
-            ->add('password', PasswordType::class, [
-                'help' => 'form.help_password',
-                'attr' => ['placeholder' => 'form.placeholder_password']
+            ->add('profession', TextType::class, [
+                'label' => 'form.label_profession',
+                'attr' => ['placeholder' => 'form.placeholder_profession']
             ])
             
             ->add('situation')
             ->add('avatar')
-            ->add('profession')
             ->add('description')
         ;
 

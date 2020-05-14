@@ -19,19 +19,20 @@ class ProfileController extends AbstractController
      * @return Response
      * 
      */
-    public function editProfile(Request $request, User $user)
+    public function editProfile(Request $request, User $profile)
     {
-        print($user->getId());
+        // Authorization managed by voter
+        $this->denyAccessUnlessGranted("PROFILE_EDIT", $profile);
         
         // create form
-        $form = $this->createForm(ProfileType::class, $user);
+        $form = $this->createForm(ProfileType::class, $profile);
         
         // handle the submit
         $form->handleRequest($request);
 
         return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
-            'user' => $user
+            'user' => $profile
         ]);
     }
 }

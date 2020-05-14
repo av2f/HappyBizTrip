@@ -81,6 +81,14 @@
         <source>form.help_password</source>
         <target>Longueur minimale : 8 caractères</target>
       </trans-unit>
+      <trans-unit id="form.label_profession">
+        <source>form.label_profession</source>
+        <target>Profession</target>
+      </trans-unit>
+      <trans-unit id="form.placeholder_profession">
+        <source>form.placeholder_profession</source>
+        <target>Quelle est votre profession ?</target>
+      </trans-unit>
       <trans-unit id="form.btn_register">
         <source>form.btn_register</source>
         <target>S'inscrire</target>

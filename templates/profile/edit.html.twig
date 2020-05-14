@@ -19,7 +19,6 @@
             <div class="card card-profile">
                 <div class="card-header card-profile-header-avatar">
                     <img src="{{ user.avatar }}" class="avatar" alt="Avatar de {{ user.pseudo }}">
-                    <p>{{ app.request.locale }}</p>
                 </div>
             </div>
         </div>
@@ -42,6 +41,18 @@
                         {{ fieldRender.formFieldRender('pseudo', form.pseudo) }}
                         {{ form_row(form.firstName) }}
                         {{ form_row(form.lastName) }}
+                        {{ fieldRender.formFieldRender('email', form.email) }}
+                        {{ fieldRender.formDateRender('birthDate', form.birthDate) }}
+                        {{ form_row(form.profession) }}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center pt-2">
+                <div class="card mt-2 card-profile">
+                    <div class="card-header text-left"><i class="fab fa-wpexplorer"></i>&nbsp;&nbsp;Intérêts</div>
+                    <div class="card-body text-left">
+                        <h4 class="card-title">Primary card title</h4>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
             </div>
