@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form _self %}
+
 {# use macro to customize the render of the form #}
 {% import 'macros/formRender.html.twig' as fieldRender %}
 
@@ -25,19 +27,9 @@
         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             <div class="d-flex justify-content-center pt-2">
                 <div class="card card-profile mt-2">
-                    <div class="card-header text-left"><i class="far fa-address-card"></i>  Informations Générales</div>
+                    <div class="card-header text-left" style="font-size: 1rem"><i class="far fa-address-card"></i>  {{ 'profile.title.general_infos'|trans }}</div>
                     <div class="card-body text-left">
-                        <div class="form-group">
-                            <span class="pr-2">{% trans %}I am a{% endtrans %}</span>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="radioWoman" name="radioGender" class="custom-control-input" value="W">
-                                <label class="custom-control-label" for="radioWoman"><i class="fas fa-female pr-1"></i>{% trans %}Woman{% endtrans %}</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="radioMan" name="radioGender" class="custom-control-input" value="M">
-                                <label class="custom-control-label" for="radioMan"><i class="fas fa-male pr-1"></i>{% trans %}Man{% endtrans %}</label>
-                            </div>
-                        </div>
+                        {{ form_widget(form.gender) }}
                         {{ fieldRender.formFieldRender('pseudo', form.pseudo) }}
                         {{ form_row(form.firstName) }}
                         {{ form_row(form.lastName) }}
@@ -49,7 +41,7 @@
             </div>
             <div class="d-flex justify-content-center pt-2">
                 <div class="card mt-2 card-profile">
-                    <div class="card-header text-left"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;Description</div>
+                    <div class="card-header text-left"><i class="fas fa-user-edit"></i>  {{ 'profile.title.description'|trans }}</div>
                     <div class="card-body text-left">
                         {{ form_widget(form.description)}}
                     </div>
@@ -57,17 +49,37 @@
             </div>
             <div class="d-flex justify-content-center pt-2">
                 <div class="card mt-2 card-profile">
-                    <div class="card-header text-left"><i class="fab fa-wpexplorer"></i>&nbsp;&nbsp;Intérêts</div>
+                    <div class="card-header text-left"><i class="fab fa-wpexplorer"></i>  {{ 'profile.title.interests'|trans }}</div>
                     <div class="card-body text-left">
                         <h4 class="card-title">Primary card title</h4>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
             </div>
+            <div class="d-flex justify-content-center pt-2">
+                <button type="submit" class="btn btn-profile-update btn-sm mr-2"><i class="far fa-edit"></i>  Modifier</button>
+                <button type="button" class="btn btn-profile-delete btn-sm"><i class="fas fa-trash-alt"></i>  Suprimer mon compte</button>
+            </div>
         {{ form_end(form, {'render_rest': false}) }}
     </div>
-    
 {% endblock %}
+
+{% block _profile_gender_widget %}
+    <div class="form-group mb2">
+        <span class="pr-2">{{ form_label(form) }}</span>
+        {% for key,choice in form.vars.choices %}
+            {% set icon = "fas fa-male" %}
+            {% if choice.value == "W" %}
+            {% set icon = "fas fa-female" %}
+        {% endif %}
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="{{ form.vars.id }}_{{ key }}" name="{{ form.vars.full_name }}" class="custom-control-input" value="{{ choice.value }}" {% if choice.value is same as (app.user.gender) %}checked{% endif %}>
+                <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="fas fa-female pr-1"></i>{{ choice.label|trans }}</label>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('js/datepicker/datepicker') }}

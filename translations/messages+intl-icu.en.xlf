@@ -89,6 +89,18 @@
         <source>form.placeholder_profession</source>
         <target>What is your profession ?</target>
       </trans-unit>
+       <trans-unit id="form.label_gender">
+        <source>form.label_gender</source>
+        <target>I am a</target>
+      </trans-unit>
+       <trans-unit id="form.choice_woman">
+        <source>form.choice_woman</source>
+        <target>Woman</target>
+      </trans-unit>
+       <trans-unit id="form.choice_man">
+        <source>form.choice_man</source>
+        <target>Man</target>
+      </trans-unit>
       <trans-unit id="form.btn_register">
         <source>form.btn_register</source>
         <target>Register</target>
@@ -196,6 +208,18 @@
        <trans-unit id="profile.block_title">
         <source>profile.block_title</source>
         <target>My profile</target>
+      </trans-unit>
+      <trans-unit id="profile.title.general_infos">
+        <source>profile.title.general_infos</source>
+        <target>General informations</target>
+      </trans-unit>
+      <trans-unit id="profile.title.description">
+        <source>profile.title.description</source>
+        <target>Describe yourself in a few words</target>
+      </trans-unit>
+      <trans-unit id="profile.title.interests">
+        <source>profile.title.interests</source>
+        <target>Interests</target>
       </trans-unit>
     </body>
   </file>

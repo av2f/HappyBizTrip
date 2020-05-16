@@ -85,6 +85,18 @@
         <source>form.label_profession</source>
         <target>Profession</target>
       </trans-unit>
+       <trans-unit id="form.label_gender">
+        <source>form.label_gender</source>
+        <target>Je suis</target>
+      </trans-unit>
+       <trans-unit id="form.choice_woman">
+        <source>form.choice_woman</source>
+        <target>Une femme</target>
+      </trans-unit>
+       <trans-unit id="form.choice_man">
+        <source>form.choice_man</source>
+        <target>Un homme</target>
+      </trans-unit>
       <trans-unit id="form.placeholder_profession">
         <source>form.placeholder_profession</source>
         <target>Quelle est votre profession ?</target>
@@ -196,6 +208,18 @@
       <trans-unit id="profile.block_title">
         <source>profile.block_title</source>
         <target>Mon profil</target>
+      </trans-unit>
+      <trans-unit id="profile.title.general_infos">
+        <source>profile.title.general_infos</source>
+        <target>Informations générales</target>
+      </trans-unit>
+      <trans-unit id="profile.title.description">
+        <source>profile.title.description</source>
+        <target>Décrivez-vous en quelques mots</target>
+      </trans-unit>
+      <trans-unit id="profile.title.interests">
+        <source>profile.title.interests</source>
+        <target>Intérêts</target>
       </trans-unit>
     </body>
   </file>

@@ -23,3 +23,18 @@ $happyGrey: #f5f5f5;
   border-color: $happyDarkBlue;
   background-color: $happyDarkBlue;
 }
+
+.btn {
+  &.btn-profile-delete {
+      background-color: $happyOrange;
+      color: #ffffff
+  }
+  &.btn-profile-update {
+      background-color: $happyDarkBlue;
+      color: #ffffff;
+  }
+}
+
+label.label-profile {
+  font-size: 0.8rem;
+}

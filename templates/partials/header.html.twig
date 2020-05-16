@@ -1,5 +1,9 @@
 <nav id="navhome" class="navbar navbar-expand-lg navbar-light fixed-top">
-    <a class="navbar-brand" href="{{ path('homepage') }}">
+    {% set pathUrl = 'homepage' %}
+    {% if app.user %}
+        {% set pathUrl = 'hbt_main' %}
+    {% endif %}
+    <a class="navbar-brand" href="{{ path(pathUrl) }}">
         <img src="{{ asset('img/library/hbtlogo.png') }}" width="32" height="32" class="d-inline-block align-top" alt="">
         <span class="nav-title">HappyBizTrip</span>
     </a>
