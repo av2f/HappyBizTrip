@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile/{id}", name="hbt_profile")
+     * @Route("/profile/{pseudo}", name="hbt_profile")
      * 
      * @isGranted("ROLE_USER")
      * 

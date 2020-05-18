@@ -1,10 +1,11 @@
 {
     "devDependencies": {
         "@symfony/webpack-encore": "^0.28.2",
-        "bootstrap": "^4.4.1",
+        "bootstrap": "4.5.0",
         "bootstrap-icons": "^1.0.0-alpha3",
+        "ckeditor": "^4.12.1",
         "core-js": "^3.0.0",
-        "jquery": "3.5.0",
+        "jquery": "3.5.1",
         "node-sass": "^4.13.1",
         "popper.js": "^1.16.1",
         "regenerator-runtime": "^0.13.2",
@@ -21,7 +22,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "ckeditor": "^4.12.1",
         "mkdirp": "^1.0.4"
     }
 }
