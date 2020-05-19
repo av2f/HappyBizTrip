@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form _self %}
+{% form_theme form 'partials/_profileChoice.html.twig' %}
 
 {# use macro to customize the render of the form #}
 {% import 'macros/formRender.html.twig' as fieldRender %}
@@ -30,6 +30,7 @@
                     <div class="card-header text-left" style="font-size: 1rem"><i class="far fa-address-card"></i>  {{ 'profile.title.general_infos'|trans }}</div>
                     <div class="card-body text-left">
                         {{ form_widget(form.gender) }}
+                        {{ form_widget(form.situation) }}
                         {{ fieldRender.formFieldRender('pseudo', form.pseudo) }}
                         {{ form_row(form.firstName) }}
                         {{ form_row(form.lastName) }}
@@ -64,22 +65,6 @@
     </div>
 {% endblock %}
 
-{% block _profile_gender_widget %}
-    <div class="form-group mb2">
-        <span class="pr-2">{{ form_label(form) }}</span>
-        {% for key,choice in form.vars.choices %}
-            {% set icon = "fas fa-male" %}
-            {% if choice.value == "W" %}
-            {% set icon = "fas fa-female" %}
-        {% endif %}
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="{{ form.vars.id }}_{{ key }}" name="{{ form.vars.full_name }}" class="custom-control-input" value="{{ choice.value }}" {% if choice.value is same as (app.user.gender) %}checked{% endif %}>
-                <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="fas fa-female pr-1"></i>{{ choice.label|trans }}</label>
-            </div>
-        {% endfor %}
-    </div>
-{% endblock %}
-
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('js/datepicker/datepicker') }}
@@ -87,5 +72,5 @@
         {{ encore_entry_script_tags('js/datepicker/datepicker-fr') }}
     {% endif %}
     {# management of datepicker options #}
-    {% include '/partials/_datepickerManagement.html.twig' %}
+    {% include 'partials/_datepickerManagement.html.twig' %}
 {% endblock %}

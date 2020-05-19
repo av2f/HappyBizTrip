@@ -89,7 +89,7 @@
         <source>form.placeholder_profession</source>
         <target>What is your profession ?</target>
       </trans-unit>
-       <trans-unit id="form.label_gender">
+      <trans-unit id="form.label_gender">
         <source>form.label_gender</source>
         <target>I am a</target>
       </trans-unit>
@@ -97,9 +97,21 @@
         <source>form.choice_woman</source>
         <target>Woman</target>
       </trans-unit>
-       <trans-unit id="form.choice_man">
+      <trans-unit id="form.choice_man">
         <source>form.choice_man</source>
         <target>Man</target>
+      </trans-unit>
+      <trans-unit id="form.label_situation">
+        <source>form.label_situation</source>
+        <target>Situation</target>
+      </trans-unit>
+       <trans-unit id="form.choice_couple">
+        <source>form.choice_couple</source>
+        <target>In a relationship</target>
+      </trans-unit>
+      <trans-unit id="form.choice_single">
+        <source>form.choice_single</source>
+        <target>Single</target>
       </trans-unit>
       <trans-unit id="form.btn_register">
         <source>form.btn_register</source>

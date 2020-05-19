@@ -40,7 +40,7 @@ class AppFixtures extends Fixture
         // Define Genders (W=Woman / M=Man)
         $genders=array('W', 'M');
         // Define Situations (C=Couple / S=Single / W=Widow)
-        $situations=array('C', 'S', 'W');
+        $situations=array('C', 'S');
         for ($i=0; $i<20; $i++){
 
             $user = new User();

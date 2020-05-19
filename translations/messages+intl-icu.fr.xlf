@@ -45,7 +45,7 @@
         <source>form.placeholder_firstname</source>
         <target>Votre prénom</target>
       </trans-unit>
-       <trans-unit id="form.label_lastname">
+      <trans-unit id="form.label_lastname">
         <source>form.label_lastname</source>
         <target>Nom</target>
       </trans-unit>
@@ -85,17 +85,29 @@
         <source>form.label_profession</source>
         <target>Profession</target>
       </trans-unit>
-       <trans-unit id="form.label_gender">
+      <trans-unit id="form.label_gender">
         <source>form.label_gender</source>
         <target>Je suis</target>
       </trans-unit>
-       <trans-unit id="form.choice_woman">
+      <trans-unit id="form.choice_woman">
         <source>form.choice_woman</source>
         <target>Une femme</target>
       </trans-unit>
-       <trans-unit id="form.choice_man">
+      <trans-unit id="form.choice_man">
         <source>form.choice_man</source>
         <target>Un homme</target>
+      </trans-unit>
+      <trans-unit id="form.label_situation">
+        <source>form.label_situation</source>
+        <target>Situation</target>
+      </trans-unit>
+       <trans-unit id="form.choice_couple">
+        <source>form.choice_couple</source>
+        <target>En couple</target>
+      </trans-unit>
+      <trans-unit id="form.choice_single">
+        <source>form.choice_single</source>
+        <target>Célibataire</target>
       </trans-unit>
       <trans-unit id="form.placeholder_profession">
         <source>form.placeholder_profession</source>

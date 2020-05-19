@@ -31,6 +31,14 @@ class ProfileType extends AbstractType
                     'form.choice_man' => 'M'
                 ],
             ])
+            ->add('situation', ChoiceType::class, [
+                'label' => 'form.label_situation',
+                'label_attr' => ['class' => 'label-profile'],
+                'choices'  => [
+                    'form.choice_couple' => 'C',
+                    'form.choice_single' => 'S'
+                ],
+            ])
             ->add('pseudo', TextType::class, [
                 'help' => 'form.help_pseudo',
                 'attr' => [
@@ -74,9 +82,6 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('description', CKEditorType::class)
-            
-            ->add('situation')
-            ->add('avatar')
         ;
 
         // manage date format
