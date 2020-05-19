@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -20,6 +21,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  fields = {"email"},
  *  message = "user.email.unique"
  * )
+ * 
+ * @UniqueEntity (
+ *  fields = {"slug"}
+ * )
  */
 class User implements UserInterface
 {
@@ -31,7 +36,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, unique=true)
      * 
      * @Assert\NotBlank(
      *  message = "user.pseudo.not_blank"
@@ -45,7 +50,7 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * 
      * @Assert\NotBlank(
      *  message = "user.email.not_blank"
@@ -138,6 +143,11 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $slug;
 
     public function getId(): ?int
     {
@@ -404,5 +414,30 @@ class User implements UserInterface
         $today = new \DateTime('now');
         $age = $today->diff($this->getBirthDate());
         return $age->format('%y');
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /* 
+    * generation of slug
+    * the listener UserEntityListener.php (declare in services.yaml)
+    * for slug generation, user package 'string'
+    * 
+    * Created date : 05/19/2020
+    */    
+    public function computeSlug(SluggerInterface $slugger) {
+        if (!$this->slug || '-' === $this->slug) {
+            $this->slug = $slugger->slug($this->getPseudo())->lower();
+        }
     }
 }

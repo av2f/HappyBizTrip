@@ -2,7 +2,7 @@
   <div class="card mt-3">
     <div class="card-header">
         <div class="text-center">
-          <a href="{{ path('hbt_profile', {'pseudo':app.user.pseudo}) }}"><img src="{{ app.user.avatar }}" class="avatar avatar-medium" alt="Avatar de {{ app.user.pseudo }}"></a>
+          <a href="{{ path('hbt_profile', {'slug':app.user.slug}) }}"><img src="{{ app.user.avatar }}" class="avatar avatar-medium" alt="Avatar de {{ app.user.pseudo }}"></a>
           <h6 class="mt-1">{{ app.user.pseudo }}<h6>
           <p class="col-text-profile">{{ app.user.getCalculateAge() }} {{ 'profile.age'|trans }}</p>
           {# revoir le format de la date suivant la langue #}
