@@ -149,6 +149,11 @@ class User implements UserInterface
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $company;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -364,7 +369,7 @@ class User implements UserInterface
         return array('ROLE_USER');
     }
 
-    public function eraseCredentials(){}
+    public function eraseCredentials() {}
     //
 
     // lifecycleCallbacks functions
@@ -376,7 +381,7 @@ class User implements UserInterface
      *
      * @return void
      */
-    public function setInitialUser(){
+    public function setInitialUser() {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         
@@ -389,7 +394,7 @@ class User implements UserInterface
         // set isSubscribed to false
         $this->setIsSubscribed(false);
         // set % completed of profile
-        $this->setCompleted(31);
+        $this->setCompleted(25);
     }
 
     /**
@@ -399,8 +404,32 @@ class User implements UserInterface
      *
      * @return void
      */
-    public function setUpdatedAtDate(){
+    public function setUpdatedAtDate() {
         $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * Calculate the percentage of completed
+     * 
+     * @ORM\PreUpdate
+     * 
+     */
+    public function computeCompleted() {
+        $totalUserObject=13;
+        // by default, 3 objects fullfiled {pseudo/email/Date of Birth}
+        // object password not taken into account
+        $userObjectCompleted=3;
+        (!$this->getGender() != "")?"":$userObjectCompleted++;
+        (!$this->getFirstName() != "")?"":$userObjectCompleted++;
+        (!$this->getLastName() != "")?"":$userObjectCompleted++;
+        (!$this->getFirstName() != "")?"":$userObjectCompleted++;
+        (!$this->getSituation() != "")?"":$userObjectCompleted++;
+        (!$this->getAvatar() != "")?"":$userObjectCompleted++;
+        (!$this->getProfession() != "")?"":$userObjectCompleted++;
+        (!$this->getCompany() != "")?"":$userObjectCompleted++;
+        (!$this->getDescription() != "")?"":$userObjectCompleted++;
+        // add interest when done
+        $this->completed = round(($userObjectCompleted*100)/$totalUserObject);
     }
 
     /**
@@ -410,7 +439,7 @@ class User implements UserInterface
      *
      * @return void
      */
-    public function getCalculateAge(){
+    public function getCalculateAge() {
         $today = new \DateTime('now');
         $age = $today->diff($this->getBirthDate());
         return $age->format('%y');
@@ -439,5 +468,17 @@ class User implements UserInterface
         if (!$this->slug || '-' === $this->slug) {
             $this->slug = $slugger->slug($this->getPseudo())->lower();
         }
+    }
+
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?string $company): self
+    {
+        $this->company = $company;
+
+        return $this;
     }
 }

@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile/{slug}", name="hbt_profile")
+     * @Route("/profile/{slug}", name="edit_profile")
      * 
      * @isGranted("ROLE_USER")
      * 
@@ -29,6 +29,16 @@ class ProfileController extends AbstractController
         
         // handle the submit
         $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'success',
+                'update.profile.successfull'
+            );
+
+            return $this->redirectToRoute('edit_profile', ['slug' => $profile->getSlug()]);
+        }
 
         return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),

@@ -74,7 +74,8 @@ class AppFixtures extends Fixture
                     -> setBirthDate($birthDate)
                     -> setSituation($situation)
                     -> setAvatar($picture)
-                    -> setDescription($faker->sentence());
+                    -> setDescription($faker->sentence())
+                    -> setCompany($faker->company);
 
             $manager->persist($user);
         }

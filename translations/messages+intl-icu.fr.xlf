@@ -113,6 +113,14 @@
         <source>form.placeholder_profession</source>
         <target>Quelle est votre profession ?</target>
       </trans-unit>
+      <trans-unit id="form.label_company">
+        <source>form.label_company</source>
+        <target>Société</target>
+      </trans-unit>
+      <trans-unit id="form.placeholder_company">
+        <source>form.placeholder_company</source>
+        <target>Où travaillez-vous ?</target>
+      </trans-unit>
       <trans-unit id="form.btn_register">
         <source>form.btn_register</source>
         <target>S'inscrire</target>
@@ -232,6 +240,10 @@
       <trans-unit id="profile.title.interests">
         <source>profile.title.interests</source>
         <target>Intérêts</target>
+      </trans-unit>
+      <trans-unit id="update.profile.successfull">
+        <source>update.profile.successfull</source>
+        <target>Votre profil a été mis à jour avec succès</target>
       </trans-unit>
     </body>
   </file>

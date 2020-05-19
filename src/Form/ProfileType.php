@@ -81,6 +81,14 @@ class ProfileType extends AbstractType
                     'placeholder' => 'form.placeholder_profession'
                 ]
             ])
+            ->add('company', TextType::class, [
+                'label' => 'form.label_company',
+                'label_attr' => ['class' => 'label-profile'],
+                'attr' => [
+                    'class' => 'form-control-sm',
+                    'placeholder' => 'form.placeholder_company'
+                ]
+            ])
             ->add('description', CKEditorType::class)
         ;
 

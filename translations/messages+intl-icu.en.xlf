@@ -81,13 +81,21 @@
         <source>form.help_password</source>
         <target>Minimum length : 8 characters</target>
       </trans-unit>
-       <trans-unit id="form.label_profession">
+      <trans-unit id="form.label_profession">
         <source>form.label_profession</source>
         <target>Profession</target>
       </trans-unit>
       <trans-unit id="form.placeholder_profession">
         <source>form.placeholder_profession</source>
         <target>What is your profession ?</target>
+      </trans-unit>
+      <trans-unit id="form.label_company">
+        <source>form.label_company</source>
+        <target>Company</target>
+      </trans-unit>
+      <trans-unit id="form.placeholder_company">
+        <source>form.placeholder_company</source>
+        <target>where do you work ?</target>
       </trans-unit>
       <trans-unit id="form.label_gender">
         <source>form.label_gender</source>
@@ -232,6 +240,10 @@
       <trans-unit id="profile.title.interests">
         <source>profile.title.interests</source>
         <target>Interests</target>
+      </trans-unit>
+      <trans-unit id="update.profile.successfull">
+        <source>update.profile.successfull</source>
+        <target>Your profile has been updated successfully</target>
       </trans-unit>
     </body>
   </file>

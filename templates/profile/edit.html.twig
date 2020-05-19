@@ -20,7 +20,8 @@
         <div class="d-flex justify-content-center pt-2">
             <div class="card card-profile">
                 <div class="card-header card-profile-header-avatar">
-                    <img src="{{ user.avatar }}" class="avatar" alt="Avatar de {{ user.pseudo }}">
+                    <img src={% if user.avatar is empty %}"{{ asset('img/library/defaultAvatar.png') }}"{% else %} "{{ user.avatar }}" {% endif %}
+                    class="avatar" alt="Avatar de {{ user.pseudo }}">
                 </div>
             </div>
         </div>
@@ -37,6 +38,7 @@
                         {{ fieldRender.formFieldRender('email', form.email) }}
                         {{ fieldRender.formDateRender('birthDate', form.birthDate) }}
                         {{ form_row(form.profession) }}
+                        {{ form_row(form.company) }}
                     </div>
                 </div>
             </div>
@@ -61,7 +63,7 @@
                 <button type="submit" class="btn btn-profile-update btn-sm mr-2"><i class="far fa-edit"></i>  Modifier</button>
                 <button type="button" class="btn btn-profile-delete btn-sm"><i class="fas fa-trash-alt"></i>  Suprimer mon compte</button>
             </div>
-        {{ form_end(form, {'render_rest': false}) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}
 
