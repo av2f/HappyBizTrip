@@ -29,23 +29,23 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="modalLabel">Suppression de votre compte</h5>
+                      <h5 class="modal-title" id="modalLabel">{{ 'modal.title.account_delete'|trans }}</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                        <p><strong>Attention,</strong> la suppression de votre compte entraine la perte irréversible de vos données.</p>
-                        <p>{{ user.pseudo }}, merci de confirmer la suppression définitive de votre compte.</p>
+                        <p><strong>{{ 'modal.account.message_delete1'|trans }}</strong> {{ 'modal.account.message_delete2'|trans }}</p>
+                        <p><strong>{{ user.pseudo }}</strong>, {{ 'modal.account.message_delete3'|trans }}</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-profile-update btn-sm" data-dismiss="modal">
-                            <i class="far fa-window-close"></i>  Cancel
+                            <i class="far fa-window-close"></i>  {{ 'btn.cancel'|trans }}
                         </button>
                         <form action="{{ url('delete_profile', {id: user.id}) }}" method="post" id="delete-form">
                             <input type="hidden" name="token" value="{{ csrf_token('delete') }}" />
                             <button type="submit" class="btn btn-confirm-profile-delete btn-sm">
-                                <i class="far fa-trash-alt"></i>  Supprimer Mon compte
+                                <i class="far fa-trash-alt"></i>  {{ 'profile.btn_delete'|trans }}
                             </button>
                         </form>
                     </div>
@@ -88,9 +88,9 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center pt-2">
-                <button type="submit" class="btn btn-profile-update btn-sm mr-2"><i class="far fa-edit"></i>  Modifier mon profil</button>
+                <button type="submit" class="btn btn-profile-update btn-sm mr-2"><i class="far fa-edit"></i>  {{ 'profile.btn_update'|trans }}</button>
                 <button type="button" class="btn btn-profile-delete btn-sm" data-toggle="modal" data-target="#deleteProfileModal" id="toto">
-                    <i class="far fa-trash-alt"></i>  Suprimer mon compte
+                    <i class="far fa-trash-alt"></i>  {{ 'profile.btn_delete'|trans }}
                 </button>
             </div>
         {{ form_end(form) }}

@@ -245,6 +245,34 @@
         <source>update.profile.successfull</source>
         <target>Your profile has been updated successfully</target>
       </trans-unit>
+      <trans-unit id="profile.btn_update">
+        <source>profile.btn_update</source>
+        <target>Update my profil</target>
+      </trans-unit>
+      <trans-unit id="profile.btn_delete">
+        <source>profile.btn_delete</source>
+        <target>Delete my account</target>
+      </trans-unit>
+      <trans-unit id="btn.cancel">
+        <source>btn.cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="modal.title.account_delete">
+        <source>modal.title.account_delete</source>
+        <target>Deletion of your account</target>
+      </trans-unit>
+      <trans-unit id="modal.account.message_delete1">
+        <source>modal.account.message_delete1</source>
+        <target>Warning,</target>
+      </trans-unit>
+      <trans-unit id="modal.account.message_delete2">
+        <source>modal.account.message_delete2</source>
+        <target>The deletion of your account is final and leads to the irreversible loss of your data.</target>
+      </trans-unit>
+      <trans-unit id="modal.account.message_delete3">
+        <source>modal.account.message_delete3</source>
+        <target>Please, confirm the deletion of your account.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

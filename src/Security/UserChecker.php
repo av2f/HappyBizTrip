@@ -17,12 +17,12 @@ class UserChecker implements UserCheckerInterface
 
         // user is deleted, show a generic Account Not Found message.
         if ($user->getIsDeleted()) {
-            throw new CustomUserMessageAuthenticationException("Your account is being deleted and is no longer accessible");
+            throw new CustomUserMessageAuthenticationException("account.deleted");
         }
 
         // user is inactive
         if (!$user->getIsActive()) {
-            throw new CustomUserMessageAuthenticationException('Your account has been deactivated and is no longer accessible');
+            throw new CustomUserMessageAuthenticationException('account.disabled');
         }
 
     }

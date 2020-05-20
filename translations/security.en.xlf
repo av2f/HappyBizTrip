@@ -65,6 +65,14 @@
         <source>Account is locked.</source>
         <target>Account is locked.</target>
       </trans-unit>
+      <trans-unit id="account.disabled">
+        <source>account.disabled</source>
+        <target>Your account is locked. to unlock it, please contact us.</target>
+      </trans-unit>
+      <trans-unit id="account.deleted">
+        <source>account.deleted</source>
+        <target>Your account is being deleted and is no longer accessible.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

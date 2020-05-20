@@ -65,6 +65,14 @@
         <source>Account is locked.</source>
         <target>Le compte est bloqué.</target>
       </trans-unit>
+     <trans-unit id="account.disabled">
+        <source>account.disabled</source>
+        <target>Votre compte est bloqué. Pour le réactiver, merci de nous contacter.</target>
+      </trans-unit>
+      <trans-unit id="account.deleted">
+        <source>account.deleted</source>
+        <target>Votre compte est en cours de suppression et n'est plus accessible.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

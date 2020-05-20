@@ -26,6 +26,7 @@ security:
                 path: hbt_logout
                 # where to redirect after logout
                 target: homepage
+            # Add user checker for authentication
             user_checker: App\Security\UserChecker
 
             # activate different ways to authenticate
