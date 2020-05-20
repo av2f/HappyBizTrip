@@ -26,6 +26,7 @@ security:
                 path: hbt_logout
                 # where to redirect after logout
                 target: homepage
+            user_checker: App\Security\UserChecker
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

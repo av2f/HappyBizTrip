@@ -49,7 +49,9 @@ class ProfileController extends AbstractController
 
     /** 
      * 
-     * Delete a profile
+     * User decided to delete his account
+     * Author : Frederic Parmentier
+     * Date : 05/20/2020
      * 
      * @Route("/profile/{id}/delete", methods="POST", name="delete_profile")
      * 
@@ -69,7 +71,6 @@ class ProfileController extends AbstractController
         $profile->setIsDeleted(true);
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', 'Dommage!!');
         return $this->redirectToRoute('hbt_logout');
     }
 }
