@@ -8,15 +8,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProfileVoter extends Voter
 {
-    protected function supports($attribute, $subject)
+    const VIEW = 'view';
+    const EDIT = 'edit';
+    const DELETE = 'delete';
+    
+    protected function supports($attribute, $subject) :bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['PROFILE_EDIT', 'PROFILE_VIEW'])
+        return in_array($attribute, [self::VIEW, self::EDIT, self::DELETE])
             && $subject instanceof \App\Entity\User;
     }
 
-    protected function voteOnAttribute($attribute, $profile, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $profile, TokenInterface $token) :bool
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
@@ -24,18 +28,9 @@ class ProfileVoter extends Voter
             return false;
         }
 
-        // ... (check conditions and return true to grant permission) ...
-        switch ($attribute) {
-            case 'PROFILE_EDIT':
-                return $profile->getId() === $user->getId();
-                break;
-            case 'PROFILE_VIEW':
-                return $profile->getId() === $user->getId();
-                // logic to determine if the user can VIEW
-                // return true or false
-                break;
-        }
-
-        return false;
+        
+        // the logic of this voter is pretty simple: if the logged user is the same
+        // who wants to do action, grant permission; otherwise, deny it.
+        return $profile->getId() === $user->getId();
     }
 }

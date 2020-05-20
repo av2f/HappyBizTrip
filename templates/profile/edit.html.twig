@@ -25,6 +25,34 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="deleteProfileModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalLabel">Suppression de votre compte</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Attention,</strong> la suppression de votre compte entraine la perte irréversible de vos données.</p>
+                        <p>{{ user.pseudo }}, merci de confirmer la suppression définitive de votre compte.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-profile-update btn-sm" data-dismiss="modal">
+                            <i class="far fa-window-close"></i>  Cancel
+                        </button>
+                        <form action="{{ url('delete_profile', {id: user.id}) }}" method="post" id="delete-form">
+                            <input type="hidden" name="token" value="{{ csrf_token('delete') }}" />
+                            <button type="submit" class="btn btn-confirm-profile-delete btn-sm">
+                                <i class="far fa-trash-alt"></i>  Supprimer Mon compte
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             <div class="d-flex justify-content-center pt-2">
                 <div class="card card-profile mt-2">
@@ -60,8 +88,10 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center pt-2">
-                <button type="submit" class="btn btn-profile-update btn-sm mr-2"><i class="far fa-edit"></i>  Modifier</button>
-                <button type="button" class="btn btn-profile-delete btn-sm"><i class="fas fa-trash-alt"></i>  Suprimer mon compte</button>
+                <button type="submit" class="btn btn-profile-update btn-sm mr-2"><i class="far fa-edit"></i>  Modifier mon profil</button>
+                <button type="button" class="btn btn-profile-delete btn-sm" data-toggle="modal" data-target="#deleteProfileModal" id="toto">
+                    <i class="far fa-trash-alt"></i>  Suprimer mon compte
+                </button>
             </div>
         {{ form_end(form) }}
     </div>
@@ -75,4 +105,9 @@
     {% endif %}
     {# management of datepicker options #}
     {% include 'partials/_datepickerManagement.html.twig' %}
+    <script>
+        $('#deleteProfileModal').on('hidden.bs.modal', function () {
+            $("input:first").focus()
+        })
+    </script>
 {% endblock %}

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends AbstractController
 {
@@ -22,7 +23,7 @@ class ProfileController extends AbstractController
     public function editProfile(Request $request, User $profile)
     {
         // Authorization managed by voter
-        $this->denyAccessUnlessGranted("PROFILE_EDIT", $profile);
+        $this->denyAccessUnlessGranted('edit', $profile);
         
         // create form
         $form = $this->createForm(ProfileType::class, $profile);
@@ -44,5 +45,31 @@ class ProfileController extends AbstractController
             'form' => $form->createView(),
             'user' => $profile
         ]);
+    }
+
+    /** 
+     * 
+     * Delete a profile
+     * 
+     * @Route("/profile/{id}/delete", methods="POST", name="delete_profile")
+     * 
+     * @IsGranted("delete", subject="profile")
+     * 
+     * @return Response
+     * 
+    */
+    
+    public function deleteProfile(Request $request, User $profile)
+    {
+        if (!$this->isCsrfTokenValid('delete', $request->request->get('token'))) {
+            return $this->redirectToRoute('edit_profile', ['slug' => $profile->getSlug()]);
+        }
+        
+        // set isDeleted to yes and disconnect the user.
+        $profile->setIsDeleted(true);
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('success', 'Dommage!!');
+        return $this->redirectToRoute('hbt_logout');
     }
 }

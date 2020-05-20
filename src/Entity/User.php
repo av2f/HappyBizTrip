@@ -154,6 +154,11 @@ class User implements UserInterface
      */
     private $company;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDeleted;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -393,6 +398,8 @@ class User implements UserInterface
         $this->setIsActive(true);
         // set isSubscribed to false
         $this->setIsSubscribed(false);
+        // set isDeleted to false
+        $this->setIsDeleted(false);
         // set % completed of profile
         $this->setCompleted(25);
     }
@@ -478,6 +485,18 @@ class User implements UserInterface
     public function setCompany(?string $company): self
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    public function getIsDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(bool $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
 
         return $this;
     }
