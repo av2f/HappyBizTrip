@@ -9,11 +9,11 @@
             </div>
             <div class="modal-body modal-avatar text-center">
                 <img src={% if user.avatar is empty %}"{{ asset('img/library/defaultAvatar.png') }}"{% else %} "{{ user.avatar }}" {% endif %}
-                alt="Avatar de {{ user.pseudo }}">
+                alt="Avatar de {{ user.pseudo }}" id="imgModalAvatar">
             </div>
             <div class="modal-footer modal-avatar">
-                <button type="button" class="btn btn-modal-avatar btn-sm mr-2"><i class="fas fa-upload"></i> Replace</button>
-                <button type="button" class="btn btn-modal-avatar btn-sm mr-2"><i class="far fa-trash-alt"></i> Delete</button>
+                <button type="button" class="btn btn-modal-avatar btn-sm mr-2" id="btnChangeAvatar"><i class="fas fa-upload"></i> Change</button>
+                <button type="button" class="btn btn-modal-avatar btn-sm mr-2" id="btnDelAvatar"><i class="far fa-trash-alt"></i> Delete</button>
                 <button type="button" class="btn btn-modal-avatar btn-sm mr-auto" data-dismiss="modal">
                     <i class="fas fa-times"></i> Cancel
                 </button>

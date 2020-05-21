@@ -91,5 +91,10 @@
         $('#deleteProfileModal').on('hidden.bs.modal', function () {
             var firstInput = $("input:first").focus()
         })
+
+        document.getElementById('btnDelAvatar').addEventListener('click', function() {
+            var img = document.getElementById("imgModalAvatar").scr
+            console.log("je delete man" + img)
+        })
     </script>
 {% endblock %}
