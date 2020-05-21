@@ -93,8 +93,11 @@
         })
 
         document.getElementById('btnDelAvatar').addEventListener('click', function() {
-            var img = document.getElementById("imgModalAvatar").scr
+            var img = document.getElementById("imgModalAvatar").getAttribute('src')
             console.log("je delete man" + img)
+            document.getElementById("imgModalAvatar").setAttribute('src',"/img/library/defaultAvatar.png")
+            var img = document.getElementById("imgModalAvatar").getAttribute('src')
+            console.log("je remet" + img)
         })
     </script>
 {% endblock %}
