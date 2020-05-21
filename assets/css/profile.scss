@@ -38,8 +38,67 @@ $happyRed: #B81A18;
     background-color: $happyRed;
     color: #ffffff;
   }
+  &.btn-modal-avatar {
+    background-color: #000000;
+    color: white;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 }
 
 label.label-profile {
   font-size: 0.8rem;
 }
+
+.modal-avatar {
+  background-color: #000000;
+  color: white;
+}
+
+.modal-close-avatar {
+  color: white;
+  opacity:1;
+  &:hover {
+    color: white;
+    opacity:0.5;
+  }
+}
+
+.update-avatar {
+  max-width: 128px;
+  max-height: 128px;
+  border-radius: 50%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+// manage the overlay for avatar image
+.img-avatar {
+  opacity: 1;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+.icon-edit {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+.update-avatar:hover .img-avatar {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.update-avatar:hover .icon-edit {
+  cursor: pointer;
+  opacity: 1;
+}
+.update-icon-avatar {
+  color: white;
+}
+//

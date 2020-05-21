@@ -1,0 +1,23 @@
+<div class="modal fade" id="avatarProfileModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header modal-avatar">
+              <h5 class="modal-title" id="modalLabel">Avatar de {{ user.pseudo }}</h5>
+              <button type="button" class="close modal-close-avatar" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body modal-avatar text-center">
+                <img src={% if user.avatar is empty %}"{{ asset('img/library/defaultAvatar.png') }}"{% else %} "{{ user.avatar }}" {% endif %}
+                alt="Avatar de {{ user.pseudo }}">
+            </div>
+            <div class="modal-footer modal-avatar">
+                <button type="button" class="btn btn-modal-avatar btn-sm mr-2"><i class="fas fa-upload"></i> Replace</button>
+                <button type="button" class="btn btn-modal-avatar btn-sm mr-2"><i class="far fa-trash-alt"></i> Delete</button>
+                <button type="button" class="btn btn-modal-avatar btn-sm mr-auto" data-dismiss="modal">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
