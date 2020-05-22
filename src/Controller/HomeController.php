@@ -15,7 +15,7 @@ use App\Security\LoginFormAuthenticator;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="homepage", methods={"POST"})
      * 
      */
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager,

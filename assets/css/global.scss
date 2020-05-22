@@ -75,10 +75,15 @@ body {
 }
 
 .avatar {
-  max-width: 128px;
-  max-height: 128px;
+  max-width: 192px;
+  max-height: 192px;
   border-radius: 50%;
 
+  &.avatar-large {
+    max-width: 128px;
+    max-height: 128px;
+  }
+  
   &.avatar-medium {
       max-width: 64px;
       max-height: 64px;

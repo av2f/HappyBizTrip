@@ -426,15 +426,15 @@ class User implements UserInterface
         // by default, 3 objects fullfiled {pseudo/email/Date of Birth}
         // object password not taken into account
         $userObjectCompleted=3;
-        (!$this->getGender() != "")?"":$userObjectCompleted++;
-        (!$this->getFirstName() != "")?"":$userObjectCompleted++;
-        (!$this->getLastName() != "")?"":$userObjectCompleted++;
-        (!$this->getFirstName() != "")?"":$userObjectCompleted++;
-        (!$this->getSituation() != "")?"":$userObjectCompleted++;
-        (!$this->getAvatar() != "")?"":$userObjectCompleted++;
-        (!$this->getProfession() != "")?"":$userObjectCompleted++;
-        (!$this->getCompany() != "")?"":$userObjectCompleted++;
-        (!$this->getDescription() != "")?"":$userObjectCompleted++;
+        $this->getGender() != "" ? $userObjectCompleted++ : "";
+        $this->getFirstName() != "" ? $userObjectCompleted++ : "" ;
+        $this->getLastName() != "" ? $userObjectCompleted++ : "" ;
+        $this->getFirstName() != "" ? $userObjectCompleted++ : "" ;
+        $this->getSituation() != "" ? $userObjectCompleted++ : "" ;
+        $this->getAvatar() != "" ? $userObjectCompleted++ : "" ;
+        $this->getProfession() != "" ? $userObjectCompleted++ : "" ;
+        $this->getCompany() != "" ? $userObjectCompleted++ : "" ;
+        $this->getDescription() != "" ? $userObjectCompleted++ : "" ;
         // add interest when done
         $this->completed = round(($userObjectCompleted*100)/$totalUserObject);
     }

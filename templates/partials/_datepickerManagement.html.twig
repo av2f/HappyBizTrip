@@ -1,7 +1,7 @@
 <script>
   $(document).ready(function () {
-      var lang = '{{ app.request.locale }}'
-      var formatDate = 'mm-dd-yyyy'
+      let lang = '{{ app.request.locale }}'
+      let formatDate = 'mm-dd-yyyy'
       if (lang === 'fr') {
         formatDate = 'dd-mm-yyyy'
       }

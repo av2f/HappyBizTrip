@@ -15,20 +15,22 @@
 {% block body %}
     <div class="container">
         {# modal window to update avatar #}
-        {% include 'partials/_modalUpdateAvatar.html.twig' %}
+        {% include 'partials/modals/_modalUpdateAvatar.html.twig' %}
         
         {# modal window to confirm deletion of account #}
-        {% include 'partials/_modalDeleteProfile.html.twig' %}
+        {% include 'partials/modals/_modalDeleteProfile.html.twig' %}
         
         <div class="d-flex justify-content-center pt-2">
             <div class="card card-profile">
                 <div class="card-header card-profile-header-avatar" data-toggle="modal" data-target="#avatarProfileModal">
                     <div class="update-avatar">
                         <img src={% if user.avatar is empty %}"{{ asset('img/library/defaultAvatar.png') }}"{% else %} "{{ user.avatar }}" {% endif %}
-                        class="avatar img-avatar" alt="Avatar de {{ user.pseudo }}" >
+                        class="avatar avatar-large img-avatar" id="imgAvatarProfile" alt="Avatar de {{ user.pseudo }}" >
                         <div class="icon-edit">
                             <div class="update-icon-avatar"><i class="far fa-edit"></i></div>
                         </div>
+                        <input type="hidden" id="input-update-avatar" name="token" value="{{ csrf_token('update-avatar') }}"
+                        data-ref="{{ path('update_avatar', {'id':user.id}) }}" />
                     </div>
                 </div>
             </div>
@@ -70,8 +72,8 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center pt-2">
-                <button type="submit" class="btn btn-profile-update btn-sm mr-2"><i class="far fa-edit"></i>  {{ 'profile.btn_update'|trans }}</button>
-                <button type="button" class="btn btn-profile-delete btn-sm" data-toggle="modal" data-target="#deleteProfileModal">
+                <button type="submit" class="btn btn-profile-update btn-sm mr-2 shadow-none"><i class="far fa-edit"></i>  {{ 'profile.btn_update'|trans }}</button>
+                <button type="button" id="btn-profile-delete" class="btn btn-profile-delete btn-sm shadow-none" data-toggle="modal" data-target="#deleteProfileModal">
                     <i class="far fa-trash-alt"></i>  {{ 'profile.btn_delete'|trans }}
                 </button>
             </div>
@@ -89,15 +91,71 @@
     {% include 'partials/_datepickerManagement.html.twig' %}
     <script>
         $('#deleteProfileModal').on('hidden.bs.modal', function () {
-            var firstInput = $("input:first").focus()
+            $('#btn-profile-delete').focus(function() {
+                // position at top of the page
+               $('html,body').animate({scrollTop: 0}, 200)
+            })
         })
 
         document.getElementById('btnDelAvatar').addEventListener('click', function() {
-            var img = document.getElementById("imgModalAvatar").getAttribute('src')
-            console.log("je delete man" + img)
-            document.getElementById("imgModalAvatar").setAttribute('src',"/img/library/defaultAvatar.png")
-            var img = document.getElementById("imgModalAvatar").getAttribute('src')
-            console.log("je remet" + img)
+            // if delete image, replace it by default avatar image
+            document.getElementById("imgModalAvatar").setAttribute('src',"{{ asset('img/library/defaultAvatar.png') }}")
         })
+
+        $('#avatarProfileModal').on('hide.bs.modal', function () {
+            // if image change
+            if (document.getElementById("imgAvatarProfile").getAttribute('src') != document.getElementById("imgModalAvatar").getAttribute('src'))
+            {
+                // Replace image of avatar in profile form
+                document.getElementById("imgAvatarProfile").setAttribute('src', document.getElementById("imgModalAvatar").getAttribute('src'))
+                // Send new image by json to update
+                let input = document.getElementById("input-update-avatar")
+                let link = input.getAttribute("data-ref")
+                let img = document.getElementById("imgAvatarProfile").getAttribute('src')
+                // let token = input.value
+                //let token = input.dataset.token
+                // console.log(token + " - " + link )
+                fetch(input.getAttribute("data-ref"), {
+                    method: "PUT",
+                    headers: {
+                        "X-Request-With": "XMLHttpRequest",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "token": input.value,
+                        "newAvatar": img
+                    })
+
+                }).then(
+                    // retrieve the response in json
+                    response => response.json()
+                ).then(data => {
+                    if (!data.success)
+                        alert("ERROR : " + data.error)
+                })
+            }
+        })
+
+        // *** manage upload new file *** 
+        const fileInput = document.getElementById("uploadFile")
+        
+        // if click on change button
+        document.getElementById("btnChangeAvatar").addEventListener("click", function() {
+            fileInput.click()
+        })
+
+        // if new image upload
+        fileInput.addEventListener("change", function() {
+            // if file choosen
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener("load", function() {
+                    document.getElementById("imgModalAvatar").setAttribute('src', this.result)
+                })
+                reader.readAsDataURL(file)
+            }
+        })
+        // *** end manage upload new file ***
     </script>
 {% endblock %}

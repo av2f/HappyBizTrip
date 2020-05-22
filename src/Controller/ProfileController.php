@@ -5,15 +5,16 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ProfileType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile/{slug}", name="edit_profile")
+     * @Route("/profile/{slug}", name="edit_profile", methods={"POST","GET"})
      * 
      * @isGranted("ROLE_USER")
      * 
@@ -53,7 +54,7 @@ class ProfileController extends AbstractController
      * Author : Frederic Parmentier
      * Date : 05/20/2020
      * 
-     * @Route("/profile/{id}/delete", methods="POST", name="delete_profile")
+     * @Route("/profile/{id}/delete", name="delete_profile", methods={"POST"})
      * 
      * @IsGranted("delete", subject="profile")
      * 
@@ -72,5 +73,40 @@ class ProfileController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
 
         return $this->redirectToRoute('hbt_logout');
+    }
+
+    /**
+     * Change the image of avatar
+     * store the new in $avatarDir
+     * Update in database
+     * remove the old in $avatarDir (if exist)
+     * 
+     * @Route("/profile/{id}/avatar/update", name="update_avatar", methods={"PUT"})
+     * 
+     * @IsGranted("edit", subject="profile")
+     *
+     * @param Request $request
+     * @param User $profile
+     * @return void
+     */
+    public function updateAvatar(Request $request, User $profile, string $avatarDir)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if (!$this->isCsrfTokenValid('update-avatar', $data['token'])) {
+            // *** TEST
+            $this->addFlash(
+                'error',
+                'update.profile.successfull'
+            );
+            // ***
+            return $this->redirectToRoute('edit_profile', ['slug' => $profile->getSlug()]);
+        }
+
+        $newAvatar = $data["newAvatar"];
+        var_dump($newAvatar);
+        die();
+        return new JsonResponse(['success' => 1]);
+        
     }
 }
