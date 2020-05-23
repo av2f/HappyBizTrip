@@ -104,35 +104,43 @@
 
         $('#avatarProfileModal').on('hide.bs.modal', function () {
             // if image change
-            if (document.getElementById("imgAvatarProfile").getAttribute('src') != document.getElementById("imgModalAvatar").getAttribute('src'))
+            let imgModalAvatar = document.getElementById("imgModalAvatar").getAttribute('src')
+            if (document.getElementById("imgAvatarProfile").getAttribute('src') != imgModalAvatar)
             {
-                // Replace image of avatar in profile form
-                document.getElementById("imgAvatarProfile").setAttribute('src', document.getElementById("imgModalAvatar").getAttribute('src'))
+                
                 // Send new image by json to update
                 let input = document.getElementById("input-update-avatar")
                 let link = input.getAttribute("data-ref")
-                let img = document.getElementById("imgAvatarProfile").getAttribute('src')
-                // let token = input.value
-                //let token = input.dataset.token
-                // console.log(token + " - " + link )
+                // let img = document.getElementById("imgAvatarProfile").getAttribute('src')
                 fetch(input.getAttribute("data-ref"), {
-                    method: "PUT",
+                    method: "PATCH",
                     headers: {
                         "X-Request-With": "XMLHttpRequest",
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         "token": input.value,
-                        "newAvatar": img
+                        //"token": "oododooododosososososos",
+                        "newAvatar": imgModalAvatar
                     })
 
-                }).then(
-                    // retrieve the response in json
-                    response => response.json()
-                ).then(data => {
-                    if (!data.success)
-                        alert("ERROR : " + data.error)
                 })
+                .then(function(response) {
+                    // retrieve the response in json
+                    return response.json()
+                })
+                .then (data => {
+                    console.log(data)
+                    if(!data.success) {
+                        toastMsg("error", "votre image n'a pas pu être modifiée.Merci de rééesayer plus tard")
+                    }
+                    else {
+                        // Replace image of avatar in profile form
+                        document.getElementById("imgAvatarProfile").setAttribute('src', imgModalAvatar)
+                        document.getElementById("imgAvatarNav").setAttribute('src', imgModalAvatar)
+                    }
+                })
+                .catch(e => toastMsg("error", "Une erreur est survenue lors de la modification de l'image.\n Merci de réessayer ultérieurement","4000"))
             }
         })
 
@@ -157,5 +165,28 @@
             }
         })
         // *** end manage upload new file ***
+        // Display error message
+        function toastMsg(criticity, message, timeout) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-left",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": timeout,
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "slideUp",
+                'escapeHtml': true
+            }
+            toastr[criticity](message)
+        }
+
     </script>
 {% endblock %}

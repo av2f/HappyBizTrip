@@ -81,7 +81,7 @@ class ProfileController extends AbstractController
      * Update in database
      * remove the old in $avatarDir (if exist)
      * 
-     * @Route("/profile/{id}/avatar/update", name="update_avatar", methods={"PUT"})
+     * @Route("/profile/{id}/avatar/update", name="update_avatar", methods={"PATCH"})
      * 
      * @IsGranted("edit", subject="profile")
      *
@@ -93,20 +93,19 @@ class ProfileController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        if (!$this->isCsrfTokenValid('update-avatar', $data['token'])) {
-            // *** TEST
-            $this->addFlash(
-                'error',
-                'update.profile.successfull'
-            );
-            // ***
-            return $this->redirectToRoute('edit_profile', ['slug' => $profile->getSlug()]);
+        if ($this->isCsrfTokenValid('update-avatar', $data['token'])) {
+            $newAvatar = $data['newAvatar'];
+            //$fileImg = md5(uniqid()) . '.' . $newAvatar->guessExtension();
+            return new JsonResponse([
+                'success' => 1,
+                'imgSrc' => $profile->getAvatar(),
+                'img' => "oo"
+            ], 200);
         }
-
-        $newAvatar = $data["newAvatar"];
-        var_dump($newAvatar);
-        die();
-        return new JsonResponse(['success' => 1]);
+        else {
+            return new JsonResponse([
+                'Error' => 'Invalid Token'], 400);
+        }
         
     }
 }
