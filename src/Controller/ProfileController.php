@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 class ProfileController extends AbstractController
 {
     /**
@@ -81,7 +82,7 @@ class ProfileController extends AbstractController
      * Update in database
      * remove the old in $avatarDir (if exist)
      * 
-     * @Route("/profile/{id}/avatar/update", name="update_avatar", methods={"PATCH"})
+     * @Route("/profile/{id}/avatar/update", name="update_avatar", methods={"POST"})
      * 
      * @IsGranted("edit", subject="profile")
      *
@@ -99,7 +100,7 @@ class ProfileController extends AbstractController
             return new JsonResponse([
                 'success' => 1,
                 'imgSrc' => $profile->getAvatar(),
-                'img' => "oo"
+                'img' => $newAvatar
             ], 200);
         }
         else {

@@ -90,38 +90,55 @@
     {# management of datepicker options #}
     {% include 'partials/_datepickerManagement.html.twig' %}
     <script>
-        $('#deleteProfileModal').on('hidden.bs.modal', function () {
-            $('#btn-profile-delete').focus(function() {
-                // position at top of the page
-               $('html,body').animate({scrollTop: 0}, 200)
-            })
-        })
 
         document.getElementById('btnDelAvatar').addEventListener('click', function() {
             // if delete image, replace it by default avatar image
-            document.getElementById("imgModalAvatar").setAttribute('src',"{{ asset('img/library/defaultAvatar.png') }}")
+            fileAvatar = "{{ asset('img/library/defaultAvatar.png') }}"
+            document.getElementById("imgModalAvatar").setAttribute('src', fileAvatar)
         })
 
+        const fileInput = document.getElementById("uploadFile")
+
+        // if click on change button
+        document.getElementById("btnChangeAvatar").addEventListener("click", function() {
+            fileInput.click()
+        })
+
+         // if new image upload
+         // *** manage upload new file *** 
+        //const fileInput = document.getElementById("uploadFile")
+        fileInput.addEventListener("change", function(e) {
+            // if file choosen
+            fileAvatar = this.files[0];
+            file2 = e.target.files
+            console.log(fileAvatar)
+            console.log(file2)
+            if (fileAvatar) {
+                const reader = new FileReader();
+                reader.addEventListener("load", function() {
+                    document.getElementById("imgModalAvatar").setAttribute('src', this.result)
+                })
+                reader.readAsDataURL(fileAvatar)
+            }
+        })
         $('#avatarProfileModal').on('hide.bs.modal', function () {
             // if image change
             let imgModalAvatar = document.getElementById("imgModalAvatar").getAttribute('src')
             if (document.getElementById("imgAvatarProfile").getAttribute('src') != imgModalAvatar)
             {
-                
+                console.log(fileAvatar['name'])
                 // Send new image by json to update
-                let input = document.getElementById("input-update-avatar")
-                let link = input.getAttribute("data-ref")
+                let inputUpdateAvatar = document.getElementById("input-update-avatar")
                 // let img = document.getElementById("imgAvatarProfile").getAttribute('src')
-                fetch(input.getAttribute("data-ref"), {
-                    method: "PATCH",
+                fetch(inputUpdateAvatar.getAttribute("data-ref"), {
+                    method: "POST",
                     headers: {
                         "X-Request-With": "XMLHttpRequest",
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "token": input.value,
-                        //"token": "oododooododosososososos",
-                        "newAvatar": imgModalAvatar
+                        "token": inputUpdateAvatar.value,
+                        "newAvatar": fileAvatar
                     })
 
                 })
@@ -144,26 +161,13 @@
             }
         })
 
-        // *** manage upload new file *** 
-        const fileInput = document.getElementById("uploadFile")
-        
-        // if click on change button
-        document.getElementById("btnChangeAvatar").addEventListener("click", function() {
-            fileInput.click()
+        $('#deleteProfileModal').on('hidden.bs.modal', function () {
+            $('#btn-profile-delete').focus(function() {
+                // position at top of the page
+               $('html,body').animate({scrollTop: 0}, 200)
+            })
         })
 
-        // if new image upload
-        fileInput.addEventListener("change", function() {
-            // if file choosen
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.addEventListener("load", function() {
-                    document.getElementById("imgModalAvatar").setAttribute('src', this.result)
-                })
-                reader.readAsDataURL(file)
-            }
-        })
         // *** end manage upload new file ***
         // Display error message
         function toastMsg(criticity, message, timeout) {
@@ -187,6 +191,5 @@
             }
             toastr[criticity](message)
         }
-
     </script>
 {% endblock %}
