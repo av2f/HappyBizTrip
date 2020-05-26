@@ -3,8 +3,15 @@
     <div class="card-header">
         <div class="text-center">
           <a href="{{ path('edit_profile', {'slug':app.user.slug}) }}">
-            <img src={% if app.user.avatar is empty %}"{{ asset('img/library/defaultAvatar.png') }}"{% else %} "{{ app.user.avatar }}" {% endif %}
-            class="avatar avatar-medium" alt="Avatar de {{ app.user.pseudo }}">
+            <img src=
+              {% if app.user.avatar is empty %}
+                "{{ asset('img/library/defaultAvatar.png') }}"
+              {% elseif app.user.avatar starts with 'https:' %}
+                "{{ app.user.avatar }}"
+              {% else %}
+                "{{ asset('/uploads/avatars/' ~ app.user.avatar) }}"
+              {% endif %}
+              class="avatar avatar-medium" alt="Avatar de {{ app.user.pseudo }}">
           </a>
           <h6 class="mt-1">{{ app.user.pseudo }}<h6>
           <p class="col-text-profile">{{ app.user.getCalculateAge() }} {{ 'profile.age'|trans }}</p>

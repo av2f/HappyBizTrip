@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ProfileType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +23,7 @@ class ProfileController extends AbstractController
      * @return Response
      * 
      */
-    public function editProfile(Request $request, User $profile)
+    public function editProfile(Request $request, User $profile, EntityManagerInterface $em)
     {
         // Authorization managed by voter
         $this->denyAccessUnlessGranted('edit', $profile);
@@ -34,7 +35,7 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
             $this->addFlash(
                 'success',
                 'update.profile.successfull'
@@ -63,7 +64,7 @@ class ProfileController extends AbstractController
      * 
     */
     
-    public function deleteProfile(Request $request, User $profile)
+    public function deleteProfile(Request $request, User $profile, EntityManagerInterface $em)
     {
         if (!$this->isCsrfTokenValid('delete', $request->request->get('token'))) {
             return $this->redirectToRoute('edit_profile', ['slug' => $profile->getSlug()]);
@@ -71,7 +72,7 @@ class ProfileController extends AbstractController
         
         // set isDeleted to yes and disconnect the user.
         $profile->setIsDeleted(true);
-        $this->getDoctrine()->getManager()->flush();
+        $em->flush();
 
         return $this->redirectToRoute('hbt_logout');
     }
@@ -90,18 +91,38 @@ class ProfileController extends AbstractController
      * @param User $profile
      * @return void
      */
-    public function updateAvatar(Request $request, User $profile, string $avatarDir)
+    public function updateAvatar(User $profile, string $avatarDir, EntityManagerInterface $em)
     {
-        $data = json_decode($request->getContent(), true);
-
-        if ($this->isCsrfTokenValid('update-avatar', $data['token'])) {
-            $newAvatar = $data['newAvatar'];
-            //$fileImg = md5(uniqid()) . '.' . $newAvatar->guessExtension();
-            return new JsonResponse([
-                'success' => 1,
-                'imgSrc' => $profile->getAvatar(),
-                'img' => $newAvatar
-            ], 200);
+        if (isset($_POST['token'])) {
+            if ($this->isCsrfTokenValid('update-avatar', $_POST['token'])) {
+                if (!empty($_FILES['image'])) {
+                    if ($_FILES['image']['error'] === 0) {  // UPLOAD_ERR_OK
+                        $fileDest = md5(uniqid('')) . "." . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                        // verifify if files already exists. If yes, rename it
+                        if (file_exists($avatarDir.$fileDest)) { $fileDest = md5(uniqid('', true)) . "." . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);}
+                        // Move file
+                        if (move_uploaded_file($_FILES['image']['tmp_name'], $avatarDir.$fileDest)) {
+                            // delete old avatar
+                            if (file_exists($profile->getAvatar())) {
+                                unlink($profile->getAvatar());
+                            }
+                            // store new avatar in database
+                            $profile->setAvatar($fileDest);
+                            $em->flush();
+                            // return success response
+                            return new JsonResponse([
+                                'success' => '1'], 200);
+                        }
+                    }
+                    // return error
+                    return new JsonResponse([
+                        'error' => 'erreur durant la récupartion du fichier, réessayer'], 400);
+                }
+            }
+            else {
+                return new JsonResponse([
+                    'error' => 'Invalid Token'], 400);
+            }
         }
         else {
             return new JsonResponse([

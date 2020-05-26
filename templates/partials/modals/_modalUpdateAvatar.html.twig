@@ -8,8 +8,15 @@
               </button>
             </div>
             <div class="modal-body modal-avatar text-center">
-                <img src={% if user.avatar is empty %}"{{ asset('img/library/defaultAvatar.png') }}"{% else %} "{{ user.avatar }}" {% endif %}
-                alt="Avatar de {{ user.pseudo }}" class="avatar" id="imgModalAvatar">
+                <img src= 
+                    {% if user.avatar is empty %}
+                        "{{ asset('img/library/defaultAvatar.png') }}"
+                    {% elseif user.avatar starts with 'https:' %}
+                        "{{ user.avatar }}"
+                    {% else %}
+                        "{{ asset('uploads/avatars/' ~ user.avatar) }}"
+                    {% endif %}
+                    alt="Avatar de {{ user.pseudo }}" class="avatar" id="imgModalAvatar">
             </div>
             <div class="modal-footer modal-avatar">
                 <input type="file" id="uploadFile" accept="image/png, image/jpeg,image/jpg" hidden="hidden"/>

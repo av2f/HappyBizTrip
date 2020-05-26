@@ -39,8 +39,15 @@
         <ul class="navbar-nav mr-2">
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
-                    <img src={% if app.user.avatar is empty %}"{{ asset('img/library/defaultAvatar.png') }}"{% else %} "{{ app.user.avatar }}" {% endif %}
-                    class="avatar avatar-mini" id="imgAvatarNav" alt="Avatar de {{ app.user.pseudo }}">
+                    <img src=
+                        {% if app.user.avatar is empty %}
+                            "{{ asset('img/library/defaultAvatar.png') }}"
+                        {% elseif app.user.avatar starts with 'https:' %}
+                            "{{ app.user.avatar }}"
+                        {% else %}
+                            "{{ asset('/uploads/avatars/' ~ app.user.avatar) }}"
+                        {% endif %}
+                        class="avatar avatar-mini" id="imgAvatarNav" alt="Avatar de {{ app.user.pseudo }}">
                     &nbsp;{{ app.user.pseudo }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
