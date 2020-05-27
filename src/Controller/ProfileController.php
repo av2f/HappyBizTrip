@@ -117,12 +117,12 @@ class ProfileController extends AbstractController
                         }
                         // return error
                         return new JsonResponse([
-                            'error' => 'erreur durant la récupération du fichier, réessayer'], 400);
+                            'error' => '2'], 400);
                     }
                     else {
                         // return error
                         return new JsonResponse([
-                            'error' => 'erreur durant la récupération du fichier, réessayer'], 400);
+                            'error' => '2'], 400);
                     }
                 }
                 elseif ($_POST['action'] === 'delete') {
@@ -138,17 +138,17 @@ class ProfileController extends AbstractController
                 else {
                      // return error
                      return new JsonResponse([
-                        'error' => 'erreur durant la récupération du fichier, réessayer'], 400);
+                        'error' => '2'], 400);
                 }
             }
             else {
                 return new JsonResponse([
-                    'error' => 'Invalid Token'], 400);
+                    'error' => '3'], 400);
             }
         }
         else {
             return new JsonResponse([
-                'Error' => 'Invalid Token'], 400);
+                'Error' => '3'], 400);
         }
         
     }

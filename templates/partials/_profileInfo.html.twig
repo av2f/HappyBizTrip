@@ -11,7 +11,7 @@
               {% else %}
                 "{{ asset('/uploads/avatars/' ~ app.user.avatar) }}"
               {% endif %}
-              class="avatar avatar-medium" alt="Avatar de {{ app.user.pseudo }}">
+              class="avatar avatar-medium" alt="{{ 'alt.avatar'|trans }} {{ app.user.pseudo }}">
           </a>
           <h6 class="mt-1">{{ app.user.pseudo }}<h6>
           <p class="col-text-profile">{{ app.user.getCalculateAge() }} {{ 'profile.age'|trans }}</p>

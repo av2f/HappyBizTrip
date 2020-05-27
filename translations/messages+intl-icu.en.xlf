@@ -197,6 +197,10 @@
         <source>registration.message_successfull</source>
         <target>Welcome! Your are now registered.</target>
       </trans-unit>
+      <trans-unit id="alt.avatar">
+        <source>alt.avatar</source>
+        <target>Avatar of</target>
+      </trans-unit>
       <trans-unit id="main.block_title">
         <source>main.block_title</source>
         <target>Welcome!</target>
@@ -257,6 +261,22 @@
         <source>btn.cancel</source>
         <target>Cancel</target>
       </trans-unit>
+      <trans-unit id="btn.change">
+        <source>btn.change</source>
+        <target>Modify</target>
+      </trans-unit>
+      <trans-unit id="btn.delete">
+        <source>btn.delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="btn.close">
+        <source>btn.close</source>
+        <target>Close</target>
+      </trans-unit>
+      <trans-unit id="modal.title.modify_avatar">
+        <source>modal.title.modify_avatar</source>
+        <target>My picture</target>
+      </trans-unit>
       <trans-unit id="modal.title.account_delete">
         <source>modal.title.account_delete</source>
         <target>Deletion of your account</target>
@@ -272,6 +292,14 @@
       <trans-unit id="modal.account.message_delete3">
         <source>modal.account.message_delete3</source>
         <target>Please, confirm the deletion of your account.</target>
+      </trans-unit>
+      <trans-unit id="update.avatar.msg.error_2">
+        <source>update.avatar.msg.error_2</source>
+        <target>An error occurred while editing the image. Please, try again.</target>
+      </trans-unit>
+      <trans-unit id="update.avatar.msg.error_3">
+        <source>update.avatar.msg.error_3</source>
+        <target>Invalid token. Please, try again</target>
       </trans-unit>
     </body>
   </file>

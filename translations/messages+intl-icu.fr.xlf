@@ -197,6 +197,10 @@
         <source>registration.message_successfull</source>
         <target>Bienvenue! Vous êtes maintenant enregistré(e)s</target>
       </trans-unit>
+      <trans-unit id="alt.avatar">
+        <source>alt.avatar</source>
+        <target>Avatar de</target>
+      </trans-unit>
       <trans-unit id="main.block_title">
         <source>main.block_title</source>
         <target>Bienvenue!</target>
@@ -257,6 +261,22 @@
         <source>btn.cancel</source>
         <target>Annuler</target>
       </trans-unit>
+      <trans-unit id="btn.change">
+        <source>btn.change</source>
+        <target>Modifier</target>
+      </trans-unit>
+      <trans-unit id="btn.delete">
+        <source>btn.delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="btn.close">
+        <source>btn.close</source>
+        <target>Fermer</target>
+      </trans-unit>
+      <trans-unit id="modal.title.modify_avatar">
+        <source>modal.title.modify_avatar</source>
+        <target>Ma photo</target>
+      </trans-unit>
       <trans-unit id="modal.title.account_delete">
         <source>modal.title.account_delete</source>
         <target>Suppression de votre compte</target>
@@ -272,6 +292,14 @@
       <trans-unit id="modal.account.message_delete3">
         <source>modal.account.message_delete3</source>
         <target>merci de confirmer la suppression de votre compte.</target>
+      </trans-unit>
+      <trans-unit id="update.avatar.msg.error_2">
+        <source>update.avatar.msg.error_2</source>
+        <target>Une erreur est survenue lors de la modification de l'image. Merci de réessayer.</target>
+      </trans-unit>
+      <trans-unit id="update.avatar.msg.error_3">
+        <source>update.avatar.msg.error_3</source>
+        <target>Token invalide. Merci de réessayer.</target>
       </trans-unit>
     </body>
   </file>

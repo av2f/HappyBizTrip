@@ -47,7 +47,7 @@
                         {% else %}
                             "{{ asset('/uploads/avatars/' ~ app.user.avatar) }}"
                         {% endif %}
-                        class="avatar avatar-mini" id="imgAvatarNav" alt="Avatar de {{ app.user.pseudo }}">
+                        class="avatar avatar-mini" id="imgAvatarNav" alt="{{ 'alt.avatar'|trans }} {{ app.user.pseudo }}">
                     &nbsp;{{ app.user.pseudo }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">

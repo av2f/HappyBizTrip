@@ -32,7 +32,7 @@
                             {% else %}
                                 "{{ asset('uploads/avatars/' ~ user.avatar) }}"
                             {% endif %}
-                            class="avatar avatar-large img-avatar" id="imgAvatarProfile" alt="Avatar de {{ user.pseudo }}" >
+                            class="avatar avatar-large img-avatar" id="imgAvatarProfile" alt="{{ 'alt.avatar'|trans }} {{ user.pseudo }}" >
                         <div class="icon-edit">
                             <div class="update-icon-avatar"><i class="far fa-edit"></i></div>
                         </div>
@@ -168,9 +168,21 @@
                     })
                     .then (data => {
                         if(!data.success) {
-                            toastMsg("error", data.error,"4000")
+                            switch(data.error) {
+                                case '2':
+                                    msgError = '{{ 'update.avatar.msg.error_2'|trans }}'
+                                    break
+                                case '3':
+                                    msgError = '{{ 'update.avatar.msg.error_3'|trans }}'
+                                    break
+                                default:
+                                    msgError = '{{ 'update.avatar.msg.error_2'|trans }}'
+                                    break
+                            }
+                            toastMsg('error', msgError,'4000')
                         }
                         else {
+                            // success
                             if (fileInput.value === '') {
                                 document.getElementById("imgAvatarProfile").setAttribute('src', "{{ asset('img/library/defaultAvatar.png') }}")
                                 document.getElementById("imgAvatarNav").setAttribute('src', "{{ asset('img/library/defaultAvatar.png') }}")
@@ -182,7 +194,7 @@
                             }
                         }
                     })
-                    .catch(e => toastMsg("error", "Une erreur est survenue lors de la modification de l'image. Merci de réessayer ultérieurement","4000"))
+                    .catch(e => toastMsg('error', '{{ 'update.avatar.msg.error_2'|trans }}','4000'))
                 }
             }
             else {
@@ -193,7 +205,7 @@
         $('#deleteProfileModal').on('hidden.bs.modal', function () {
             $('#btn-profile-delete').focus(function() {
                 // position at top of the page
-               $('html,body').animate({scrollTop: 0}, 200)
+               $('html,body').animate({scrollTop: 0}, 300)
             })
         })
         // *** end manage upload new file ***
