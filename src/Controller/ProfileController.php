@@ -95,28 +95,50 @@ class ProfileController extends AbstractController
     {
         if (isset($_POST['token'])) {
             if ($this->isCsrfTokenValid('update-avatar', $_POST['token'])) {
-                if (!empty($_FILES['image'])) {
-                    if ($_FILES['image']['error'] === 0) {  // UPLOAD_ERR_OK
-                        $fileDest = md5(uniqid('')) . "." . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-                        // verifify if files already exists. If yes, rename it
-                        if (file_exists($avatarDir.$fileDest)) { $fileDest = md5(uniqid('', true)) . "." . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);}
-                        // Move file
-                        if (move_uploaded_file($_FILES['image']['tmp_name'], $avatarDir.$fileDest)) {
-                            // delete old avatar
-                            if (file_exists($profile->getAvatar())) {
-                                unlink($profile->getAvatar());
+                $oldAvatarFile = $profile->getAvatar();
+                if ($_POST['action'] === 'update') {
+                    // update avatar image
+                    if (!empty($_FILES['image'])) {
+                        if ($_FILES['image']['error'] === 0) {  // UPLOAD_ERR_OK
+                            $fileDest = md5(uniqid('')) . "." . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                            // verifify if files already exists. If yes, rename it
+                            if (file_exists($avatarDir.$fileDest)) { $fileDest = md5(uniqid('', true)) . "." . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);}
+                            // Move file
+                            if (move_uploaded_file($_FILES['image']['tmp_name'], $avatarDir.$fileDest)) {
+                                // store new avatar in database
+                                $profile->setAvatar($fileDest);
+                                $em->flush();
+                                 // delete old avatar
+                                if (!empty($oldAvatarFile) && file_exists($avatarDir.$oldAvatarFile)) unlink($avatarDir.$oldAvatarFile);
+                                // return success response
+                                return new JsonResponse([
+                                    'success' => '1'], 200);
                             }
-                            // store new avatar in database
-                            $profile->setAvatar($fileDest);
-                            $em->flush();
-                            // return success response
-                            return new JsonResponse([
-                                'success' => '1'], 200);
                         }
+                        // return error
+                        return new JsonResponse([
+                            'error' => 'erreur durant la récupération du fichier, réessayer'], 400);
                     }
-                    // return error
+                    else {
+                        // return error
+                        return new JsonResponse([
+                            'error' => 'erreur durant la récupération du fichier, réessayer'], 400);
+                    }
+                }
+                elseif ($_POST['action'] === 'delete') {
+                    // delete avatar from database
+                    $profile->setAvatar('');
+                    $em->flush();
+                    // delete old avatar
+                    if (!empty($oldAvatarFile) && file_exists($avatarDir.$oldAvatarFile)) unlink($avatarDir.$oldAvatarFile);
+                    // return success response
                     return new JsonResponse([
-                        'error' => 'erreur durant la récupartion du fichier, réessayer'], 400);
+                        'success' => '1'], 200);
+                }
+                else {
+                     // return error
+                     return new JsonResponse([
+                        'error' => 'erreur durant la récupération du fichier, réessayer'], 400);
                 }
             }
             else {
