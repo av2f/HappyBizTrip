@@ -98,6 +98,18 @@
     {% include 'partials/_datepickerManagement.html.twig' %}
     
     <script>
+        
+        btnCancel = false // cancel button of modal avatar management
+
+        // load modal image when modal window is opened
+        $('#avatarProfileModal').on('show.bs.modal', function () {
+            document.getElementById('imgModalAvatar').setAttribute('src', document.getElementById('imgAvatarProfile').getAttribute('src'))
+        })
+
+        document.getElementById('btnCancelAvatar').addEventListener('click', function() {
+            btnCancel = true
+        })
+        
         const fileInput = document.getElementById("uploadFile")
 
         document.getElementById('btnDelAvatar').addEventListener('click', function() {
@@ -124,54 +136,59 @@
             }
         })
         $('#avatarProfileModal').on('hide.bs.modal', function () {
-            // if image change
-            let imgModalAvatar = document.getElementById("imgModalAvatar").getAttribute('src')
-            if (document.getElementById("imgAvatarProfile").getAttribute('src') != imgModalAvatar)
-            {
-                let inputUpdateAvatar = document.getElementById("input-update-avatar") // token
-                let form = new FormData();
-                form.append('token', inputUpdateAvatar.value)
-                
-                // if avatar deleted
-                if (fileInput.value === '') {
-                    form.append('image', '{{ user.avatar }}')
-                    form.append('action', 'delete')
-                }
-                // else change with new image
-                else {
-                    form.append('image', fileAvatar)
-                    form.append('action', 'update')
-                }
-                // Send new image by json to update - name of file = fileAvatar['name']
-                fetch(inputUpdateAvatar.getAttribute("data-ref"), {
-                    method: 'POST',
-                    headers: {
-                        "X-Request-With": "XMLHttpRequest",
-                        "enctype": "multipart/form-data",
-                    },
-                        body: form
-                })
-                .then(function(response) {
-                    // retrieve the response in json
-                    return response.json()
-                })
-                .then (data => {
-                    if(!data.success) {
-                        toastMsg("error", data.error,"4000")
+            if (!btnCancel) { // if not cancel button
+            // if image change 
+                let imgModalAvatar = document.getElementById("imgModalAvatar").getAttribute('src')
+                if (document.getElementById("imgAvatarProfile").getAttribute('src') != imgModalAvatar)
+                {
+                    let inputUpdateAvatar = document.getElementById("input-update-avatar") // token
+                    let form = new FormData();
+                    form.append('token', inputUpdateAvatar.value)
+                    
+                    // if avatar deleted
+                    if (fileInput.value === '') {
+                        form.append('image', '{{ user.avatar }}')
+                        form.append('action', 'delete')
                     }
+                    // else change with new image
                     else {
-                        if (fileInput.value === '') {
-                            document.getElementById("imgAvatarProfile").setAttribute('src', "{{ asset('img/library/defaultAvatar.png') }}")
-                            document.getElementById("imgAvatarNav").setAttribute('src', "{{ asset('img/library/defaultAvatar.png') }}")
+                        form.append('image', fileAvatar)
+                        form.append('action', 'update')
+                    }
+                    // Send new image by json to update - name of file = fileAvatar['name']
+                    fetch(inputUpdateAvatar.getAttribute("data-ref"), {
+                        method: 'POST',
+                        headers: {
+                            "X-Request-With": "XMLHttpRequest",
+                            "enctype": "multipart/form-data",
+                        },
+                            body: form
+                    })
+                    .then(function(response) {
+                        // retrieve the response in json
+                        return response.json()
+                    })
+                    .then (data => {
+                        if(!data.success) {
+                            toastMsg("error", data.error,"4000")
                         }
                         else {
-                            // Replace image of avatar in profile form
-                            document.getElementById("imgAvatarProfile").setAttribute('src', imgModalAvatar)
-                            document.getElementById("imgAvatarNav").setAttribute('src', imgModalAvatar)
+                            if (fileInput.value === '') {
+                                document.getElementById("imgAvatarProfile").setAttribute('src', "{{ asset('img/library/defaultAvatar.png') }}")
+                                document.getElementById("imgAvatarNav").setAttribute('src', "{{ asset('img/library/defaultAvatar.png') }}")
+                            }
+                            else {
+                                // Replace image of avatar in profile form
+                                document.getElementById("imgAvatarProfile").setAttribute('src', imgModalAvatar)
+                                document.getElementById("imgAvatarNav").setAttribute('src', imgModalAvatar)
+                            }
                         }
-                    }
-                })
-                .catch(e => toastMsg("error", "Une erreur est survenue lors de la modification de l'image. Merci de réessayer ultérieurement","4000"))
+                    })
+                    .catch(e => toastMsg("error", "Une erreur est survenue lors de la modification de l'image. Merci de réessayer ultérieurement","4000"))
+                }
+            }
+            else {
+                btnCancel = false
             }
         })
 

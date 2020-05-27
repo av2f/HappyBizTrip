@@ -8,15 +8,8 @@
               </button>
             </div>
             <div class="modal-body modal-avatar text-center">
-                <img src= 
-                    {% if user.avatar is empty %}
-                        "{{ asset('img/library/defaultAvatar.png') }}"
-                    {% elseif user.avatar starts with 'https:' %}
-                        "{{ user.avatar }}"
-                    {% else %}
-                        "{{ asset('uploads/avatars/' ~ user.avatar) }}"
-                    {% endif %}
-                    alt="Avatar de {{ user.pseudo }}" class="avatar" id="imgModalAvatar">
+                {# the image is loaded on show.bs.modal #}
+                <img src= "" alt="Avatar de {{ user.pseudo }}" class="avatar" id="imgModalAvatar">
             </div>
             <div class="modal-footer modal-avatar">
                 <input type="file" id="uploadFile" accept="image/png, image/jpeg,image/jpg" hidden="hidden"/>
@@ -25,6 +18,7 @@
                 <button type="button" class="btn btn-modal-avatar btn-sm mr-auto shadow-none" data-dismiss="modal">
                     <i class="fas fa-times"></i> Close
                 </button>
+                <button type="button" class="btn btn-modal-avatar btn-sm mr-2 shadow-none" data-dismiss="modal" id="btnCancelAvatar"><i class="far fa-window-close"></i></i> Cancel</button>
             </div>
         </div>
     </div>
