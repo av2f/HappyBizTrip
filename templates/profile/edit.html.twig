@@ -96,9 +96,7 @@
     {% endif %}
     {# management of datepicker options #}
     {% include 'partials/_datepickerManagement.html.twig' %}
-    
     <script>
-        
         btnCancel = false // cancel button of modal avatar management
 
         // load modal image when modal window is opened
@@ -126,7 +124,7 @@
          // *** manage upload new file *** 
         fileInput.addEventListener("change", function(e) {
             // if file choose
-            fileAvatar = this.files[0];
+            fileAvatar = this.files[0]
             if (fileAvatar) {
                 const reader = new FileReader();
                 reader.addEventListener("load", function() {
