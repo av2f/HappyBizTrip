@@ -19,7 +19,7 @@
         
         {# modal window to confirm deletion of account #}
         {% include 'partials/modals/_modalDeleteProfile.html.twig' %}
-        
+
         <div class="d-flex justify-content-center pt-2">
             <div class="card card-profile">
                 <div class="card-header card-profile-header-avatar" data-toggle="modal" data-target="#avatarProfileModal">
@@ -133,9 +133,9 @@
                 reader.readAsDataURL(fileAvatar)
             }
         })
-        $('#avatarProfileModal').on('hide.bs.modal', function () {
+        $('#avatarProfileModal').on('hide.bs.modal', function (e) {
             if (!btnCancel) { // if not cancel button
-            // if image change 
+                // if image change
                 let imgModalAvatar = document.getElementById("imgModalAvatar").getAttribute('src')
                 if (document.getElementById("imgAvatarProfile").getAttribute('src') != imgModalAvatar)
                 {

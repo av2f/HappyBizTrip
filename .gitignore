@@ -25,3 +25,7 @@ yarn-error.log
 ###> fontawesome icons ###
 /public/fontawesome/
 ###> fontawesome icons ###
+
+###> images uploaded ###
+/public/uploads/
+###> images uploaded ###
