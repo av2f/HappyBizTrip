@@ -113,7 +113,7 @@ class ProfileController extends AbstractController
                             // Move file
                             if (move_uploaded_file($_FILES['image']['tmp_name'], $avatarDir.$fileDest)) {
                                 // Optimize image
-                                $imageOptimizer->resize($avatarDir.$fileDest);
+                                $imageOptimizer->resize($avatarDir.$fileDest, 600, 600);
                                 // store new avatar in database
                                 $profile->setAvatar($fileDest);
                                 $em->flush();
