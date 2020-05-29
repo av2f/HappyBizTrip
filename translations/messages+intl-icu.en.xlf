@@ -301,6 +301,10 @@
         <source>update.avatar.msg.error_3</source>
         <target>Invalid token. Please, try again</target>
       </trans-unit>
+      <trans-unit id="update.avatar.msg.error_4">
+        <source>update.avatar.msg.error_4</source>
+        <target>Your file size exceeds the limit ({maxFileSize}).</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "friendsofsymfony/ckeditor-bundle": "^2.2",
+        "imagine/imagine": "^1.2",
         "laminas/laminas-code": "^3.4",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "5.0.*",

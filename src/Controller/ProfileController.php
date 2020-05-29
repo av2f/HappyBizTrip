@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\ImageOptimizer;
 
 
 class ProfileController extends AbstractController
@@ -91,20 +92,28 @@ class ProfileController extends AbstractController
      * @param User $profile
      * @return void
      */
-    public function updateAvatar(User $profile, string $avatarDir, EntityManagerInterface $em)
+    public function updateAvatar(User $profile, string $avatarDir, EntityManagerInterface $em,  ImageOptimizer $imageOptimizer)
     {
+        $MAX_FILE_SIZE = 3145728; // 3Mo Octets max
+        
         if (isset($_POST['token'])) {
             if ($this->isCsrfTokenValid('update-avatar', $_POST['token'])) {
                 $oldAvatarFile = $profile->getAvatar();
                 if ($_POST['action'] === 'update') {
                     // update avatar image
                     if (!empty($_FILES['image'])) {
+                        if ($_FILES['image']['size'] > $MAX_FILE_SIZE) { // image exceeds size
+                            return new JsonResponse([
+                                'error' => '4'], 400);
+                        }
                         if ($_FILES['image']['error'] === 0) {  // UPLOAD_ERR_OK
                             $fileDest = md5(uniqid('')) . "." . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
                             // verifify if files already exists. If yes, rename it
                             if (file_exists($avatarDir.$fileDest)) { $fileDest = md5(uniqid('', true)) . "." . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);}
                             // Move file
                             if (move_uploaded_file($_FILES['image']['tmp_name'], $avatarDir.$fileDest)) {
+                                // Optimize image
+                                $imageOptimizer->resize($avatarDir.$fileDest);
                                 // store new avatar in database
                                 $profile->setAvatar($fileDest);
                                 $em->flush();
@@ -115,9 +124,15 @@ class ProfileController extends AbstractController
                                     'success' => '1'], 200);
                             }
                         }
-                        // return error
-                        return new JsonResponse([
-                            'error' => '2'], 400);
+                        elseif ($_FILES['image']['error'] === 1) {  // UPLOAD_ERR_INI_SIZE : Size of file exceeds upload_max_filesize
+                            return new JsonResponse([
+                                'error' => '4'], 400);
+                        }
+                        else {
+                            // return error
+                            return new JsonResponse([
+                                'error' => '2'], 400);
+                        }
                     }
                     else {
                         // return error

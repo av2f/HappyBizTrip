@@ -139,6 +139,8 @@
                 let imgModalAvatar = document.getElementById("imgModalAvatar").getAttribute('src')
                 if (document.getElementById("imgAvatarProfile").getAttribute('src') != imgModalAvatar)
                 {
+                    {% set MAX_FILE_SIZE = '3Mb' %}
+                    
                     let inputUpdateAvatar = document.getElementById("input-update-avatar") // token
                     let form = new FormData();
                     form.append('token', inputUpdateAvatar.value)
@@ -174,6 +176,9 @@
                                     break
                                 case '3':
                                     msgError = '{{ 'update.avatar.msg.error_3'|trans }}'
+                                    break
+                                case '4':
+                                    msgError = '{{ 'update.avatar.msg.error_4'|trans({ '%maxFileSize%': MAX_FILE_SIZE }) }}'
                                     break
                                 default:
                                     msgError = '{{ 'update.avatar.msg.error_2'|trans }}'
