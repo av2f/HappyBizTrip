@@ -72,13 +72,12 @@
             <div class="d-flex justify-content-center pt-2">
                 <div class="card mt-2 card-profile">
                     <div class="card-header text-left"><i class="fab fa-wpexplorer"></i>  {{ 'profile.title.interests'|trans }}</div>
-                    <div class="card-body text-left">
-                        <h4 class="card-title">Primary card title</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="card-body text-center">
+                        {% include 'partials/_profileInterests.html.twig' %}
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center pt-2">
+            <div class="d-flex justify-content-center pt-2 mt-2">
                 <button type="submit" class="btn btn-profile-update btn-sm mr-2 shadow-none"><i class="far fa-edit"></i>  {{ 'profile.btn_update'|trans }}</button>
                 <button type="button" id="btn-profile-delete" class="btn btn-profile-delete btn-sm shadow-none" data-toggle="modal" data-target="#deleteProfileModal">
                     <i class="far fa-trash-alt"></i>  {{ 'profile.btn_delete'|trans }}

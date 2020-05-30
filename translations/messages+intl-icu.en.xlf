@@ -269,9 +269,9 @@
         <source>btn.delete</source>
         <target>Delete</target>
       </trans-unit>
-      <trans-unit id="btn.close">
-        <source>btn.close</source>
-        <target>Close</target>
+      <trans-unit id="btn.validate">
+        <source>btn.validate</source>
+        <target>Validate</target>
       </trans-unit>
       <trans-unit id="modal.title.modify_avatar">
         <source>modal.title.modify_avatar</source>
