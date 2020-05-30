@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,8 +17,10 @@ class MainPageController extends AbstractController
      */
     public function index()
     {
+        $user = $this->getUser();
+        
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainPageController',
+            'user' => $user,
         ]);
     }
 }

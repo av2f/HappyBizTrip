@@ -28,6 +28,16 @@ body {
   background-color: white;
 }
 
+#loader {
+  display: block;
+  position: fixed;
+  z-index: 9999;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  opacity: 0.7;
+}
+
 // change text color of navbar
 .navbar-nav {
   .nav-link {

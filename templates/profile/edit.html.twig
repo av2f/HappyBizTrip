@@ -100,19 +100,19 @@
         btnCancel = false // cancel button of modal avatar management
 
         // load modal image when modal window is opened
-        $('#avatarProfileModal').on('show.bs.modal', function () {
-            document.getElementById('imgModalAvatar').setAttribute('src', document.getElementById('imgAvatarProfile').getAttribute('src'))
+        $("#avatarProfileModal").on("show.bs.modal", function () {
+            document.getElementById("imgModalAvatar").setAttribute("src", document.getElementById("imgAvatarProfile").getAttribute("src"))
         })
 
-        document.getElementById('btnCancelAvatar').addEventListener('click', function() {
+        document.getElementById("btnCancelAvatar").addEventListener("click", function() {
             btnCancel = true
         })
         
         const fileInput = document.getElementById("uploadFile")
 
-        document.getElementById('btnDelAvatar').addEventListener('click', function() {
+        document.getElementById("btnDelAvatar").addEventListener("click", function() {
             // if delete image, replace it by default avatar image
-            document.getElementById("imgModalAvatar").setAttribute('src', "{{ asset('img/library/defaultAvatar.png') }}")
+            document.getElementById("imgModalAvatar").setAttribute("src", "{{ asset('img/library/defaultAvatar.png') }}")
             fileInput.value=""
         })
         
@@ -128,36 +128,36 @@
             if (fileAvatar) {
                 const reader = new FileReader();
                 reader.addEventListener("load", function() {
-                    document.getElementById("imgModalAvatar").setAttribute('src', this.result)
+                    document.getElementById("imgModalAvatar").setAttribute("src", this.result)
                 })
                 reader.readAsDataURL(fileAvatar)
             }
         })
-        $('#avatarProfileModal').on('hide.bs.modal', function (e) {
+        $("#avatarProfileModal").on("hide.bs.modal", function (e) {
             if (!btnCancel) { // if not cancel button
                 // if image change
-                let imgModalAvatar = document.getElementById("imgModalAvatar").getAttribute('src')
-                if (document.getElementById("imgAvatarProfile").getAttribute('src') != imgModalAvatar)
+                let imgModalAvatar = document.getElementById("imgModalAvatar").getAttribute("src")
+                if (document.getElementById("imgAvatarProfile").getAttribute("src") != imgModalAvatar)
                 {
-                    {% set MAX_FILE_SIZE = '3Mb' %}
+                    {% set MAX_FILE_SIZE = "3Mb" %}
                     
                     let inputUpdateAvatar = document.getElementById("input-update-avatar") // token
                     let form = new FormData();
-                    form.append('token', inputUpdateAvatar.value)
+                    form.append("token", inputUpdateAvatar.value)
                     
                     // if avatar deleted
-                    if (fileInput.value === '') {
-                        form.append('image', '{{ user.avatar }}')
-                        form.append('action', 'delete')
+                    if (fileInput.value === "") {
+                        form.append("image", "{{ user.avatar }}")
+                        form.append("action", "delete")
                     }
                     // else change with new image
                     else {
-                        form.append('image', fileAvatar)
-                        form.append('action', 'update')
+                        form.append("image", fileAvatar)
+                        form.append("action", "update")
                     }
                     // Send new image by json to update - name of file = fileAvatar['name']
                     fetch(inputUpdateAvatar.getAttribute("data-ref"), {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
                             "X-Request-With": "XMLHttpRequest",
                             "enctype": "multipart/form-data",
@@ -171,35 +171,35 @@
                     .then (data => {
                         if(!data.success) {
                             switch(data.error) {
-                                case '2':
-                                    msgError = '{{ 'update.avatar.msg.error_2'|trans }}'
+                                case "2":
+                                    msgError = "{{ 'update.avatar.msg.error_2'|trans }}"
                                     break
-                                case '3':
-                                    msgError = '{{ 'update.avatar.msg.error_3'|trans }}'
+                                case "3":
+                                    msgError = "{{ 'update.avatar.msg.error_3'|trans }}"
                                     break
-                                case '4':
-                                    msgError = '{{ 'update.avatar.msg.error_4'|trans({ '%maxFileSize%': MAX_FILE_SIZE }) }}'
+                                case "4":
+                                    msgError = "{{ 'update.avatar.msg.error_4'|trans({ '%maxFileSize%': MAX_FILE_SIZE }) }}"
                                     break
                                 default:
-                                    msgError = '{{ 'update.avatar.msg.error_2'|trans }}'
+                                    msgError = "{{ 'update.avatar.msg.error_2'|trans }}"
                                     break
                             }
-                            toastMsg('error', msgError,'4000')
+                            toastMsg("error", msgError,"4000")
                         }
                         else {
                             // success
-                            if (fileInput.value === '') {
-                                document.getElementById("imgAvatarProfile").setAttribute('src', "{{ asset('img/library/defaultAvatar.png') }}")
-                                document.getElementById("imgAvatarNav").setAttribute('src', "{{ asset('img/library/defaultAvatar.png') }}")
+                            if (fileInput.value === "") {
+                                document.getElementById("imgAvatarProfile").setAttribute("src", "{{ asset('img/library/defaultAvatar.png') }}")
+                                document.getElementById("imgAvatarNav").setAttribute("src", "{{ asset('img/library/defaultAvatar.png') }}")
                             }
                             else {
                                 // Replace image of avatar in profile form
-                                document.getElementById("imgAvatarProfile").setAttribute('src', imgModalAvatar)
-                                document.getElementById("imgAvatarNav").setAttribute('src', imgModalAvatar)
+                                document.getElementById("imgAvatarProfile").setAttribute("src", imgModalAvatar)
+                                document.getElementById("imgAvatarNav").setAttribute("src", imgModalAvatar)
                             }
                         }
                     })
-                    .catch(e => toastMsg('error', '{{ 'update.avatar.msg.error_2'|trans }}','4000'))
+                    .catch(e => toastMsg("error", "{{ 'update.avatar.msg.error_2'|trans }}","4000"))
                 }
             }
             else {
@@ -207,10 +207,10 @@
             }
         })
 
-        $('#deleteProfileModal').on('hidden.bs.modal', function () {
-            $('#btn-profile-delete').focus(function() {
+        $('#deleteProfileModal').on("hidden.bs.modal", function () {
+            $("#btn-profile-delete").focus(function() {
                 // position at top of the page
-               $('html,body').animate({scrollTop: 0}, 300)
+               $("html,body").animate({scrollTop: 0}, 300)
             })
         })
         // *** end manage upload new file ***

@@ -2,37 +2,37 @@
   <div class="card mt-3">
     <div class="card-header">
         <div class="text-center">
-          <a href="{{ path('edit_profile', {'slug':app.user.slug}) }}">
+          <a href="{{ path('edit_profile', {'slug':user.slug}) }}">
             <img src=
-              {% if app.user.avatar is empty %}
+              {% if user.avatar is empty %}
                 "{{ asset('img/library/defaultAvatar.png') }}"
-              {% elseif app.user.avatar starts with 'https:' %}
-                "{{ app.user.avatar }}"
+              {% elseif user.avatar starts with 'https:' %}
+                "{{ user.avatar }}"
               {% else %}
-                "{{ asset('/uploads/avatars/' ~ app.user.avatar) }}"
+                "{{ asset('/uploads/avatars/' ~ user.avatar) }}"
               {% endif %}
-              class="avatar avatar-medium" alt="{{ 'alt.avatar'|trans }} {{ app.user.pseudo }}">
+              class="avatar avatar-medium" alt="{{ 'alt.avatar'|trans }} {{ user.pseudo }}">
           </a>
-          <h6 class="mt-1">{{ app.user.pseudo }}<h6>
-          <p class="col-text-profile">{{ app.user.getCalculateAge() }} {{ 'profile.age'|trans }}</p>
+          <h6 class="mt-1">{{ user.pseudo }}<h6>
+          <p class="col-text-profile">{{ user.getCalculateAge() }} {{ 'profile.age'|trans }}</p>
           {# revoir le format de la date suivant la langue #}
-          <p class="col-text-profile">{{ 'profile.register_date'|trans }} {{ app.user.createdAt|date('d/m/Y') }}</p>
+          <p class="col-text-profile">{{ 'profile.register_date'|trans }} {{ user.createdAt|date('d/m/Y') }}</p>
         </div>
     </div>
     <div class="card-body">
-      <p class="col-text-profile"><i class="far fa-id-card"></i> {{ 'profile.completed'|trans }} {{ app.user.completed }}%</p>
+      <p class="col-text-profile"><i class="far fa-id-card"></i> {{ 'profile.completed'|trans }} {{ user.completed }}%</p>
       <div class="progress mb-2">
-          {% if app.user.completed <= 50 %}
+          {% if user.completed <= 50 %}
               {% set progressClass = "bg-warning" %}
-          {% elseif app.user.completed > 50 and app.user.completed <= 75 %}
+          {% elseif user.completed > 50 and user.completed <= 75 %}
               {% set progressClass = "bg-info" %}
           {% else %}
               {% set progressClass = "bg-success" %}
           {% endif %}
-          <div class="progress-bar {{ progressClass }}" role="progressbar" style="width:{{ app.user.completed }}%" aria-valuenow="{{ app.user.completed }}" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar {{ progressClass }}" role="progressbar" style="width:{{ user.completed }}%" aria-valuenow="{{ user.completed }}" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
       <hr>
-      {% if not app.user.isSubscribed %}
+      {% if not user.isSubscribed %}
         <p class="col-text-profile text-center">{{ 'profile.text_register'|trans }}</p>
         <div class="text-center">
             <a href="#">
