@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -158,6 +160,16 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isDeleted;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Interest::class, inversedBy="users")
+     */
+    private $interests;
+
+    public function __construct()
+    {
+        $this->interests = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -497,6 +509,32 @@ class User implements UserInterface
     public function setIsDeleted(bool $isDeleted): self
     {
         $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|interest[]
+     */
+    public function getInterests(): Collection
+    {
+        return $this->interests;
+    }
+
+    public function addInterest(interest $interest): self
+    {
+        if (!$this->interests->contains($interest)) {
+            $this->interests[] = $interest;
+        }
+
+        return $this;
+    }
+
+    public function removeInterest(interest $interest): self
+    {
+        if ($this->interests->contains($interest)) {
+            $this->interests->removeElement($interest);
+        }
 
         return $this;
     }

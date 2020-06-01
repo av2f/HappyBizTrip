@@ -1,31 +1,41 @@
 {% block _profile_gender_widget %}
     <div class="form-group mb2">
-        <span class="pr-2">{{ form_label(form) }}</span>
-        {% for key,choice in form.vars.choices %}
-            {% set icon = "fas fa-male" %}
-            {% if choice.value == "W" %}
-            {% set icon = "fas fa-female" %}
-        {% endif %}
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="{{ form.vars.id }}_{{ key }}" name="{{ form.vars.full_name }}" class="custom-control-input" value="{{ choice.value }}" {% if choice.value is same as (app.user.gender) %}checked{% endif %}>
-                <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="{{ icon }} pr-1"></i>{{ choice.label|trans }}</label>
+        <div class="row">
+            <div class="col-12 col-md-auto col-lg-auto">
+                {{ form_label(form) }}
             </div>
-        {% endfor %}
+            {% for key,choice in form.vars.choices %}
+                {% set icon = "fas fa-male" %}
+                {% if choice.value == "W" %}
+                    {% set icon = "fas fa-female" %}
+                {% endif %}
+                    <div class="col-12 col-md-auto col-lg-auto custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="{{ form.vars.id }}_{{ key }}" name="{{ form.vars.full_name }}" class="custom-control-input" value="{{ choice.value }}" {% if choice.value is same as (app.user.gender) %}checked{% endif %}>
+                        <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="{{ icon }} pr-1"></i>{{ choice.label|trans }}</label>
+                    </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 
 {% block _profile_situation_widget %}
     <div class="form-group mb2">
-        <span class="pr-2">{{ form_label(form) }}</span>
-        {% for key,choice in form.vars.choices %}
-            {% set icon = "fas fa-user-alt" %}
-            {% if choice.value == "C" %}
-            {% set icon = "fas fa-user-friends" %}
-        {% endif %}
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="{{ form.vars.id }}_{{ key }}" name="{{ form.vars.full_name }}" class="custom-control-input" value="{{ choice.value }}" {% if choice.value is same as (app.user.situation) %}checked{% endif %}>
-                <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="{{ icon }} pr-1"></i>{{ choice.label|trans }}</label>
+        <div class="row">
+            <div class="col-12 col-md-auto col-lg-auto">
+                {{ form_label(form) }}
             </div>
-        {% endfor %}
+            {% for key,choice in form.vars.choices %}        
+                {% set icon = "fas fa-user-alt" %}
+                {% if choice.value == "C" %}
+                    {% set icon = "fas fa-user-friends" %}
+                {% elseif choice.value == "K" %}
+                    {% set icon = "fas fa-map-marker-question" %}        
+                {% endif %}
+                <div class="col-12 col-md-auto col-lg-auto custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="{{ form.vars.id }}_{{ key }}" name="{{ form.vars.full_name }}" class="custom-control-input" value="{{ choice.value }}" {% if choice.value is same as (app.user.situation) %}checked{% endif %}>
+                    <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="{{ icon }} pr-1"></i>{{ choice.label|trans }}</label>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

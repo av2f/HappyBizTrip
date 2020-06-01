@@ -109,6 +109,10 @@
         <source>form.choice_single</source>
         <target>Célibataire</target>
       </trans-unit>
+      <trans-unit id="form.choice_keep">
+        <source>form.choice_keep</source>
+        <target>Je le garde pour moi</target>
+      </trans-unit>
       <trans-unit id="form.placeholder_profession">
         <source>form.placeholder_profession</source>
         <target>Quelle est votre profession ?</target>

@@ -121,6 +121,10 @@
         <source>form.choice_single</source>
         <target>Single</target>
       </trans-unit>
+      <trans-unit id="form.choice_keep">
+        <source>form.choice_keep</source>
+        <target>I keep it for myself</target>
+      </trans-unit>
       <trans-unit id="form.btn_register">
         <source>form.btn_register</source>
         <target>Register</target>

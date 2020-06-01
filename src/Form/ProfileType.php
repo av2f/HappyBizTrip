@@ -26,6 +26,7 @@ class ProfileType extends AbstractType
             ->add('gender', ChoiceType::class, [
                 'label' => 'form.label_gender',
                 'label_attr' => ['class' => 'label-profile'],
+                'required' => false,
                 'choices'  => [
                     'form.choice_woman' => 'W',
                     'form.choice_man' => 'M'
@@ -34,9 +35,11 @@ class ProfileType extends AbstractType
             ->add('situation', ChoiceType::class, [
                 'label' => 'form.label_situation',
                 'label_attr' => ['class' => 'label-profile'],
+                'required' => false,
                 'choices'  => [
+                    'form.choice_single' => 'S',
                     'form.choice_couple' => 'C',
-                    'form.choice_single' => 'S'
+                    'form.choice_keep' => 'K'
                 ],
             ])
             ->add('pseudo', TextType::class, [
