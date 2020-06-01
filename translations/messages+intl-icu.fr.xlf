@@ -305,6 +305,22 @@
         <source>update.avatar.msg.error_4</source>
         <target>La taille de votre fichier dépasse la limite autorisée ({maxFileSize}).</target>
       </trans-unit>
+      <trans-unit id="interest.type_culture">
+        <source>interest.type_culture</source>
+        <target>Culture</target>
+      </trans-unit>
+      <trans-unit id="interest.type_science_business">
+        <source>interest.type_science_business</source>
+        <target>Science et Business</target>
+      </trans-unit>
+      <trans-unit id="interest.type_leisure">
+        <source>interest.type_leisure</source>
+        <target>Loisir</target>
+      </trans-unit>
+      <trans-unit id="interest.type_meet">
+        <source>interest.type_meet</source>
+        <target>Rencontre</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

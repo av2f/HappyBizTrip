@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ProfileType;
+use App\Repository\InterestTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,12 +25,13 @@ class ProfileController extends AbstractController
      * @return Response
      * 
      */
-    public function editProfile(Request $request, User $profile, EntityManagerInterface $em)
+    public function editProfile(Request $request, User $profile, EntityManagerInterface $em, InterestTypeRepository $interestType)
     {
         // Authorization managed by voter
         $this->denyAccessUnlessGranted('edit', $profile);
         
         // create form
+        $interestTypeName = $interestType->findAll();
         $form = $this->createForm(ProfileType::class, $profile);
         
         // handle the submit
@@ -47,7 +49,8 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
-            'user' => $profile
+            'user' => $profile,
+            'interestType' => $interestTypeName
         ]);
     }
 

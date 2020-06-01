@@ -4,6 +4,8 @@ namespace App\DataFixtures;
 
 use Faker;
 use App\Entity\User;
+use App\Entity\Interest;
+use App\Entity\InterestType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -36,6 +38,95 @@ class AppFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
+        // interestType
+        $type = array(
+            ['nameType' => 'interest.type_culture', 'iconType' => 'fas fa-film'],
+            ['nameType' => 'interest.type_science_business', 'iconType' => 'fas fa-globe'],
+            ['nameType' => 'interest.type_leisure', 'iconType' => 'fas fa-puzzle-piece'],
+            ['nameType' => 'interest.type_meet', 'iconType' => 'fas fa-user-friends']
+        );
+        $iCulture = array(
+            ['name' => 'interest.culture_literature', 'raw' => '1'],
+            ['name' => 'interest.culture_cinema', 'raw' => '2'],
+            ['name' => 'interest.culture_theater', 'raw' => '3'],
+            ['name' => 'interest.culture_concert', 'raw' => '4'],
+            ['name' => 'interest.culture_music', 'raw' => '5'],
+            ['name' => 'interest.culture_art', 'raw' => '6'],
+        );
+
+        $iScience = array(
+            ['name' => 'interest.science_new_tech', 'raw' => '1'],
+            ['name' => 'interest.science_sciences', 'raw' => '2'],
+            ['name' => 'interest.science_politic', 'raw' => '3'],
+            ['name' => 'interest.science_business', 'raw' => '4'],
+            ['name' => 'interest.science_finance', 'raw' => '5']
+        );
+
+        $iLeisure = array(
+            ['name' => 'interest.leisure_sport', 'raw' => '1'],
+            ['name' => 'interest.leisure_anima', 'raw' => '2'],
+            ['name' => 'interest.leisure_fashion', 'raw' => '3'],
+            ['name' => 'interest.leisure_art_of_live', 'raw' => '4'],
+            ['name' => 'interest.leisure_garden', 'raw' => '5'],
+            ['name' => 'interest.leisure_diy', 'raw' => '6'],
+            ['name' => 'interest.leisure_board_game', 'raw' => '7'],
+            ['name' => 'interest.leisure_role_game', 'raw' => '8'],
+            ['name' => 'interest.leisure_gambling', 'raw' => '9']
+        );
+
+        $iMeet = array(
+            ['name' => 'interest.meet_business', 'raw' => '1'],
+            ['name' => 'interest.meet_private_f', 'raw' => '2'],
+            ['name' => 'interest.meet_private_m', 'raw' => '3'],
+        );
+
+        foreach($type as $nb => $infos) {
+            $interestType = new InterestType();
+            $interestType->setNameType($infos['nameType']);
+            $interestType->setIconType($infos['iconType']);
+            $manager->persist($interestType);
+            switch ($infos['nameType']) {
+                case 'interest.type_culture':
+                    foreach ($iCulture as $nb => $i) {
+                        $interest = new Interest();
+                        $interest->setName($i['name']);
+                        $interest->setRaw($i['raw']);
+                        $interest->setInterestType($interestType);
+                        $manager->persist($interest);
+                    }
+                    break;
+                case 'interest.type_science_business':
+                    foreach ($iScience as $nb => $i) {
+                        $interest = new Interest();
+                        $interest->setName($i['name']);
+                        $interest->setRaw($i['raw']);
+                        $interest->setInterestType($interestType);
+                        $manager->persist($interest);
+                    }
+                    break;
+                case 'interest.type_leisure':
+                    foreach ($iLeisure as $nb => $i) {
+                        $interest = new Interest();
+                        $interest->setName($i['name']);
+                        $interest->setRaw($i['raw']);
+                        $interest->setInterestType($interestType);
+                        $manager->persist($interest);
+                    }
+                    break;
+                case 'interest.type_meet':
+                    foreach ($iMeet as $nb => $i) {
+                        $interest = new Interest();
+                        $interest->setName($i['name']);
+                        $interest->setRaw($i['raw']);
+                        $interest->setInterestType($interestType);
+                        $manager->persist($interest);
+                    }
+                    break;
+            }
+        }
+        $manager->flush();
+
+        // User
         $faker = Faker\Factory::create('fr_FR');
         // Define Genders (W=Woman / M=Man)
         $genders=array('W', 'M');
