@@ -19,6 +19,23 @@ class InterestRepository extends ServiceEntityRepository
         parent::__construct($registry, Interest::class);
     }
 
+    
+    /**
+     * Query to retrieve all interest order by interest type & raw
+     * 
+     * Author : Frederic Parmentier
+     *
+     * @return void
+     */
+    public function findInterestOrder() {
+        return $this->createQueryBuilder('i')
+            ->orderBy('i.interestType.id', 'ASC')
+            ->orderBy('i.raw', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Interest[] Returns an array of Interest objects
     //  */

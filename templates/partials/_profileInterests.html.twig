@@ -1,37 +1,37 @@
-{% for typeName in interestType %}
+{% for interestType in interestsType %}
     <div class="card mt-2 card-profile">
         <div class="card-header card-header-profile-interest text-left">
-            <i class="{{ typeName.iconType }}"></i>&nbsp;&nbsp;{{ typeName.nameType|trans }}
+            <i class="{{ interestType.iconType }}"></i>&nbsp;&nbsp;{{ interestType.nameType|trans }}
         </div>
         <div class="card-body text-left">
+            {% set numRow = 0 %}
             <div class="row">
-                <div class="col-12 col-md col-lg custom-control custom-switch custom-control-inline mb-2">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                    <label class="custom-control-label label-interest" for="customSwitch1">Literrature</label>
-                </div> 
-                <div class="col-12 col-md col-lg custom-control custom-switch custom-control-inline mb-2">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch2">
-                    <label class="custom-control-label label-interest" for="customSwitch2">Cinéma</label>
-                </div>
-                <div class="col-12 col-md col-lg custom-control custom-switch custom-control-inline mb-2">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch3">
-                    <label class="custom-control-label label-interest" for="customSwitch4">Théatre</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md col-lg custom-control custom-switch custom-control-inline mb-2">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch5">
-                    <label class="custom-control-label label-interest" for="customSwitch5">Musique</label>
-                </div>
-                <div class="col-12 col-md col-lg custom-control custom-switch custom-control-inline mb-2">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch6" checked>
-                    <label class="custom-control-label label-interest" for="customSwitch6">Concert / Opéra</label>
-                </div>
-                <div class="col-12 col-md col-lg custom-control custom-switch custom-control-inline mb-2">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch4">
-                    <label class="custom-control-label label-interest" for="customSwitch4">Art/Histoire</label>
-                </div>
-            </div>
+            {% for interestName in interestsName %}
+                {% if interestName.interestType.id == interestType.id %}
+                    {% if numRow >= 3 %}
+                        </div> {# end row #}
+                        <div class="row">
+                        {% set numRow = 0 %}
+                    {% endif %}
+                    {% set numRow = (numRow | default(0)) + 1 %}
+                    {# interests checked by user #}
+                    {% set interestChecked="" %}
+                    {% for uInterest in user.interests %}
+                        {% if interestName.id == uInterest.id %}
+                            {% set interestChecked = "checked" %}
+                        {% endif %}
+                    {% endfor %}
+                    {# --- #}
+                    <div class="col-12 col-md col-lg custom-control custom-switch custom-control-inline mb-2">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch_{{ interestName.id }}" {{ interestChecked }}>
+                        <label class="custom-control-label label-interest" for="customSwitch_{{ interestName.id }}">{{ interestName.name|trans }}</label>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% if numRow == 2 %}
+                <div class="col-12 col-md col-lg mb-2"></div>
+            {% endif %}
+            </div> {# end last row #}
         </div>
     </div>
 {% endfor %}

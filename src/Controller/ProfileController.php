@@ -4,15 +4,16 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ProfileType;
-use App\Repository\InterestTypeRepository;
+use App\Service\ImageOptimizer;
+use App\Repository\InterestRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\InterestTypeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\ImageOptimizer;
 
 
 class ProfileController extends AbstractController
@@ -25,13 +26,16 @@ class ProfileController extends AbstractController
      * @return Response
      * 
      */
-    public function editProfile(Request $request, User $profile, EntityManagerInterface $em, InterestTypeRepository $interestType)
+    public function editProfile(Request $request, User $profile, EntityManagerInterface $em, InterestRepository $qInterests, InterestTypeRepository $qInterestsType)
     {
         // Authorization managed by voter
         $this->denyAccessUnlessGranted('edit', $profile);
         
+        // for interest part
+        $interestsType = $qInterestsType->findInterestTypeOrder();
+        $interestsName = $qInterests->findInterestOrder();
+        
         // create form
-        $interestTypeName = $interestType->findAll();
         $form = $this->createForm(ProfileType::class, $profile);
         
         // handle the submit
@@ -50,7 +54,8 @@ class ProfileController extends AbstractController
         return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
             'user' => $profile,
-            'interestType' => $interestTypeName
+            'interestsType' => $interestsType,
+            'interestsName' => $interestsName
         ]);
     }
 
