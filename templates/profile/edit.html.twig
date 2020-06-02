@@ -76,6 +76,7 @@
                         {% include 'partials/_profileInterests.html.twig' %}
                     </div>
                 </div>
+                {{ form_widget(form.listInterest) }}
             </div>
             <div class="d-flex justify-content-center pt-2 mt-2">
                 <button type="submit" class="btn btn-profile-update btn-sm mr-2 shadow-none"><i class="far fa-edit"></i>  {{ 'profile.btn_update'|trans }}</button>
@@ -96,6 +97,57 @@
     {# management of datepicker options #}
     {% include 'partials/_datepickerManagement.html.twig' %}
     <script>
+         // ***** manage interest choices *****
+        
+        // initialize value of profile_listInterest
+        window.addEventListener("load", (event) => {
+            // var listInterest = document.getElementById("profile_listInterest").value
+            var arrayListInterest = []
+            document.querySelectorAll(".control-interest").forEach(interest => {
+                if (interest.checked) {
+                    var strInterest = interest.getAttribute("id")
+                    var interestId = strInterest.substring(strInterest.indexOf("_",1) +  1, strInterest.length)
+                    arrayListInterest.push(interestId)
+                }
+            })
+            console.log(arrayListInterest.join(";"))
+            document.getElementById("profile_listInterest").value = arrayListInterest.join(";")
+        })
+
+
+        // retrieve all interests and listen on click
+        document.querySelectorAll(".control-interest").forEach(interest => 
+            interest.addEventListener("click", () => { 
+            var listInterest = document.getElementById("profile_listInterest").value
+            // retrieve the id of interest
+            var strInterest = interest.getAttribute("id")
+            var interestId = strInterest.substring(strInterest.indexOf("_",1) + 1, strInterest.length)
+            console.log("indexOf = " + listInterest.indexOf(interestId) )
+            if (interest.checked /*&& listInterest.indexOf(interestId) == -1*/) { // if checked
+                console.log("checked - list = " + listInterest)
+                if (listInterest.length > 0) { listInterest = listInterest +  ";" }
+                listInterest = listInterest + interestId
+            }
+            else {
+                console.log("unchecked - list = " + listInterest)
+                var delId=interestId
+                var ValIndex = listInterest.indexOf(delId)
+                if (ValIndex == 0) {
+                    console.log("je suis là")
+                    if (listInterest.substring(ValIndex + delId.length, 1) == ";") { delId = delId + ";" }
+                }
+                else {
+                    delId = ";" + delId
+                }
+                console.log("delId = " + delId + " et listInterest = " + listInterest)
+                listInterest = listInterest.replace(delId,"")
+            }
+            document.getElementById("profile_listInterest").value = listInterest
+            console.log(listInterest)
+        }))
+        // ***** end of manage interest choices *****
+        
+         // ***** Management of avatar modal window **********
         btnCancel = false // cancel button of modal avatar management
 
         // load modal image when modal window is opened
@@ -205,6 +257,7 @@
                 btnCancel = false
             }
         })
+         // ***** end of management of avatar modal window **********
 
         $('#deleteProfileModal').on("hidden.bs.modal", function () {
             $("#btn-profile-delete").focus(function() {
@@ -235,6 +288,25 @@
                 'escapeHtml': true
             }
             toastr[criticity](message)
+        }
+
+        function updateListInterest(arrayListInterest, idToSearch, action) {
+            /*  update the list of interest checked
+            if action = R, remove the id from the list
+            if action = A, add the if in the list
+            
+            arrayListInterest : list of id cheched in an array
+            idToSearch : id to add or delete
+            action : R=Remove, A=Add 
+
+            return the list updated
+            Author : Frederic Parmentier
+            */
+
+            for (i=0; i<arrayListInterest.length; i++){
+                
+            }
+            
         }
     </script>
 {% endblock %}

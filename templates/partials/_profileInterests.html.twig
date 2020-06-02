@@ -23,7 +23,7 @@
                     {% endfor %}
                     {# --- #}
                     <div class="col-12 col-md col-lg custom-control custom-switch custom-control-inline mb-2">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch_{{ interestName.id }}" {{ interestChecked }}>
+                        <input type="checkbox" class="custom-control-input control-interest" id="customSwitch_{{ interestName.id }}" {{ interestChecked }}>
                         <label class="custom-control-label label-interest" for="customSwitch_{{ interestName.id }}">{{ interestName.name|trans }}</label>
                     </div>
                 {% endif %}

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\DataTransformer\DateStringToDateTransformer;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class ProfileType extends AbstractType
 {
@@ -93,6 +94,11 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('description', CKEditorType::class)
+            
+            ->add('listInterest', HiddenType::class, [
+                'mapped' => false,
+                'attr' => ['id' => 'listInterest']
+            ])
         ;
 
         // manage date format
