@@ -64,7 +64,7 @@ class AppFixtures extends Fixture
 
         $iLeisure = array(
             ['name' => 'interest.leisure_sport', 'raw' => '1'],
-            ['name' => 'interest.leisure_anima', 'raw' => '2'],
+            ['name' => 'interest.leisure_animal', 'raw' => '2'],
             ['name' => 'interest.leisure_fashion', 'raw' => '3'],
             ['name' => 'interest.leisure_art_of_live', 'raw' => '4'],
             ['name' => 'interest.leisure_garden', 'raw' => '5'],

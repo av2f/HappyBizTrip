@@ -363,9 +363,44 @@
       </trans-unit>
       <trans-unit id="interest.type_leisure">
         <source>interest.type_leisure</source>
-        <target>Loisir</target>
+        <target>Loisir et Passions</target>
       </trans-unit>
-
+      <trans-unit id="interest.leisure_sport">
+        <source>interest.leisure_sport</source>
+        <target>Sport</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_animal">
+        <source>interest.leisure_animal</source>
+        <target>Animaux</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_fashion">
+        <source>interest.leisure_fashion</source>
+        <target>Mode</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_art_of_live">
+        <source>interest.leisure_art_of_live</source>
+        <target>Art de vivre</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_garden">
+        <source>interest.leisure_garden</source>
+        <target>Jardinage</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_diy">
+        <source>interest.leisure_diy</source>
+        <target>Bricolage</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_board_game">
+        <source>interest.leisure_board_game</source>
+        <target>Jeux de société</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_role_game">
+        <source>interest.leisure_role_game</source>
+        <target>Jeux de rôle</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_gambling">
+        <source>interest.leisure_gambling</source>
+        <target>Jeux d'argent</target>
+      </trans-unit>
       <trans-unit id="interest.type_meet">
         <source>interest.type_meet</source>
         <target>Rencontre</target>

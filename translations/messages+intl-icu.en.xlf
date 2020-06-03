@@ -313,17 +313,109 @@
         <source>interest.type_culture</source>
         <target>Culture</target>
       </trans-unit>
+      <trans-unit id="interest.culture_literature">
+        <source>interest.culture_literature</source>
+        <target>Literature</target>
+      </trans-unit>
+       <trans-unit id="interest.culture_cinema">
+        <source>interest.culture_cinema</source>
+        <target>Movies</target>
+      </trans-unit>
+       <trans-unit id="interest.culture_theater">
+        <source>interest.culture_theater</source>
+        <target>Theater</target>
+      </trans-unit>
+       <trans-unit id="interest.culture_concert">
+        <source>interest.culture_concert</source>
+        <target>Concert/Opera</target>
+      </trans-unit>
+      <trans-unit id="interest.culture_music">
+        <source>interest.culture_music</source>
+        <target>Music</target>
+      </trans-unit>
+      <trans-unit id="interest.culture_art">
+        <source>interest.culture_art</source>
+        <target>Art/History</target>
+      </trans-unit>
       <trans-unit id="interest.type_science_business">
         <source>interest.type_science_business</source>
         <target>Science and Business</target>
       </trans-unit>
+      <trans-unit id="interest.science_new_tech">
+        <source>interest.science_new_tech</source>
+        <target>New technologies</target>
+      </trans-unit>
+      <trans-unit id="interest.science_sciences">
+        <source>interest.science_sciences</source>
+        <target>Sciences</target>
+      </trans-unit>
+      <trans-unit id="interest.science_politic">
+        <source>interest.science_politic</source>
+        <target>Politic</target>
+      </trans-unit>
+      <trans-unit id="interest.science_business">
+        <source>interest.science_business</source>
+        <target>Entrepreneurship</target>
+      </trans-unit>
+      <trans-unit id="interest.science_finance">
+        <source>interest.science_finance</source>
+        <target>Economy/Finance</target>
+      </trans-unit>
       <trans-unit id="interest.type_leisure">
         <source>interest.type_leisure</source>
-        <target>Leisure</target>
+        <target>Leisure and passions</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_sport">
+        <source>interest.leisure_sport</source>
+        <target>Sport</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_animal">
+        <source>interest.leisure_animal</source>
+        <target>Animals</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_fashion">
+        <source>interest.leisure_fashion</source>
+        <target>Fashion</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_art_of_live">
+        <source>interest.leisure_art_of_live</source>
+        <target>Art of living</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_garden">
+        <source>interest.leisure_garden</source>
+        <target>Gardening</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_diy">
+        <source>interest.leisure_diy</source>
+        <target>Do It Yourself</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_board_game">
+        <source>interest.leisure_board_game</source>
+        <target>Board games</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_role_game">
+        <source>interest.leisure_role_game</source>
+        <target>Role games</target>
+      </trans-unit>
+      <trans-unit id="interest.leisure_gambling">
+        <source>interest.leisure_gambling</source>
+        <target>Gambling</target>
       </trans-unit>
       <trans-unit id="interest.type_meet">
         <source>interest.type_meet</source>
         <target>Meet</target>
+      </trans-unit>
+      <trans-unit id="interest.meet_business">
+        <source>interest.meet_business</source>
+        <target>Professional</target>
+      </trans-unit>
+      <trans-unit id="interest.meet_private_f">
+        <source>interest.meet_private_f</source>
+        <target>Private female</target>
+      </trans-unit>
+      <trans-unit id="interest.meet_private_m">
+        <source>interest.meet_private_m</source>
+        <target>Private male</target>
       </trans-unit>
     </body>
   </file>
