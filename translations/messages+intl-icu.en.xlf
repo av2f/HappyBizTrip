@@ -361,6 +361,10 @@
         <source>interest.science_finance</source>
         <target>Economy/Finance</target>
       </trans-unit>
+      <trans-unit id="interest.science_well_being">
+        <source>interest.science_well_being</source>
+        <target>Well-being</target>
+      </trans-unit>
       <trans-unit id="interest.type_leisure">
         <source>interest.type_leisure</source>
         <target>Leisure and passions</target>

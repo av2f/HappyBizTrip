@@ -42,6 +42,20 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            // interests
+            // remove current interests of user
+            $interests = $profile->getInterests();
+            foreach ($interests as $interest) {
+                $profile->removeInterest($interest);
+            }
+            // update interests with new list
+            if (strlen($form->get('listInterest')->getData()) > 0) {    // at least 1 interest
+                $arrayInterests = explode(";", $form->get('listInterest')->getData());
+                foreach ($arrayInterests as $arrayInterest) {
+                    $interest = $qInterests->findOneBy(array("id" => $arrayInterest));
+                    $profile->addInterest($interest);
+                }
+            }
             $em->flush();
             $this->addFlash(
                 'success',

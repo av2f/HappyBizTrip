@@ -59,7 +59,8 @@ class AppFixtures extends Fixture
             ['name' => 'interest.science_sciences', 'raw' => '2'],
             ['name' => 'interest.science_politic', 'raw' => '3'],
             ['name' => 'interest.science_business', 'raw' => '4'],
-            ['name' => 'interest.science_finance', 'raw' => '5']
+            ['name' => 'interest.science_finance', 'raw' => '5'],
+            ['name' => 'interest.science_well_being', 'raw' => '6']
         );
 
         $iLeisure = array(
