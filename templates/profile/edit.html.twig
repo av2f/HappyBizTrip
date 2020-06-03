@@ -110,11 +110,9 @@
                     arrayListInterest.push(interestId)
                 }
             })
-            console.log(arrayListInterest.join(";"))
             document.getElementById("profile_listInterest").value = arrayListInterest.join(";")
         })
-
-
+        
         // retrieve all interests and listen on click
         document.querySelectorAll(".control-interest").forEach(interest => 
             interest.addEventListener("click", () => { 
@@ -122,28 +120,14 @@
             // retrieve the id of interest
             var strInterest = interest.getAttribute("id")
             var interestId = strInterest.substring(strInterest.indexOf("_",1) + 1, strInterest.length)
-            console.log("indexOf = " + listInterest.indexOf(interestId) )
+            // action following checked or not
             if (interest.checked /*&& listInterest.indexOf(interestId) == -1*/) { // if checked
-                console.log("checked - list = " + listInterest)
-                if (listInterest.length > 0) { listInterest = listInterest +  ";" }
-                listInterest = listInterest + interestId
+                listInterest = updateListInterest(listInterest, interestId, "A")
             }
             else {
-                console.log("unchecked - list = " + listInterest)
-                var delId=interestId
-                var ValIndex = listInterest.indexOf(delId)
-                if (ValIndex == 0) {
-                    console.log("je suis là")
-                    if (listInterest.substring(ValIndex + delId.length, 1) == ";") { delId = delId + ";" }
-                }
-                else {
-                    delId = ";" + delId
-                }
-                console.log("delId = " + delId + " et listInterest = " + listInterest)
-                listInterest = listInterest.replace(delId,"")
+                listInterest = updateListInterest(listInterest, interestId, "R")
             }
             document.getElementById("profile_listInterest").value = listInterest
-            console.log(listInterest)
         }))
         // ***** end of manage interest choices *****
         
@@ -290,7 +274,7 @@
             toastr[criticity](message)
         }
 
-        function updateListInterest(arrayListInterest, idToSearch, action) {
+        function updateListInterest(listInterest, idToSearch, action) {
             /*  update the list of interest checked
             if action = R, remove the id from the list
             if action = A, add the if in the list
@@ -302,11 +286,28 @@
             return the list updated
             Author : Frederic Parmentier
             */
-
-            for (i=0; i<arrayListInterest.length; i++){
-                
+            var arrayListInterest = []
+            if (listInterest.length > 0) {
+                arrayListInterest = listInterest.split(";")
+                var fund = false
+                var ind = -1
+                while (!fund && ind < arrayListInterest.length) {
+                    ind++
+                    if (arrayListInterest[ind] === idToSearch) {
+                        arrayListInterest.splice(ind,1)
+                        fund = true
+                    }
+                }
             }
-            
+            if (action === "A") { // add element
+                arrayListInterest.push(idToSearch)
+            }
+            if (arrayListInterest.length === 1 && action === "A") {
+                return idToSearch
+            }
+            else {
+                return arrayListInterest.join(";")
+            }
         }
     </script>
 {% endblock %}

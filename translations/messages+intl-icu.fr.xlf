@@ -313,17 +313,74 @@
         <source>interest.type_culture</source>
         <target>Culture</target>
       </trans-unit>
+      <trans-unit id="interest.culture_literature">
+        <source>interest.culture_literature</source>
+        <target>Littérature</target>
+      </trans-unit>
+       <trans-unit id="interest.culture_cinema">
+        <source>interest.culture_cinema</source>
+        <target>Cinéma</target>
+      </trans-unit>
+       <trans-unit id="interest.culture_theater">
+        <source>interest.culture_theater</source>
+        <target>Théâtre</target>
+      </trans-unit>
+       <trans-unit id="interest.culture_concert">
+        <source>interest.culture_concert</source>
+        <target>Concert/Opéra</target>
+      </trans-unit>
+      <trans-unit id="interest.culture_music">
+        <source>interest.culture_music</source>
+        <target>Musique</target>
+      </trans-unit>
+      <trans-unit id="interest.culture_art">
+        <source>interest.culture_art</source>
+        <target>Art/Histoire</target>
+      </trans-unit>
       <trans-unit id="interest.type_science_business">
         <source>interest.type_science_business</source>
         <target>Science et Business</target>
+      </trans-unit>
+      <trans-unit id="interest.science_new_tech">
+        <source>interest.science_new_tech</source>
+        <target>Nouvelles technologies</target>
+      </trans-unit>
+      <trans-unit id="interest.science_sciences">
+        <source>interest.science_sciences</source>
+        <target>Sciences</target>
+      </trans-unit>
+      <trans-unit id="interest.science_politic">
+        <source>interest.science_politic</source>
+        <target>Politique</target>
+      </trans-unit>
+      <trans-unit id="interest.science_business">
+        <source>interest.science_business</source>
+        <target>Entrepreunariat</target>
+      </trans-unit>
+      <trans-unit id="interest.science_finance">
+        <source>interest.science_finance</source>
+        <target>Economie/Finance</target>
       </trans-unit>
       <trans-unit id="interest.type_leisure">
         <source>interest.type_leisure</source>
         <target>Loisir</target>
       </trans-unit>
+
       <trans-unit id="interest.type_meet">
         <source>interest.type_meet</source>
         <target>Rencontre</target>
+      </trans-unit>
+      <trans-unit id="interest.meet_business">
+        <source>interest.meet_business</source>
+        <target>Professionnelle</target>
+      </trans-unit>
+      <trans-unit id="interest.meet_private_f">
+        <source>interest.meet_private_f</source>
+        <target>Privée féminine</target>
+      </trans-unit>
+      <trans-unit id="interest.meet_private_m">
+        <source>interest.meet_private_m</source>
+        <target>Privée masculine</target>
       </trans-unit>
     </body>
   </file>
