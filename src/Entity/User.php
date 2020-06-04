@@ -402,10 +402,6 @@ class User implements UserInterface
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         
-        // set default img avatar
-        if (is_null($this->getAvatar())) {
-            $this->setAvatar("/img/library/defaultAvatar.png");
-        }
         // set isActive to true
         $this->setIsActive(true);
         // set isSubscribed to false
