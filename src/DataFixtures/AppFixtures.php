@@ -6,6 +6,7 @@ use Faker;
 use App\Entity\User;
 use App\Entity\Interest;
 use App\Entity\InterestType;
+use App\Entity\SubcripType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -124,6 +125,24 @@ class AppFixtures extends Fixture
                     }
                     break;
             }
+        }
+        $manager->flush();
+
+        // Subscription Type
+        $subType = array(
+            ['type' => 'subscription.type_occasional', 'duration' => 1, 'durationType' => 'W', 'price' => 8.99],
+            ['type' => 'subscription.type_punctual', 'duration' => 1, 'durationType' => 'M', 'price' => 28.99],
+            ['type' => 'subscription.type_temporary', 'duration' => 3, 'durationType' => 'M', 'price' => 75.52],
+            ['type' => 'subscription.type_regular', 'duration' => 6, 'durationType' => 'M', 'price' => 129.46],
+            ['type' => 'subscription.type_permanent', 'duration' => 12, 'durationType' => 'M', 'price' => 215.76]
+        );
+        foreach($subType as $nb => $infos) {
+            $subscripType = new SubcripType();
+            $subscripType->setType($infos['type']);
+            $subscripType->setDuration($infos['duration']);
+            $subscripType->setDurationType($infos['durationType']);
+            $subscripType->setPrice($infos['price']);
+            $manager->persist($subscripType);
         }
         $manager->flush();
 
