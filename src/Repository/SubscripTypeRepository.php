@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\SubcripType;
+use App\Entity\SubscripType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,15 +12,15 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method SubcripType[]    findAll()
  * @method SubcripType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SubcripTypeRepository extends ServiceEntityRepository
+class SubscripTypeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SubcripType::class);
+        parent::__construct($registry, SubscripType::class);
     }
 
     // /**
-    //  * @return SubcripType[] Returns an array of SubcripType objects
+    //  * @return SubscripType[] Returns an array of SubscripType objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class SubcripTypeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?SubcripType
+    public function findOneBySomeField($value): ?SubscripType
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\SubcripTypeRepository;
+use App\Repository\SubscripTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SubcripTypeRepository::class)
+ * @ORM\Entity(repositoryClass=SubscripTypeRepository::class)
  */
-class SubcripType
+class SubscripType
 {
     /**
      * @ORM\Id()

@@ -6,7 +6,7 @@ use Faker;
 use App\Entity\User;
 use App\Entity\Interest;
 use App\Entity\InterestType;
-use App\Entity\SubcripType;
+use App\Entity\SubscripType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -42,7 +42,7 @@ class AppFixtures extends Fixture
         // interestType
         $type = array(
             ['nameType' => 'interest.type_culture', 'iconType' => 'fas fa-film'],
-            ['nameType' => 'interest.type_science_business', 'iconType' => 'fas fa-globe'],
+            ['nameType' => 'interest.type_science_business', 'iconType' => 'fas fa-globe-africa'],
             ['nameType' => 'interest.type_leisure', 'iconType' => 'fas fa-puzzle-piece'],
             ['nameType' => 'interest.type_meet', 'iconType' => 'fas fa-user-friends']
         );
@@ -137,7 +137,7 @@ class AppFixtures extends Fixture
             ['type' => 'subscription.type_permanent', 'duration' => 12, 'durationType' => 'M', 'price' => 215.76]
         );
         foreach($subType as $nb => $infos) {
-            $subscripType = new SubcripType();
+            $subscripType = new SubscripType();
             $subscripType->setType($infos['type']);
             $subscripType->setDuration($infos['duration']);
             $subscripType->setDurationType($infos['durationType']);
