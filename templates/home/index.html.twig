@@ -3,7 +3,7 @@
 {# use macro to customize the render of the form #}
 {% import 'macros/formRender.html.twig' as fieldRender %}
 
-{% block title %}{{ 'home.block_title'|trans }}{% endblock %}
+{% block title %}{{ 'home.block_title'|trans|raw }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('css/home') }}
@@ -15,15 +15,15 @@
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-md-7">
-                <h1 class="display-4 home-title">{{ 'home.title'|trans }}</h1>
-                <p class="lead home-title home-subtitle">{{ 'home.subtitle'|trans }}</p>
+                <h1 class="display-4 home-title">{{ 'home.title'|trans|raw }}</h1>
+                <p class="lead home-title home-subtitle">{{ 'home.subtitle'|trans|raw }}</p>
                 <img class="home-img" src="{{ asset('img/library/imgHomepage.png') }}" alt="">
             </div>
             <div class="col-md-4">
                 <div class="card mt-1">
                     <div class="card-header text-center card-entete">
-                        <h4><strong>{{ 'form.register_title'|trans }}</strong></h4>
-                        <h4><strong>{{ 'form.register_subtitle'|trans }}</strong></h4>
+                        <h4><strong>{{ 'form.register_title'|trans|raw }}</strong></h4>
+                        <h4><strong>{{ 'form.register_subtitle'|trans|raw }}</strong></h4>
                     </div>
                     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                         <div class="card-body">
@@ -33,7 +33,7 @@
                             {{ fieldRender.formFieldRender('password', form.password) }}
                         </div>
                         <div class="card-footer text-center">
-                            <button type="submit" class="btn btn-register btn-block">{{ 'form.btn_register'|trans }}</button>
+                            <button type="submit" class="btn btn-register btn-block">{{ 'form.btn_register'|trans|raw }}</button>
                         </div>
                     {{ form_end(form) }}
                 </div>
@@ -42,7 +42,7 @@
     </div>
 </div>
 <div class="container">
-    <p class="concept-title">{{ 'home.concept_title'|trans }}</p>
+    <p class="concept-title">{{ 'home.concept_title'|trans|raw }}</p>
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
         Ullamcorper eget nulla facilisi etiam dignissim. Elementum sagittis vitae et leo duis ut. 
@@ -58,19 +58,15 @@
     <p>
         Non blandit massa enim nec dui nunc mattis enim ut. Ante metus dictum at tempor commodo ullamcorper. Mattis pellentesque id nibh tortor. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien. Sit amet aliquam id diam maecenas ultricies. Fringilla urna porttitor rhoncus dolor purus non enim. Malesuada fames ac turpis egestas integer eget aliquet nibh. Faucibus a pellentesque sit amet porttitor eget dolor morbi. Ut pharetra sit amet aliquam. Et sollicitudin ac orci phasellus egestas tellus rutrum tellus. Et malesuada fames ac turpis egestas sed tempus urna. Consequat interdum varius sit amet mattis.
     </p>
-    <p class="pricing-title mt-5 mb-4">{{ 'home.price_title'|trans }}</p>
+    <p class="pricing-title mt-5 mb-4">{{ 'home.price_title'|trans|raw }}</p>
     <div class="row">
         <div class="col-md-4 col-lg-4">
             <div class="card border-happyGreen mb-3">
                 <div class="card-header">
-                    Free
+                    {{ 'subscription.type_free'|trans|raw }}
                 </div>
                 <div class="card-body">
-                    <span class="card-title">0,00 &euro;</span>
-                    <span class="frequency"> / mois</span>
-                    <ul class="list-unstyled">
-                        <li>Discover the website</li>
-                    </ul>
+                    <span class="card-title">Discover the website</span>
                     <hr>
                     <h6 class="card-text">Features limited</h6>
                 </div>
@@ -79,26 +75,26 @@
         <div class="col-md-4 col-lg-4">
             <div class="card border-happyGreen mb-3">
                 <div class="card-header">
-                    Permanent
+                    {{ 'subscription.type_occasional'|trans|raw }}
                 </div>
                 <div class="card-body">
-                    <span class="card-title">15,99 &euro;</span>
-                    <span class="frequency"> / mois</span>
+                    <span class="card-title">8,99 &euro;</span>
+                    <span class="frequency"> / semaine</span>
                     <hr>
-                    <h6 class="card-text">Engagement minimum de 12 mois</h6>
+                    <h6 class="card-text">Engagement minimum de 1 semaine</h6>
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="card border-happyGreen mb-3">
                 <div class="card-header">
-                    Permanent
+                    {{ 'subscription.type_punctual'|trans|raw }}
                 </div>
                 <div class="card-body">
-                    <span class="card-title">15,99 &euro;</span>
+                    <span class="card-title">28,99 &euro;</span>
                     <span class="frequency"> / mois</span>
                     <hr>
-                    <h6 class="card-text">Engagement minimum de 12 mois</h6>
+                    <h6 class="card-text">Engagement minimum de 1 mois</h6>
                 </div>
             </div>
         </div>
@@ -107,36 +103,36 @@
         <div class="col-md-4 col-lg-4">
             <div class="card border-happyGreen mb-3">
                 <div class="card-header">
-                    Permanent
+                    {{ 'subscription.type_temporary'|trans|raw }}
                 </div>
                 <div class="card-body">
-                    <span class="card-title">15,99 &euro;</span>
+                    <span class="card-title">25,99 &euro;</span>
                     <span class="frequency"> / mois</span>
                     <hr>
-                    <h6 class="card-text">Engagement minimum de 12 mois</h6>
+                    <h6 class="card-text">Engagement minimum de 3 mois</h6>
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="card border-happyGreen mb-3">
                 <div class="card-header">
-                    Permanent
+                    {{ 'subscription.type_regular'|trans|raw }}
                 </div>
                 <div class="card-body">
-                    <span class="card-title">15,99 &euro;</span>
+                    <span class="card-title">20,99 &euro;</span>
                     <span class="frequency"> / mois</span>
                     <hr>
-                    <h6 class="card-text">Engagement minimum de 12 mois</h6>
+                    <h6 class="card-text">Engagement minimum de 6 mois</h6>
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="card border-happyGreen mb-3">
                 <div class="card-header">
-                    Permanent
+                    {{ 'subscription.type_permanent'|trans|raw }}
                 </div>
                 <div class="card-body">
-                    <span class="card-title">15,99 &euro;</span>
+                    <span class="card-title">17,99 &euro;</span>
                     <span class="frequency"> / mois</span>
                     <hr>
                     <h6 class="card-text">Engagement minimum de 12 mois</h6>

@@ -421,6 +421,30 @@
         <source>interest.meet_private_m</source>
         <target>Privée masculine</target>
       </trans-unit>
+      <trans-unit id="subscription.type_free">
+        <source>subscription.type_free</source>
+        <target>Gratuit</target>
+      </trans-unit>
+      <trans-unit id="subscription.type_occasional">
+        <source>subscription.type_occasional</source>
+        <target>Occasionnel</target>
+      </trans-unit>
+      <trans-unit id="subscription.type_punctual">
+        <source>subscription.type_punctual</source>
+        <target>Ponctuel</target>
+      </trans-unit>
+      <trans-unit id="subscription.type_temporary">
+        <source>subscription.type_temporary</source>
+        <target>Temporaire</target>
+      </trans-unit>
+      <trans-unit id="subscription.type_regular">
+        <source>subscription.type_regular</source>
+        <target>Régulier</target>
+      </trans-unit>
+      <trans-unit id="subscription.type_permanent">
+        <source>subscription.type_permanent</source>
+        <target>Permanent</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
