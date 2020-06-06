@@ -18,7 +18,7 @@ class SubscriptionHistory
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class)
+     * @ORM\ManyToOne(targetEntity=User::class)
      */
     private $subscriber;
 

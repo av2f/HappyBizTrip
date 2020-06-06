@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\SubscriptionHistory;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method SubscriptionHistory|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,25 @@ class SubscriptionHistoryRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SubscriptionHistory::class);
+    }
+
+    /**
+     * Retrieve the last subscription history of $subscriber
+     * Return Null if no subscription
+     * Author : F. Parmentier
+     * Date : 2020/06/06
+     *
+     * @param User $subscriber
+     * @return void
+     */
+    public function findLastSubscriptionHistory(User $subscriber){
+        return $this->createQueryBuilder('s')
+            ->where('s.subscriber= :user')
+            ->orderBy('s.subscribEndAt', 'DESC')
+            ->setParameter('user', $subscriber)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     // /**

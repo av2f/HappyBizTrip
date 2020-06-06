@@ -461,6 +461,14 @@
         <source>days.left</source>
         <target>jour(s) restant(s)</target>
       </trans-unit>
+      <trans-unit id="subscription.expired">
+        <source>subscription.expired</source>
+        <target>Votre abonnement est expiré depuis le</target>
+      </trans-unit>
+      <trans-unit id="profile.btn_renew_register">
+        <source>profile.btn_renew_register</source>
+        <target>Renouveler votre abonnement</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
