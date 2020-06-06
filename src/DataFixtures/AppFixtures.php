@@ -3,9 +3,11 @@
 namespace App\DataFixtures;
 
 use Faker;
+use DateInterval;
 use App\Entity\User;
 use App\Entity\Interest;
 use App\Entity\InterestType;
+use App\Entity\Subscription;
 use App\Entity\SubscripType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -136,6 +138,7 @@ class AppFixtures extends Fixture
             ['type' => 'subscription.type_regular', 'duration' => 6, 'durationType' => 'M', 'price' => 129.46],
             ['type' => 'subscription.type_permanent', 'duration' => 12, 'durationType' => 'M', 'price' => 215.76]
         );
+        $subscriptionTypeArray=[];
         foreach($subType as $nb => $infos) {
             $subscripType = new SubscripType();
             $subscripType->setType($infos['type']);
@@ -143,6 +146,7 @@ class AppFixtures extends Fixture
             $subscripType->setDurationType($infos['durationType']);
             $subscripType->setPrice($infos['price']);
             $manager->persist($subscripType);
+            $subscriptionTypeArray[]=$subscripType;
         }
         $manager->flush();
 
@@ -152,10 +156,16 @@ class AppFixtures extends Fixture
         $genders=array('W', 'M');
         // Define Situations (C=Couple / S=Single / W=Widow)
         $situations=array('C', 'S', 'K');
+        
+        $subscribes=array(true, false);
+        
         for ($i=0; $i<20; $i++){
 
             $user = new User();
 
+            // generate randomly if subscribed or not
+            $subscribed=$subscribes[mt_rand(0, count($subscribes)-1)];
+            
             // generate randomly situation
             $situation=$situations[mt_rand(0,count($situations)-1)];
 
@@ -189,6 +199,45 @@ class AppFixtures extends Fixture
                     -> setCompany($faker->company);
 
             $manager->persist($user);
+
+            // Create subscription  
+            if ($subscribed){
+                $dateBegin=new \DateTime();
+                $subscription=$subscriptionTypeArray[mt_rand(0, count($subscriptionTypeArray)-1)];
+                switch($subscription->getDurationType()){
+                    case "W":
+                        $dateBegin=$faker->dateTimeBetween('-6 days','-1 day');
+                        break;
+                    case 'M':
+                        switch($subscription->getDuration()){
+                            case 1:
+                                $dateBegin=$faker->dateTimeBetween('-20 days','-3 days');
+                                break;
+                            case 3:
+                                $dateBegin=$faker->dateTimeBetween('-2 months','-5 days');
+                                break;
+                            case 6:
+                                $dateBegin=$faker->dateTimeBetween('-4 months','-1 month');
+                                break;
+                            case 12:
+                                $dateBegin=$faker->dateTimeBetween('-10 months','-20 days');
+                                break;
+                        }
+                    break;
+                }
+                $dateEnd=clone $dateBegin;
+                $interval="P".$subscription->getDuration().$subscription->getDurationType();
+                $dateEnd->add(new DateInterval($interval));
+                $subscribe=new Subscription();
+                $subscribe  -> setSubscriber($user)
+                            -> setSubscriberType($subscription)
+                            -> setSubscribPayAt($dateBegin)
+                            -> setSubscribBeginAt($dateBegin)
+                            -> setSubscribEndAt($dateEnd);
+
+                $manager->persist($subscribe);
+            }
+
         }
         $manager->flush();
     }
