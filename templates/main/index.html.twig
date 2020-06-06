@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'main.block_title'|trans }}{% endblock %}
+{% block title %}{{ 'main.block_title'|trans|raw }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('css/mainPage') }}

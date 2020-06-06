@@ -5,7 +5,7 @@
 {# use macro to customize the render of the form #}
 {% import 'macros/formRender.html.twig' as fieldRender %}
 
-{% block title %}{{ 'profile.block_title'|trans }}{% endblock %}
+{% block title %}{{ 'profile.block_title'|trans|raw }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('css/profile') }}
@@ -32,7 +32,7 @@
                             {% else %}
                                 "{{ asset('uploads/avatars/' ~ user.avatar) }}"
                             {% endif %}
-                            class="avatar avatar-large img-avatar" id="imgAvatarProfile" alt="{{ 'alt.avatar'|trans }} {{ user.pseudo }}" >
+                            class="avatar avatar-large img-avatar" id="imgAvatarProfile" alt="{{ 'alt.avatar'|trans|raw }} {{ user.pseudo }}" >
                         <div class="icon-edit">
                             <div class="update-icon-avatar"><i class="far fa-edit"></i></div>
                         </div>
@@ -47,7 +47,7 @@
         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             <div class="d-flex justify-content-center pt-2">
                 <div class="card card-profile mt-2">
-                    <div class="card-header text-left" style="font-size: 1rem"><i class="far fa-address-card"></i>  {{ 'profile.title.general_infos'|trans }}</div>
+                    <div class="card-header text-left" style="font-size: 1rem"><i class="far fa-address-card"></i>  {{ 'profile.title.general_infos'|trans|raw }}</div>
                     <div class="card-body text-left">
                         {{ form_widget(form.gender) }}
                         {{ form_widget(form.situation) }}
@@ -63,7 +63,7 @@
             </div>
             <div class="d-flex justify-content-center pt-2">
                 <div class="card mt-2 card-profile">
-                    <div class="card-header text-left"><i class="fas fa-user-edit"></i>  {{ 'profile.title.description'|trans }}</div>
+                    <div class="card-header text-left"><i class="fas fa-user-edit"></i>  {{ 'profile.title.description'|trans|raw }}</div>
                     <div class="card-body text-left">
                         {{ form_widget(form.description)}}
                     </div>
@@ -71,7 +71,7 @@
             </div>
             <div class="d-flex justify-content-center pt-2">
                 <div class="card mt-2 card-profile">
-                    <div class="card-header text-left"><i class="fab fa-wpexplorer"></i>  {{ 'profile.title.interests'|trans }}</div>
+                    <div class="card-header text-left"><i class="fab fa-wpexplorer"></i>  {{ 'profile.title.interests'|trans|raw }}</div>
                     <div class="card-body text-center">
                         {% include 'partials/_profileInterests.html.twig' %}
                     </div>
@@ -79,9 +79,9 @@
                 {{ form_widget(form.listInterest) }}
             </div>
             <div class="d-flex justify-content-center pt-2 mt-2">
-                <button type="submit" class="btn btn-profile-update btn-sm mr-2 shadow-none"><i class="far fa-edit"></i>  {{ 'profile.btn_update'|trans }}</button>
+                <button type="submit" class="btn btn-profile-update btn-sm mr-2 shadow-none"><i class="far fa-edit"></i>  {{ 'profile.btn_update'|trans|raw }}</button>
                 <button type="button" id="btn-profile-delete" class="btn btn-profile-delete btn-sm shadow-none" data-toggle="modal" data-target="#deleteProfileModal">
-                    <i class="far fa-trash-alt"></i>  {{ 'profile.btn_delete'|trans }}
+                    <i class="far fa-trash-alt"></i>  {{ 'profile.btn_delete'|trans|raw }}
                 </button>
             </div>
         {{ form_end(form) }}
@@ -207,16 +207,16 @@
                         if(!data.success) {
                             switch(data.error) {
                                 case "2":
-                                    msgError = "{{ 'update.avatar.msg.error_2'|trans }}"
+                                    msgError = "{{ 'update.avatar.msg.error_2'|trans|raw }}"
                                     break
                                 case "3":
-                                    msgError = "{{ 'update.avatar.msg.error_3'|trans }}"
+                                    msgError = "{{ 'update.avatar.msg.error_3'|trans|raw }}"
                                     break
                                 case "4":
-                                    msgError = "{{ 'update.avatar.msg.error_4'|trans({ '%maxFileSize%': MAX_FILE_SIZE }) }}"
+                                    msgError = "{{ 'update.avatar.msg.error_4'|trans({ '%maxFileSize%': MAX_FILE_SIZE })|raw }}"
                                     break
                                 default:
-                                    msgError = "{{ 'update.avatar.msg.error_2'|trans }}"
+                                    msgError = "{{ 'update.avatar.msg.error_2'|trans|raw }}"
                                     break
                             }
                             toastMsg("error", msgError,"4000")
@@ -234,7 +234,7 @@
                             }
                         }
                     })
-                    .catch(e => toastMsg("error", "{{ 'update.avatar.msg.error_2'|trans }}","4000"))
+                    .catch(e => toastMsg("error", "{{ 'update.avatar.msg.error_2'|trans|raw }}","4000"))
                 }
             }
             else {

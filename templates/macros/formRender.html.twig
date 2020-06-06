@@ -9,7 +9,7 @@
 {% macro formFieldRender(field, formName) %}
   {% set labelName = 'form.label_'~field %}
   <div class="form-group">
-    <label for="home_register_{{ field }}" class="label-profile">{{ labelName|trans }}</label>
+    <label for="home_register_{{ field }}" class="label-profile">{{ labelName|trans|raw }}</label>
     {{ form_widget(formName) }}
     {% if formName.vars.valid %}
         {{ form_help(formName) }}
@@ -26,7 +26,7 @@
 {% macro formDateRender(field, formName) %}
   {% set labelName = 'form.label_'~field %}
   <div class="form-group">
-    <label for="home_register_{{ field }}"  class='label-profile'>{{ labelName|trans }}</label>
+    <label for="home_register_{{ field }}"  class='label-profile'>{{ labelName|trans|raw }}</label>
     <div class="input-group" id="date-container">
       <div class="input-group-prepend">
           <span class="input-group-text">

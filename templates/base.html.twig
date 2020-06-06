@@ -60,7 +60,7 @@
                 </script>
                 {% for label, messages in app.flashes(['success', 'error']) %}
                     {% for message in messages %}    
-                        <script>toastr["{{ label }}"]("{{ message|trans }}")</script>
+                        <script>toastr["{{ label }}"]("{{ message|trans|raw }}")</script>
                     {% endfor %}
                 {% endfor %}
             {% endif %}

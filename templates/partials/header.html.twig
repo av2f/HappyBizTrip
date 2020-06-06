@@ -16,9 +16,9 @@
                 <a class="nav-link" href="#"><i class="fas fa-envelope-open"></i>&nbsp;Messages</a>
                 <a class="nav-link" href="#"><i class="fas fa-plane-departure"></i>&nbsp;Mes BizTrip</a>
             {% else %}
-                <a class="nav-item nav-link active" href="#">{{ 'menu.home_home'|trans }} <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">{{ 'menu.home_concept'|trans }}</a>
-                <a class="nav-item nav-link" href="#">{{ 'menu.home_price'|trans }}</a>
+                <a class="nav-item nav-link active" href="#">{{ 'menu.home_home'|trans|raw }} <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">{{ 'menu.home_concept'|trans|raw }}</a>
+                <a class="nav-item nav-link" href="#">{{ 'menu.home_price'|trans|raw }}</a>
             {% endif %}
         </div>
         <ul class="navbar-nav ml-auto mr-2">
@@ -47,7 +47,7 @@
                         {% else %}
                             "{{ asset('/uploads/avatars/' ~ app.user.avatar) }}"
                         {% endif %}
-                        class="avatar avatar-mini" id="imgAvatarNav" alt="{{ 'alt.avatar'|trans }} {{ app.user.pseudo }}">
+                        class="avatar avatar-mini" id="imgAvatarNav" alt="{{ 'alt.avatar'|trans|raw }} {{ app.user.pseudo }}">
                     &nbsp;{{ app.user.pseudo }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
@@ -63,7 +63,7 @@
         </ul>
         {% else %}
             <a href="{{ path('hbt_login') }}">
-                <button class="btn btn-outline-happyDarkBlue btn-sm my-2 my-sm-0">{{ 'menu.home_sign_in'|trans }}</button>
+                <button class="btn btn-outline-happyDarkBlue btn-sm my-2 my-sm-0">{{ 'menu.home_sign_in'|trans|raw }}</button>
             </a>
         {% endif %}
     </div>

@@ -11,7 +11,7 @@
                 {% endif %}
                     <div class="col-12 col-md-auto col-lg-auto custom-control custom-radio custom-control-inline">
                         <input type="radio" id="{{ form.vars.id }}_{{ key }}" name="{{ form.vars.full_name }}" class="custom-control-input" value="{{ choice.value }}" {% if choice.value is same as (app.user.gender) %}checked{% endif %}>
-                        <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="{{ icon }} pr-1"></i>{{ choice.label|trans }}</label>
+                        <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="{{ icon }} pr-1"></i>{{ choice.label|trans|raw }}</label>
                     </div>
             {% endfor %}
         </div>
@@ -33,7 +33,7 @@
                 {% endif %}
                 <div class="col-12 col-md-auto col-lg-auto custom-control custom-radio custom-control-inline">
                     <input type="radio" id="{{ form.vars.id }}_{{ key }}" name="{{ form.vars.full_name }}" class="custom-control-input" value="{{ choice.value }}" {% if choice.value is same as (app.user.situation) %}checked{% endif %}>
-                    <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="{{ icon }} pr-1"></i>{{ choice.label|trans }}</label>
+                    <label class="custom-control-label label-profile" for="{{ form.vars.id }}_{{ key }}"><i class="{{ icon }} pr-1"></i>{{ choice.label|trans|raw }}</label>
                 </div>
             {% endfor %}
         </div>

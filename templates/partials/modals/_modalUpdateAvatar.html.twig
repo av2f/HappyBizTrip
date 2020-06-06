@@ -2,24 +2,24 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header modal-avatar">
-              <h5 class="modal-title" id="modalLabel">{{ 'modal.title.modify_avatar'|trans }}</h5>
+              <h5 class="modal-title" id="modalLabel">{{ 'modal.title.modify_avatar'|trans|raw }}</h5>
               <button type="button" class="close modal-close-avatar" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body modal-avatar text-center">
                 {# the image is loaded on show.bs.modal #}
-                <img src= "" alt="{{ 'alt.avatar'|trans }} {{ user.pseudo }}" class="avatar" id="imgModalAvatar">
+                <img src= "" alt="{{ 'alt.avatar'|trans|raw }} {{ user.pseudo }}" class="avatar" id="imgModalAvatar">
             </div>
             <div class="modal-footer modal-avatar">
                 <input type="file" id="uploadFile" accept="image/png, image/jpeg, image/jpg" hidden="hidden"/>
-                <button type="button" class="btn btn-modal-avatar btn-sm mr-2 shadow-none" id="btnChangeAvatar"><i class="fas fa-camera-retro"></i> {{ 'btn.change'|trans }}</button>
-                <button type="button" class="btn btn-modal-avatar btn-sm mr-2 shadow-none" id="btnDelAvatar"><i class="far fa-trash-alt"></i> {{ 'btn.delete'|trans }}</button>
+                <button type="button" class="btn btn-modal-avatar btn-sm mr-2 shadow-none" id="btnChangeAvatar"><i class="fas fa-camera-retro"></i> {{ 'btn.change'|trans|raw }}</button>
+                <button type="button" class="btn btn-modal-avatar btn-sm mr-2 shadow-none" id="btnDelAvatar"><i class="far fa-trash-alt"></i> {{ 'btn.delete'|trans|raw }}</button>
                 <button type="button" class="btn btn-modal-avatar btn-sm mr-auto shadow-none" data-dismiss="modal">
-                    <i class="fas fa-check"></i> {{ 'btn.validate'|trans }}
+                    <i class="fas fa-check"></i> {{ 'btn.validate'|trans|raw }}
                 </button>
                 <button type="button" class="btn btn-modal-avatar btn-sm mr-2 shadow-none" data-dismiss="modal" id="btnCancelAvatar">
-                    <i class="fas fa-times"></i> {{ 'btn.cancel'|trans }}
+                    <i class="fas fa-times"></i> {{ 'btn.cancel'|trans|raw }}
                 </button>
             </div>
         </div>
