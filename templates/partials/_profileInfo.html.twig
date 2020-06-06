@@ -33,7 +33,7 @@
       </div>
       <hr>
       {% if user.subscriptions|length == 0 %}
-        <p class="col-text-profile text-center">{{ 'profile.text_register'|trans|raw }}</p>
+        <p class="col-text-profile text-center">{{ 'profile.text_unregister'|trans|raw }}</p>
         <div class="text-center">
             <a href="#">
                 <button type="button" class="btn btn-register btn-sm"><i class="fas fa-route"></i>&nbsp;{{ 'profile.btn_register'|trans|raw }}</button>
@@ -42,13 +42,16 @@
       {% else %}
         {# subscribed #}
         {% for sub in user.subscriptions %}
-          <p>{{ sub.subscribBeginAt|date('d/m/Y') }}</p>
-          <p>{{ sub.subscriberType.type|trans|raw }}</p>
+          {% set descriptionSubscription1 = 'description.subscription.1_c'|trans|raw %}  
+          {% if sub.subscriberType.type|trans|raw  matches '/^[aeiou].*/i' %} {# is 1st letter a vowel #}
+            {% set descriptionSubscription1 = 'description.subscription.1_v'|trans|raw %}
+          {% endif %}
+          <p class="col-text-profile text-center">
+            {{ descriptionSubscription1 }} <strong>{{ sub.subscriberType.type|trans|raw }}</strong> {{ 'description.subscription.2'|trans|raw}}
+            <strong>{{ sub.subscribEndAt|date('d/m/Y') }}</strong> ({{ sub.DaysEndOfSubscription }} {{ 'days.left'|trans|raw }})
+          </p>
         {% endfor %}
       {% endif %}
-      {# 
-        Gérer si la personne est abonnée
-      #}
     </div>
   </div>
   <div class="card mt-2">

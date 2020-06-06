@@ -225,8 +225,8 @@
         <source>profile.btn_register</source>
         <target>M'abonner</target>
       </trans-unit>
-      <trans-unit id="profile.text_register">
-        <source>profile.text_register</source>
+      <trans-unit id="profile.text_unregister">
+        <source>profile.text_unregister</source>
         <target>Vous n'avez souscrit à aucun abonnement.</target>
       </trans-unit>
       <trans-unit id="profile.title_dashboard">
@@ -444,6 +444,22 @@
       <trans-unit id="subscription.type_permanent">
         <source>subscription.type_permanent</source>
         <target>Permanent</target>
+      </trans-unit>
+      <trans-unit id="description.subscription.1_v">
+        <source>description.subscription.1_v</source>
+        <target>vous avez souscrit à un abonnement</target>
+      </trans-unit>
+      <trans-unit id="description.subscription.1_c">
+        <source>description.subscription.1_c</source>
+        <target>vous avez souscrit à un abonnement</target>
+      </trans-unit>
+      <trans-unit id="description.subscription.2">
+        <source>description.subscription.2</source>
+        <target>qui expire le</target>
+      </trans-unit>
+      <trans-unit id="days.left">
+        <source>days.left</source>
+        <target>jour(s) restant(s)</target>
       </trans-unit>
     </body>
   </file>

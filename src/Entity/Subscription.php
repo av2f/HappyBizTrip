@@ -107,4 +107,17 @@ class Subscription
 
         return $this;
     }
+
+    /**
+     * Calculate number of days remaining before the end of subscription
+     * Author : F. Parmentier
+     * Created At : 2019/08/24
+     *
+     * @return integer|null
+     */
+    public function getDaysEndOfSubscription(): ?int
+    {
+        $dateNow = new \Datetime();
+        return intval($dateNow->diff($this->subscribEndAt)->format("%a"));
+    }
 }
