@@ -166,9 +166,15 @@ class User implements UserInterface
      */
     private $interests;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Subscription::class, mappedBy="subscriber")
+     */
+    private $subscriptions;
+
     public function __construct()
     {
         $this->interests = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -530,6 +536,37 @@ class User implements UserInterface
     {
         if ($this->interests->contains($interest)) {
             $this->interests->removeElement($interest);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Subscription[]
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(Subscription $subscription): self
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions[] = $subscription;
+            $subscription->setSubscriber($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Subscription $subscription): self
+    {
+        if ($this->subscriptions->contains($subscription)) {
+            $this->subscriptions->removeElement($subscription);
+            // set the owning side to null (unless already changed)
+            if ($subscription->getSubscriber() === $this) {
+                $subscription->setSubscriber(null);
+            }
         }
 
         return $this;
