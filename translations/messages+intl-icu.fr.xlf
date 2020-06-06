@@ -255,7 +255,7 @@
       </trans-unit>
       <trans-unit id="profile.btn_update">
         <source>profile.btn_update</source>
-        <target>Modifier mon profil</target>
+        <target>Mettre à jour mon profil</target>
       </trans-unit>
       <trans-unit id="profile.btn_delete">
         <source>profile.btn_delete</source>

@@ -367,7 +367,7 @@
       </trans-unit>
       <trans-unit id="interest.type_leisure">
         <source>interest.type_leisure</source>
-        <target>Leisure and passions</target>
+        <target>Hobbies</target>
       </trans-unit>
       <trans-unit id="interest.leisure_sport">
         <source>interest.leisure_sport</source>

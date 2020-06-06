@@ -44,9 +44,15 @@ class SubscripType
      */
     private $subscriptions;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SubscriptionHistory::class, mappedBy="subscriberType")
+     */
+    private $subscriptionHistories;
+
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
+        $this->subscriptionHistories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +133,37 @@ class SubscripType
             // set the owning side to null (unless already changed)
             if ($subscription->getSubscriberType() === $this) {
                 $subscription->setSubscriberType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SubscriptionHistory[]
+     */
+    public function getSubscriptionHistories(): Collection
+    {
+        return $this->subscriptionHistories;
+    }
+
+    public function addSubscriptionHistory(SubscriptionHistory $subscriptionHistory): self
+    {
+        if (!$this->subscriptionHistories->contains($subscriptionHistory)) {
+            $this->subscriptionHistories[] = $subscriptionHistory;
+            $subscriptionHistory->setSubscriberType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscriptionHistory(SubscriptionHistory $subscriptionHistory): self
+    {
+        if ($this->subscriptionHistories->contains($subscriptionHistory)) {
+            $this->subscriptionHistories->removeElement($subscriptionHistory);
+            // set the owning side to null (unless already changed)
+            if ($subscriptionHistory->getSubscriberType() === $this) {
+                $subscriptionHistory->setSubscriberType(null);
             }
         }
 
