@@ -16,7 +16,7 @@
           <h6 class="mt-1">{{ user.pseudo }}<h6>
           <p class="col-text-profile">{{ user.getCalculateAge() }} {{ 'profile.age'|trans|raw }}</p>
           {# revoir le format de la date suivant la langue #}
-          <p class="col-text-profile">{{ 'profile.register_date'|trans|raw }} {{ user.createdAt|date('d/m/Y') }}</p>
+          <p class="col-text-profile">{{ 'profile.register_date'|trans|raw }} {{ user.createdAt|format_datetime('short','none') }}</p>
         </div>
     </div>
     <div class="card-body">
@@ -42,7 +42,7 @@
           </div>
         {% else %}
           <p class="col-text-profile text-center">
-            {{ 'subscription.expired'|trans|raw }} {{ lastSubscription.subscribEndAt|date('d/m/Y') }}.
+            {{ 'subscription.expired'|trans|raw }} {{ lastSubscription.subscribEndAt|format_datetime('short','none') }}.
           </p>
           <div class="text-center">
             <a href="#">
@@ -59,7 +59,7 @@
           {% endif %}
           <p class="col-text-profile text-center">
             {{ descriptionSubscription1 }} <strong>{{ sub.subscriberType.type|trans|raw }}</strong> {{ 'description.subscription.2'|trans|raw}}
-            <strong>{{ sub.subscribEndAt|date('d/m/Y') }}</strong> ({{ sub.DaysEndOfSubscription }} {{ 'days.left'|trans|raw }})
+            <strong>{{ sub.subscribEndAt|format_datetime('short','none') }}</strong> ({{ sub.DaysEndOfSubscription }} {{ 'days.left'|trans|raw }})
           </p>
         {% endfor %}
       {% endif %}
