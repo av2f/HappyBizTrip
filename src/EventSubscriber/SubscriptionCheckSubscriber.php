@@ -50,7 +50,7 @@ class SubscriptionCheckSubscriber implements EventSubscriberInterface
             $date = new \DateTime('now');
             $date->format('Ymd');
             $endSubscriptionDate = $subscription->getSubscribEndAt()->format('Ymd');
-            if ($endSubscriptionDate > $date) {     // end date of subscription postponed
+            if ($endSubscriptionDate < $date) {     // end date of subscription postponed
                 $subscriptionHistory = new SubscriptionHistory();
                 $subscriptionHistory -> setSubscriber($subscription->getSubscriber())
                                     -> setSubscriberType($subscription->getSubscriberType())
