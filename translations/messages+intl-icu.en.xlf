@@ -65,6 +65,14 @@
         <source>form.label_birthDate</source>
         <target>Date of birth</target>
       </trans-unit>
+      <trans-unit id="form.label_phoneNumber">
+        <source>form.label_phoneNumber</source>
+        <target>Phone number</target>
+      </trans-unit>
+      <trans-unit id="form.placeholder_phoneNumber">
+        <source>form.placeholder_phoneNumber</source>
+        <target> </target>
+      </trans-unit>
       <trans-unit id="form.help_birthDate">
         <source>form.help_birthDate</source>
         <target>You must have at least 18</target>

@@ -12,6 +12,7 @@ use App\Form\DataTransformer\DateStringToDateTransformer;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 
 class ProfileType extends AbstractType
 {
@@ -76,6 +77,14 @@ class ProfileType extends AbstractType
                 'help' => 'form.help_birthDate',
                 'attr' => ['class' => 'js-datepicker form-control-sm'],
                 'help_attr' => ['class' => 'form-date-help'],
+            ])
+            ->add('phoneNumber', TelType::class, [
+                'label' => 'form.label_phoneNumber',
+                'label_attr' => ['class' => 'label-profile'],
+                'attr' => [
+                    'class' => 'form-control-sm',
+                    'placeholder' => 'form.placeholder_phoneNumber'
+                ]
             ])
             ->add('profession', TextType::class, [
                 'label' => 'form.label_profession',

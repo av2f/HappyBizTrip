@@ -51,7 +51,7 @@ class AppFixtures extends Fixture
         // interestType
         $type = array(
             ['nameType' => 'interest.type_culture', 'iconType' => 'fas fa-film'],
-            ['nameType' => 'interest.type_science_business', 'iconType' => 'fas fa-globe-africa'],
+            ['nameType' => 'interest.type_science_business', 'iconType' => 'fas fa-chart-line'],
             ['nameType' => 'interest.type_leisure', 'iconType' => 'fas fa-puzzle-piece'],
             ['nameType' => 'interest.type_meet', 'iconType' => 'fas fa-user-friends']
         );
@@ -199,10 +199,12 @@ class AppFixtures extends Fixture
                     -> setFirstName($firstName)
                     -> setLastName($faker->lastName)
                     -> setBirthDate($birthDate)
+                    -> setPhoneNumber($faker->phoneNumber)
                     -> setSituation($situation)
                     -> setAvatar($picture)
                     -> setDescription($faker->sentence())
                     -> setCompany($faker->company)
+                    -> setProfession($faker->jobTitle)
                     -> setIsSubscribed(false);
             
             if ($subscribed) { $user->setIsSubscribed(true); }

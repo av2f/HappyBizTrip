@@ -48,7 +48,7 @@ class SubscriptionCheckSubscriber implements EventSubscriberInterface
         if ($user && $user->getIsSubscribed()) {
             $subscription = $this->repo->findOneBy(['subscriber'=>$user]);
             $date = new \DateTime('now');
-            $date->format('Ymd');
+            $date = $date->format('Ymd');
             $endSubscriptionDate = $subscription->getSubscribEndAt()->format('Ymd');
             if ($endSubscriptionDate < $date) {     // end date of subscription postponed
                 $subscriptionHistory = new SubscriptionHistory();

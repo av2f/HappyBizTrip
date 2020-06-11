@@ -21,7 +21,6 @@ class HomeController extends AbstractController
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager,
         LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler)
     {   
-        
         $locale = $request->getLocale();
 
         $user = new User;
@@ -52,7 +51,12 @@ class HomeController extends AbstractController
                 $authenticator, // authenticator whose onAuthenticationSuccess you want to use
                 'main'          // name firewall in security.yaml
             );
-        } 
+        }
+        
+        // if already logged, redirect directly to main page
+        if ($this->getUser()) {
+            return $this->redirectToRoute('hbt_main');
+        }
 
         return $this->render('home/index.html.twig', [
             'locale' => $locale,

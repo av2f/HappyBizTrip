@@ -61,6 +61,14 @@
         <source>form.placeholder_email</source>
         <target>Saisissez votre adresse mail</target>
       </trans-unit>
+      <trans-unit id="form.label_phoneNumber">
+        <source>form.label_phoneNumber</source>
+        <target>Téléphone</target>
+      </trans-unit>
+      <trans-unit id="form.placeholder_phoneNumber">
+        <source>form.placeholder_phoneNumber</source>
+        <target> </target>
+      </trans-unit>
       <trans-unit id="form.label_birthDate">
         <source>form.label_birthDate</source>
         <target>Date de naissance</target>
