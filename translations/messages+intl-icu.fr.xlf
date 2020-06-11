@@ -89,6 +89,18 @@
         <source>form.help_password</source>
         <target>Longueur minimale : 8 caractères</target>
       </trans-unit>
+      <trans-unit id="form.label_oldPassword">
+        <source>form.label_oldPassword</source>
+        <target>Mot de passe actuel</target>
+      </trans-unit>
+      <trans-unit id="form.label_newPassword_first">
+        <source>form.label_newPassword_first</source>
+        <target>Nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="form.label_newPassword_second">
+        <source>form.label_newPassword_second</source>
+        <target>Répétez le mot de passe</target>
+      </trans-unit>
       <trans-unit id="form.label_profession">
         <source>form.label_profession</source>
         <target>Profession</target>

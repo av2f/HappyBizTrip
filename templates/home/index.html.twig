@@ -27,10 +27,10 @@
                     </div>
                     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                         <div class="card-body">
-                            {{ fieldRender.formFieldRender('pseudo', form.pseudo) }}
-                            {{ fieldRender.formFieldRender('email', form.email) }}
-                            {{ fieldRender.formDateRender('birthDate', form.birthDate) }}
-                            {{ fieldRender.formFieldRender('password', form.password) }}
+                            {{ fieldRender.formFieldRender('pseudo', form.pseudo, 'home_register') }}
+                            {{ fieldRender.formFieldRender('email', form.email, 'home_register') }}
+                            {{ fieldRender.formDateRender('birthDate', form.birthDate, 'home_register') }}
+                            {{ fieldRender.formFieldRender('password', form.password, 'home_register') }}
                         </div>
                         <div class="card-footer text-center">
                             <button type="submit" class="btn btn-register btn-block">{{ 'form.btn_register'|trans|raw }}</button>

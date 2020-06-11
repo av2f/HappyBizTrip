@@ -51,11 +51,11 @@
                     <div class="card-body text-left">
                         {{ form_widget(form.gender) }}
                         {{ form_widget(form.situation) }}
-                        {{ fieldRender.formFieldRender('pseudo', form.pseudo) }}
+                        {{ fieldRender.formFieldRender('pseudo', form.pseudo, 'profile') }}
                         {{ form_row(form.firstName) }}
                         {{ form_row(form.lastName) }}
-                        {{ fieldRender.formFieldRender('email', form.email) }}
-                        {{ fieldRender.formDateRender('birthDate', form.birthDate) }}
+                        {{ fieldRender.formFieldRender('email', form.email, 'profile') }}
+                        {{ fieldRender.formDateRender('birthDate', form.birthDate, 'profile') }}
                         {{ form_row(form.phoneNumber) }}
                         {{ form_row(form.profession) }}
                         {{ form_row(form.company) }}

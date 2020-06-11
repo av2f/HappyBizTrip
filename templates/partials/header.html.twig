@@ -55,7 +55,7 @@
                     <div class="dropdown-divider"></div>
                     <a href="{{ path('edit_profile', {'slug':app.user.slug}) }}" class="dropdown-item">Mon profil</a>
                     <a href="#" class="dropdown-item">Mon abonnement</a>
-                    <a href="#" class="dropdown-item">Changer mon mot de passe</a>
+                    <a href="{{ path('password_profile', {'slug':app.user.slug}) }}" class="dropdown-item">Changer mon mot de passe</a>
                     <div class="dropdown-divider"></div>
                     <a href="{{ path('hbt_logout') }}" class="dropdown-item">Deconnexion</a>
                 </div>

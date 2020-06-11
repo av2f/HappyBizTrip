@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ProfileType;
 use App\Service\ImageOptimizer;
+use App\Form\ChangePasswordType;
+use App\Form\Model\ChangePassword;
 use App\Repository\InterestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\InterestTypeRepository;
@@ -193,7 +195,7 @@ class ProfileController extends AbstractController
     
     /**
      * 
-     * @Route("/profile/password/{slug}", name="password_profile", methods={"POST"})
+     * @Route("/profile/password/{slug}", name="password_profile", methods={"POST", "GET"})
      * 
      * @IsGranted("edit", subject="profile")
      * 
@@ -205,27 +207,30 @@ class ProfileController extends AbstractController
          // Authorization managed by voter
          $this->denyAccessUnlessGranted('edit', $profile);
         
-        // create form
-        $form = $this->createForm(ChangePasswordType::class, $profile);
+        $changePasswordModel = new ChangePassword();
+        
+         // create form
+        $form = $this->createForm(ChangePasswordType::class);
         
         // handle the submit
         $form->handleRequest($request);
 
+        $userModel = $form->getData();
+            var_dump($userModel);
+        
         if($form->isSubmitted() && $form->isValid()) {
            
-            /* $em->flush();
+            // $em->flush();
             $this->addFlash(
                 'success',
                 'update.profile.successfull'
             );
 
             return $this->redirectToRoute('edit_profile', ['slug' => $profile->getSlug()]);
-        } */
+        }
 
-        return $this->render('profile/changePassord.html.twig', [
+        return $this->render('profile/changePassword.html.twig', [
             'form' => $form->createView(),
-            'user' => $profile,
         ]);
     }
-
 }
