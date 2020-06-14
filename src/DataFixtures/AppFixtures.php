@@ -166,7 +166,7 @@ class AppFixtures extends Fixture
         
         $subscribes=array(true, false);
         
-        for ($i=0; $i<20; $i++){
+        for ($i=0; $i<100; $i++){
             $user = new User();
 
             // generate randomly if subscribed or not

@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\ProfileType;
 use App\Service\ImageOptimizer;
 use App\Form\ChangePasswordType;
-use App\Form\Model\ChangePassword;
 use App\Repository\InterestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\InterestTypeRepository;
@@ -16,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfileController extends AbstractController
 {
@@ -202,12 +201,10 @@ class ProfileController extends AbstractController
      * @return Response
      * 
      */
-    public function changePassord(Request $request, User $profile, EntityManagerInterface $em)
+    public function changePassord(Request $request, User $profile, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
     {
          // Authorization managed by voter
          $this->denyAccessUnlessGranted('edit', $profile);
-        
-        $changePasswordModel = new ChangePassword();
         
          // create form
         $form = $this->createForm(ChangePasswordType::class);
@@ -215,15 +212,12 @@ class ProfileController extends AbstractController
         // handle the submit
         $form->handleRequest($request);
 
-        $userModel = $form->getData();
-            var_dump($userModel);
-        
         if($form->isSubmitted() && $form->isValid()) {
-           
-            // $em->flush();
+            $profile->setPassword($passwordEncoder->encodePassword($profile, $form['newPassword']->getData()));
+            $em->flush();
             $this->addFlash(
                 'success',
-                'update.profile.successfull'
+                'update.password.successfull'
             );
 
             return $this->redirectToRoute('edit_profile', ['slug' => $profile->getSlug()]);

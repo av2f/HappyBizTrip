@@ -38,6 +38,10 @@
         <source>user.password.length</source>
         <target>Le mot de passe doit avoir au moins {{ limit }} caractères.</target>
       </trans-unit>
+      <trans-unit id="user.change.password_wrong_value">
+        <source>user.change.password_wrong_value</source>
+        <target>Mot de passe actuel incorrect.</target>
+      </trans-unit>
       <trans-unit id="user.birthDate.not_null">
         <source>user.birthDate.not_null</source>
         <target>Veuillez renseigner votre date de naissance.</target>

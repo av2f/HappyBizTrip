@@ -3,16 +3,28 @@
 namespace App\Form\Model;
 
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ChangePassword
 {
     /**
      * @SecurityAssert\UserPassword(
-     *     message = "Wrong value for your current password"
+     *     message = "user.change.password_wrong_value"
      * )
      */
     protected $oldPassword;
 
+    /**
+     * @Assert\NotBlank(
+     *  message = "user.password.not_blank"
+     * )
+     * 
+     * @Assert\Length(
+     *  min=8,
+     *  minMessage = "user.password.length"
+     * )
+     * 
+     */
     protected $newPassword;
 
     public function getOldPassword(): ?string

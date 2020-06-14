@@ -22,6 +22,10 @@
         <source>user.pseudo.length</source>
         <target>The pseudonym must have at least {{ limit }} characters.</target>
       </trans-unit>
+      <trans-unit id="user.change.password_wrong_value">
+        <source>user.change.password_wrong_value</source>
+        <target>Invalid current password.</target>
+      </trans-unit>
       <trans-unit id="user.email.not_blank">
         <source>user.email.not_blank</source>
         <target>Please, enter your email address.</target>

@@ -181,9 +181,17 @@
         <source>login.card_header</source>
         <target>Please, sign in</target>
       </trans-unit>
+      <trans-unit id="changePassword.card_header">
+        <source>changePassword.card_header</source>
+        <target>Change password</target>
+      </trans-unit>
       <trans-unit id="form.btn_login">
         <source>form.btn_login</source>
         <target>Sign in</target>
+      </trans-unit>
+      <trans-unit id="form.btn_validate">
+        <source>form.btn_validate</source>
+        <target>Validate</target>
       </trans-unit>
       <trans-unit id="login.home.card_footer">
         <source>login.home.card_footer</source>
@@ -272,6 +280,10 @@
       <trans-unit id="update.profile.successfull">
         <source>update.profile.successfull</source>
         <target>Your profile has been updated successfully</target>
+      </trans-unit>
+      <trans-unit id="update.password.successfull">
+        <source>update.password.successfull</source>
+        <target>Your password has been changed successfully</target>
       </trans-unit>
       <trans-unit id="profile.btn_update">
         <source>profile.btn_update</source>
