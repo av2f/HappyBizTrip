@@ -21,7 +21,19 @@
                 <a class="nav-item nav-link" href="#">{{ 'menu.home_price'|trans|raw }}</a>
             {% endif %}
         </div>
-        <ul class="navbar-nav ml-auto mr-2">
+        {% set classLang = "navbar-nav ml-auto mr-2" %}
+        {% if app.user %}
+            <form class="form-inline ml-auto mr-2" action="" method="POST"> 
+                <div class="input-group mr-sm-2">
+                    <input type="search" class="form-control" id="formSearch" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+            {% set classLang = "navbar-nav mr-2" %}
+        {% endif %}
+        <ul class="{{ classLang }}">
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="locales">
                     <i class="fa fa-globe" id="lang"></i> {{ app.request.locale|capitalize }}

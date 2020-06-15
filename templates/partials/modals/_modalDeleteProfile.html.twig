@@ -15,7 +15,7 @@
                 <button type="button" class="btn btn-profile-update btn-sm" data-dismiss="modal">
                     <i class="far fa-window-close"></i>  {{ 'btn.cancel'|trans|raw }}
                 </button>
-                <form action="{{ url('delete_profile', {id: user.id}) }}" method="post" id="delete-form">
+                <form action="{{ url('delete_profile', {id: user.id}) }}" method="POST" id="delete-form">
                     <input type="hidden" name="token" value="{{ csrf_token('delete') }}" />
                     <button type="submit" class="btn btn-confirm-profile-delete btn-sm">
                         <i class="far fa-trash-alt"></i>  {{ 'profile.btn_delete'|trans|raw }}
