@@ -35,7 +35,7 @@ class UserRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('u')
             ->andWhere('LOWER(u.pseudo) LIKE :criteria OR LOWER(u.lastName) LIKE :criteria OR LOWER(u.firstName) LIKE :criteria')
             ->setParameter('criteria', '%'.strtolower($criteria).'%')
-            ->select('u.id, u.pseudo, u.lastName, u.firstName, u.avatar')
+            ->select('u.id, u.slug, u.pseudo, u.lastName, u.firstName, u.avatar')
             ->orderBy('u.pseudo', 'ASC')
             ->getQuery()
             ->execute();

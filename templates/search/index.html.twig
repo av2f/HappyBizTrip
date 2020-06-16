@@ -31,6 +31,7 @@
                                 <p class="col-text-pseudo mt-0">{{result.pseudo }}</p>
                                 <p class="col-text-profile">{{ result.firstName }}  {{ result.lastName }}</p>
                                 <p class="col-text-profile">Grenoble, France</p>
+                                <a href="{{ path('show_profile', {'slug':result.slug}) }}" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
@@ -50,4 +51,16 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script>
+        // position of footer for screen >=768 px
+        $(function () {
+            if ($(window).width() >= 768) {
+                var bht = $('body').height()
+                var wht = $(window).height()
+                if (bht < wht) {
+                    $('footer').css("position", "absolute")
+                }
+            }
+        })
+    </script>
 {% endblock %}

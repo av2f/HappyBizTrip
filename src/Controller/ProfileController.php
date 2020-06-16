@@ -227,4 +227,15 @@ class ProfileController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * 
+     * @Route("/show/{slug}", name="show_profile", methods={"POST","GET"})
+     * 
+     * @IsGranted("ROLE_USER")
+     * 
+     */
+    public function showProfile() {
+
+    }
 }
