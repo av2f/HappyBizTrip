@@ -2,14 +2,52 @@
 
 {% block title %}Hello SearchController!{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}    
+    {{ encore_entry_link_tags('css/search') }}
+{% endblock %}
+
 {% block body %}
 <div class="container">
-    <h1>{{ resultSearch|length }} résultats trouvés pour {{ stringToSearch }}</h1>
+    <p class="text-result">{{ resultSearch|length }} résultats trouvés</p>
     <hr>
-    {% for result in resultSearch %}
-        <h4>{{result.pseudo }}  {{ result.firstName }}  {{ result.lastName }}</h4>
-        <hr>
-    {% endfor %}
+    <div class="d-flex justify-content-center pt-2">
+    <div class="card">
+        <div class="card-body">
+            {% for result in resultSearch %}
+                <div class="row mb-3 mt-3">
+                    <div class="col-7 col-md-8">
+                        <div class="media position-relative">
+                            <img src=
+                                    {% if result.avatar is empty %}
+                                    "{{ asset('img/library/defaultAvatar.png') }}"
+                                    {% elseif result.avatar starts with 'https:' %}
+                                    "{{ result.avatar }}"
+                                    {% else %}
+                                    "{{ asset('/uploads/avatars/' ~ result.avatar) }}"
+                                    {% endif %}
+                            class="avatar avatar-media mr-3 my-auto" alt="{{ 'alt.avatar'|trans|raw }} {{ result.pseudo }}">
+                            <div class="media-body">
+                                <p class="col-text-pseudo mt-0">{{result.pseudo }}</p>
+                                <p class="col-text-profile">{{ result.firstName }}  {{ result.lastName }}</p>
+                                <p class="col-text-profile">Grenoble, France</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 col-md-4 text-right my-auto">
+                        <button type="button" class="btn btn-outline-happyDarkBlue btn-sm">Se connecter</button>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
 {% endblock %}

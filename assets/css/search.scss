@@ -1,0 +1,49 @@
+// css for search result page
+// Author : Frederic Parmentier
+
+// Colors
+$happyDarkBlue: #7fadc5;
+$happyBlue: #415ba5;
+$HappyPurple: #3f4253;
+$happyOrange: #f5853b;
+$happyGrey: #f5f5f5;
+$happyRed: #B81A18;
+
+@media (max-width: 575.98px) {
+  .btn {
+      font-size: 0.8 rem;
+  }
+  .avatar-media {
+      max-width: 32px;
+      max-height: 32px;
+  }
+}
+@media (min-width: 576px) {
+  .avatar-media {
+      max-width: 64px;
+      max-height: 64px;
+  }
+
+  .card {
+      width:70%;
+  }
+}
+
+  .col-text-pseudo {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: $happyBlue;
+  }
+  
+  .col-text-profile {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  }
+
+  .text-result {
+    font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: $happyDarkBlue;
+  }

@@ -35,6 +35,7 @@ Encore
     .addStyleEntry('css/login', './assets/css/login.scss')
     .addStyleEntry('css/mainPage', './assets/css/mainPage.scss')
     .addStyleEntry('css/profile', './assets/css/profile.scss')
+    .addStyleEntry('css/search', './assets/css/search.scss')
     .addStyleEntry('css/datepicker/datepicker', './assets/css/datepicker/bootstrap-datepicker.min.css')
 
 
