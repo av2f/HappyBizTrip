@@ -23,11 +23,11 @@
         </div>
         {% set classLang = "navbar-nav ml-auto mr-2" %}
         {% if app.user %}
-            <form class="form-inline ml-auto mr-2" action="" method="POST"> 
+            <form class="form-inline ml-auto my-1 mr-2" action="{{ url('search') }}" method="POST"> 
                 <div class="input-group mr-sm-2">
-                    <input type="search" class="form-control" id="formSearch" placeholder="Search...">
+                    <input type="search" class="form-control" id="formSearch" name="formSearch" placeholder="Search...">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-outline-secondary btn-search" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>
