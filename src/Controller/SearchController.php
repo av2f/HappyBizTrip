@@ -14,20 +14,13 @@ class SearchController extends AbstractController
      */
     public function index(Request $request, UserRepository $userRepo)
     {
-        $result=trim($request->request->get('formSearch'));
-        
-        if(!empty($result)) {
-            var_dump($result);
-            $resultSearch = $userRepo->findbyCriteria($result);
-            dd($resultSearch);
-        }
-        else {
-            var_dump("c'est que du vent");
-        }   
+        $stringToSearch=htmlspecialchars(trim($request->request->get('formSearch')));
+        $resultSearch = ($userRepo->findbyCriteria($stringToSearch)); 
     
-        
         return $this->render('search/index.html.twig', [
-            'controller_name' => 'SearchController',
+            'resultSearch' => $resultSearch,
+            'stringToSearch' => $stringToSearch
         ]);
+
     }
 }

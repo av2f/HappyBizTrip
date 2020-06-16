@@ -28,14 +28,21 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('js/app') }}
-            
-            {# Loader #}
             <script>
+                 // Loader
                 window.addEventListener("load", function(event) {
                     document.body.removeChild(document.getElementById("loader"))
                 })
-            </script>
             
+                // formSearch - Cancel search if formSearch is empty
+                document.getElementById("btnFormSearch").addEventListener("click", function(e) {
+                    inputSearch = document.getElementById("formSearch").value
+                    if (inputSearch.trim().length === 0) {
+                        e.preventDefault();
+                    }
+                })
+            </script>
+
             {# flash message management with toastr #}
             {% if (app.session.flashbag.peek('success')|length >0) or (app.session.flashbag.peek('error')|length >0) %}
                 <script>
