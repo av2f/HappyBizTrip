@@ -9,8 +9,22 @@
 
 {% block body %}
 <div class="container">
-    <p class="text-result">{{ resultSearch|length }} résultats trouvés</p>
+    <div class="row pt-4">
+        <div class="col">
+            <span class="text-result float-left">{{ resultSearch|length }} résultats trouvés</span>
+        </div>
+        <div class="col">
+            <span class="text-advanced-search float-right">Recherche Avancée <i class="fas fa-caret-down"></i></span>
+        </div>
+    </div>
     <hr>
+    <div class="d-flex justify-content-center pt-1">
+        <div class="card"  id="advancedSearch" style="display:none">
+            <div class="card-body">
+                Formulaire de recherche avancée
+            </div>
+        </div>
+    </div>
     <div class="d-flex justify-content-center pt-2">
     <div class="card">
         <div class="card-body">
@@ -42,6 +56,24 @@
                 <hr>
             {% endfor %}
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-sm justify-content-center">
+                <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">
+                        1
+                        <span class="sr-only">(current)</span>
+                    </span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
     </div>
 

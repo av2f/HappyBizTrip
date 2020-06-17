@@ -47,3 +47,13 @@ $happyRed: #B81A18;
       margin-bottom: 0.5rem;
       color: $happyDarkBlue;
   }
+
+  .text-advanced-search {
+    font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: $happyDarkBlue;
+      &:hover {
+        cursor: pointer;
+      }
+  }
