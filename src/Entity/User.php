@@ -456,8 +456,9 @@ class User implements UserInterface
         $this->getProfession() != "" ? $userObjectCompleted++ : "" ;
         $this->getCompany() != "" ? $userObjectCompleted++ : "" ;
         $this->getDescription() != "" ? $userObjectCompleted++ : "" ;
+        $this->getPhoneNumber() != "" ? $userObjectCompleted++ : "" ;
         // add interest when done
-        $this->completed = round(($userObjectCompleted*100)/$totalUserObject);
+        return $this->completed = round(($userObjectCompleted*100)/$totalUserObject);
     }
 
     /**

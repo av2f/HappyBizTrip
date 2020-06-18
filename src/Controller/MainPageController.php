@@ -2,13 +2,21 @@
 
 namespace App\Controller;
 
-use App\Repository\SubscriptionHistoryRepository;
+use Twig\Environment;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\SubscriptionHistoryRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainPageController extends AbstractController
 {
+    private $twig;
+
+    public function __construct(Environment $twig) {
+        $this->twig = $twig;
+    }
+
     /**
      * @Route("/main", name="hbt_main")
      * 
@@ -22,9 +30,9 @@ class MainPageController extends AbstractController
 
         $lastSubscription = $subHisto->findLastSubscriptionHistory($user);
         
-        return $this->render('main/index.html.twig', [
+        return new Response($this->twig->render('main/index.html.twig', [
             'user' => $user,
             'lastSubscription' => $lastSubscription 
-        ]);
+        ]));
     }
 }

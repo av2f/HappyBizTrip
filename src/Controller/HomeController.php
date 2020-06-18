@@ -3,17 +3,25 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Twig\Environment;
 use App\Form\HomeRegisterType;
+use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use App\Security\LoginFormAuthenticator;
 
 class HomeController extends AbstractController
 {
+    private $twig;
+
+    public function __construct(Environment $twig) {
+        $this->twig = $twig;
+    }
+
     /**
      * @Route("/", name="homepage", methods={"POST"})
      * 
@@ -58,9 +66,9 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('hbt_main');
         }
 
-        return $this->render('home/index.html.twig', [
+        return new Response($this->twig->render('home/index.html.twig', [
             'locale' => $locale,
             'form' => $form->createView()
-        ]);
+        ]));
     }
 }

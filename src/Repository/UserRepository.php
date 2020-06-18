@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,6 +15,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserRepository extends ServiceEntityRepository
 {
+    public const PAGINATOR_PER_PAGE = 10;
+    
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -30,16 +33,21 @@ class UserRepository extends ServiceEntityRepository
      * @return void
      */
     
-     public function findbyCriteria($criteria) {
-
-        return $this->createQueryBuilder('u')
+     public function findbyCriteria(string $criteria, int $offset) : Paginator
+     {
+        $query = $this->createQueryBuilder('u')
             ->andWhere('LOWER(u.pseudo) LIKE :criteria OR LOWER(u.lastName) LIKE :criteria OR LOWER(u.firstName) LIKE :criteria')
             ->setParameter('criteria', '%'.strtolower($criteria).'%')
-            ->select('u.id, u.slug, u.pseudo, u.lastName, u.firstName, u.avatar')
+            ->addSelect('u.id, u.slug, u.pseudo, u.lastName, u.firstName, u.avatar')
             ->orderBy('u.pseudo', 'ASC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
             ->getQuery()
-            ->execute();
+        ;
+
+        return new Paginator($query);
     }
+       
 
     // /**
     //  * @return User[] Returns an array of User objects

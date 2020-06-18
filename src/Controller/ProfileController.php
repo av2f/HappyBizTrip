@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Twig\Environment;
 use App\Form\ProfileType;
 use App\Service\ImageOptimizer;
 use App\Form\ChangePasswordType;
@@ -19,6 +20,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfileController extends AbstractController
 {
+    private $twig;
+
+    public function __construct(Environment $twig) {
+        $this->twig = $twig;
+    }
+    
     /**
      * @Route("/profile/{slug}", name="edit_profile", methods={"POST","GET"})
      * 
@@ -66,12 +73,12 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('edit_profile', ['slug' => $profile->getSlug()]);
         }
 
-        return $this->render('profile/edit.html.twig', [
+        return new Response($this->twig->render('profile/edit.html.twig', [
             'form' => $form->createView(),
             'user' => $profile,
             'interestsType' => $interestsType,
             'interestsName' => $interestsName
-        ]);
+        ]));
     }
 
     /** 
@@ -191,7 +198,6 @@ class ProfileController extends AbstractController
         
     }
 
-    
     /**
      * 
      * @Route("/profile/password/{slug}", name="password_profile", methods={"POST", "GET"})
@@ -223,9 +229,9 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('edit_profile', ['slug' => $profile->getSlug()]);
         }
 
-        return $this->render('profile/changePassword.html.twig', [
+        return new Response($this->twig->render('profile/changePassword.html.twig', [
             'form' => $form->createView(),
-        ]);
+        ]));
     }
 
     /**
