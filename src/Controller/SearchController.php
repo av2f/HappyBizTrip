@@ -30,12 +30,11 @@ class SearchController extends AbstractController
         }
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $userRepo->findbyCriteria($stringToSearch, $offset);
-        $nbPage = ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE);
     
         return new Response($this->twig->render('search/index.html.twig', [
             'paginator' => $paginator,
             'stringToSearch' => $stringToSearch,
-            'nbPage' => $nbPage
+            'nbPage' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE)
         ]));
 
     }

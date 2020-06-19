@@ -25,60 +25,70 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center pt-2">
-    <div class="card">
-        <div class="card-body">
-            {% for result in paginator %}
-                <div class="row mb-3 mt-3">
-                    <div class="col-7 col-md-8">
-                        <div class="media position-relative">
-                            <img src=
-                                    {% if result.avatar is empty %}
-                                    "{{ asset('img/library/defaultAvatar.png') }}"
-                                    {% elseif result.avatar starts with 'https:' %}
-                                    "{{ result.avatar }}"
-                                    {% else %}
-                                    "{{ asset('/uploads/avatars/' ~ result.avatar) }}"
-                                    {% endif %}
-                            class="avatar avatar-media mr-3 my-auto" alt="{{ 'alt.avatar'|trans|raw }} {{ result.pseudo }}">
-                            <div class="media-body">
-                                <p class="col-text-pseudo mt-0">{{result.pseudo }}</p>
-                                <p class="col-text-profile">{{ result.firstName }}  {{ result.lastName }}</p>
-                                <p class="col-text-profile">Grenoble, France</p>
-                                <a href="{{ path('show_profile', {'slug':result.slug}) }}" class="stretched-link"></a>
+    {% if paginator|length >0 %}
+        <div class="d-flex justify-content-center pt-2">
+            <div class="card">
+                <div class="card-body">
+                    {% for result in paginator %}
+                        <div class="row mb-3 mt-3">
+                            <div class="col-7 col-md-8">
+                                <div class="media position-relative">
+                                    <img src=
+                                            {% if result.avatar is empty %}
+                                            "{{ asset('img/library/defaultAvatar.png') }}"
+                                            {% elseif result.avatar starts with 'https:' %}
+                                            "{{ result.avatar }}"
+                                            {% else %}
+                                            "{{ asset('/uploads/avatars/' ~ result.avatar) }}"
+                                            {% endif %}
+                                    class="avatar avatar-media mr-3 my-auto" alt="{{ 'alt.avatar'|trans|raw }} {{ result.pseudo }}">
+                                    <div class="media-body">
+                                        <p class="col-text-pseudo mt-0">{{result.pseudo }}</p>
+                                        {% if result.firstName is not empty %}
+                                            <p class="col-text-profile">{{ result.firstName }}  {{ result.lastName }}</p>
+                                        {% endif %}
+                                        {% if result.profession is not empty %}
+                                            <p class="col-text-profile">{{ result.profession }}
+                                            {% if result.company is not empty %} chez {{ result.company }} {% endif %}
+                                            </p>
+                                        {% endif %}
+                                        <p class="col-text-profile">Grenoble, France</p>
+                                        <a href="{{ path('show_profile', {'slug':result.slug}) }}" class="stretched-link"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5 col-md-4 text-right my-auto">
+                                <button type="button" class="btn btn-outline-happyDarkBlue btn-sm">Se connecter</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-5 col-md-4 text-right my-auto">
-                        <button type="button" class="btn btn-outline-happyDarkBlue btn-sm">Se connecter</button>
-                    </div>
+                        {% if not loop.last %}<hr>{% endif %}
+                    {% endfor %}
                 </div>
-                <hr>
-            {% endfor %}
+                {% if nbPage > 1 %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-sm justify-content-center">
+                            <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-angle-double-left"></i></a>
+                            </li>
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">
+                                    1
+                                    <span class="sr-only">(current)</span>
+                                </span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="{{ path('search', { stringToSearch: stringToSearch, offset:11 }) }}">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">100</a></li>
+                            <li class="page-item">
+                            <a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination pagination-sm justify-content-center">
-                <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-angle-double-left"></i></a>
-                </li>
-                <li class="page-item active" aria-current="page">
-                    <span class="page-link">
-                        1
-                        <span class="sr-only">(current)</span>
-                    </span>
-                </li>
-                <li class="page-item"><a class="page-link" href="{{ path('search', { stringToSearch: stringToSearch, offset:2 }) }}">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">100</a></li>
-                <li class="page-item">
-                <a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    </div>
-
+    {% endif %}
 </div>
 
 {% endblock %}
