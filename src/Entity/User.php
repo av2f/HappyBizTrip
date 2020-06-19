@@ -443,7 +443,7 @@ class User implements UserInterface
      * 
      */
     public function computeCompleted() {
-        $totalUserObject=13;
+        $totalUserObject=14;
         // by default, 3 objects fullfiled {pseudo/email/Date of Birth}
         // object password not taken into account
         $userObjectCompleted=3;
@@ -457,7 +457,7 @@ class User implements UserInterface
         $this->getCompany() != "" ? $userObjectCompleted++ : "" ;
         $this->getDescription() != "" ? $userObjectCompleted++ : "" ;
         $this->getPhoneNumber() != "" ? $userObjectCompleted++ : "" ;
-        // add interest when done
+        count($this->getInterests()) != 0 ? $userObjectCompleted++ : "";
         return $this->completed = round(($userObjectCompleted*100)/$totalUserObject);
     }
 

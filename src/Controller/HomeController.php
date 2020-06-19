@@ -29,8 +29,6 @@ class HomeController extends AbstractController
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager,
         LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler)
     {   
-        $locale = $request->getLocale();
-
         $user = new User;
         
         // create form
@@ -67,7 +65,7 @@ class HomeController extends AbstractController
         }
 
         return new Response($this->twig->render('home/index.html.twig', [
-            'locale' => $locale,
+            'locale' => $request->getLocale(),
             'form' => $form->createView()
         ]));
     }

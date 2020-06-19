@@ -39,10 +39,6 @@ class ProfileController extends AbstractController
         // Authorization managed by voter
         $this->denyAccessUnlessGranted('edit', $profile);
         
-        // for interest part
-        $interestsType = $qInterestsType->findInterestTypeOrder();
-        $interestsName = $qInterests->findInterestOrder();
-        
         // create form
         $form = $this->createForm(ProfileType::class, $profile);
         
@@ -76,8 +72,8 @@ class ProfileController extends AbstractController
         return new Response($this->twig->render('profile/edit.html.twig', [
             'form' => $form->createView(),
             'user' => $profile,
-            'interestsType' => $interestsType,
-            'interestsName' => $interestsName
+            'interestsType' => $qInterestsType->findInterestTypeOrder(),
+            'interestsName' => $qInterests->findInterestOrder()
         ]));
     }
 
@@ -207,7 +203,7 @@ class ProfileController extends AbstractController
      * @return Response
      * 
      */
-    public function changePassord(Request $request, User $profile, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
+    public function changePassword(Request $request, User $profile, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
     {
          // Authorization managed by voter
          $this->denyAccessUnlessGranted('edit', $profile);
