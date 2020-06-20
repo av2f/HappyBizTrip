@@ -72,8 +72,8 @@ class ProfileController extends AbstractController
         return new Response($this->twig->render('profile/edit.html.twig', [
             'form' => $form->createView(),
             'user' => $profile,
-            'interestsType' => $qInterestsType->findInterestTypeOrder(),
-            'interestsName' => $qInterests->findInterestOrder()
+            'interests_type' => $qInterestsType->findInterestTypeOrder(),
+            'interests_name' => $qInterests->findInterestOrder()
         ]));
     }
 

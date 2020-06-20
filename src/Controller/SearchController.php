@@ -18,23 +18,21 @@ class SearchController extends AbstractController
     }
     
     /**
-     * @Route("/search", name="search", methods={"POST", "GET"})
+     * @Route("/search/{stringToSearch?""}/{page<\d+>?1}", name="search", methods={"POST", "GET"})
      */
-    public function index(Request $request, UserRepository $userRepo)
+    public function index(Request $request, UserRepository $userRepo, int $page, string $stringToSearch)
     {
         if (isset($_POST['formSearch'])) {
             $stringToSearch=htmlspecialchars(trim($request->request->get('formSearch')));
         }
-        else {
-            $stringToSearch = $request->query->get('stringToSearch');
-        }
-        $offset = max(0, $request->query->getInt('offset', 0));
+        $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $paginator = $userRepo->findbyCriteria($stringToSearch, $offset);
     
         return new Response($this->twig->render('search/index.html.twig', [
             'paginator' => $paginator,
-            'stringToSearch' => $stringToSearch,
-            'nbPage' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE)
+            'string_to_search' => $stringToSearch,
+            'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),
+            'page' => $page
         ]));
 
     }

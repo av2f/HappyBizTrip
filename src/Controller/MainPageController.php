@@ -32,7 +32,7 @@ class MainPageController extends AbstractController
         
         return new Response($this->twig->render('main/index.html.twig', [
             'user' => $user,
-            'lastSubscription' => $lastSubscription 
+            'last_subscription' => $lastSubscription 
         ]));
     }
 }

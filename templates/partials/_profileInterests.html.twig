@@ -1,4 +1,4 @@
-{% for interestType in interestsType %}
+{% for interestType in interests_type %}
     <div class="card mt-2 card-profile">
         <div class="card-header card-header-profile-interest text-left">
             <i class="{{ interestType.iconType }}"></i>&nbsp;&nbsp;{{ interestType.nameType|trans|raw }}
@@ -6,7 +6,7 @@
         <div class="card-body text-left">
             {% set numRow = 0 %}
             <div class="row">
-            {% for interestName in interestsName %}
+            {% for interestName in interests_name %}
                 {% if interestName.interestType.id == interestType.id %}
                     {% if numRow >= 3 %}
                         </div> {# end row #}

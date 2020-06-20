@@ -33,7 +33,7 @@
       </div>
       <hr>
       {% if not user.isSubscribed %}
-        {% if lastSubscription|length == 0 %}
+        {% if last_subscription|length == 0 %}
           <p class="col-text-profile text-center">{{ 'profile.text_unregister'|trans|raw }}</p>
           <div class="text-center">
               <a href="#">
@@ -42,7 +42,7 @@
           </div>
         {% else %}
           <p class="col-text-profile text-center">
-            {{ 'subscription.expired'|trans|raw }} {{ lastSubscription.subscribEndAt|format_datetime('short','none') }}.
+            {{ 'subscription.expired'|trans|raw }} {{ last_subscription.subscribEndAt|format_datetime('short','none') }}.
           </p>
           <div class="text-center">
             <a href="#">
