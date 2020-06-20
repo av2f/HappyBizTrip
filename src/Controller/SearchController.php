@@ -25,9 +25,8 @@ class SearchController extends AbstractController
         if (isset($_POST['formSearch'])) {
             $stringToSearch=$request->request->get('formSearch');
         }
-        $stringToSearch = htmlspecialchars(trim($stringToSearch));
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
-        $paginator = $userRepo->findbyCriteria($stringToSearch, $offset);
+        $paginator = $userRepo->findbyCriteria(htmlspecialchars(trim($stringToSearch)), $offset);
     
         return new Response($this->twig->render('search/index.html.twig', [
             'paginator' => $paginator,
