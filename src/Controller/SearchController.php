@@ -32,7 +32,8 @@ class SearchController extends AbstractController
             'paginator' => $paginator,
             'string_to_search' => $stringToSearch,
             'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),
-            'page' => $page
+            'page' => $page,
+            'user_id' => $this->getUser()->getId()
         ]));
 
     }
