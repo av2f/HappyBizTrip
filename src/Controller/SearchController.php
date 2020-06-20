@@ -23,8 +23,9 @@ class SearchController extends AbstractController
     public function index(Request $request, UserRepository $userRepo, int $page, string $stringToSearch)
     {
         if (isset($_POST['formSearch'])) {
-            $stringToSearch=htmlspecialchars(trim($request->request->get('formSearch')));
+            $stringToSearch=$request->request->get('formSearch');
         }
+        $stringToSearch = htmlspecialchars(trim($stringToSearch));
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $paginator = $userRepo->findbyCriteria($stringToSearch, $offset);
     

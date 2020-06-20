@@ -70,22 +70,35 @@
                             <li class="page-item {% if page == 1 %}disabled{% endif %}">
                                 <a class="page-link" href="{{ path('search', { page:page - 1, stringToSearch:string_to_search }) }}" tabindex="-1" aria-disabled="true"><i class="fas fa-angle-double-left"></i></a>
                             </li>
-                            {% if nb_page <= 5 %}
-                                {% for numPage in 1..nb_page %}
+                            <li class="page-item {% if page == 1 %}active{% endif %}"><a class="page-link" href="{{ path('search', { page:1, stringToSearch:string_to_search }) }}">1</a></li>
+                            
+                            {% set NUM_MAX_PAGE = 7 %}
+                            
+                            {% if nb_page <= NUM_MAX_PAGE %}
+                                {% for numPage in 2..nb_page %}
                                     <li class="page-item {% if numPage == page %}active{% endif %}"><a class="page-link" href="{{ path('search', { page:numPage, stringToSearch:string_to_search }) }}">{{ numPage }}</a></li>
                                 {% endfor %}
                             {% else %}
-                                <li class="page-item active" aria-current="page">
-                                    <span class="page-link">
-                                        1
-                                        <span class="sr-only">(current)</span>
-                                    </span>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="{{ path('search', { stringToSearch: string_to_search, offset:11 }) }}">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                <li class="page-item"><a class="page-link" href="#">100</a></li>
+                                {% if page <= NUM_MAX_PAGE - 2 %}
+                                    {% set lim_page = NUM_MAX_PAGE - 2 %}
+                                    {% for numPage in 2..lim_page %}
+                                        <li class="page-item {% if numPage == page %}active{% endif %}"><a class="page-link" href="{{ path('search', { page:numPage, stringToSearch:string_to_search }) }}">{{ numPage }}</a></li>
+                                    {% endfor %}
+                                        <li class="page-item"><a class="page-link" href="{{ path('search', { page: lim_page +1, stringToSearch:string_to_search }) }}">...</a></li>
+                                {% elseif page >= nb_page - (NUM_MAX_PAGE - 3) %}
+                                    <li class="page-item"><a class="page-link" href="{{ path('search', { page: nb_page - (NUM_MAX_PAGE - 2), stringToSearch:string_to_search }) }}">...</a></li>
+                                    {% for numPage in nb_page - (NUM_MAX_PAGE - 3) .. nb_page - 1 %}
+                                        <li class="page-item {% if numPage == page %}active{% endif %}"><a class="page-link" href="{{ path('search', { page:numPage, stringToSearch:string_to_search }) }}">{{ numPage }}</a></li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="{{ path('search', { page: page - 2, stringToSearch:string_to_search }) }}">...</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ path('search', { page: page - 1, stringToSearch:string_to_search }) }}">{{ page - 1}}</a></li>
+                                    <li class="page-item active"><a class="page-link" href="{{ path('search', { page: page, stringToSearch:string_to_search }) }}">{{ page }}</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ path('search', { page: page + 1, stringToSearch:string_to_search }) }}">{{ page + 1}}</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ path('search', { page: page + 2, stringToSearch:string_to_search }) }}">...</a></li>
+                                {% endif %}
                             {% endif %}
+                            <li class="page-item {% if page == nb_page %}active{% endif %}"><a class="page-link" href="{{ path('search', { page: nb_page, stringToSearch:string_to_search }) }}">{{ nb_page }}</a></li>
                             <li class="page-item {% if page == nb_page %}disabled{% endif %}">
                                 <a class="page-link" href="{{ path('search', { page:page + 1, stringToSearch:string_to_search }) }}"><i class="fas fa-angle-double-right"></i></a>
                             </li>
