@@ -11,10 +11,10 @@
 <div class="container">
     <div class="row pt-4">
         <div class="col">
-            <span class="text-result float-left">{{ paginator|length }} résultats trouvés  {{ nb_page }} pages</span>
+            <span class="text-result float-left">{{ 'search.result'|trans({count: paginator|length })|raw }}</span>
         </div>
         <div class="col">
-            <span class="text-advanced-search float-right" id="btnAdvancedSearch">Recherche Avancée <i id="iconAdvancedSearch" class="fas fa-caret-down"></i></span>
+            <span class="text-advanced-search float-right" id="btnAdvancedSearch">{{ 'search.advanced'|trans|raw }} <i id="iconAdvancedSearch" class="fas fa-caret-down"></i></span>
         </div>
     </div>
     <hr>
@@ -44,14 +44,14 @@
                                     class="avatar avatar-media mr-3 my-auto" alt="{{ 'alt.avatar'|trans|raw }} {{ result.pseudo }}">
                                     <div class="media-body">
                                         <p class="col-text-pseudo mt-0">{{result.pseudo }}
-                                            {% if result.id == user_id %}<span class="badge badge-happyDarkBlue">Vous</span>{% endif %}
+                                            {% if result.id == user_id %}<span class="badge badge-happyDarkBlue">{{ 'generic.you'|trans|raw }}</span>{% endif %}
                                         </p>
                                         {% if result.firstName is not empty %}
                                             <p class="col-text-profile">{{ result.firstName }}  {{ result.lastName }}</p>
                                         {% endif %}
                                         {% if result.profession is not empty %}
                                             <p class="col-text-profile">{{ result.profession }}
-                                            {% if result.company is not empty %} chez {{ result.company }} {% endif %}
+                                            {% if result.company is not empty %} {{ 'generic.at'|trans|raw }} {{ result.company }} {% endif %}
                                             </p>
                                         {% endif %}
                                         <p class="col-text-profile">Grenoble, France</p>
@@ -61,7 +61,7 @@
                             </div>
                             {% if result.id != user_id %}
                                 <div class="col-5 col-md-4 text-right my-auto">
-                                    <button type="button" class="btn btn-outline-happyDarkBlue btn-sm">Se connecter</button>
+                                    <button type="button" class="btn btn-outline-happyDarkBlue btn-sm">{{ 'generic.connect'|trans|raw }}</button>
                                 </div>
                             {% endif %}
                         </div>

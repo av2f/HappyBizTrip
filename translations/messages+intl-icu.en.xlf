@@ -501,6 +501,26 @@
         <source>profile.btn_renew_register</source>
         <target>Renew your subscription</target>
       </trans-unit>
+      <trans-unit id="search.result">
+        <source>search.result</source>
+        <target>{count, plural, =0 {No result} =1 {1 result} other {# results}}</target>
+      </trans-unit>
+      <trans-unit id="search.advanced">
+        <source>search.advanced</source>
+        <target>Advanced search</target>
+      </trans-unit>
+      <trans-unit id="generic.you">
+        <source>generic.you</source>
+        <target>You</target>
+      </trans-unit>
+      <trans-unit id="generic.at">
+        <source>generic.at</source>
+        <target>at</target>
+      </trans-unit>
+      <trans-unit id="generic.connect">
+        <source>generic.connect</source>
+        <target>Connect to</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
