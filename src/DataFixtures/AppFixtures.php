@@ -11,11 +11,12 @@ namespace App\DataFixtures;
 use Faker;
 use DateInterval;
 use App\Entity\User;
+use App\Entity\Visit;
 use App\Entity\Interest;
 use App\Entity\InterestType;
 use App\Entity\Subscription;
-use App\Entity\SubscriptionHistory;
 use App\Entity\SubscripType;
+use App\Entity\SubscriptionHistory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -48,6 +49,9 @@ class AppFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
+        $NB_USER = 200;
+        $entryUser = array();
+        
         // interestType
         $type = array(
             ['nameType' => 'interest.type_culture', 'iconType' => 'fas fa-film'],
@@ -166,7 +170,7 @@ class AppFixtures extends Fixture
         
         $subscribes=array(true, false);
         
-        for ($i=0; $i<200; $i++){
+        for ($i=0; $i<$NB_USER; $i++){
             $user = new User();
 
             // generate randomly if subscribed or not
@@ -209,6 +213,7 @@ class AppFixtures extends Fixture
             
             if ($subscribed) { $user->setIsSubscribed(true); }
             $manager->persist($user);
+            array_push($entryUser, $user);
 
             // Create subscription  
             if ($subscribed){
@@ -286,6 +291,21 @@ class AppFixtures extends Fixture
                                 -> setSubscribEndAt($dateEnd);
 
                     $manager->persist($subscribe);
+                }
+            }
+        }
+        // manage visitor
+        foreach ($entryUser as $u) {
+            if (mt_rand(0,1) == 1) { // randomly if visited
+                $visitors = array_rand($entryUser, mt_rand(2, 20));
+                for ($i=0;$i<count($visitors);$i++) {
+                    $v = $entryUser[$visitors[$i]];                    
+                    if ($u->getPseudo() != $v->getPseudo()) {
+                        $visit = new Visit();
+                        $visit  -> setUser($u)
+                                -> setVisitor($v);
+                        $manager->persist($visit);
+                    }
                 }
             }
         }

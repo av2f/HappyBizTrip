@@ -102,7 +102,11 @@
           <span class="col-text-profile"><i class="fas fa-eye"></i> Nouvelles visites</span>
         </div>
         <div class="col-3">
-          <span class="col-text-profile text-right badge badge-blue">01</span>
+          <span class="col-text-profile text-right badge badge-blue">
+            {% if user.visits|length > 99 %} +99
+            {% else %} {{ '%02d'|format(user.visits|length) }}
+            {% endif %}
+          </span>
         </div>
       </div>
       <hr>

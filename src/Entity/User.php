@@ -176,10 +176,16 @@ class User implements UserInterface
      */
     private $phoneNumber;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Visit::class, mappedBy="visitor")
+     */
+    private $visits;
+
     public function __construct()
     {
         $this->interests = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
+        $this->visits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -588,6 +594,37 @@ class User implements UserInterface
     public function setPhoneNumber(?string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Visit[]
+     */
+    public function getVisits(): Collection
+    {
+        return $this->visits;
+    }
+
+    public function addVisit(Visit $visit): self
+    {
+        if (!$this->visits->contains($visit)) {
+            $this->visits[] = $visit;
+            $visit->setVisitor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVisit(Visit $visit): self
+    {
+        if ($this->visits->contains($visit)) {
+            $this->visits->removeElement($visit);
+            // set the owning side to null (unless already changed)
+            if ($visit->getVisitor() === $this) {
+                $visit->setVisitor(null);
+            }
+        }
 
         return $this;
     }
