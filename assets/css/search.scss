@@ -62,3 +62,9 @@ $happyRed: #B81A18;
     color: $happyDarkBlue;
   }
   
+  .page-item.active .page-link {
+    z-index: 1;
+    background-color: $happyDarkBlue;
+    border-color: $happyDarkBlue;
+  }
+  
