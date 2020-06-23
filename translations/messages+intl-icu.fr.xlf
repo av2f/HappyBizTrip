@@ -13,6 +13,14 @@
         <source>home.title</source>
         <target>Bienvenue sur HappyBizTrip</target>
       </trans-unit>
+      <trans-unit id="search.block_title">
+        <source>search.block_title</source>
+        <target>Recherche</target>
+      </trans-unit>
+      <trans-unit id="visit.block_title">
+        <source>visit.block_title</source>
+        <target>Nouvelles visites</target>
+      </trans-unit>
       <trans-unit id="home.subtitle">
         <source>home.subtitle</source>
         <target>Prenez plaisir à vous déplacer</target>

@@ -18,12 +18,12 @@ class Visit
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="visits")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="visits")
+     * @ORM\ManyToOne(targetEntity=User::class)
      */
     private $visitor;
 

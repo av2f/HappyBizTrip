@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'search.block_title'|trans|raw }}{% endblock %}
+{% block title %}{{ 'visit.block_title'|trans|raw }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}    
@@ -18,13 +18,6 @@
         </div>
     </div>
     <hr>
-    <div class="d-flex justify-content-center pt-1">
-        <div class="card" id="advancedSearch" style="display:none;">
-            <div class="card-body">
-                Formulaire de recherche avancée
-            </div>
-        </div>
-    </div>
     {# diplay the list of profiles #}
     {% include 'partials/_listProfile.html.twig' %}   
 </div>
@@ -42,21 +35,6 @@
                 if (bht < wht) {
                     $('footer').css("position", "absolute")
                 }
-            }
-        })
-    
-        // advanced search form visible or not
-        document.getElementById("btnAdvancedSearch").addEventListener("click", function(){
-            document.getElementById("advancedSearch").style.display
-            if ( document.getElementById("advancedSearch").style.display === "none") {
-                $("#advancedSearch").show("slow")
-                document.getElementById("iconAdvancedSearch").className = "fas fa-caret-up"
-                document.getElementById("advancedSearch").style.display = "inline"
-            }
-            else {
-                $("#advancedSearch").hide("slow")
-                document.getElementById("iconAdvancedSearch").className = "fas fa-caret-down"
-                document.getElementById("advancedSearch").style.display = "none"
             }
         })
     </script>

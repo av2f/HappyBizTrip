@@ -237,7 +237,7 @@ class ProfileController extends AbstractController
      * @IsGranted("ROLE_USER")
      * 
      */
-    public function showProfile() {
+    public function showProfile(string $slug) {
 
     }
 }

@@ -6,6 +6,7 @@ use Twig\Environment;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\SubscriptionHistoryRepository;
+use App\Repository\VisitRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -34,5 +35,24 @@ class MainPageController extends AbstractController
             'user' => $user,
             'last_subscription' => $lastSubscription 
         ]));
+    }
+
+    /**
+     * @Route("/visit/{slug}", name="show_visit")
+     * 
+     * Can access only if login ok
+     * @isGranted("ROLE_USER")
+     * 
+     */
+    public function showVisit(VisitRepository $visitRepo) {
+        // récupérer la liste des nouvelles visites
+        // effacer dans la table visits les visits
+        // afficher la liste
+        $user = $this->getUser();
+        $allVisit = $visitRepo->findBy(['user' => $user]);
+        dd($allVisit);
+
+
+
     }
 }
