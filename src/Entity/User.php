@@ -628,35 +628,4 @@ class User implements UserInterface
 
         return $this;
     }
-
-    /**
-     * @return Collection|NewVisit[]
-     */
-    public function getNewVisits(): Collection
-    {
-        return $this->newVisits;
-    }
-
-    public function addNewVisit(NewVisit $newVisit): self
-    {
-        if (!$this->newVisits->contains($newVisit)) {
-            $this->newVisits[] = $newVisit;
-            $newVisit->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNewVisit(NewVisit $newVisit): self
-    {
-        if ($this->newVisits->contains($newVisit)) {
-            $this->newVisits->removeElement($newVisit);
-            // set the owning side to null (unless already changed)
-            if ($newVisit->getUser() === $this) {
-                $newVisit->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 }

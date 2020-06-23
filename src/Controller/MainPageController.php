@@ -48,9 +48,8 @@ class MainPageController extends AbstractController
         // récupérer la liste des nouvelles visites
         // effacer dans la table visits les visits
         // afficher la liste
-        $user = $this->getUser();
-        $allVisit = $visitRepo->findBy(['user' => $user]);
-        dd($allVisit);
+        $visits = $visitRepo->findBy(['user' => $this->getUser()]);
+        dd($visits);
 
 
 
