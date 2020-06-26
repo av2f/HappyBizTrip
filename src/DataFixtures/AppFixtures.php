@@ -294,6 +294,7 @@ class AppFixtures extends Fixture
                 }
             }
         }
+        // $manager->flush();
         // manage visitor
         foreach ($entryUser as $u) {
             if (mt_rand(0,1) == 1) { // randomly if visited
@@ -301,11 +302,9 @@ class AppFixtures extends Fixture
                 for ($i=0;$i<count($visitors);$i++) {
                     $v = $entryUser[$visitors[$i]];                    
                     if ($u->getPseudo() != $v->getPseudo()) {
-                        $visit = new Visit();
-                        $visit  -> setUser($u)
-                                -> setVisitor($v);
-                        $manager->persist($visit);
+                        $u->addVisitor($v);
                     }
+                    $manager->persist($u);
                 }
             }
         }

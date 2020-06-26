@@ -38,13 +38,27 @@ class UserRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('u')
             ->andWhere('LOWER(u.pseudo) LIKE :criteria OR LOWER(u.lastName) LIKE :criteria OR LOWER(u.firstName) LIKE :criteria')
             ->setParameter('criteria', '%'.strtolower($criteria).'%')
-            ->addSelect('u.id, u.slug, u.pseudo, u.lastName, u.firstName, u.avatar, u.profession, u.company')
             ->orderBy('u.pseudo', 'ASC')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
             ->setFirstResult($offset)
             ->getQuery()
         ;
 
+        return new Paginator($query);
+    }
+
+    public function myFindVisitors(int $id, int $offset) : Paginator
+    {
+        $query = $this->createQueryBuilder('u')
+            ->leftJoin ('u.visitors','t')
+            ->where('t.id = :id')
+            ->setParameter('id', $id)
+            ->orderBy('u.pseudo', 'ASC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery()
+        ;
+         
         return new Paginator($query);
     }
        

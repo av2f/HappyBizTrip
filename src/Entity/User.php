@@ -176,16 +176,20 @@ class User implements UserInterface
      */
     private $phoneNumber;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Visit::class, mappedBy="user")
+     /**
+     * @ORM\ManyToMany(targetEntity=User::class)
+     * @ORM\JoinTable(name="visits",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="visitor_id", referencedColumnName="id")}
+     * )
      */
-    private $visits;
+    private $visitors; 
 
     public function __construct()
     {
         $this->interests = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
-        $this->visits = new ArrayCollection();
+        $this->visitors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -598,32 +602,29 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Visit[]
+     /**
+     * @return Collection|User[]
      */
-    public function getVisits(): Collection
+    public function getVisitors(): Collection
     {
-        return $this->visits;
+        return $this->visitors;
     }
 
-    public function addVisit(Visit $visit): self
+    public function addVisitor(User $visitor): self
     {
-        if (!$this->visits->contains($visit)) {
-            $this->visits[] = $visit;
-            $visit->setVisitor($this);
+        if (!$this->visitors->contains($visitor)) {
+            $this->visitors[] = $visitor;
+            $visitor->addVisitor($this);
         }
 
         return $this;
     }
 
-    public function removeVisit(Visit $visit): self
+    public function removeVisitor(User $visitor): self
     {
-        if ($this->visits->contains($visit)) {
-            $this->visits->removeElement($visit);
-            // set the owning side to null (unless already changed)
-            if ($visit->getVisitor() === $this) {
-                $visit->setVisitor(null);
-            }
+        if ($this->visitors->contains($visitor)) {
+            $this->visitors->removeElement($visitor);
+            $visitor->removeVisitor($this);
         }
 
         return $this;
