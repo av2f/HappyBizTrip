@@ -39,7 +39,7 @@ class MainPageController extends AbstractController
     }
 
     /**
-     * @Route("/visit/{slug}", name="show_visit")
+     * @Route("/visit/{page<\d+>?1}", name="show_visit")
      * 
      * Can access only if login ok
      * @isGranted("ROLE_USER")
@@ -47,14 +47,16 @@ class MainPageController extends AbstractController
      */
     public function showVisit(UserRepository $userRepo, int $page = 1)
     {
-        // récupérer la liste des nouvelles visites
-        // effacer dans la table visits les visits
-        // afficher la liste
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $paginator = $userRepo->myFindVisitors($this->getUser()->getId(), $offset);
-        foreach ($paginator as $visit) {
-            dump($visit);
-        }
-        die();
+        
+        // effacer dans la table visits les visits
+
+        return new Response($this->twig->render('main/visit.html.twig', [
+            'paginator' => $paginator,
+            'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),
+            'page' => $page,
+            'user_id' => $this->getUser()->getId()
+        ]));
     }
 }

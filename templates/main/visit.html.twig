@@ -19,7 +19,7 @@
     </div>
     <hr>
     {# diplay the list of profiles #}
-    {% include 'partials/_listProfile.html.twig' %}   
+    {% include 'partials/_listProfile.html.twig'  with {'route_name' : 'show_visit'} %}   
 </div>
 
 {% endblock %}

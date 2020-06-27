@@ -26,7 +26,7 @@
         </div>
     </div>
     {# diplay the list of profiles #}
-    {% include 'partials/_listProfile.html.twig' %}   
+    {% include 'partials/_listSearchProfile.html.twig' with {'route_name' : 'search'} %}   
 </div>
 
 {% endblock %}

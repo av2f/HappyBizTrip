@@ -33,7 +33,7 @@ class UserRepository extends ServiceEntityRepository
      * @return void
      */
     
-     public function findbyCriteria(string $criteria, int $offset) : Paginator
+     public function myFindbyCriteria(string $criteria, int $offset) : Paginator
      {
         $query = $this->createQueryBuilder('u')
             ->andWhere('LOWER(u.pseudo) LIKE :criteria OR LOWER(u.lastName) LIKE :criteria OR LOWER(u.firstName) LIKE :criteria')

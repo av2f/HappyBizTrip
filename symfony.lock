@@ -26,6 +26,9 @@
     "amphp/process": {
         "version": "v1.1.0"
     },
+    "amphp/serialization": {
+        "version": "v1.0.0"
+    },
     "amphp/socket": {
         "version": "v1.1.1"
     },
