@@ -180,7 +180,7 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity=User::class)
      * @ORM\JoinTable(name="visits",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="visitor_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="visitor_id", referencedColumnName="id")},
      * )
      */
     private $visitors; 

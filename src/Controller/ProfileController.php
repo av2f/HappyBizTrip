@@ -10,6 +10,7 @@ use App\Form\ChangePasswordType;
 use App\Repository\InterestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\InterestTypeRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -237,7 +238,12 @@ class ProfileController extends AbstractController
      * @IsGranted("ROLE_USER")
      * 
      */
-    public function showProfile(string $slug) {
+    public function showProfile(string $slug, UserRepository $userRepo) {
 
+        $profile = $userRepo->findOneBy(["slug" => $slug]);
+
+        return new Response($this->twig->render('profile/showProfile.html.twig', [
+            'profile' => $profile
+        ]));
     }
 }

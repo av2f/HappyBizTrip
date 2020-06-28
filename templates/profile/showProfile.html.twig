@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'profile.block_title'|trans|raw }}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('css/profile') }}
+    {{ encore_entry_link_tags('css/datepicker/datepicker') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="d-flex justify-content-center pt-2">
+            <div class="card card-profile">
+                <div class="card-header card-profile-header-avatar">
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <img src=
+                                {% if profile.avatar is empty %}
+                                    "{{ asset('img/library/defaultAvatar.png') }}"
+                                {% elseif profile.avatar starts with 'https:' %}
+                                    "{{ profile.avatar }}"
+                                {% else %}
+                                    "{{ asset('uploads/avatars/' ~ profile.avatar) }}"
+                                {% endif %}
+                            class="avatar avatar-large img-avatar" id="imgAvatarProfile" alt="{{ 'alt.avatar'|trans|raw }} {{ profile.pseudo }}" >
+                        </div>
+                        <div class="col text-left my-auto" style="background-color: azure;">
+                            <p>{{ profile.pseudo }}</p>
+                            <p>{{ profile.firstName }} {{ profile.lastName }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="d-flex justify-content-center pt-2">
+            <div class="card mt-2 card-profile">
+                <div class="card-header text-left"><i class="fas fa-user-edit"></i>  Description</div>
+                <div class="card-body text-left">
+                    {{ profile.description|raw }}
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center pt-2">
+            <div class="card mt-2 card-profile">
+                <div class="card-header text-left"><i class="fab fa-wpexplorer"></i>  {{ 'profile.title.interests'|trans|raw }}</div>
+                <div class="card-body text-left">
+                    <span class="badge badge-happyDarkBlue"><i class="fas fa-tag"></i> New</span>
+                    <span class="badge badge-happyDarkBlue"><i class="fas fa-tag"></i> Nouvelles technologies</span>
+                    <span class="badge badge-happyDarkBlue"><i class="fas fa-tag"></i> Nouvelles technologies</span>
+                    <span class="badge badge-happyDarkBlue"><i class="fas fa-tag"></i> Nouvelles technologies</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center pt-2">
+            <div class="card mt-2 card-profile">
+                <div class="card-header text-left"><i class="fas fa-pen-fancy"></i>  {{ 'profile.title.articles'|trans|raw }}</div>
+                <div class="card-body text-left">
+                    <div class="my-3 p-3 bg-white rounded shadow-sm">
+                        <p class="border-bottom border-gray pb-2 mb-0">L'intelligence artificielle au coeur de l'industrie
+                        <small class="float-right mt-1 pb-2">11/06/2020</small></p>
+                        <div class="media text-muted pt-3">
+                          <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+                          <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <strong class="d-block text-gray-dark">@username</strong>
+                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+                          </p>
+                        </div>
+                    </div>
+                    <div class="my-3 p-3 bg-white rounded shadow-sm">
+                        <p class="border-bottom border-gray pb-2 mb-0">L'intelligence artificielle au coeur de l'industrie
+                        <small class="float-right mt-1 pb-2">11/06/2020</small></p>
+                        <div class="media text-muted pt-3">
+                          <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+                          <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <strong class="d-block text-gray-dark">@username</strong>
+                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+                          </p>
+                        </div>
+                    </div>
+                    <div class="my-3 p-3 bg-white rounded shadow-sm">
+                        <p class="border-bottom border-gray pb-2 mb-0">L'intelligence artificielle au coeur de l'industrie
+                        <small class="float-right mt-1 pb-2">11/06/2020</small></p>
+                        <div class="media text-muted pt-3">
+                          <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+                          <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <strong class="d-block text-gray-dark">@username</strong>
+                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+                          </p>
+                        </div>
+                    </div>
+                    <small class="d-block text-right mt-3">
+                        <a href="#">All Articles</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+        
+
+        
+
+    </div>
+   
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('js/datepicker/datepicker') }}
+    {% if app.request.locale == 'fr' %}
+        {{ encore_entry_script_tags('js/datepicker/datepicker-fr') }}
+    {% endif %}
+    {# management of datepicker options #}
+    {% include 'partials/_datepickerManagement.html.twig' %}
+{% endblock %}
+
