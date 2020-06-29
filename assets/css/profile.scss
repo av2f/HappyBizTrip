@@ -52,9 +52,13 @@ $happyRed: #B81A18;
     background-color: $happyOrange;
     color: #ffffff
   }
-  &.btn-profile-update {
+  &.btn-profile-dark-blue {
     background-color: $happyDarkBlue;
     color: #ffffff;
+  }
+  &.btn-profile-grey {
+    background-color: $happyGrey;
+    color: #000000;
   }
   &.btn-confirm-profile-delete {
     background-color: $happyRed;
@@ -136,6 +140,6 @@ $happyRed: #B81A18;
 }
 
 .badge-profile {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: normal;
 }
