@@ -13,7 +13,7 @@
             <div class="card card-profile">
                 <div class="card-header card-profile-header-avatar">
                     <div class="row">
-                        <div class="col-4 text-right">
+                        <div class="col-4 text-right my-auto">
                             <img src=
                                 {% if profile.avatar is empty %}
                                     "{{ asset('img/library/defaultAvatar.png') }}"
@@ -22,11 +22,19 @@
                                 {% else %}
                                     "{{ asset('uploads/avatars/' ~ profile.avatar) }}"
                                 {% endif %}
-                            class="avatar avatar-large img-avatar" id="imgAvatarProfile" alt="{{ 'alt.avatar'|trans|raw }} {{ profile.pseudo }}" >
+                            class="avatar avatar-media" id="imgAvatarProfile" alt="{{ 'alt.avatar'|trans|raw }} {{ profile.pseudo }}" >
                         </div>
-                        <div class="col text-left my-auto" style="background-color: azure;">
-                            <p>{{ profile.pseudo }}</p>
-                            <p>{{ profile.firstName }} {{ profile.lastName }}</p>
+                        <div class="col text-left my-auto header-profile">
+                            <p div class="mb-3"><strong>{{ profile.pseudo }}</strong></p>
+                            {% if profile.firstName is not empty %}
+                                <p class="mb-1">{{ profile.firstName }}  {{ profile.lastName }}</p>
+                            {% endif %}
+                            {% if profile.profession is not empty %}
+                                <p class="mb-1">{{ profile.profession }}
+                                    {% if profile.company is not empty %} {{ 'generic.at'|trans|raw }} {{ profile.company }} {% endif %}
+                                </p>
+                            {% endif %}
+                            <p class="col-text-profile">Grenoble, France</p>
                         </div>
                     </div>
                 </div>
@@ -38,21 +46,43 @@
             <div class="card mt-2 card-profile">
                 <div class="card-header text-left"><i class="fas fa-user-edit"></i>  Description</div>
                 <div class="card-body text-left">
-                    {{ profile.description|raw }}
+                    {% if profile.description|length > 0 %}
+                        <div class="label-profile">{{ profile.description|raw }}</div>
+                    {% else %}
+                        <p class="label-profile">Pas de description</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center pt-2">
-            <div class="card mt-2 card-profile">
-                <div class="card-header text-left"><i class="fab fa-wpexplorer"></i>  {{ 'profile.title.interests'|trans|raw }}</div>
-                <div class="card-body text-left">
-                    <span class="badge badge-happyDarkBlue"><i class="fas fa-tag"></i> New</span>
-                    <span class="badge badge-happyDarkBlue"><i class="fas fa-tag"></i> Nouvelles technologies</span>
-                    <span class="badge badge-happyDarkBlue"><i class="fas fa-tag"></i> Nouvelles technologies</span>
-                    <span class="badge badge-happyDarkBlue"><i class="fas fa-tag"></i> Nouvelles technologies</span>
+        {% if profile.interests|length > 0 %}
+            <div class="d-flex justify-content-center pt-2">
+                <div class="card mt-2 card-profile">
+                    <div class="card-header text-left"><i class="fab fa-wpexplorer"></i>  {{ 'profile.title.interests'|trans|raw }}</div>
+                    <div class="card-body text-left">
+                        {# display interests order by type and with the icon which match with interest type #}
+                        {% set cpt = 1 %}
+                        {% set iId = 0 %}
+                        {% for interest in profile.interests|sort((a,b) => a.interestType.id <=> b.interestType.id) %}
+                            {% if cpt == 1 %}
+                                {% set iId = interest.interestType.id %}
+                            {% endif %}
+                            {% if cpt > 1 and interest.interestType.id != iId %}
+                                <div class="mb-4"></div>
+                                {% set iId = interest.interestType.id %}
+                            {% endif %}
+                            {% set icon = "fas fa-tag" %}
+                            {% for intType in interestsType %}
+                                {% if intType.id == iId %}
+                                    {% set icon = intType.iconType %}
+                                {% endif %}
+                            {% endfor %}
+                            <span class="badge badge-happyDarkBlue badge-profile mb-1"><i class="{{ icon }}"></i> {{ interest.name|trans|raw }}</span>
+                            {% set cpt = cpt +1 %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
         <div class="d-flex justify-content-center pt-2">
             <div class="card mt-2 card-profile">
                 <div class="card-header text-left"><i class="fas fa-pen-fancy"></i>  {{ 'profile.title.articles'|trans|raw }}</div>

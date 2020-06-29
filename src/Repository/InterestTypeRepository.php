@@ -32,6 +32,15 @@ class InterestTypeRepository extends ServiceEntityRepository
         ;
     }
 
+    public function myFindInterestTypeIcon() {
+        return $this->createQueryBuilder('i')
+            ->select('i.id, i.iconType')
+            ->orderBy('i.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return InterestType[] Returns an array of InterestType objects
     //  */

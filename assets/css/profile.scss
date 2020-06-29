@@ -9,6 +9,28 @@ $happyOrange: #f5853b;
 $happyGrey: #f5f5f5;
 $happyRed: #B81A18;
 
+@media (max-width: 575.98px) {
+  .header-profile {
+    font-size: 0.8rem;
+    color: white;
+  }
+  .avatar-media {
+      max-width: 64px;
+      max-height: 64px;
+  }
+}
+
+@media (min-width: 576px) {
+  .header-profile {
+    font-size: 1rem;
+    color: white;
+  }
+  .avatar-media {
+      max-width: 128px;
+      max-height: 128px;
+  }
+}
+
 .card-profile {
   width: 100%;
   text-align: center;
@@ -47,7 +69,7 @@ $happyRed: #B81A18;
   }
 }
 
-label.label-profile {
+.label-profile {
   font-size: 0.8rem;
 }
 
@@ -111,4 +133,9 @@ label.label-profile {
 
 .label-interest {
   font-size: 0.9rem;
+}
+
+.badge-profile {
+  font-size: 0.9rem;
+  font-weight: normal;
 }

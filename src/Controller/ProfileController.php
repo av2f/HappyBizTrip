@@ -238,12 +238,11 @@ class ProfileController extends AbstractController
      * @IsGranted("ROLE_USER")
      * 
      */
-    public function showProfile(string $slug, UserRepository $userRepo) {
-
-        $profile = $userRepo->findOneBy(["slug" => $slug]);
+    public function showProfile(string $slug, UserRepository $userRepo, InterestTypeRepository $inytTypeRepo) {
 
         return new Response($this->twig->render('profile/showProfile.html.twig', [
-            'profile' => $profile
+            'profile' => $userRepo->findOneBy(["slug" => $slug]),
+            'interestsType' => $inytTypeRepo->myFindInterestTypeIcon()
         ]));
     }
 }
