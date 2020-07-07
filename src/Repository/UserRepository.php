@@ -47,11 +47,15 @@ class UserRepository extends ServiceEntityRepository
         return new Paginator($query);
     }
 
+     /*
+    Requete mySQL : SELECT * FROM user INNER JOIN visit ON user.id = visitor_id WHERE visited_id = 980
+    */
     public function myFindVisitors(int $id, int $offset) : Paginator
     {
         $query = $this->createQueryBuilder('u')
-            ->leftJoin ('u.visitors','t')
-            ->where('t.id = :id')
+            ->join ('u.visitors','v')
+            ->where('v.visited = :id')
+            ->andWhere('v.isViewed = false')
             ->setParameter('id', $id)
             ->orderBy('u.pseudo', 'ASC')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)

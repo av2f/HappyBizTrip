@@ -112,11 +112,12 @@
         <span class="col-text-profile"><i class="fas fa-eye"></i> Nouvelles visites</span>
       </div>
       <div class="col-3">
-        {% if user.visitors|length > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
+        {% set nb_visitor = user.visits|length %}
+        {% if nb_visitor > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
         <span class="col-text-profile float-right badge badge-blue">
-          {{ '%02d'|format(user.visitors|length) }}
+          {{ '%02d'|format(nb_visitor) }}
         </span>
-        {% if user.visitors|length > 0 %}</a>{% endif %}
+        {% if nb_visitor > 0 %}</a>{% endif %}
       </div>
     </div>
     <hr>
