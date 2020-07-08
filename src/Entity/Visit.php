@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\VisitRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,12 +57,12 @@ class Visit
         return $this;
     }
 
-    public function getViewedAt(): ?bool
+    public function getViewedAt(): ?\DateTimeInterface
     {
         return $this->viewedAt;
     }
 
-    public function setViewedAt(bool $viewedAt): self
+    public function setViewedAt(\DateTimeInterface $viewedAt): self
     {
         $this->viewedAt = $viewedAt;
 

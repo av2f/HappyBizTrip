@@ -5,6 +5,7 @@ namespace App\Controller;
 use Twig\Environment;
 use App\Repository\UserRepository;
 use App\Repository\VisitRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\SubscriptionHistoryRepository;
@@ -26,15 +27,18 @@ class MainPageController extends AbstractController
      * @isGranted("ROLE_USER")
      * 
      */
-    public function index(SubscriptionHistoryRepository $subHisto)
+    public function index(SubscriptionHistoryRepository $subHisto, VisitRepository $visitRepo)
     {
         $user = $this->getUser();
 
         $lastSubscription = $subHisto->findLastSubscriptionHistory($user);
+        $newVisit = $visitRepo->myCountNewVisit($this->getUser()->getId());
+        //dd($newVisit[0][1]);
         
         return new Response($this->twig->render('main/index.html.twig', [
             'user' => $user,
-            'last_subscription' => $lastSubscription 
+            'last_subscription' => $lastSubscription,
+            'new_visit' => $newVisit
         ]));
     }
 
@@ -45,10 +49,23 @@ class MainPageController extends AbstractController
      * @isGranted("ROLE_USER")
      * 
      */
-    public function showVisit(UserRepository $userRepo, int $page = 1)
+    public function showVisit(UserRepository $userRepo, VisitRepository $visitRepo, EntityManagerInterface $entityManager, int $page = 1)
     {
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $paginator = $userRepo->myFindVisitors($this->getUser()->getId(), $offset);
+
+        if (count($paginator) > 0) {
+            $today = new \DateTime();
+            foreach($paginator as $p) {
+                $visit = $visitRepo->findOneBy(['visited'=> $this->getUser(), 'visitor' => $p]);
+                if ($visit->getViewedAt() == NULL) {
+                    $visit->setViewedAt($today);
+                }               
+                //dump($visit);
+            }
+            $entityManager->flush();
+            //die();
+        }
 
         // effacer dans la table visits les visits
 

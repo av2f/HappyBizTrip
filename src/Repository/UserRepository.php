@@ -54,12 +54,12 @@ class UserRepository extends ServiceEntityRepository
     public function myFindVisitors(int $id, int $offset) : Paginator
     {
         $today = new \DateTime(); 
-        $today = $today->format('Y-m-d');
         $query = $this->createQueryBuilder('u')
             ->join ('u.visitors','v')
-            ->where('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt = :today)')
+            ->andwhere('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt BETWEEN :todayStart AND :todayEnd)')
             ->setParameter('id', $id)
-            ->setParameter('today', $today)
+            ->setParameter('todayStart', $today->format('Y-m-d 00:00:00'))
+            ->setParameter('todayEnd', $today->format('Y-m-d 23:59:59'))
             ->orderBy('u.pseudo', 'ASC')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
             ->setFirstResult($offset)
