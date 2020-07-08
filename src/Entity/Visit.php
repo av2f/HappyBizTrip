@@ -56,7 +56,6 @@ class Visit
         return $this;
     }
 
-<<<<<<< HEAD
     public function getViewedAt(): ?bool
     {
         return $this->viewedAt;
@@ -65,16 +64,6 @@ class Visit
     public function setViewedAt(bool $viewedAt): self
     {
         $this->viewedAt = $viewedAt;
-=======
-    public function getIsViewed(): ?bool
-    {
-        return $this->isViewed;
-    }
-
-    public function setIsViewed(bool $isViewed): self
-    {
-        $this->isViewed = $isViewed;
->>>>>>> 26456867dcf04b37bb4b11e8f9e5336a3fba10ba
 
         return $this;
     }
