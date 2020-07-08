@@ -49,7 +49,7 @@ class MainPageController extends AbstractController
     {
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $paginator = $userRepo->myFindVisitors($this->getUser()->getId(), $offset);
-        
+
         // effacer dans la table visits les visits
 
         return new Response($this->twig->render('main/visit.html.twig', [

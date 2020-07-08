@@ -47,12 +47,19 @@ class UserRepository extends ServiceEntityRepository
         return new Paginator($query);
     }
 
+     /*
+    Requete mySQL : SELECT id, pseudo, visit.viewed_at FROM user INNER JOIN visit ON user.id = visitor_id WHERE visited_id = 205
+    AND (visit.viewed_at IS NULL OR visit.viewed_at=CURRENT_DATE())
+    */
     public function myFindVisitors(int $id, int $offset) : Paginator
     {
+        $today = new \DateTime(); 
+        $today = $today->format('Y-m-d');
         $query = $this->createQueryBuilder('u')
-            ->leftJoin ('u.visitors','t')
-            ->where('t.id = :id')
+            ->join ('u.visitors','v')
+            ->where('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt = :today)')
             ->setParameter('id', $id)
+            ->setParameter('today', $today)
             ->orderBy('u.pseudo', 'ASC')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
             ->setFirstResult($offset)

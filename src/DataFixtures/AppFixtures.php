@@ -302,9 +302,11 @@ class AppFixtures extends Fixture
                 for ($i=0;$i<count($visitors);$i++) {
                     $v = $entryUser[$visitors[$i]];                    
                     if ($u->getPseudo() != $v->getPseudo()) {
-                        $u->addVisitor($v);
+                        $visit = new Visit();
+                        $visit -> setVisited($u);
+                        $visit -> setVisitor($v);
+                        $manager->persist($visit);
                     }
-                    $manager->persist($u);
                 }
             }
         }
