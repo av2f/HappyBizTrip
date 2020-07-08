@@ -113,7 +113,11 @@
       </div>
       <div class="col-3">
         {% set nb_visitor = user.visits|length %}
+<<<<<<< HEAD
         {% if nb_visitor|length > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
+=======
+        {% if nb_visitor > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
+>>>>>>> 26456867dcf04b37bb4b11e8f9e5336a3fba10ba
         <span class="col-text-profile float-right badge badge-blue">
           {{ '%02d'|format(nb_visitor) }}
         </span>
