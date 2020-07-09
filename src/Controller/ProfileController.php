@@ -3,14 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Visit;
 use Twig\Environment;
 use App\Form\ProfileType;
 use App\Service\ImageOptimizer;
 use App\Form\ChangePasswordType;
+use App\Repository\UserRepository;
+use App\Repository\VisitRepository;
 use App\Repository\InterestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\InterestTypeRepository;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -238,10 +240,24 @@ class ProfileController extends AbstractController
      * @IsGranted("ROLE_USER")
      * 
      */
-    public function showProfile(string $slug, UserRepository $userRepo, InterestTypeRepository $inytTypeRepo) {
+    public function showProfile(string $slug, UserRepository $userRepo, InterestTypeRepository $inytTypeRepo, VisitRepository $visitRepo, EntityManagerInterface $em) {
 
+        // Retrieve User to show
+        $profile = $userRepo->findOneBy(["slug" => $slug]);
+
+        // Find if a visit done today or never seen by visited exist
+        // if not, add in Visit Entity
+        if (count($visitRepo -> myFindVisit($profile->getId(), $this->getUser()->getId())) == 0) {
+            // creer dans visit.
+            $visit = new Visit();
+            $visit->setVisited($profile);
+            $visit->setVisitor($this->getUser());
+            $em->persist($visit);
+            $em->flush();
+        }
+        
         return new Response($this->twig->render('profile/showProfile.html.twig', [
-            'profile' => $userRepo->findOneBy(["slug" => $slug]),
+            'profile' => $profile,
             'interestsType' => $inytTypeRepo->myFindInterestTypeIcon()
         ]));
     }

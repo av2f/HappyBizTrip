@@ -33,7 +33,6 @@ class MainPageController extends AbstractController
 
         $lastSubscription = $subHisto->findLastSubscriptionHistory($user);
         $newVisit = $visitRepo->myCountNewVisit($this->getUser()->getId());
-        //dd($newVisit[0][1]);
         
         return new Response($this->twig->render('main/index.html.twig', [
             'user' => $user,
@@ -61,13 +60,9 @@ class MainPageController extends AbstractController
                 if ($visit->getViewedAt() == NULL) {
                     $visit->setViewedAt($today);
                 }               
-                //dump($visit);
             }
             $entityManager->flush();
-            //die();
         }
-
-        // effacer dans la table visits les visits
 
         return new Response($this->twig->render('main/visit.html.twig', [
             'paginator' => $paginator,

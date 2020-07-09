@@ -25,7 +25,7 @@
                             class="avatar avatar-media" id="imgAvatarProfile" alt="{{ 'alt.avatar'|trans|raw }} {{ profile.pseudo }}" >
                         </div>
                         <div class="col text-left my-auto header-profile">
-                            <p div class="mb-3"><strong>{{ profile.pseudo }}</strong></p>
+                            <p div class="mb-3"><strong>{{ profile.pseudo|upper }}</strong></p>
                             {% if profile.firstName is not empty %}
                                 <p class="mb-1">{{ profile.firstName }}  {{ profile.lastName }}</p>
                             {% endif %}
@@ -41,10 +41,10 @@
             </div>
             
         </div>
-        <div class="my-3 pt-2 pb-1 bg-white rounded shadow-sm">
+        <div class="my-3 pt-2 pb-1 rounded shadow-sm" style="background-color: #f5f5f5;">
             <div class="text-center mb-4 mt-4">
                 <a class="btn btn-profile-dark-blue btn-sm mr-3 shadow-none" href="#" role="button"><i class="fas fa-user-plus"></i> Se connecter</a>
-                <a class="btn btn-profile-grey btn-sm shadow-none" href="#" role="button"><i class="fas fa-envelope"></i> Envoyer un message</a>
+                <a class="btn btn-profile-white btn-sm shadow-none" href="#" role="button"><i class="fas fa-envelope"></i> Envoyer un message</a>
             </div>
         </div>
         <div class="d-flex justify-content-center">

@@ -112,7 +112,7 @@
         <span class="col-text-profile"><i class="fas fa-eye"></i> Nouvelles visites</span>
       </div>
       <div class="col-3">
-        {% set nb_visitor = new_visit[0][1] %}
+        {% set nb_visitor = new_visit %}
         {% if nb_visitor > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
         <span class="col-text-profile float-right badge badge-blue">
           {{ '%02d'|format(nb_visitor) }}

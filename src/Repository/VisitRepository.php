@@ -29,6 +29,19 @@ class VisitRepository extends ServiceEntityRepository
             ->setParameter('todayStart', $today->format('Y-m-d 00:00:00'))
             ->setParameter('todayEnd', $today->format('Y-m-d 23:59:59'))
             ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    public function myFindVisit(int $idVisited, int $idVisitor)
+    {
+        $today = new \DateTime();
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.visited = :idVisited AND v.visitor = :idVisitor AND (v.viewedAt is NULL OR v.viewedAt < :today)')
+            ->setParameter('idVisited', $idVisited)
+            ->setParameter('idVisitor', $idVisitor)
+            ->setParameter('today', $today->format('Y-m-d 00:00:00'))
+            ->getQuery()
             ->getResult()
         ;
     }
