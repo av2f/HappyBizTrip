@@ -246,7 +246,6 @@ class ProfileController extends AbstractController
         $profile = $userRepo->findOneBy(["slug" => $slug]);
 
         // Find if a visit done today or never seen by visited exist
-        $visit = new Visit();
         $visit = $visitRepo -> myFindVisit($profile->getId(), $this->getUser()->getId());
 
         // if not, add in Visit Entity
