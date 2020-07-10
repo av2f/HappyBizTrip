@@ -246,8 +246,11 @@ class ProfileController extends AbstractController
         $profile = $userRepo->findOneBy(["slug" => $slug]);
 
         // Find if a visit done today or never seen by visited exist
+        $visit = new Visit();
+        $visit = $visitRepo -> myFindVisit($profile->getId(), $this->getUser()->getId());
+
         // if not, add in Visit Entity
-        if (count($visitRepo -> myFindVisit($profile->getId(), $this->getUser()->getId())) == 0) {
+        if (count($visit) == 0) {
             // creer dans visit.
             $visit = new Visit();
             $visit->setVisited($profile);
@@ -255,6 +258,13 @@ class ProfileController extends AbstractController
             $em->persist($visit);
             $em->flush();
         }
+        // else update viewedAt
+        elseif ($visit->getViewedAt() != null) {
+            $visit->setViewedAt(new \DateTime());
+            $em->flush();
+        }
+
+        // sinon mettre à jour viewed AT si pas null.
         
         return new Response($this->twig->render('profile/showProfile.html.twig', [
             'profile' => $profile,
