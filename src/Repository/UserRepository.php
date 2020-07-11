@@ -36,7 +36,7 @@ class UserRepository extends ServiceEntityRepository
      public function myFindbyCriteria(string $criteria, int $offset) : Paginator
      {
         $query = $this->createQueryBuilder('u')
-            ->andWhere('LOWER(u.pseudo) LIKE :criteria OR LOWER(u.lastName) LIKE :criteria OR LOWER(u.firstName) LIKE :criteria')
+            ->andWhere('(LOWER(u.pseudo) LIKE :criteria OR LOWER(u.lastName) LIKE :criteria OR LOWER(u.firstName) LIKE :criteria) AND (u.isActive = true AND u.isDeleted = false)')
             ->setParameter('criteria', '%'.strtolower($criteria).'%')
             ->orderBy('u.pseudo', 'ASC')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
@@ -55,7 +55,7 @@ class UserRepository extends ServiceEntityRepository
     {
         $today = new \DateTime(); 
         $query = $this->createQueryBuilder('u')
-            ->join ('u.visitors','v')
+            ->join('u.visitors','v')
             ->andwhere('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt BETWEEN :todayStart AND :todayEnd)')
             ->setParameter('id', $id)
             ->setParameter('todayStart', $today->format('Y-m-d 00:00:00'))
@@ -67,6 +67,21 @@ class UserRepository extends ServiceEntityRepository
         ;
          
         return new Paginator($query);
+    }
+
+    public function myCountNewVisit(int $id) 
+    {
+        $today = new \DateTime(); 
+        return $this->createQueryBuilder('u')
+            ->join('u.visitors', 'v')
+            ->select('count(v.visitor)')
+            ->andWhere('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt BETWEEN :todayStart AND :todayEnd) AND (u.isActive = true AND u.isDeleted = false)')
+            ->setParameter('id', $id)
+            ->setParameter('todayStart', $today->format('Y-m-d 00:00:00'))
+            ->setParameter('todayEnd', $today->format('Y-m-d 23:59:59'))
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
     }
        
 

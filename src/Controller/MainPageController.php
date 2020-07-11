@@ -27,7 +27,7 @@ class MainPageController extends AbstractController
      * @isGranted("ROLE_USER")
      * 
      */
-    public function index(SubscriptionHistoryRepository $subHisto, VisitRepository $visitRepo)
+    public function index(SubscriptionHistoryRepository $subHisto, UserRepository $visitRepo)
     {
         $user = $this->getUser();
 

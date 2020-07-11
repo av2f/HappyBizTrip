@@ -247,7 +247,7 @@ class ProfileController extends AbstractController
 
         // Find if a visit done today or never seen by visited exist
         $visit = $visitRepo -> myFindVisit($profile->getId(), $this->getUser()->getId());
-
+        
         // if not, add in Visit Entity
         if (count($visit) == 0) {
             // creer dans visit.
@@ -257,13 +257,17 @@ class ProfileController extends AbstractController
             $em->persist($visit);
             $em->flush();
         }
-        // else update viewedAt
-        elseif ($visit->getViewedAt() != null) {
-            $visit->setViewedAt(new \DateTime());
-            $em->flush();
+        // else update viewedAt if not null or viewedAt < current day
+        else {
+            $today = new \DateTime();
+            $today = $today->format('Y-m-d');
+            foreach ($visit as $v) {
+                if ($v->getViewedAt() !== null || $v->getViewedAt()->format('Y-m-d') < $today) {
+                    $v->setViewedAt(new \DateTime());
+                    $em->flush();
+                }
+            }
         }
-
-        // sinon mettre à jour viewed AT si pas null.
         
         return new Response($this->twig->render('profile/showProfile.html.twig', [
             'profile' => $profile,
