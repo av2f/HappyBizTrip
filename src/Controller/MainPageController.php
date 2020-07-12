@@ -57,7 +57,7 @@ class MainPageController extends AbstractController
             $today = new \DateTime();
             foreach($paginator as $p) {
                 $visit = $visitRepo->findOneBy(['visited'=> $this->getUser(), 'visitor' => $p]);
-                if ($visit->getViewedAt() == NULL) {
+                if ($visit->getViewedAt() == Null) {
                     $visit->setViewedAt($today);
                 }               
             }

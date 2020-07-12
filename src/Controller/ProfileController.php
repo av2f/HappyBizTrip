@@ -13,6 +13,7 @@ use App\Repository\VisitRepository;
 use App\Repository\InterestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\InterestTypeRepository;
+use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -246,10 +247,10 @@ class ProfileController extends AbstractController
         $profile = $userRepo->findOneBy(["slug" => $slug]);
 
         // Find if a visit done today or never seen by visited exist
-        $visit = $visitRepo -> myFindVisit($profile->getId(), $this->getUser()->getId());
-        
+        $visit = $visitRepo->findOneBy(['visited'=> $profile, 'visitor' => $this->getUser()]);
+
         // if not, add in Visit Entity
-        if (count($visit) == 0) {
+        if ($visit == Null) {
             // creer dans visit.
             $visit = new Visit();
             $visit->setVisited($profile);
@@ -261,9 +262,9 @@ class ProfileController extends AbstractController
         else {
             $today = new \DateTime();
             $today = $today->format('Y-m-d');
-            foreach ($visit as $v) {
-                if ($v->getViewedAt() !== null || $v->getViewedAt()->format('Y-m-d') < $today) {
-                    $v->setViewedAt(new \DateTime());
+            if ($visit->getViewedAt() != Null) {
+                if ($visit->getViewedAt()->format('Y-m-d') < $today) {
+                    $visit->setViewedAt(new \DateTime());
                     $em->flush();
                 }
             }

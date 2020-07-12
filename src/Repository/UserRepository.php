@@ -52,11 +52,11 @@ class UserRepository extends ServiceEntityRepository
     AND (visit.viewed_at IS NULL OR visit.viewed_at=CURRENT_DATE())
     */
     public function myFindVisitors(int $id, int $offset) : Paginator
-    {
+    {   
         $today = new \DateTime(); 
         $query = $this->createQueryBuilder('u')
             ->join('u.visitors','v')
-            ->andwhere('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt BETWEEN :todayStart AND :todayEnd)')
+            ->andwhere('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt BETWEEN :todayStart AND :todayEnd) AND (u.isActive = true AND u.isDeleted = false)')
             ->setParameter('id', $id)
             ->setParameter('todayStart', $today->format('Y-m-d 00:00:00'))
             ->setParameter('todayEnd', $today->format('Y-m-d 23:59:59'))
