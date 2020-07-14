@@ -275,4 +275,26 @@ class ProfileController extends AbstractController
             'interestsType' => $inytTypeRepo->myFindInterestTypeIcon()
         ]));
     }
+
+    /**
+     * manage the request of connection to a user
+     * 
+     * @Route("/requestConnect/{id}", name="request_connect", methods={"POST"})
+     *
+     * @return void
+     */
+    public function requestConnect(Request $request, User $profile)
+    {
+        $data = json_decode($request->getContent(), true);
+        if ($this->isCsrfTokenValid('connect'.$profile->getId(), $data['_token'])) {
+            // return success response
+            
+            
+            return new JsonResponse([
+                'success' => '1'], 200);
+        }
+        else {
+            dd("merde");
+        }
+    }
 }

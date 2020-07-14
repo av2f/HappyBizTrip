@@ -12,6 +12,7 @@ use Faker;
 use DateInterval;
 use App\Entity\User;
 use App\Entity\Visit;
+use App\Entity\Connect;
 use App\Entity\Interest;
 use App\Entity\InterestType;
 use App\Entity\Subscription;
@@ -164,11 +165,13 @@ class AppFixtures extends Fixture
         // User
         $faker = Faker\Factory::create('fr_FR');
         // Define Genders (W=Woman / M=Man)
-        $genders=array('W', 'M');
+        $genders = array('W', 'M');
         // Define Situations (C=Couple / S=Single / W=Widow)
-        $situations=array('C', 'S', 'K');
+        $situations = array('C', 'S', 'K');
+        // Define state of Connect
+        $states = array('W', 'C', 'R', 'B');
         
-        $subscribes=array(true, false);
+        $subscribes = array(true, false);
         
         for ($i=0; $i<$NB_USER; $i++){
             $user = new User();
@@ -294,7 +297,6 @@ class AppFixtures extends Fixture
                 }
             }
         }
-        // $manager->flush();
         // manage visitor
         foreach ($entryUser as $u) {
             if (mt_rand(0,1) == 1) { // randomly if visited
@@ -310,6 +312,26 @@ class AppFixtures extends Fixture
                 }
             }
         }
+
+        // Manage connect
+        foreach ($entryUser as $u) {
+            if (mt_rand(0,1) == 1) { // randomly if connect
+                $requests = array_rand($entryUser, mt_rand(2, 20));
+                for ($i=0;$i<count($requests);$i++) {
+                    $r = $entryUser[$requests[$i]];                    
+                    if ($u->getPseudo() != $r->getPseudo()) {
+                        $connect = new Connect();
+                        $connect -> setRequester($u);
+                        $connect -> setRequested($r);
+                        $connect -> setRequestAt(new \DateTime());
+                        $state=$states[mt_rand(0, count($states)-1)];
+                        $connect -> setState($state);
+                        $manager->persist($connect);
+                    }
+                }
+            }
+        }
+
         $manager->flush();
     }
 }

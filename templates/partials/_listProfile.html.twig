@@ -17,7 +17,11 @@
                                 class="avatar avatar-media mr-3 my-auto" alt="{{ 'alt.avatar'|trans|raw }} {{ result.pseudo }}">
                                 <div class="media-body">
                                     <p class="col-text-pseudo mt-0">{{result.pseudo }}
-                                        {% if result.id == user_id %}<span class="badge badge-happyDarkBlue">{{ 'generic.you'|trans|raw }}</span>{% endif %}
+                                        {% if result.id == user_id %}
+                                            <span class="badge badge-happyDarkBlue">{{ 'generic.you'|trans|raw }}</span>
+                                        {% else %}
+                                            <span class="badge badge-happyDarkBlue" id="B_{{ result.id }}" style="display:none">Connexion demandée</span>
+                                        {% endif %}
                                     </p>
                                     {% if result.firstName is not empty %}
                                         <p class="col-text-profile">{{ result.firstName }}  {{ result.lastName }}</p>
@@ -34,7 +38,10 @@
                         </div>
                         {% if result.id != user_id %}
                             <div class="col-5 col-md-4 text-right my-auto">
-                                <button type="button" class="btn btn-outline-happyDarkBlue btn-sm">{{ 'generic.connect'|trans|raw }}</button>
+                                <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="{{ path('request_connect', {'id': result.id}) }}"
+                                    id="C_{{ result.id }}" data-token="{{ csrf_token('connect'~result.id) }}">
+                                    {{ 'generic.connect'|trans|raw }}
+                                </a>
                             </div>
                         {% endif %}
                     </div>

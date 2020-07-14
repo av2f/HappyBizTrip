@@ -186,12 +186,24 @@ class User implements UserInterface
     */
    private $visitors;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Connect::class, mappedBy="requester")
+     */
+    private $requesters;
+
+    /**
+    * @ORM\OneToMany(targetEntity=Connect::class, mappedBy="requested")
+    */
+   private $requests;
+
     public function __construct()
     {
         $this->interests = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
         $this->visits = new ArrayCollection();
         $this->visitors = new ArrayCollection();
+        $this->requesters = new ArrayCollection();
+        $this->requests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -430,7 +442,7 @@ class User implements UserInterface
         // set isActive to true
         $this->setIsActive(true);
         // set isSubscribed to false
-        $this->setIsSubscribed(false);
+        // $this->setIsSubscribed(false);
         // set isDeleted to false
         $this->setIsDeleted(false);
         // set % completed of profile
@@ -651,6 +663,58 @@ class User implements UserInterface
     {
         if ($this->visitors->contains($visitor)) {
             $this->visitors->removeElement($visitor);
+        }
+
+        return $this;
+    }
+
+     /**
+     * @return Collection|Connect[]
+     */
+    public function getRequesters(): Collection
+    {
+        return $this->requesters;
+    }
+
+    public function addRequester(Connect $requester): self
+    {
+        if (!$this->requesters->contains($requester)) {
+            $this->requesters[] = $requester;
+        }
+
+        return $this;
+    }
+
+    public function removeRequester(Connect $requester): self
+    {
+        if ($this->requesters->contains($requester)) {
+            $this->requesters->removeElement($requester);
+        }
+
+        return $this;
+    }
+
+     /**
+     * @return Collection|Connect[]
+     */
+    public function getRequests(): Collection
+    {
+        return $this->requests;
+    }
+
+    public function addRequest(Connect $request): self
+    {
+        if (!$this->requests->contains($request)) {
+            $this->requests[] = $request;
+        }
+
+        return $this;
+    }
+
+    public function removeRequest(Connect $request): self
+    {
+        if ($this->requests->contains($request)) {
+            $this->requests->removeElement($request);
         }
 
         return $this;
