@@ -83,7 +83,11 @@
         <span class="col-text-profile"><i class="fas fa-user-friends"></i> Mes HappyBizFriends</span>
       </div>
       <div class="col-3">
-        <span class="col-text-profile float-right badge badge-blue">121</span>
+        {% if friends > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
+          <span class="col-text-profile float-right badge badge-blue">
+            {{ '%02d'|format(friends) }}
+          </span>
+          {% if friends > 0 %}</a>{% endif %}
       </div>
     </div>
     <hr>
@@ -112,12 +116,11 @@
         <span class="col-text-profile"><i class="fas fa-eye"></i> Nouvelles visites</span>
       </div>
       <div class="col-3">
-        {% set nb_visitor = new_visit %}
-        {% if nb_visitor > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
+        {% if new_visit > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
         <span class="col-text-profile float-right badge badge-blue">
-          {{ '%02d'|format(nb_visitor) }}
+          {{ '%02d'|format(new_visit) }}
         </span>
-        {% if nb_visitor > 0 %}</a>{% endif %}
+        {% if new_visit > 0 %}</a>{% endif %}
       </div>
     </div>
     <hr>
@@ -126,7 +129,11 @@
         <span class="col-text-profile"><i class="fas fa-user-plus"></i> Nouvelles Sollicitations</span>
       </div>
       <div class="col-3">
-        <span class="col-text-profile float-right badge badge-blue">01</span>
+        {% if new_request > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
+          <span class="col-text-profile float-right badge badge-blue">
+            {{ '%02d'|format(new_request) }}
+          </span>
+          {% if new_request > 0 %}</a>{% endif %}
       </div>
     </div>
   </div>

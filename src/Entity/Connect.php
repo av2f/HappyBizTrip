@@ -7,7 +7,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="connect")
+ * @ORM\Table(name="user_connect")
  * @ORM\Entity
  * @ORM\Entity(repositoryClass=ConnectRepository::class)
  */
