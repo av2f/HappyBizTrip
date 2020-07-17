@@ -36,12 +36,26 @@
                                 </div>
                             </div>
                         </div>
-                        {% if result.id != user_id %}
+                        {% if route_name != "show_friends" %}
+                            {% if result.id != user_id %}
+                                <div class="col-5 col-md-4 text-right my-auto">
+                                    <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="{{ path('request_connect', {'id': result.id}) }}"
+                                        id="C_{{ result.id }}" data-token="{{ csrf_token('connect'~result.id) }}">
+                                        {{ 'generic.connect'|trans|raw }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% else %}
                             <div class="col-5 col-md-4 text-right my-auto">
-                                <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="{{ path('request_connect', {'id': result.id}) }}"
-                                    id="C_{{ result.id }}" data-token="{{ csrf_token('connect'~result.id) }}">
-                                    {{ 'generic.connect'|trans|raw }}
-                                </a>
+                                <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="#">{{ 'generic.message'|trans|raw }}</a>
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-del-user" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-user-minus"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button" style="font-size: 0.8rem;">Supprimer la relation</button>
+                                    </div>
+                                </div>
                             </div>
                         {% endif %}
                     </div>

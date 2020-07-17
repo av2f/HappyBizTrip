@@ -11,12 +11,16 @@ $happyRed: #B81A18;
 
 @media (max-width: 575.98px) {
   .btn {
-      font-size: 0.8 rem;
+      font-size: 0.8rem;
   }
   .avatar-media {
       max-width: 32px;
       max-height: 32px;
   }
+  .dropdown-del-user {
+    margin-top: 1rem;
+  }
+
 }
 
 @media (min-width: 576px) {

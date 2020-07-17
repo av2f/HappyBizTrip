@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -83,7 +84,47 @@ class UserRepository extends ServiceEntityRepository
             ->getSingleScalarResult()
         ;
     }
-       
+
+    // requete : SELECT id, pseudo, user_connect.state FROM user INNER JOIN user_connect ON user.id = requested_id WHERE requester_id = 4 AND user_connect.state="C"
+    //           UNION SELECT id, pseudo, user_connect.state FROM user INNER JOIN user_connect ON user.id = requester_id WHERE requested_id = 4 AND user_connect.state="C"
+    public function myFindFriends(int $id, string $state, int $offset)
+    {
+        $sql = "SELECT u.id, u.pseudo, u.first_name, u.last_name, u.slug, u.avatar, u.profession, u.company FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
+                UNION SELECT u.id, u.pseudo, u.first_name, u.last_name, u.slug, u.avatar, u.profession, u.company FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
+                ORDER BY pseudo ASC LIMIT ?,?";
+        
+        $rsm = new ResultSetMapping();
+
+        $rsm->addEntityResult('App\Entity\User', 'u');
+        $rsm->addFieldResult('u', 'id', 'id');
+        $rsm->addFieldResult('u', 'pseudo', 'pseudo');
+        $rsm->addFieldResult('u', 'slug', 'slug');
+        $rsm->addFieldResult('u', 'last_name', 'lastName');
+        $rsm->addFieldResult('u', 'first_name', 'firstName');
+        $rsm->addFieldResult('u', 'avatar', 'avatar');
+        $rsm->addFieldResult('u', 'profession', 'profession');
+        $rsm->addFieldResult('u', 'company', 'company');
+        $rsm->addFieldResult('u', 'is_active', 'isActive');
+        $rsm->addFieldResult('u', 'is_deleted', 'isDeleted');
+        
+        $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requests');
+        $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requesters');
+
+        $rsm->addFieldResult('c', 'state', 'state');
+
+        $query = $this->_em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $id);
+        $query->setParameter(2, $state);
+        $query->setParameter(3, $id);
+        $query->setParameter(4, $state);
+        $query->setParameter(5, $offset);
+        $query->setParameter(6, self::PAGINATOR_PER_PAGE);
+
+
+        $result = $query->getResult();
+
+        return $result;
+    }
 
     // /**
     //  * @return User[] Returns an array of User objects

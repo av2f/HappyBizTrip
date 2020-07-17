@@ -83,7 +83,7 @@
         <span class="col-text-profile"><i class="fas fa-user-friends"></i> Mes HappyBizFriends</span>
       </div>
       <div class="col-3">
-        {% if friends > 0 %}<a href="{{ path('show_visit') }}">{% endif %}
+        {% if friends > 0 %}<a href="{{ path('show_friends') }}">{% endif %}
           <span class="col-text-profile float-right badge badge-blue">
             {{ '%02d'|format(friends) }}
           </span>

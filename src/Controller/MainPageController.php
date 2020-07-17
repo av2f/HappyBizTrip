@@ -30,13 +30,11 @@ class MainPageController extends AbstractController
      */
     public function index(SubscriptionHistoryRepository $subHisto, UserRepository $userRepo, ConnectRepository $connectRepo)
     {
-        $user = $this->getUser();
-
         $lastSubscription = $subHisto->findLastSubscriptionHistory($this->getUser());
         $newVisit = $userRepo->myCountNewVisit($this->getUser()->getId());
         $friends = $connectRepo->myCountFriends($this->getUser()->getId());
         $newRequest = $connectRepo->myCountNewRequest($this->getUser()->getId());
-        
+
         return new Response($this->twig->render('main/index.html.twig', [
             'user' => $this->getUser(),
             'last_subscription' => $lastSubscription,
@@ -70,6 +68,26 @@ class MainPageController extends AbstractController
         }
 
         return new Response($this->twig->render('main/visit.html.twig', [
+            'paginator' => $paginator,
+            'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),
+            'page' => $page,
+            'user_id' => $this->getUser()->getId()
+        ]));
+    }
+
+    /**
+     * @Route("/HappyBizFriends/{page<\d+>?1}", name="show_friends")
+     * 
+     * Can access only if login ok
+     * @isGranted("ROLE_USER")
+     * 
+     */
+    public function showFriends(UserRepository $userRepo, int $page = 1)
+    {
+        $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
+        $paginator = $userRepo->myFindFriends($this->getUser()->getId(), "C", $offset);
+
+        return new Response($this->twig->render('main/friend.html.twig', [
             'paginator' => $paginator,
             'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),
             'page' => $page,
