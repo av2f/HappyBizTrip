@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\ConnectRepository;
 use Twig\Environment;
 use App\Repository\UserRepository;
 use App\Repository\VisitRepository;
@@ -28,12 +27,12 @@ class MainPageController extends AbstractController
      * @isGranted("ROLE_USER")
      * 
      */
-    public function index(SubscriptionHistoryRepository $subHisto, UserRepository $userRepo, ConnectRepository $connectRepo)
+    public function index(SubscriptionHistoryRepository $subHisto, UserRepository $userRepo)
     {
         $lastSubscription = $subHisto->findLastSubscriptionHistory($this->getUser());
         $newVisit = $userRepo->myCountNewVisit($this->getUser()->getId());
-        $friends = $connectRepo->myCountFriends($this->getUser()->getId());
-        $newRequest = $connectRepo->myCountNewRequest($this->getUser()->getId());
+        $friends = $userRepo->myCountFriends($this->getUser()->getId(), "C");
+        $newRequest = $userRepo->myCountNewRequest($this->getUser()->getId(), "W");
 
         return new Response($this->twig->render('main/index.html.twig', [
             'user' => $this->getUser(),

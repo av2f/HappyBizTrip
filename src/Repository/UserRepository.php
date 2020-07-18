@@ -85,6 +85,49 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
+    public function myCountNewRequest(int $id, string $state)
+    {
+        return $this->createQueryBuilder('u')
+            ->join('u.requesters', 'c')
+            ->select('count(c.requester)')
+            ->andWhere('c.requested = :id AND c.state = :state AND (u.isActive = true AND u.isDeleted = false)')
+            ->setParameter('id', $id)
+            ->setParameter('state', $state)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+
+    }
+
+    public function myCountFriends(int $id, string $state)
+    {
+        $sql = "SELECT (SELECT COUNT(u.id) AS cpt FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false))
+        + (SELECT COUNT(u.id) AS cpt FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false))
+        AS totalFriends";
+
+        $rsm = new ResultSetMapping();
+
+        $rsm->addEntityResult('App\Entity\User', 'u');
+        $rsm->addFieldResult('u', 'id', 'id');
+        $rsm->addScalarResult('cpt', 'cpt');
+        $rsm->addScalarResult('totalFriends', 'totalFriends');
+
+        $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requests');
+        $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requesters');
+
+        $rsm->addFieldResult('c', 'state', 'state');
+
+        $query = $this->_em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $id);
+        $query->setParameter(2, $state);
+        $query->setParameter(3, $id);
+        $query->setParameter(4, $state);
+
+        $result = $query->getSingleScalarResult();
+
+        return $result;
+    }
+    
     // requete : SELECT id, pseudo, user_connect.state FROM user INNER JOIN user_connect ON user.id = requested_id WHERE requester_id = 4 AND user_connect.state="C"
     //           UNION SELECT id, pseudo, user_connect.state FROM user INNER JOIN user_connect ON user.id = requester_id WHERE requested_id = 4 AND user_connect.state="C"
     public function myFindFriends(int $id, string $state, int $offset)

@@ -18,30 +18,4 @@ class ConnectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Connect::class);
     }
-
-    public function myCountFriends(int $id) 
-    {
-        $today = new \DateTime(); 
-        return $this->createQueryBuilder('c')
-            ->select('count(c.requester)')
-            ->andWhere('c.state = :state AND (c.requester = :id OR c.requested = :id)')
-            ->setParameter('id', $id)
-            ->setParameter('state', 'C')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
-
-    public function myCountNewRequest(int $id) 
-    {
-        $today = new \DateTime(); 
-        return $this->createQueryBuilder('c')
-            ->select('count(c.requester)')
-            ->andWhere('c.state = :state AND c.requested = :id')
-            ->setParameter('id', $id)
-            ->setParameter('state', 'W')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
 }
