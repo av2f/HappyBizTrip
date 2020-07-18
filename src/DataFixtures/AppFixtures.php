@@ -323,7 +323,7 @@ class AppFixtures extends Fixture
                         $connect = new Connect();
                         $connect -> setRequester($u);
                         $connect -> setRequested($r);
-                        $connect -> setRequestAt(new \DateTime());
+                        $connect -> setActionAt(new \DateTime());
                         $state=$states[mt_rand(0, count($states)-1)];
                         $connect -> setState($state);
                         $manager->persist($connect);

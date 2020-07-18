@@ -31,7 +31,7 @@ class Connect
     /**
      * @ORM\Column(type="datetime")
      */
-    private $requestAt;
+    private $actionAt;
 
     /**
      * @ORM\Column(type="string", length=1)
@@ -62,14 +62,14 @@ class Connect
         return $this;
     }
 
-    public function getRequestAt(): ?\DateTimeInterface
+    public function getActionAt(): ?\DateTimeInterface
     {
-        return $this->requestAt;
+        return $this->actionAt;
     }
 
-    public function setRequestAt(\DateTimeInterface $requestAt): self
+    public function setActionAt(\DateTimeInterface $actionAt): self
     {
-        $this->requestAt = $requestAt;
+        $this->actionAt = $actionAt;
 
         return $this;
     }

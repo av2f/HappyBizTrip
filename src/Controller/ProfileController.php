@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Visit;
 use Twig\Environment;
+use App\Entity\Connect;
 use App\Form\ProfileType;
 use App\Service\ImageOptimizer;
 use App\Form\ChangePasswordType;
@@ -12,8 +13,8 @@ use App\Repository\UserRepository;
 use App\Repository\VisitRepository;
 use App\Repository\InterestRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\InterestTypeRepository;
 use phpDocumentor\Reflection\Types\Null_;
+use App\Repository\InterestTypeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -283,18 +284,26 @@ class ProfileController extends AbstractController
      *
      * @return void
      */
-    public function requestConnect(Request $request, User $profile)
+    public function requestConnect(Request $request, User $profile, EntityManagerInterface $em)
     {
         $data = json_decode($request->getContent(), true);
         if ($this->isCsrfTokenValid('connect'.$profile->getId(), $data['_token'])) {
+            // Create new request
+            $connect = new Connect();
+            $connect->setRequester($this->getUser());
+            $connect->setRequested($profile);
+            $connect->setActionAt(new \DateTime());
+            $connect->setState("W");
+            $em->persist($connect);
+            $em->flush();
             // return success response
-            
-            
             return new JsonResponse([
                 'success' => '1'], 200);
         }
         else {
-            dd("merde");
+             // return error
+             return new JsonResponse([
+                'error' => '2'], 400);
         }
     }
 }
