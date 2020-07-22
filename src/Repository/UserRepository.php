@@ -198,7 +198,6 @@ class UserRepository extends ServiceEntityRepository
         $rsm->addFieldResult('u', 'is_active', 'isActive');
         $rsm->addFieldResult('u', 'is_deleted', 'isDeleted');
         
-        
         $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requests');
         $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requesters');
 
@@ -241,7 +240,6 @@ class UserRepository extends ServiceEntityRepository
         $rsm->addFieldResult('u', 'is_active', 'isActive');
         $rsm->addFieldResult('u', 'is_deleted', 'isDeleted');
         
-        
         $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requests');
         $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requesters');
 
@@ -255,6 +253,60 @@ class UserRepository extends ServiceEntityRepository
         $query->setParameter(4, $id);
         $query->setParameter(5, $stateFriend);
         $query->setParameter(6, $stateBlackList);
+
+        $result = $query->getScalarResult();
+        
+        return $result;
+    }
+
+    public function myFindListNewRequester(int $id, string $state)
+    {
+        $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
+                ORDER BY pseudo ASC";
+        
+        $rsm = new ResultSetMapping();
+
+        $rsm->addEntityResult('App\Entity\User', 'u');
+        $rsm->addFieldResult('u', 'id', 'id');
+        $rsm->addFieldResult('u', 'pseudo', 'pseudo');
+        $rsm->addFieldResult('u', 'is_active', 'isActive');
+        $rsm->addFieldResult('u', 'is_deleted', 'isDeleted');
+        
+        $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requesters');
+
+        $rsm->addFieldResult('c', 'action_at', 'actionAt');
+        $rsm->addFieldResult('c', 'state', 'state');
+
+        $query = $this->_em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $id);
+        $query->setParameter(2, $state);
+
+        $result = $query->getScalarResult();
+        
+        return $result;
+    }
+
+    public function myFindListNewRequested(int $id, string $state)
+    {
+        $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requested_id WHERE requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
+                ORDER BY pseudo ASC";
+        
+        $rsm = new ResultSetMapping();
+
+        $rsm->addEntityResult('App\Entity\User', 'u');
+        $rsm->addFieldResult('u', 'id', 'id');
+        $rsm->addFieldResult('u', 'pseudo', 'pseudo');
+        $rsm->addFieldResult('u', 'is_active', 'isActive');
+        $rsm->addFieldResult('u', 'is_deleted', 'isDeleted');
+        
+        $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requests');
+
+        $rsm->addFieldResult('c', 'action_at', 'actionAt');
+        $rsm->addFieldResult('c', 'state', 'state');
+
+        $query = $this->_em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $id);
+        $query->setParameter(2, $state);
 
         $result = $query->getScalarResult();
         

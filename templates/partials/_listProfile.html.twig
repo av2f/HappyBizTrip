@@ -3,6 +3,11 @@
         <div class="card">
             <div class="card-body">
                 {% for result in paginator %}
+                    {# Set variables #}
+                    {% set flag_requester = false %}
+                    {% set flag_requested = false %}
+                    {% set flag_state = false %}
+                    {# ---- #}  
                     <div class="row mb-3 mt-3">
                         <div class="col-7 col-md-8">
                             <div class="media position-relative">
@@ -20,7 +25,22 @@
                                         {% if result.id == user_id %}
                                             <span class="badge badge-happyDarkBlue">{{ 'generic.you'|trans|raw }}</span>
                                         {% else %}
-                                            <span class="badge badge-happyDarkBlue" id="B_{{ result.id }}" style="display:none">Connexion demandée</span>
+                                            {# verify if user is a requester to be new friend #}
+                                            {% for requester in new_requester %}
+                                                {% if requester.u_id == result.id %}
+                                                    <span class="badge badge-happyDarkBlue" id="B_{{ result.id }}" style="display:inline">Vous a sollicité</span>
+                                                    {% set flag_requester = true %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {# verify if user has been resquested to be new friend #}
+                                            {% if not flag_requester %}
+                                                {% for requested in new_requested %}
+                                                    {% if requested.u_id == result.id %}
+                                                        <span class="badge badge-happyDarkBlue" id="B_{{ result.id }}" style="display:inline">Connexion demandée</span>
+                                                        {% set flag_requested = true %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
                                         {% endif %}
                                     </p>
                                     {% if result.firstName is not empty %}
@@ -50,12 +70,54 @@
                             </div>
                         {% else %}
                             {% if result.id != user_id %}
-                                <div class="col-5 col-md-4 text-right my-auto">
-                                    <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="{{ path('request_connect', {'id': result.id}) }}"
-                                        id="C_{{ result.id }}" data-token="{{ csrf_token('connect'~result.id) }}">
-                                        {{ 'generic.connect'|trans|raw }}
-                                    </a>
-                                </div>
+                                {% if flag_requested %}
+                                    <div class="col-5 col-md-4 text-right my-auto">
+                                        <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="#"
+                                            id="W_{{ result.id }}" data-token="{{ csrf_token('connect'~result.id) }}">
+                                            {{ 'generic.cancel'|trans|raw }}
+                                        </a>
+                                    </div>
+                                {% elseif flag_requester %}
+                                    <div class="col-5 col-md-4 text-right my-auto">
+                                        <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="#">{{ 'generic.accept'|trans|raw }}</a>
+                                        <div class="btn-group">
+                                            <button class="btn btn-happyGrey btn-sm dropdown-toggle dropdown-del-user" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-user-minus"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <button class="dropdown-item" type="button" style="font-size: 0.8rem;">Refuser la relation</button>
+                                                <button class="dropdown-item" type="button" style="font-size: 0.8rem;">Blackliter {{ result.pseudo }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    {% for friend_or_blacklist  in friends_blackList %}
+                                        {% if friend_or_blacklist.u_id == result.id %}
+                                            {% if friend_or_blacklist.c_state == 'C' %} {# if friend #}
+                                                <div class="col-5 col-md-4 text-right my-auto">
+                                                    <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="#">{{ 'generic.message'|trans|raw }}</a>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-happyDarkBlue btn-sm dropdown-toggle dropdown-del-user" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-user-minus"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <button class="dropdown-item" type="button" style="font-size: 0.8rem;">Supprimer la relation</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% set flag_state = true %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if not flag_state %}
+                                        <div class="col-5 col-md-4 text-right my-auto">
+                                            <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="{{ path('request_connect', {'id': result.id}) }}"
+                                                id="C_{{ result.id }}" data-token="{{ csrf_token('connect'~result.id) }}">
+                                                {{ 'generic.connect'|trans|raw }}
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                     </div>

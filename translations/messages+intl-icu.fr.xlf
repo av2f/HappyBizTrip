@@ -545,6 +545,14 @@
         <source>generic.connect</source>
         <target>Se connecter</target>
       </trans-unit>
+      <trans-unit id="generic.cancel">
+        <source>generic.cancel</source>
+        <target>Annuler</target>
+      </trans-unit>
+      <trans-unit id="generic.accept">
+        <source>generic.accept</source>
+        <target>Accepter</target>
+      </trans-unit>
       <trans-unit id="generic.message">
         <source>generic.message</source>
         <target>Message</target>
