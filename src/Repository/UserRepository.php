@@ -23,12 +23,12 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    
     /**
      * find all users by pseudo or name or lastname with value like criteria
      * do not take into account case sensitive
      * 
      * Author : Frederic Parmentier
+     * Date : 07/22/2020
      *
      * @param [type] $criteria
      * @return void
@@ -49,9 +49,20 @@ class UserRepository extends ServiceEntityRepository
     }
 
      /*
-    Requete mySQL : SELECT id, pseudo, visit.viewed_at FROM user INNER JOIN visit ON user.id = visitor_id WHERE visited_id = 205
-    AND (visit.viewed_at IS NULL OR visit.viewed_at=CURRENT_DATE())
+    
     */
+    /**
+     * Retrieve the list of new users who have visited the profile
+     * Author : F. Parmentier
+     * Date : 07/22/2020
+     * 
+     * mySql Request : SELECT id, pseudo, visit.viewed_at FROM user INNER JOIN visit ON user.id = visitor_id WHERE visited_id = 205
+     * AND (visit.viewed_at IS NULL OR visit.viewed_at=CURRENT_DATE())
+     *
+     * @param integer $id
+     * @param integer $offset
+     * @return Paginator
+     */
     public function myFindVisitors(int $id, int $offset) : Paginator
     {   
         $today = new \DateTime(); 
@@ -70,6 +81,14 @@ class UserRepository extends ServiceEntityRepository
         return new Paginator($query);
     }
 
+    /**
+     * Retrieve the number of new visit
+     * Author : F. Parmentier
+     * Date : 07/22/2020
+     * 
+     * @param integer $id
+     * @return void
+     */
     public function myCountNewVisit(int $id) 
     {
         $today = new \DateTime(); 
@@ -85,6 +104,15 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Retrieve number of new requests to be HappyBizFriends
+     * Author : F. Parmentier
+     * Date : 07/22/2020
+     *
+     * @param integer $id
+     * @param string $state
+     * @return void
+     */
     public function myCountNewRequest(int $id, string $state)
     {
         return $this->createQueryBuilder('u')
@@ -99,6 +127,15 @@ class UserRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * Retrieve the number of HappyBizFriend of the profile
+     * Author : F. Parmentier
+     * Date : 07/22/2020 
+     *
+     * @param integer $id
+     * @param string $state
+     * @return void
+     */
     public function myCountFriends(int $id, string $state)
     {
         $sql = "SELECT (SELECT COUNT(u.id) AS cpt FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false))
@@ -128,8 +165,19 @@ class UserRepository extends ServiceEntityRepository
         return $result;
     }
     
-    // requete : SELECT id, pseudo, user_connect.state FROM user INNER JOIN user_connect ON user.id = requested_id WHERE requester_id = 4 AND user_connect.state="C"
-    //           UNION SELECT id, pseudo, user_connect.state FROM user INNER JOIN user_connect ON user.id = requester_id WHERE requested_id = 4 AND user_connect.state="C"
+    /**
+     * Retrieve the list of HappyBizFriends of the profile
+     * Author : F. Parmentier
+     * Date : 07/22/2020
+     * 
+     * mySql request : SELECT id, pseudo, user_connect.state FROM user INNER JOIN user_connect ON user.id = requested_id WHERE requester_id = 4 AND user_connect.state="C"
+     * UNION SELECT id, pseudo, user_connect.state FROM user INNER JOIN user_connect ON user.id = requester_id WHERE requested_id = 4 AND user_connect.state="C"
+     *
+     * @param integer $id
+     * @param string $state
+     * @param integer $offset
+     * @return void
+     */
     public function myFindFriends(int $id, string $state, int $offset)
     {
         $sql = "SELECT u.id, u.pseudo, u.first_name, u.last_name, u.slug, u.avatar, u.profession, u.company FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
@@ -150,6 +198,7 @@ class UserRepository extends ServiceEntityRepository
         $rsm->addFieldResult('u', 'is_active', 'isActive');
         $rsm->addFieldResult('u', 'is_deleted', 'isDeleted');
         
+        
         $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requests');
         $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requesters');
 
@@ -163,9 +212,52 @@ class UserRepository extends ServiceEntityRepository
         $query->setParameter(5, $offset);
         $query->setParameter(6, self::PAGINATOR_PER_PAGE);
 
-
         $result = $query->getResult();
 
+        return $result;
+    }
+
+    /**
+     * Retrieve the list of HappyBizFriends and users blacklisted
+     * Author : F. Parmentier
+     * Date : 07/22/2020
+     *
+     * @param integer $id
+     * @param string $stateFriend
+     * @param string $stateBlackList
+     * @return void
+     */
+    public function myFindListFriendAndBlackList(int $id, string $stateFriend, string $stateBlackList)
+    {
+        $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND (c.state = ? OR c.state = ?) AND (u.is_active = true AND u.is_deleted = false)
+                UNION SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND (c.state = ? OR c.state = ?) AND (u.is_active = true AND u.is_deleted = false)
+                ORDER BY pseudo ASC";
+        
+        $rsm = new ResultSetMapping();
+
+        $rsm->addEntityResult('App\Entity\User', 'u');
+        $rsm->addFieldResult('u', 'id', 'id');
+        $rsm->addFieldResult('u', 'pseudo', 'pseudo');
+        $rsm->addFieldResult('u', 'is_active', 'isActive');
+        $rsm->addFieldResult('u', 'is_deleted', 'isDeleted');
+        
+        
+        $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requests');
+        $rsm->addJoinedEntityResult('App\Entity\Connect', 'c', 'u', 'requesters');
+
+        $rsm->addFieldResult('c', 'action_at', 'actionAt');
+        $rsm->addFieldResult('c', 'state', 'state');
+
+        $query = $this->_em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $id);
+        $query->setParameter(2, $stateFriend);
+        $query->setParameter(3, $stateBlackList);
+        $query->setParameter(4, $id);
+        $query->setParameter(5, $stateFriend);
+        $query->setParameter(6, $stateBlackList);
+
+        $result = $query->getScalarResult();
+        
         return $result;
     }
 

@@ -25,26 +25,16 @@
             </div>
         </div>
     </div>
-    {# diplay the list of profiles #}
-    {% include 'partials/_listSearchProfile.html.twig' with {'route_name' : 'search'} %}   
+    {# diplay the list of profiles - variable list = S = Search #}
+    {% include 'partials/_listProfile.html.twig' with {'route_name' : 'search', 'list' : 'S'} %}   
 </div>
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('js/listProfile') }}
     <script>
-        // position of footer for screen >=768 px
-        $(function () {
-            if ($(window).width() >= 768) {
-                var bht = $('body').height()
-                var wht = $(window).height()
-                if (bht < wht) {
-                    $('footer').css("position", "absolute")
-                }
-            }
-        })
-    
         // advanced search form visible or not
         document.getElementById("btnAdvancedSearch").addEventListener("click", function(){
             document.getElementById("advancedSearch").style.display

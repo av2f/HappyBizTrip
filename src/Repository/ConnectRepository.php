@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Connect;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Subscription|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,4 +19,5 @@ class ConnectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Connect::class);
     }
+    
 }

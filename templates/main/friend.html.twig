@@ -15,26 +15,16 @@
         </div>
     </div>
     <hr>
-    {# diplay the list of profiles #}
-    {% include 'partials/_listProfile.html.twig'  with {'route_name' : 'show_friends'} %}   
+    {# diplay the list of profiles - variable list = F = Friend #}
+    {% include 'partials/_listProfile.html.twig'  with {'route_name' : 'show_friends', 'list' : 'F'} %}   
 </div>
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('js/listProfile') }}
     <script>
-        // position of footer for screen >=768 px
-        $(function () {
-            if ($(window).width() >= 768) {
-                var bht = $('body').height()
-                var wht = $(window).height()
-                if (bht < wht) {
-                    $('footer').css("position", "absolute")
-                }
-            }
-        })
-
         // manage connect button
         document.querySelectorAll(".btn-connect").forEach(connect => 
             connect.addEventListener("click", (e) => { 

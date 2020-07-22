@@ -54,6 +54,7 @@ class MainPageController extends AbstractController
     {
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $paginator = $userRepo->myFindVisitors($this->getUser()->getId(), $offset);
+        $listFriendAndBlackList = $userRepo->myFindListFriendAndBlackList($this->getUser()->getId(), "C", "B");
 
         if (count($paginator) > 0) {
             $today = new \DateTime();
@@ -68,6 +69,7 @@ class MainPageController extends AbstractController
 
         return new Response($this->twig->render('main/visit.html.twig', [
             'paginator' => $paginator,
+            'friends_blackList' => $listFriendAndBlackList,
             'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),
             'page' => $page,
             'user_id' => $this->getUser()->getId()
@@ -85,7 +87,8 @@ class MainPageController extends AbstractController
     {
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $paginator = $userRepo->myFindFriends($this->getUser()->getId(), "C", $offset);
-
+        
+        
         return new Response($this->twig->render('main/friend.html.twig', [
             'paginator' => $paginator,
             'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),

@@ -40,7 +40,7 @@ class AppFixtures extends Fixture
     * @return string
     */
     private function createPseudo(string $firstName): string {
-        $number=(string)mt_rand(120,999);
+        $number=(string)mt_rand(100,999);
         $firstN=(strlen($firstName)>5) ? substr($firstName,0,strlen($firstName)-3) : $firstName;
         $pseudo=mb_strtolower($firstN).$number;
         $search=array("/é/","/è/","/ê/","/ë/");
@@ -169,7 +169,7 @@ class AppFixtures extends Fixture
         // Define Situations (C=Couple / S=Single / W=Widow)
         $situations = array('C', 'S', 'K');
         // Define state of Connect
-        $states = array('W', 'C', 'R', 'B');
+        $states = array('W', 'C', 'B');
         
         $subscribes = array(true, false);
         

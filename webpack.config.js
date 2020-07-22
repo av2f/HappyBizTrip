@@ -42,6 +42,7 @@ Encore
     .addEntry('js/app', './assets/js/app.js')
     .addEntry('js/datepicker/datepicker', './assets/js/datepicker/bootstrap-datepicker.min.js')
     .addEntry('js/datepicker/datepicker-fr', './assets/js/datepicker/bootstrap-datepicker.fr.min.js')
+    .addEntry('js/listProfile', './assets/js/listProfile.js')
     //.addEntry('page1', './assets/js/page1.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
