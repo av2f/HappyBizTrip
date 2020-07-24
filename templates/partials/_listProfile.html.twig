@@ -8,6 +8,13 @@
                     {% set flag_requested = false %}
                     {% set flag_state = false %}
                     {% set badge_display = 'none' %}
+                    {% set badge_message = ''%}
+                    {% set button_display = 'none' %}
+                    {% set btn_name = '' %}
+                    {% set btn_id_name = '' %}
+                    {% set btn_message = '' %}
+                    {% set btn_href = '#' %}
+                    {% set btn_grp_display = 'none' %}
                     {# ---- #}  
                     <div class="row mb-3 mt-3">
                         <div class="col-7 col-md-8">
@@ -25,13 +32,15 @@
                                     <p class="col-text-pseudo mt-0">{{result.pseudo }}
                                         {# Badge Management #}
                                         {% if result.id == user_id %}
-                                            <span class="badge badge-happyDarkBlue">{{ 'generic.you'|trans|raw }}</span>
+                                            {% set badge_display = 'inline' %}
+                                            {% set badge_message = 'generic.you'|trans|raw %}
                                         {% else %}
                                             {# verify if user is a requester to be new friend #}
                                             {% if new_requester is defined %}
                                                 {% for requester in new_requester %}
                                                     {% if requester.u_id == result.id %}
-                                                        <span class="badge badge-happyDarkBlue" id="S_{{ result.id }}" style="display:inline">Vous a sollicité</span>
+                                                        {% set badge_display = 'inline' %}
+                                                        {% set badge_message = 'vous a sollicité' %}
                                                         {% set flag_requester = true %}
                                                     {% endif %}
                                                 {% endfor %}
@@ -40,13 +49,14 @@
                                                     {% for requested in new_requested %}
                                                         {% if requested.u_id == result.id %}
                                                             {% set badge_display = 'inline' %}
+                                                            {% set badge_message = 'connection.requested'|trans|raw %}
                                                             {% set flag_requested = true %}
                                                         {% endif %}
                                                     {% endfor %}
-                                                    <span class="badge badge-happyDarkBlue" id="BC_{{ result.id }}" style="display:{{ badge_display }} ">Connexion demandée</span>
                                                 {% endif %}
                                             {% endif %}
                                         {% endif %}
+                                        <span class="badge badge-happyDarkBlue" id="B_{{ result.id }}" style="display:{{ badge_display }} ">{{ badge_message }}</span>
                                         {# End Badge management #}
                                     </p>
                                     {% if result.firstName is not empty %}
@@ -64,27 +74,30 @@
                             </div>
                         </div>
                         {# Management of button #}
-                        {% if list == 'F' %} {# if list of friends #}
-                            <div class="col-5 col-md-4 text-right my-auto">
-                                <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="#">{{ 'generic.message'|trans|raw }}</a>
-                                <div class="btn-group">
-                                    <button class="btn btn-happyDarkBlue btn-sm dropdown-toggle dropdown-del-user" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-user-minus"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <button class="dropdown-item" type="button" style="font-size: 0.8rem;">Supprimer la relation</button>
+                            {% if list == 'F' %} {# if list of friends #}
+                                {% set button_display = 'inline' %}
+                                {% set btn_name = 'btn-message' %}
+                                {% set btn_id_name = 'ME' %}
+                                {% set btn_message = 'generic.message'|trans|raw %}
+                                {# <div class="col-5 col-md-4 text-right my-auto">
+                                    <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="#">{{ 'generic.message'|trans|raw }}</a> 
+                                    
+                                    <div class="btn-group">
+                                        <button class="btn btn-happyDarkBlue btn-sm dropdown-toggle dropdown-del-user" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-user-minus"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button" style="font-size: 0.8rem;">Supprimer la relation</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                </div> #}
                         {% else %}
                             {% if result.id != user_id %}
                                 {% if flag_requested %}
-                                    <div class="col-5 col-md-4 text-right my-auto">
-                                        <a class="btn btn-outline-happyDarkBlue btn-sm btn-cancel" href="#"
-                                            id="CA_{{ result.id }}" data-token="{{ csrf_token('cancel'~result.id) }}">
-                                            {{ 'generic.cancel'|trans|raw }}
-                                        </a>
-                                    </div>
+                                    {% set button_display = 'inline' %}
+                                    {% set btn_name = 'btn-cancel' %}
+                                    {% set btn_id_name = 'CA' %}
+                                    {% set btn_message = 'generic.cancel'|trans|raw %}
                                 {% elseif flag_requester %}
                                     {{ _self.button_accept(result.id) }}
                                 {% else %}
@@ -96,17 +109,22 @@
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
-                                    {% if not flag_state %}
-                                        <div class="col-5 col-md-4 text-right my-auto">
-                                            <a class="btn btn-outline-happyDarkBlue btn-sm btn-connect" href="{{ path('request_connect', {'id': result.id}) }}"
-                                                id="C_{{ result.id }}" data-token="{{ csrf_token('connect'~result.id) }}">
-                                                {{ 'generic.connect'|trans|raw }}
-                                            </a>
-                                        </div>
+                                        {% if not flag_state %}
+                                        {% set button_display = 'inline' %}
+                                        {% set btn_name = 'btn-connect' %}
+                                        {% set btn_id_name = 'CO' %}
+                                        {% set btn_href = path('request_connect', {'id': result.id}) %}
+                                        {% set btn_message = 'generic.connect'|trans|raw %}
                                     {% endif %}
                                 {% endif %}
                             {% endif %}
                         {% endif %}
+                        <div class="col-5 col-md-4 text-right my-auto" style="display: {{ button_display }};">
+                            <a class="btn btn-outline-happyDarkBlue btn-sm {{ btn_name }}" href="{{ btn_href }}"
+                                id="{{ btn_id_name }}_{{ result.id }}" data-token="{{ csrf_token('tok'~result.id) }}">
+                                {{ btn_message }}
+                            </a>
+                        </div>
                         {# End of management of buttons #}
                     </div>
                     {% if not loop.last %}<hr>{% endif %}
@@ -124,7 +142,7 @@
 
 {% macro button_accept(id_user) %}
     <div class="col-5 col-md-4 text-right my-auto">
-        <a class="btn btn-outline-happyDarkBlue btn-sm btn-accept" id="A_{{ id_user }} href="#">{{ 'generic.accept'|trans|raw }}</a>
+        <a class="btn btn-outline-happyDarkBlue btn-sm btn-accept" id="A_{{ id_user }}" href="#">{{ 'generic.accept'|trans|raw }}</a>
         <div class="btn-group">
             <button class="btn btn-happyGrey btn-sm dropdown-toggle dropdown-del-user" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-minus"></i>
@@ -135,5 +153,4 @@
             </div>
         </div>
     </div>
-
 {% endmacro %}

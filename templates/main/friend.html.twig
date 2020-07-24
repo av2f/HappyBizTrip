@@ -23,5 +23,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('js/listProfile') }}
+    {% include 'partials/js/listProfileJs.html.twig' %}
 {% endblock %}

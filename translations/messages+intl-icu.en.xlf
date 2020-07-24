@@ -557,6 +557,10 @@
         <source>generic.message</source>
         <target>Message</target>
       </trans-unit>
+      <trans-unit id="connection.requested">
+        <source>connection.requested</source>
+        <target>Connection requested</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

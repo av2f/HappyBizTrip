@@ -287,15 +287,15 @@ class ProfileController extends AbstractController
     public function requestConnect(Request $request, User $profile, EntityManagerInterface $em)
     {
         $data = json_decode($request->getContent(), true);
-        if ($this->isCsrfTokenValid('connect'.$profile->getId(), $data['_token'])) {
+        if ($this->isCsrfTokenValid('tok'.$profile->getId(), $data['_token'])) {
             // Create new request
-            $connect = new Connect();
+            /* $connect = new Connect();
             $connect->setRequester($this->getUser());
             $connect->setRequested($profile);
             $connect->setActionAt(new \DateTime());
             $connect->setState("W");
             $em->persist($connect);
-            $em->flush();
+            $em->flush(); */
             // return success response
             return new JsonResponse([
                 'success' => '1'], 200);

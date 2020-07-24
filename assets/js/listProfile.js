@@ -33,6 +33,7 @@ document.querySelectorAll('.btn-connect').forEach(connect =>
         var btnId = connect.getAttribute('id')
         var badgeId = 'B_' + btnId.substring(btnId.indexOf('_', 1) + 1, btnId.length)
         if (document.getElementById(badgeId).style.display === 'none') {
+            document.getElementById(badgeId).innerHTML = "{{ 'connection.requested'|trans|raw }}"
             document.getElementById(badgeId).style.display = 'inline'
         }
         console.log(document.getElementById(badgeId).innerHTML)
