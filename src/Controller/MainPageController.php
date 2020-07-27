@@ -94,8 +94,7 @@ class MainPageController extends AbstractController
     {
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $paginator = $userRepo->myFindFriends($this->getUser()->getId(), "C", $offset);
-        
-        
+
         return new Response($this->twig->render('main/friend.html.twig', [
             'paginator' => $paginator,
             'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),

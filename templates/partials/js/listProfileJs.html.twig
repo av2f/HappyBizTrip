@@ -11,57 +11,69 @@
   })
 
   // manage connect button
-  document.querySelectorAll('.btn-connect').forEach(connect => 
-    connect.addEventListener('click', (e) => { 
+  document.querySelectorAll('.btn-action').forEach(action => 
+    action.addEventListener('click', (e) => { 
       e.preventDefault()
-      fetch(connect.getAttribute('href'), {
-        method: 'POST',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({'_token': connect.dataset.token})
-      })
-      .then(
-        response => response.json()
-      )
-      .then(data => {
-        if (data.success) {
-          console.log('youpi ça a marché')
-          // remove button
-          //connect.parentElement.remove()
-          
-          // display badge
-          var btnId = connect.getAttribute('id')
-          var badgeId = 'B_' + btnId.substring(btnId.indexOf('_', 1) + 1, btnId.length)
-          if (document.getElementById(badgeId).style.display === 'none') {
-              document.getElementById(badgeId).innerHTML = "{{ 'connection.requested'|trans|raw }}"
-              document.getElementById(badgeId).style.display = 'inline'
-              var newClass = connect.getAttribute('class').replace('btn-connect', 'btn-cancel')
-              var newId = connect.getAttribute('id').replace('CO', 'CA')
-              connect.setAttribute('class', newClass)
-              connect.setAttribute('id', newId)
-              connect.innerHTML = "{{ 'generic.cancel'|trans|raw }}"
+      var clickAction = action.getAttribute('id').substring(0,2)
+      var badgeId = 'B_' + action.getAttribute('id').substring(action.getAttribute('id').indexOf('_', 1) + 1, action.getAttribute('id').length)
+      console.log(clickAction)
+      console.log(badgeId)
+      
+      switch (clickAction) {
+        case 'CO':  // click on connect button
+          fetch(action.getAttribute('href'), {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({'_token': action.dataset.token})
+          })
+          .then(
+            response => response.json()
+          )
+          .then(data => {
+            if (data.success) {
+              console.log('youpi ça a marché')
+              // remove button
+              //connect.parentElement.remove()
               
-              var btnMessage = connect.innerHTML
-              console.log(newClass)
-              console.log(newId)
-              console.log(btnMessage)
+              // display badge
+              if (document.getElementById(badgeId).style.display === 'none') {
+                  document.getElementById(badgeId).innerHTML = "{{ 'connection.requested'|trans|raw }}"
+                  document.getElementById(badgeId).style.display = 'inline'
+                  var newId = action.getAttribute('id').replace('CO', 'CA')
+                  action.setAttribute('id', newId)
+                  action.innerHTML = "{{ 'generic.cancel'|trans|raw }}"
+              }
+            }
+            else {
+              console.log('merde ça a foiré')
+            }
+          })
+          .catch(e => alert(e))
+          break
+        case 'CA':  // Cancel
+          // il faut supprimer dans la base la connexion
+        
+          console.log(action.getAttribute('id'))
+          // reset & hide badge
+          if (document.getElementById(badgeId).style.display === 'inline') {
+            document.getElementById(badgeId).innerHTML = ''
+            document.getElementById(badgeId).style.display = 'none'
+            // change type and string of action for button
+            var newId = action.getAttribute('id').replace('CA', 'CO')
+            action.setAttribute('id', newId)
+            action.innerHTML = "{{ 'generic.connect'|trans|raw }}"
+
           }
-        }
-        else {
-          console.log('merde ça a foiré')
-        }
-      })
-      .catch(e => alert(e))
+          break
+
+        default:
+          break
+      }
+      
     })
   )
 
-  // Manage Cancel button
-  document.querySelectorAll('.btn-cancel').forEach(cancel => 
-    cancel.addEventListener('click', (e) => { 
-      var btnId = cancel.getAttribute('id')
-      console.log(btnId)
-    })
-  )
   </script>

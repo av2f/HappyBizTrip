@@ -561,6 +561,10 @@
         <source>connection.requested</source>
         <target>Connexion demandée</target>
       </trans-unit>
+      <trans-unit id="requested.you">
+        <source>requested.you</source>
+        <target>Vous a sollicité</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

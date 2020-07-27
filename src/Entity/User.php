@@ -14,6 +14,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  * 
+ * create index for search
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="search_idx", columns={"pseudo", "first_name", "last_name"})})
+ * 
  * @UniqueEntity (
  *  fields = {"pseudo"},
  *  message = "user.pseudo.unique"
@@ -670,6 +673,8 @@ class User implements UserInterface
 
      /**
      * @return Collection|Connect[]
+     * list of users that $this->getUser() has requested as friends
+     * $requester = $this->getUser()
      */
     public function getRequesters(): Collection
     {
@@ -696,6 +701,8 @@ class User implements UserInterface
 
      /**
      * @return Collection|Connect[]
+     * list of users who have requested $this->getUser() as friend
+     * $requested = $this->getUser() 
      */
     public function getRequests(): Collection
     {

@@ -33,7 +33,6 @@ class SearchController extends AbstractController
          $listNewRequester = $userRepo->myFindListNewRequester($this->getUser()->getId(), "W");
          // List of users whom profile request to be friend
          $listNewRequested = $userRepo->myFindListNewRequested($this->getUser()->getId(), "W");
- 
     
         return new Response($this->twig->render('search/index.html.twig', [
             'paginator' => $paginator,
