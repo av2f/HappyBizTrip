@@ -18,55 +18,58 @@
       var badgeId = 'B_' + action.getAttribute('id').substring(action.getAttribute('id').indexOf('_', 1) + 1, action.getAttribute('id').length)
       console.log(clickAction)
       console.log(badgeId)
-      
+      // manage action on click
       switch (clickAction) {
         case 'CO':  // click on connect button
-          fetch(action.getAttribute('href'), {
-            method: 'POST',
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({'_token': action.dataset.token})
-          })
-          .then(
-            response => response.json()
-          )
-          .then(data => {
-            if (data.success) {
-              console.log('youpi ça a marché')
-              // remove button
-              //connect.parentElement.remove()
-              
+          sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'CO')
+          .then(response => {
+            if (response.success) {
               // display badge
-              if (document.getElementById(badgeId).style.display === 'none') {
-                  document.getElementById(badgeId).innerHTML = "{{ 'connection.requested'|trans|raw }}"
-                  document.getElementById(badgeId).style.display = 'inline'
-                  var newId = action.getAttribute('id').replace('CO', 'CA')
-                  action.setAttribute('id', newId)
-                  action.innerHTML = "{{ 'generic.cancel'|trans|raw }}"
-              }
+              badge(badgeId, 'none', 'inline',"{{ 'connection.requested'|trans|raw }}")
+              // change type and string of action for button
+              var newId = action.getAttribute('id').replace('CO', 'CA')
+              action.setAttribute('id', newId)
+              action.innerHTML = "{{ 'generic.cancel'|trans|raw }}"
             }
             else {
-              console.log('merde ça a foiré')
+              console.log('foireux')
             }
           })
           .catch(e => alert(e))
           break
         case 'CA':  // Cancel
-          // il faut supprimer dans la base la connexion
-        
-          console.log(action.getAttribute('id'))
-          // reset & hide badge
-          if (document.getElementById(badgeId).style.display === 'inline') {
-            document.getElementById(badgeId).innerHTML = ''
-            document.getElementById(badgeId).style.display = 'none'
-            // change type and string of action for button
-            var newId = action.getAttribute('id').replace('CA', 'CO')
-            action.setAttribute('id', newId)
-            action.innerHTML = "{{ 'generic.connect'|trans|raw }}"
-
-          }
+          sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'CA')
+          .then(response => {
+            if (response.success) {
+              // reset & hide badge
+              badge(badgeId, 'inline', 'none', '')
+              // change type and string of action for button
+              var newId = action.getAttribute('id').replace('CA', 'CO')
+              action.setAttribute('id', newId)
+              action.innerHTML = "{{ 'generic.connect'|trans|raw }}"
+            }
+            else {
+              console.log('foireux')
+            }
+          })
+          .catch(e => alert(e))
+          break
+        case "AC":  // Accept
+          sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'AC')
+          .then(response => {
+            if (response.success) {
+              // reset & hide badge
+              badge(badgeId, 'inline', 'none', '')
+              // change type and string of action for button
+              var newId = action.getAttribute('id').replace('AC', 'ME')
+              action.setAttribute('id', newId)
+              action.innerHTML = "{{ 'generic.message'|trans|raw }}"
+            }
+            else {
+              console.log('foireux')
+            }
+          })
+          .catch(e => alert(e))
           break
 
         default:
@@ -76,4 +79,43 @@
     })
   )
 
-  </script>
+  /* 
+  Manage json request with promise
+  href  : url to send request
+  theToken  : token
+  action  :
+    CO = Connect
+    CA = Cancel
+    AC = Accept
+  */
+
+  function sendJsonRequest(href, theToken, action)
+  {
+    return fetch(href, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({'_token': theToken, 'action': action})
+    })
+    .then( response => response.json() )
+    .then(data => { return data })
+  }
+
+  /*
+  Display or hide the badge
+  badgeId : id of the badge to change state
+  displayScr  : value of original style display
+  displayDest : value of style display after change
+  textBadge : Text for badge
+  */
+  function badge(badgeId, displaySrc, displayDest, textBadge)
+  {
+    if (document.getElementById(badgeId).style.display === displaySrc) {
+      document.getElementById(badgeId).innerHTML = textBadge
+      document.getElementById(badgeId).style.display = displayDest
+    }
+  }
+
+</script>

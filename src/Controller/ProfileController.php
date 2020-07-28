@@ -9,6 +9,7 @@ use App\Entity\Connect;
 use App\Form\ProfileType;
 use App\Service\ImageOptimizer;
 use App\Form\ChangePasswordType;
+use App\Repository\ConnectRepository;
 use App\Repository\UserRepository;
 use App\Repository\VisitRepository;
 use App\Repository\InterestRepository;
@@ -278,32 +279,61 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * manage the request of connection to a user
+     * manage action for connection request
+     * CO = Connect : create a new entry in Connect Entity
+     * CA = Cancel : Remove the request in Connect Entity
      * 
-     * @Route("/requestConnect/{id}", name="request_connect", methods={"POST"})
+     * @Route("/requestAction/{id}", name="request_action", methods={"POST"})
      *
+     * @param Request $request
+     * @param User $profile
+     * @param ConnectRepository $connectRepo
+     * @param EntityManagerInterface $em
      * @return void
      */
-    public function requestConnect(Request $request, User $profile, EntityManagerInterface $em)
+    public function requestAction(Request $request, User $profile, ConnectRepository $connectRepo, EntityManagerInterface $em)
     {
         $data = json_decode($request->getContent(), true);
         if ($this->isCsrfTokenValid('tok'.$profile->getId(), $data['_token'])) {
-            // Create new request
-            /* $connect = new Connect();
-            $connect->setRequester($this->getUser());
-            $connect->setRequested($profile);
-            $connect->setActionAt(new \DateTime());
-            $connect->setState("W");
-            $em->persist($connect);
-            $em->flush(); */
+            switch($data['action']) {
+                case 'CO':
+                    // Create new request in Connect entity
+                    $connect = new Connect();
+                    $connect->setRequester($this->getUser());
+                    $connect->setRequested($profile);
+                    $connect->setActionAt(new \DateTime());
+                    $connect->setState("W");
+                    $em->persist($connect);
+                    $em->flush();
+                    break;
+                case 'CA':
+                    // search and Remove the request cancelled en Connect entity
+                    $entry = $connectRepo->findOneBy(['requester' => $this->getUser()->getId(), 'requested' => $profile->getId()]);
+                    if ($entry) {   // entry found
+                        $em->remove($entry);
+                        $em->flush();
+                    }
+                    break;
+                case 'AC':
+                    // request accepted : update the entry
+                    $entry = $connectRepo->findOneBy(['requester' => $profile->getId(), 'requested' => $this->getUser()->getId()]);
+                    if ($entry) {   // entry found
+                        $entry->setActionAt(new \DateTime());
+                        $entry->setState("C");
+                        $em->flush();
+                    }
+                    break;
+            }
             // return success response
             return new JsonResponse([
-                'success' => '1'], 200);
+                'success' => '1'], 200
+            );
         }
         else {
              // return error
              return new JsonResponse([
-                'error' => '2'], 400);
+                'error' => '2'], 400
+            );
         }
     }
 }

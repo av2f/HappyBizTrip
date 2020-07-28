@@ -19,5 +19,4 @@ class ConnectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Connect::class);
     }
-    
 }
