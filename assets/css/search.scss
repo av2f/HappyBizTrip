@@ -17,10 +17,14 @@ $happyRed: #B81A18;
       max-width: 32px;
       max-height: 32px;
   }
-  .dropdown-del-user {
+  .dropdown-action {
     margin-top: 1rem;
   }
 
+}
+
+.dropdown-item-action {
+  font-size: 0.8rem;
 }
 
 @media (min-width: 576px) {

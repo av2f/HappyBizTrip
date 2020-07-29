@@ -557,6 +557,10 @@
         <source>generic.message</source>
         <target>Message</target>
       </trans-unit>
+      <trans-unit id="generic.block">
+        <source>generic.block</source>
+        <target>Block</target>
+      </trans-unit>
       <trans-unit id="connection.requested">
         <source>connection.requested</source>
         <target>Connection requested</target>
@@ -564,6 +568,14 @@
       <trans-unit id="requested.you">
         <source>requested.you</source>
         <target>Requested you</target>
+      </trans-unit>
+      <trans-unit id="delete.relation">
+        <source>delete.relation</source>
+        <target>Delete the relation</target>
+      </trans-unit>
+      <trans-unit id="refuse.relation">
+        <source>refuse.relation</source>
+        <target>Refuse the relation</target>
       </trans-unit>
     </body>
   </file>

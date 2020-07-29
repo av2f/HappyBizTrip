@@ -323,6 +323,17 @@ class ProfileController extends AbstractController
                         $em->flush();
                     }
                     break;
+                case 'BL':  // block User
+                    $entry = $connectRepo->findOneBy(['requester' => $profile->getId(), 'requested' => $this->getUser()->getId()]);
+                    if(!$entry) {   // if not found, search reverse requester and requested
+                        $entry = $connectRepo->findOneBy(['requester' => $this->getUser()->getId(), 'requested' => $profile->getId()]);
+                    }
+                    if ($entry) {   // entry found
+                        $entry->setActionAt(new \DateTime());
+                        $entry->setState("B");
+                        $em->flush();
+                    }
+                    break;
             }
             // return success response
             return new JsonResponse([

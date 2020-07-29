@@ -67,19 +67,19 @@
                         <div class="col-5 col-md-4 text-right my-auto">
                             {% if list == 'F' %} {# if show friends #}
                                 {{ _self.btn_action(result.id, 'inline', 'ME', '#', 'generic.message'|trans|raw) }}
-                                {{ _self.btn_group(result.id, 'inline', result.pseudo) }}
+                                {{ _self.btn_group(result.id, 'inline', result.pseudo, 'DE') }}
                             {% elseif result.id != user_id %}
                                 {% if flag_requested %} {# if user has requested for a connection #}
                                     {{ _self.btn_action(result.id, 'inline', 'CA', path('request_action', {'id': result.id}), 'generic.cancel'|trans|raw) }}
-                                    {{ _self.btn_group(result.id, 'none', result.pseudo) }}
+                                    {{ _self.btn_group(result.id, 'none', result.pseudo, '') }}
                                 {% elseif flag_requester %} {# if user has been requested for a connection #}
                                     {{ _self.btn_action(result.id, 'inline', 'AC', path('request_action', {'id': result.id}), 'generic.accept'|trans|raw) }}
-                                    {{ _self.btn_group(result.id, 'inline', result.pseudo) }}
+                                    {{ _self.btn_group(result.id, 'inline', result.pseudo, 'RE') }}
                                 {% else %}
                                     {% for friend_or_blacklist  in friends_blackList %}
                                         {% if friend_or_blacklist.u_id == result.id and friend_or_blacklist.c_state == 'C' %} {# if already friend #}
                                             {{ _self.btn_action(result.id, 'inline', 'ME', '#', 'generic.message'|trans|raw) }}
-                                            {{ _self.btn_group(result.id, 'inline', result.pseudo) }}
+                                            {{ _self.btn_group(result.id, 'inline', result.pseudo, 'DE') }}
                                             {% set flag_connected = true %}
                                         {% endif %}
                                     {% endfor %}
@@ -87,7 +87,7 @@
                                 {# if no request and no relationship #}
                                 {% if not flag_requested and not flag_requester and not flag_connected %}
                                     {{ _self.btn_action(result.id, 'inline', 'CO', path('request_action', {'id': result.id}), 'generic.connect'|trans|raw) }}
-                                    {{ _self.btn_group(result.id, 'none', result.pseudo) }}
+                                    {{ _self.btn_group(result.id, 'none', result.pseudo, '') }}
                                 {% endif %}
                             {% endif %}
                         </div>
@@ -108,23 +108,31 @@
 
 
 {% macro badge(id_user, badge_display, badge_message) %}
-    <span class="badge badge-happyDarkBlue" id="B_{{ id_user }}" style="display:{{ badge_display }} ">{{ badge_message }}</span>
+    <span class="badge badge-happyDarkBlue" id="B_{{ id_user }}" style="display:{{ badge_display }};">{{ badge_message }}</span>
 {% endmacro %}
 
 {% macro btn_action(id_user, btn_display, btn_id, btn_url, btn_message) %}
-    <a class="btn btn-outline-happyDarkBlue btn-sm btn-action" id="{{ btn_id }}_{{ id_user }}" href="{{ btn_url }}"
+    <a class="btn btn-outline-happyDarkBlue btn-sm btn-action shadow-none" id="{{ btn_id }}_{{ id_user }}" href="{{ btn_url }}"
         style="display: {{ btn_display }};" data-token="{{ csrf_token('tok'~id_user) }}">{{ btn_message }}
     </a>
 {% endmacro %}
 
-{% macro btn_group(btn_grp_id, btn_grp_display, btn_grp_pseudo) %}
-    <div class="btn-group ml-1" id="BG_{{ btn_grp_id }}" style="display:{{ btn_grp_display }}">
-        <button class="btn btn-happyGrey btn-sm dropdown-toggle dropdown-del-user" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+{% macro btn_group(btn_grp_id, btn_grp_display, btn_grp_pseudo, item_action) %}
+    {% set text_action = 'delete.relation'|trans|raw  %}
+    {% if item_action == 'RE' %}
+        {% set text_action = 'refuse.relation'|trans|raw  %}
+    {% endif %}
+    <div class="btn-group ml-1" id="BG_{{ btn_grp_id }}" style="display:{{ btn_grp_display }};">
+        <button class="btn btn-happyGrey btn-sm dropdown-toggle dropdown-action shadow-none" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user-minus"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" type="button" style="font-size: 0.8rem;">Supprimer la relation</button>
-            <button class="dropdown-item" type="button" style="font-size: 0.8rem;">Bloquer {{ btn_grp_pseudo }}</button>
+            <button class="dropdown-item dropdown-item-action" id="{{ item_action }}_{{ btn_grp_id }}" data-token="{{ csrf_token('tok'~btn_grp_id) }}"
+                href="{{ path('request_action', {'id': btn_grp_id}) }}">{{ text_action }}
+            </button>
+            <button class="dropdown-item dropdown-item-action" id="BL_{{ btn_grp_id }}" data-token="{{ csrf_token('tok'~btn_grp_id) }}"
+                href="{{ path('request_action', {'id': btn_grp_id}) }}">{{ 'generic.block'|trans|raw }} {{ btn_grp_pseudo }}
+            </button>
         </div>
     </div>
 {% endmacro %}
