@@ -306,8 +306,9 @@ class ProfileController extends AbstractController
                     $em->persist($connect);
                     $em->flush();
                     break;
-                case 'CA':
-                    // search and Remove the request cancelled en Connect entity
+                case 'CA';  // remove the request that user has cancelled in Connect entity
+                case 'UN';  // Unblock the user deleting entry in Connect entity
+                    // search and Remove the request cancelled in Connect entity
                     $entry = $connectRepo->findOneBy(['requester' => $this->getUser()->getId(), 'requested' => $profile->getId()]);
                     if ($entry) {   // entry found
                         $em->remove($entry);
@@ -323,14 +324,38 @@ class ProfileController extends AbstractController
                         $em->flush();
                     }
                     break;
-                case 'BL':  // block User
+                case 'BL':  // block User : delete the existing relation and create a new with state 'B'
                     $entry = $connectRepo->findOneBy(['requester' => $profile->getId(), 'requested' => $this->getUser()->getId()]);
                     if(!$entry) {   // if not found, search reverse requester and requested
                         $entry = $connectRepo->findOneBy(['requester' => $this->getUser()->getId(), 'requested' => $profile->getId()]);
                     }
                     if ($entry) {   // entry found
-                        $entry->setActionAt(new \DateTime());
-                        $entry->setState("B");
+                        $em->remove($entry);
+                        $em->flush();
+                        //
+                        $connect = new Connect();
+                        $connect->setRequester($this->getUser());
+                        $connect->setRequested($profile);
+                        $connect->setActionAt(new \DateTime());
+                        $connect->setState("B");
+                        $em->persist($connect);
+                        $em->flush();
+                    }
+                    break;
+                case 'DE':  // Delete relation : delete the existing relation
+                    $entry = $connectRepo->findOneBy(['requester' => $profile->getId(), 'requested' => $this->getUser()->getId()]);
+                    if(!$entry) {   // if not found, search reverse requester and requested
+                        $entry = $connectRepo->findOneBy(['requester' => $this->getUser()->getId(), 'requested' => $profile->getId()]);
+                    }
+                    if ($entry) {   // entry found
+                        $em->remove($entry);
+                        $em->flush();
+                    }
+                    break;
+                case 'RE':  // relation refused : delete the entry in Connect entity
+                    $entry = $connectRepo->findOneBy(['requester' => $profile->getId(), 'requested' => $this->getUser()->getId()]);
+                    if ($entry) {   // entry found
+                        $em->remove($entry);
                         $em->flush();
                     }
                     break;

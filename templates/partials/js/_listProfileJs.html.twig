@@ -15,7 +15,8 @@
     action.addEventListener('click', (e) => { 
       e.preventDefault()
       var clickAction = action.getAttribute('id').substring(0,2)
-      var badgeId = 'B_' + action.getAttribute('id').substring(action.getAttribute('id').indexOf('_', 1) + 1, action.getAttribute('id').length)
+      var userId = action.getAttribute('id').substring(action.getAttribute('id').indexOf('_', 1) + 1, action.getAttribute('id').length)
+      var badgeId = 'B_' + userId
       // handle action on click
       switch (clickAction) {
         case 'CO':  // click on connect button
@@ -25,8 +26,7 @@
               // display badge
               badge(badgeId, 'none', 'inline',"{{ 'connection.requested'|trans|raw }}")
               // change type and string of action for button
-              var newId = action.getAttribute('id').replace('CO', 'CA')
-              action.setAttribute('id', newId)
+              action.setAttribute('id', action.getAttribute('id').replace('CO', 'CA'))
               action.innerHTML = "{{ 'generic.cancel'|trans|raw }}"
             }
             else {
@@ -42,8 +42,7 @@
               // reset & hide badge
               badge(badgeId, 'inline', 'none', '')
               // change type and string of action for button
-              var newId = action.getAttribute('id').replace('CA', 'CO')
-              action.setAttribute('id', newId)
+              action.setAttribute('id', action.getAttribute('id').replace('CA', 'CO'))
               action.innerHTML = "{{ 'generic.connect'|trans|raw }}"
             }
             else {
@@ -59,9 +58,27 @@
               // reset & hide badge
               badge(badgeId, 'inline', 'none', '')
               // change type and string of action for button
-              var newId = action.getAttribute('id').replace('AC', 'ME')
-              action.setAttribute('id', newId)
+              action.setAttribute('id', action.getAttribute('id').replace('AC', 'ME'))
+              action.setAttribute('href', '#')
               action.innerHTML = "{{ 'generic.message'|trans|raw }}"
+              // change id and item of dropdown-item : DE and delete.relation
+             var dropdown_item = document.getElementById('RE_' + userId)
+             dropdown_item.setAttribute('id', dropdown_item.getAttribute('id').replace('RE', 'DE'))
+             dropdown_item.innerHTML = "{{ 'delete.relation'|trans|raw }}"
+            }
+            else {
+              console.log('foireux')
+            }
+          })
+          .catch(e => alert(e))
+          break
+          case "UN":  // Unblock
+          sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'UN')
+          .then(response => {
+            if (response.success) {
+              // change type and string of action for button
+              action.setAttribute('id', action.getAttribute('id').replace('UN', 'CO'))
+              action.innerHTML = "{{ 'generic.connect'|trans|raw }}"
             }
             else {
               console.log('foireux')
@@ -82,22 +99,27 @@
       e.preventDefault()
       var clickItem = item.getAttribute('id').substring(0,2)
       var userId = item.getAttribute('id').substring(item.getAttribute('id').indexOf('_', 1) + 1, item.getAttribute('id').length)
-      var btnGrpId = 'BG_' + userId
-      console.log(clickItem + ' ' + item.innerHTML)
-      console.log(btnGrpId + ' ' + userId)
+      var badgeId = 'B_' + userId
       switch (clickItem) {
         case 'BL':  // Block user
           sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'BL')
           .then(response => {
             if (response.success) {
-
-              console.log("et oh j'y suis")
-
+              // reset and hide badge
+              badge(badgeId, 'inline', 'none', '')
               // change type and string of action for button
-              // var btnId = 'ME_' + 
-              var newId = item.getAttribute('id').replace('BL', 'UN')
-              item.setAttribute('id', newId)
-              item.innerHTML = "{{ 'generic.unlock'|trans|raw }}"
+              var suffixAction = 'ME'
+              if (document.getElementById('AC_' + userId)) {
+                suffixAction = 'AC'
+              }
+              var btnAction = document.getElementById(suffixAction + '_' + userId)
+              btnAction.setAttribute('id', btnAction.getAttribute('id').replace(suffixAction, 'UN'))
+              if (suffixAction == 'ME') {
+                // set the right URL
+                btnAction.setAttribute('href', "{{ path('request_action', {'id': 'resultId'}) }}")
+                btnAction.setAttribute('href', btnAction.getAttribute('href').replace('resultId', userId))
+              }
+              btnAction.innerHTML = "{{ 'generic.unblock'|trans|raw }}"
               // hide action item
               if (document.getElementById('BG_' + userId).style.display == 'inline') {
                 document.getElementById('BG_' + userId).style.display = 'none'
@@ -109,6 +131,51 @@
           })
           .catch(e => alert(e))
           break
+        case 'DE':  // Delete the relation
+          sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'DE')
+          .then(response => {
+            if (response.success) {
+              // reset and hide badge
+              badge(badgeId, 'inline', 'none', '')
+              // change type and string of action for button
+              var btnAction = document.getElementById('ME' + '_' + userId)
+              btnAction.setAttribute('id', btnAction.getAttribute('id').replace('ME', 'CO'))
+              // set the right URL
+              btnAction.setAttribute('href', "{{ path('request_action', {'id': 'resultId'}) }}")
+              btnAction.setAttribute('href', btnAction.getAttribute('href').replace('resultId', userId))
+              btnAction.innerHTML = "{{ 'generic.connect'|trans|raw }}"
+              // hide action item
+              if (document.getElementById('BG_' + userId).style.display == 'inline') {
+                document.getElementById('BG_' + userId).style.display = 'none'
+              }
+            }
+            else {
+              console.log('foireux')
+            }
+          })
+          .catch(e => alert(e))
+          break
+        case 'RE':  // relation refused
+          sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'RE')
+          .then(response => {
+            if (response.success) {
+              // reset and hide badge
+              badge(badgeId, 'inline', 'none', '')
+              // change type and string of action for button
+              var btnAction = document.getElementById('AC' + '_' + userId)
+              btnAction.setAttribute('id', btnAction.getAttribute('id').replace('AC', 'CO'))
+              btnAction.innerHTML = "{{ 'generic.connect'|trans|raw }}"
+              // hide action item
+              if (document.getElementById('BG_' + userId).style.display == 'inline') {
+                document.getElementById('BG_' + userId).style.display = 'none'
+              }
+            }
+            else {
+              console.log('foireux')
+            }
+          })
+          .catch(e => alert(e))
+        break
         default:
           break
       }

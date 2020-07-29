@@ -217,19 +217,18 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retrieve the list of HappyBizFriends and users blacklisted
+     * Retrieve the list of HappyBizFriends
      * Author : F. Parmentier
      * Date : 07/22/2020
      *
      * @param integer $id
      * @param string $stateFriend
-     * @param string $stateBlackList
      * @return void
      */
-    public function myFindListFriendAndBlackList(int $id, string $stateFriend, string $stateBlackList)
+    public function myFindListFriends(int $id, string $stateFriend)
     {
-        $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND (c.state = ? OR c.state = ?) AND (u.is_active = true AND u.is_deleted = false)
-                UNION SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND (c.state = ? OR c.state = ?) AND (u.is_active = true AND u.is_deleted = false)
+        $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
+                UNION SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 ORDER BY pseudo ASC";
         
         $rsm = new ResultSetMapping();
@@ -249,16 +248,22 @@ class UserRepository extends ServiceEntityRepository
         $query = $this->_em->createNativeQuery($sql, $rsm);
         $query->setParameter(1, $id);
         $query->setParameter(2, $stateFriend);
-        $query->setParameter(3, $stateBlackList);
-        $query->setParameter(4, $id);
-        $query->setParameter(5, $stateFriend);
-        $query->setParameter(6, $stateBlackList);
+        $query->setParameter(3, $id);
+        $query->setParameter(4, $stateFriend);
 
         $result = $query->getScalarResult();
         
         return $result;
     }
 
+    
+    /**
+     * Retrieve list of users who request a connection
+     *
+     * @param integer $id
+     * @param string $state
+     * @return void
+     */
     public function myFindListNewRequester(int $id, string $state)
     {
         $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
@@ -286,6 +291,13 @@ class UserRepository extends ServiceEntityRepository
         return $result;
     }
 
+    /**
+     * Retrieve list of users whom user request a connection
+     *
+     * @param integer $id
+     * @param string $state
+     * @return void
+     */
     public function myFindListNewRequested(int $id, string $state)
     {
         $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requested_id WHERE requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)

@@ -7,6 +7,8 @@
                     {% set flag_requester = false %}
                     {% set flag_requested = false %}
                     {% set flag_connected = false %}
+                    {% set flag_has_blacklisted = false %}
+                    {% set flag_blacklisted = false %}
                     {# ---- #}  
                     <div class="row mb-3 mt-3">
                         <div class="col-7 col-md-8">
@@ -76,16 +78,38 @@
                                     {{ _self.btn_action(result.id, 'inline', 'AC', path('request_action', {'id': result.id}), 'generic.accept'|trans|raw) }}
                                     {{ _self.btn_group(result.id, 'inline', result.pseudo, 'RE') }}
                                 {% else %}
-                                    {% for friend_or_blacklist  in friends_blackList %}
-                                        {% if friend_or_blacklist.u_id == result.id and friend_or_blacklist.c_state == 'C' %} {# if already friend #}
+                                    {% for friend in friends %}
+                                        {% if friend.u_id == result.id %}  {# if already friend #}
                                             {{ _self.btn_action(result.id, 'inline', 'ME', '#', 'generic.message'|trans|raw) }}
                                             {{ _self.btn_group(result.id, 'inline', result.pseudo, 'DE') }}
                                             {% set flag_connected = true %}
                                         {% endif %}
                                     {% endfor %}
+                                    {% if not flag_connected %}
+                                        {# verify if user has been backlisted #}
+                                        {% if has_blacklisted is defined %}
+                                            {% for has_blacklist in has_blacklisted %}
+                                                {% if result.id == has_blacklist.requested.id %}
+                                                    {{ _self.btn_action(result.id, 'inline', 'UN', path('request_action', {'id': result.id}), 'generic.unblock'|trans|raw) }}
+                                                    {{ _self.btn_group(result.id, 'none', result.pseudo, '') }}
+                                                    {% set flag_has_blacklisted = true %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                        {# Verify if user has blacklisted user connected #}
+                                        {% if not flag_has_blacklisted and blacklisted is defined %}
+                                            {% for blacklist in blacklisted %}
+                                                {% if result.id == blacklist.requester.id %}
+                                                    {{ _self.btn_action(result.id, 'none', '', '#', '' )}}
+                                                    {{ _self.btn_group(result.id, 'none', result.pseudo, '') }}
+                                                    {% set flag_blacklisted = true %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
                                 {% endif %}
-                                {# if no request and no relationship #}
-                                {% if not flag_requested and not flag_requester and not flag_connected %}
+                                {# if no request and no relationship and no blacklist state #}
+                                {% if not flag_requested and not flag_requester and not flag_connected and not flag_has_blacklisted and not flag_blacklisted %}
                                     {{ _self.btn_action(result.id, 'inline', 'CO', path('request_action', {'id': result.id}), 'generic.connect'|trans|raw) }}
                                     {{ _self.btn_group(result.id, 'none', result.pseudo, '') }}
                                 {% endif %}

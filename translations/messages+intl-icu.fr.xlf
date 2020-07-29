@@ -561,6 +561,10 @@
         <source>generic.block</source>
         <target>Bloquer</target>
       </trans-unit>
+      <trans-unit id="generic.unblock">
+        <source>generic.unblock</source>
+        <target>Débloquer</target>
+      </trans-unit>
       <trans-unit id="connection.requested">
         <source>connection.requested</source>
         <target>Connexion demandée</target>
