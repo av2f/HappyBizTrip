@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+const { disableSingleRuntimeChunk } = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -42,6 +43,8 @@ Encore
     .addEntry('js/app', './assets/js/app.js')
     .addEntry('js/datepicker/datepicker', './assets/js/datepicker/bootstrap-datepicker.min.js')
     .addEntry('js/datepicker/datepicker-fr', './assets/js/datepicker/bootstrap-datepicker.fr.min.js')
+    .addEntry('js/notificationToastr', './assets/js/notificationToastr.js')
+    .addEntry('js/listProfile', './assets/js/listProfile.js')
     //.addEntry('page1', './assets/js/page1.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

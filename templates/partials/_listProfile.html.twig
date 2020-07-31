@@ -130,6 +130,15 @@
     </div>
 {% endif %}
 
+{# input to transfer button text to javascript #}
+<input type="hidden" id="btnText"
+    data-connect="{{ 'generic.connect'|trans|raw }}"
+    data-cancel="{{ 'generic.cancel'|trans|raw }}"
+    data-message="{{ 'generic.message'|trans|raw }}">
+{# input to transfer badge text to javascript #}
+<input type="hidden" id="badgeText" data-connection="{{ 'connection.requested'|trans|raw }}">
+{# input to transfer dropdown item text to javascript #}
+<input type="hidden" id="dropItemText" data-delrelation="{{ 'delete.relation'|trans|raw }}">
 
 {% macro badge(id_user, badge_display, badge_message) %}
     <span class="badge badge-happyDarkBlue" id="B_{{ id_user }}" style="display:{{ badge_display }};">{{ badge_message }}</span>

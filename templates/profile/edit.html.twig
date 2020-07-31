@@ -95,6 +95,7 @@
     {% if app.request.locale == 'fr' %}
         {{ encore_entry_script_tags('js/datepicker/datepicker-fr') }}
     {% endif %}
+    {{ encore_entry_script_tags('js/notificationToastr') }}
     {# management of datepicker options #}
     {% include 'partials/_datepickerManagement.html.twig' %}
     <script>
@@ -251,29 +252,6 @@
             })
         })
         // *** end manage upload new file ***
-        
-        // Display error message by toastr
-        function toastMsg(criticity, message, timeout) {
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-top-left",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": timeout,
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "slideUp",
-                'escapeHtml': true
-            }
-            toastr[criticity](message)
-        }
 
         function updateListInterest(listInterest, idToSearch, action) {
             /*  update the list of interest checked
