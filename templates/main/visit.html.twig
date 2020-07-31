@@ -23,5 +23,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'partials/js/_listProfileJs.html.twig' %}
+    {{ encore_entry_script_tags('js/notificationToastr') }}
+    {{ encore_entry_script_tags('js/listProfile') }}
 {% endblock %}

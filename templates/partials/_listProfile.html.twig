@@ -130,11 +130,13 @@
     </div>
 {% endif %}
 
-{# input to transfer button text to javascript #}
+{# input to transfer button text and url to javascript #}
 <input type="hidden" id="btnText"
     data-connect="{{ 'generic.connect'|trans|raw }}"
     data-cancel="{{ 'generic.cancel'|trans|raw }}"
-    data-message="{{ 'generic.message'|trans|raw }}">
+    data-message="{{ 'generic.message'|trans|raw }}"
+    data-unblock="{{ 'generic.unblock'|trans|raw }}"
+    data-url= "{{ path('request_action', {'id': 'result.id'}) }}">
 {# input to transfer badge text to javascript #}
 <input type="hidden" id="badgeText" data-connection="{{ 'connection.requested'|trans|raw }}">
 {# input to transfer dropdown item text to javascript #}

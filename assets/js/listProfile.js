@@ -94,3 +94,131 @@ document.querySelectorAll('.btn-action').forEach(action =>
     }
   })
 )
+
+// handle dropdown-item 
+document.querySelectorAll('.dropdown-item-action').forEach(item => 
+  item.addEventListener('click', (e) => { 
+    e.preventDefault()
+    var clickItem = item.getAttribute('id').substring(0,2)
+    var userId = item.getAttribute('id').substring(item.getAttribute('id').indexOf('_', 1) + 1, item.getAttribute('id').length)
+    var badgeId = 'B_' + userId
+    switch (clickItem) {
+      case 'BL':  // Block user
+        sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'BL')
+        .then(response => {
+          if (response.success) {
+            // reset and hide badge
+            badge(badgeId, 'inline', 'none', '')
+            // change type and string of action for button
+            var suffixAction = 'ME'
+            if (document.getElementById('AC_' + userId)) {
+              suffixAction = 'AC'
+            }
+            var btnAction = document.getElementById(suffixAction + '_' + userId)
+            btnAction.setAttribute('id', btnAction.getAttribute('id').replace(suffixAction, 'UN'))
+            if (suffixAction == 'ME') {
+              // set the right URL
+              btnAction.setAttribute('href', document.getElementById('btnText').dataset.url)
+              btnAction.setAttribute('href', btnAction.getAttribute('href').replace('resultId', userId))
+            }
+            btnAction.innerHTML = document.getElementById('btnText').dataset.unblock
+            // hide action item
+            if (document.getElementById('BG_' + userId).style.display == 'inline') {
+              document.getElementById('BG_' + userId).style.display = 'none'
+            }
+          }
+          else {
+            console.log('foireux')
+          }
+        })
+        .catch(e => alert(e))
+        break
+      case 'DE':  // Delete the relation
+        sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'DE')
+        .then(response => {
+          if (response.success) {
+            // reset and hide badge
+            badge(badgeId, 'inline', 'none', '')
+            // change type and string of action for button
+            var btnAction = document.getElementById('ME' + '_' + userId)
+            btnAction.setAttribute('id', btnAction.getAttribute('id').replace('ME', 'CO'))
+            // set the right URL
+            btnAction.setAttribute('href', document.getElementById('btnText').dataset.url)
+            btnAction.setAttribute('href', btnAction.getAttribute('href').replace('resultId', userId))
+            btnAction.innerHTML = document.getElementById('btnText').dataset.connect
+            // hide action item
+            if (document.getElementById('BG_' + userId).style.display == 'inline') {
+              document.getElementById('BG_' + userId).style.display = 'none'
+            }
+          }
+          else {
+            console.log('foireux')
+          }
+        })
+        .catch(e => alert(e))
+        break
+      case 'RE':  // relation refused
+        sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'RE')
+        .then(response => {
+          if (response.success) {
+            // reset and hide badge
+            badge(badgeId, 'inline', 'none', '')
+            // change type and string of action for button
+            var btnAction = document.getElementById('AC' + '_' + userId)
+            btnAction.setAttribute('id', btnAction.getAttribute('id').replace('AC', 'CO'))
+            btnAction.innerHTML = document.getElementById('btnText').dataset.connect
+            // hide action item
+            if (document.getElementById('BG_' + userId).style.display == 'inline') {
+              document.getElementById('BG_' + userId).style.display = 'none'
+            }
+          }
+          else {
+            console.log('foireux')
+          }
+        })
+        .catch(e => alert(e))
+      break
+      default:
+        break
+    }
+  })
+)
+
+/*
+  Manage json request with promise
+  href  : url to send request
+  theToken  : token
+  action  :
+    CO = Connect
+    CA = Cancel
+    AC = Accept
+*/
+
+function sendJsonRequest (href, theToken, action)
+{
+  return fetch(href, {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({'_token': theToken, 'action': action})
+  })
+  .then( response => response.json() )
+  .then(data => { return data })
+}
+
+/*
+  Display or hide the badge
+  badgeId : id of the badge to change state
+  displayScr  : value of original style display
+  displayDest : value of style display after change
+  textBadge : Text for badge
+*/
+function badge (badgeId, displaySrc, displayDest, textBadge)
+{
+  if (document.getElementById(badgeId).style.display === displaySrc) {
+    document.getElementById(badgeId).innerHTML = textBadge
+    document.getElementById(badgeId).style.display = displayDest
+  }
+}
