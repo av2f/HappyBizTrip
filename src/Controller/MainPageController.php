@@ -49,6 +49,7 @@ class MainPageController extends AbstractController
     public function showVisit(UserRepository $userRepo, VisitRepository $visitRepo, ConnectRepository $connectRepo, EntityManagerInterface $entityManager, int $page = 1)
     {
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
+        $totProfile = $userRepo->myCountNewVisit($this->getUser()->getId());
         $paginator = $userRepo->myFindVisitors($this->getUser()->getId(), $offset);
         /*
         *  friends = List of users who are friends
@@ -70,12 +71,13 @@ class MainPageController extends AbstractController
 
         return new Response($this->twig->render('main/visit.html.twig', [
             'paginator' => $paginator,
+            'tot_profile' => $totProfile,
             'friends' => $userRepo->myFindListFriends($this->getUser()->getId(), "C"),
             'new_requester' => $userRepo->myFindListNewRequester($this->getUser()->getId(), "W"),
             'new_requested' => $userRepo->myFindListNewRequested($this->getUser()->getId(), "W"),
             'has_blacklisted' => $connectRepo->findBy(['requester'=>$this->getUser()->getId(), 'state'=>'B']),
             'blacklisted' => $connectRepo->findBy(['requested'=>$this->getUser()->getId(), 'state'=>'B']),
-            'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),
+            'nb_page' => ceil(($totProfile) / $userRepo::PAGINATOR_PER_PAGE),
             'page' => $page,
             'user_id' => $this->getUser()->getId()
         ]));
@@ -91,11 +93,12 @@ class MainPageController extends AbstractController
     public function showFriends(UserRepository $userRepo, int $page = 1)
     {
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
-        $paginator = $userRepo->myFindFriends($this->getUser()->getId(), "C", $offset);
+        $totProfile =  $userRepo->myCountFriends($this->getUser()->getId(), "C");
 
         return new Response($this->twig->render('main/friend.html.twig', [
-            'paginator' => $paginator,
-            'nb_page' => ceil(count($paginator) / $userRepo::PAGINATOR_PER_PAGE),
+            'paginator' => $userRepo->myFindFriends($this->getUser()->getId(), "C", $offset),
+            'tot_profile' => $totProfile,
+            'nb_page' => ceil(($totProfile) / $userRepo::PAGINATOR_PER_PAGE),
             'page' => $page,
             'user_id' => $this->getUser()->getId()
         ]));
