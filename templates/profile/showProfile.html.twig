@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'profile.block_title'|trans|raw }}{% endblock %}
+{% block title %} | {{ profile.pseudo }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('css/profile') }}
@@ -145,7 +145,6 @@
     {% if app.request.locale == 'fr' %}
         {{ encore_entry_script_tags('js/datepicker/datepicker-fr') }}
     {% endif %}
-    {# management of datepicker options #}
-    {% include 'partials/_datepickerManagement.html.twig' %}
+    {{ encore_entry_script_tags('js/datepicker/datepicker-customization') }}
 {% endblock %}
 

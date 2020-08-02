@@ -1,0 +1,38 @@
+{# 
+  Macro for list of profile
+  badge : display badge
+  btn_action : display action button
+  btn_group : display group button
+  Author : Frederic Parmentier
+  Created At : 08/02/2020 
+#}
+
+{% macro badge(id_user, badge_display, badge_message) %}
+    <span class="badge badge-happyDarkBlue" id="B_{{ id_user }}" style="display:{{ badge_display }};">{{ badge_message }}</span>
+{% endmacro %}
+
+{% macro btn_action(id_user, btn_display, btn_id, btn_url, btn_message) %}
+    <a class="btn btn-outline-happyDarkBlue btn-sm btn-action shadow-none" id="{{ btn_id }}_{{ id_user }}" href="{{ btn_url }}"
+        style="display: {{ btn_display }};" data-token="{{ csrf_token('tok' ~ id_user) }}">{{ btn_message }}
+    </a>
+{% endmacro %}
+
+{% macro btn_group(btn_grp_id, btn_grp_display, btn_grp_pseudo, item_action) %}
+    {% set text_action = 'delete.relation'|trans|raw  %}
+    {% if item_action == 'RE' %}
+        {% set text_action = 'refuse.relation'|trans|raw  %}
+    {% endif %}
+    <div class="btn-group ml-1" id="BG_{{ btn_grp_id }}" style="display:{{ btn_grp_display }};">
+        <button class="btn btn-happyGrey btn-sm dropdown-toggle dropdown-action shadow-none" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-minus"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <button class="dropdown-item dropdown-item-action" id="{{ item_action }}_{{ btn_grp_id }}" data-token="{{ csrf_token('tok'~btn_grp_id) }}"
+                href="{{ path('request_action', {'id': btn_grp_id}) }}">{{ text_action }}
+            </button>
+            <button class="dropdown-item dropdown-item-action" id="BL_{{ btn_grp_id }}" data-token="{{ csrf_token('tok'~btn_grp_id) }}"
+                href="{{ path('request_action', {'id': btn_grp_id}) }}">{{ 'generic.block'|trans|raw }} {{ btn_grp_pseudo }}
+            </button>
+        </div>
+    </div>
+{% endmacro %}

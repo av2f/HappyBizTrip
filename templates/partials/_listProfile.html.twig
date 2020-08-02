@@ -1,3 +1,6 @@
+{# use macro to display action buttons and badge #}
+{% import 'macros/mListProfile.html.twig' as mListPro %}
+
 {% if paginator|length >0 %}
     <div class="d-flex justify-content-center pt-2">
         <div class="card">
@@ -26,13 +29,13 @@
                                     <p class="col-text-pseudo mt-0">{{result.pseudo }}
                                         {# Badge Management #}
                                         {% if result.id == user_id %}
-                                            {{ _self.badge(result.id, 'inline', 'generic.you'|trans|raw) }}
+                                            {{ mListPro.badge(result.id, 'inline', 'generic.you'|trans|raw) }}
                                         {% else %}
                                             {# verify if user is a requester to be new friend #}
                                             {% if new_requester is defined %}
                                                 {% for requester in new_requester %}
                                                     {% if requester.u_id == result.id %}
-                                                        {{ _self.badge(result.id, 'inline', 'requested.you'|trans|raw) }}
+                                                        {{ mListPro.badge(result.id, 'inline', 'requested.you'|trans|raw) }}
                                                         {% set flag_requester = true %}
                                                     {% endif %}
                                                 {% endfor %}
@@ -41,13 +44,13 @@
                                             {% if not flag_requester and new_requested is defined %}
                                                 {% for requested in new_requested %}
                                                     {% if requested.u_id == result.id %}
-                                                        {{ _self.badge(result.id, 'inline', 'connection.requested'|trans|raw ) }}
+                                                        {{ mListPro.badge(result.id, 'inline', 'connection.requested'|trans|raw ) }}
                                                         {% set flag_requested = true %}
                                                     {% endif %}
                                                 {% endfor %}
                                             {% endif %}
                                             {% if not flag_requester and not flag_requested %}
-                                                {{ _self.badge(result.id, 'none', '') }}
+                                                {{ mListPro.badge(result.id, 'none', '') }}
                                             {% endif %}
                                         {% endif %}
                                         {# End Badge management #}
@@ -68,20 +71,20 @@
                         {# Management of button #}
                         <div class="col-5 col-md-4 text-right my-auto">
                             {% if list == 'F' %} {# if show friends #}
-                                {{ _self.btn_action(result.id, 'inline', 'ME', '#', 'generic.message'|trans|raw) }}
-                                {{ _self.btn_group(result.id, 'inline', result.pseudo, 'DE') }}
+                                {{ mListPro.btn_action(result.id, 'inline', 'ME', '#', 'generic.message'|trans|raw) }}
+                                {{ mListPro.btn_group(result.id, 'inline', result.pseudo, 'DE') }}
                             {% elseif result.id != user_id %}
                                 {% if flag_requested %} {# if user has requested for a connection #}
-                                    {{ _self.btn_action(result.id, 'inline', 'CA', path('request_action', {'id': result.id}), 'generic.cancel'|trans|raw) }}
-                                    {{ _self.btn_group(result.id, 'none', result.pseudo, '') }}
+                                    {{ mListPro.btn_action(result.id, 'inline', 'CA', path('request_action', {'id': result.id}), 'generic.cancel'|trans|raw) }}
+                                    {{ mListPro.btn_group(result.id, 'none', result.pseudo, '') }}
                                 {% elseif flag_requester %} {# if user has been requested for a connection #}
-                                    {{ _self.btn_action(result.id, 'inline', 'AC', path('request_action', {'id': result.id}), 'generic.accept'|trans|raw) }}
-                                    {{ _self.btn_group(result.id, 'inline', result.pseudo, 'RE') }}
+                                    {{ mListPro.btn_action(result.id, 'inline', 'AC', path('request_action', {'id': result.id}), 'generic.accept'|trans|raw) }}
+                                    {{ mListPro.btn_group(result.id, 'inline', result.pseudo, 'RE') }}
                                 {% else %}
                                     {% for friend in friends %}
                                         {% if friend.u_id == result.id %}  {# if already friend #}
-                                            {{ _self.btn_action(result.id, 'inline', 'ME', '#', 'generic.message'|trans|raw) }}
-                                            {{ _self.btn_group(result.id, 'inline', result.pseudo, 'DE') }}
+                                            {{ mListPro.btn_action(result.id, 'inline', 'ME', '#', 'generic.message'|trans|raw) }}
+                                            {{ mListPro.btn_group(result.id, 'inline', result.pseudo, 'DE') }}
                                             {% set flag_connected = true %}
                                         {% endif %}
                                     {% endfor %}
@@ -90,8 +93,8 @@
                                         {% if has_blacklisted is defined %}
                                             {% for has_blacklist in has_blacklisted %}
                                                 {% if result.id == has_blacklist.requested.id %}
-                                                    {{ _self.btn_action(result.id, 'inline', 'UN', path('request_action', {'id': result.id}), 'generic.unblock'|trans|raw) }}
-                                                    {{ _self.btn_group(result.id, 'none', result.pseudo, '') }}
+                                                    {{ mListPro.btn_action(result.id, 'inline', 'UN', path('request_action', {'id': result.id}), 'generic.unblock'|trans|raw) }}
+                                                    {{ mListPro.btn_group(result.id, 'none', result.pseudo, '') }}
                                                     {% set flag_has_blacklisted = true %}
                                                 {% endif %}
                                             {% endfor %}
@@ -100,8 +103,8 @@
                                         {% if not flag_has_blacklisted and blacklisted is defined %}
                                             {% for blacklist in blacklisted %}
                                                 {% if result.id == blacklist.requester.id %}
-                                                    {{ _self.btn_action(result.id, 'none', '', '#', '' )}}
-                                                    {{ _self.btn_group(result.id, 'none', result.pseudo, '') }}
+                                                    {{ mListPro.btn_action(result.id, 'none', '', '#', '' )}}
+                                                    {{ mListPro.btn_group(result.id, 'none', result.pseudo, '') }}
                                                     {% set flag_blacklisted = true %}
                                                 {% endif %}
                                             {% endfor %}
@@ -110,8 +113,8 @@
                                 {% endif %}
                                 {# if no request and no relationship and no blacklist state #}
                                 {% if not flag_requested and not flag_requester and not flag_connected and not flag_has_blacklisted and not flag_blacklisted %}
-                                    {{ _self.btn_action(result.id, 'inline', 'CO', path('request_action', {'id': result.id}), 'generic.connect'|trans|raw) }}
-                                    {{ _self.btn_group(result.id, 'none', result.pseudo, '') }}
+                                    {{ mListPro.btn_action(result.id, 'inline', 'CO', path('request_action', {'id': result.id}), 'generic.connect'|trans|raw) }}
+                                    {{ mListPro.btn_group(result.id, 'none', result.pseudo, '') }}
                                 {% endif %}
                             {% endif %}
                         </div>
@@ -141,33 +144,3 @@
 <input type="hidden" id="badgeText" data-connection="{{ 'connection.requested'|trans|raw }}">
 {# input to transfer dropdown item text to javascript #}
 <input type="hidden" id="dropItemText" data-delrelation="{{ 'delete.relation'|trans|raw }}">
-
-{% macro badge(id_user, badge_display, badge_message) %}
-    <span class="badge badge-happyDarkBlue" id="B_{{ id_user }}" style="display:{{ badge_display }};">{{ badge_message }}</span>
-{% endmacro %}
-
-{% macro btn_action(id_user, btn_display, btn_id, btn_url, btn_message) %}
-    <a class="btn btn-outline-happyDarkBlue btn-sm btn-action shadow-none" id="{{ btn_id }}_{{ id_user }}" href="{{ btn_url }}"
-        style="display: {{ btn_display }};" data-token="{{ csrf_token('tok' ~ id_user) }}">{{ btn_message }}
-    </a>
-{% endmacro %}
-
-{% macro btn_group(btn_grp_id, btn_grp_display, btn_grp_pseudo, item_action) %}
-    {% set text_action = 'delete.relation'|trans|raw  %}
-    {% if item_action == 'RE' %}
-        {% set text_action = 'refuse.relation'|trans|raw  %}
-    {% endif %}
-    <div class="btn-group ml-1" id="BG_{{ btn_grp_id }}" style="display:{{ btn_grp_display }};">
-        <button class="btn btn-happyGrey btn-sm dropdown-toggle dropdown-action shadow-none" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-minus"></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item dropdown-item-action" id="{{ item_action }}_{{ btn_grp_id }}" data-token="{{ csrf_token('tok'~btn_grp_id) }}"
-                href="{{ path('request_action', {'id': btn_grp_id}) }}">{{ text_action }}
-            </button>
-            <button class="dropdown-item dropdown-item-action" id="BL_{{ btn_grp_id }}" data-token="{{ csrf_token('tok'~btn_grp_id) }}"
-                href="{{ path('request_action', {'id': btn_grp_id}) }}">{{ 'generic.block'|trans|raw }} {{ btn_grp_pseudo }}
-            </button>
-        </div>
-    </div>
-{% endmacro %}
