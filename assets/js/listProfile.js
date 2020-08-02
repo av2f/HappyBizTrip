@@ -13,80 +13,76 @@ $(function () {
 })
 
 // handle connect button
-document.querySelectorAll('.btn-action').forEach(action => 
-  action.addEventListener('click', (e) => { 
+document.querySelectorAll('.btn-action').forEach(action =>
+  action.addEventListener('click', (e) => {
     e.preventDefault()
-    var clickAction = action.getAttribute('id').substring(0,2)
+    var clickAction = action.getAttribute('id').substring(0, 2)
     var userId = action.getAttribute('id').substring(action.getAttribute('id').indexOf('_', 1) + 1, action.getAttribute('id').length)
     var badgeId = 'B_' + userId
     // handle action on click
     switch (clickAction) {
-      case 'CO':  // click on connect button
+      case 'CO': // click on connect button
         sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'CO')
-        .then(response => {
-          if (response.success) {
+          .then(response => {
+            if (response.success) {
             // display badge
-            badge(badgeId, 'none', 'inline',document.getElementById('badgeText').dataset.connection)
-            // change type and string of action for button
-            action.setAttribute('id', action.getAttribute('id').replace('CO', 'CA'))
-            action.innerHTML = document.getElementById('btnText').dataset.cancel
-          }
-          else {
-            console.log('foireux')
-          }
-        })
-        .catch(e => alert(e))
+              badge(badgeId, 'none', 'inline', document.getElementById('badgeText').dataset.connection)
+              // change type and string of action for button
+              action.setAttribute('id', action.getAttribute('id').replace('CO', 'CA'))
+              action.innerHTML = document.getElementById('btnText').dataset.cancel
+            } else {
+              console.log('foireux')
+            }
+          })
+          .catch(e => alert(e))
         break
-      case 'CA':  // Cancel
+      case 'CA': // Cancel
         sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'CA')
-        .then(response => {
-          if (response.success) {
+          .then(response => {
+            if (response.success) {
             // reset & hide badge
-            badge(badgeId, 'inline', 'none', '')
-            // change type and string of action for button
-            action.setAttribute('id', action.getAttribute('id').replace('CA', 'CO'))
-            action.innerHTML = document.getElementById('btnText').dataset.connect
-          }
-          else {
-            console.log('foireux')
-          }
-        })
-        .catch(e => alert(e))
+              badge(badgeId, 'inline', 'none', '')
+              // change type and string of action for button
+              action.setAttribute('id', action.getAttribute('id').replace('CA', 'CO'))
+              action.innerHTML = document.getElementById('btnText').dataset.connect
+            } else {
+              console.log('foireux')
+            }
+          })
+          .catch(e => alert(e))
         break
-      case "AC":  // Accept
+      case 'AC': // Accept
         sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'AC')
-        .then(response => {
-          if (response.success) {
+          .then(response => {
+            if (response.success) {
             // reset & hide badge
-            badge(badgeId, 'inline', 'none', '')
-            // change type and string of action for button
-            action.setAttribute('id', action.getAttribute('id').replace('AC', 'ME'))
-            action.setAttribute('href', '#')
-            action.innerHTML = document.getElementById('btnText').dataset.message
-            // change id and item of dropdown-item : DE and delete.relation
-           var dropdown_item = document.getElementById('RE_' + userId)
-           dropdown_item.setAttribute('id', dropdown_item.getAttribute('id').replace('RE', 'DE'))
-           dropdown_item.innerHTML = document.getElementById('dropItemText').dataset.delrelation
-          }
-          else {
-            console.log('foireux')
-          }
-        })
-        .catch(e => alert(e))
+              badge(badgeId, 'inline', 'none', '')
+              // change type and string of action for button
+              action.setAttribute('id', action.getAttribute('id').replace('AC', 'ME'))
+              action.setAttribute('href', '#')
+              action.innerHTML = document.getElementById('btnText').dataset.message
+              // change id and item of dropdown-item : DE and delete.relation
+              var dropdownItem = document.getElementById('RE_' + userId)
+              dropdownItem.setAttribute('id', dropdownItem.getAttribute('id').replace('RE', 'DE'))
+              dropdownItem.innerHTML = document.getElementById('dropItemText').dataset.delrelation
+            } else {
+              console.log('foireux')
+            }
+          })
+          .catch(e => alert(e))
         break
-        case "UN":  // Unblock
+      case 'UN': // Unblock
         sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'UN')
-        .then(response => {
-          if (response.success) {
+          .then(response => {
+            if (response.success) {
             // change type and string of action for button
-            action.setAttribute('id', action.getAttribute('id').replace('UN', 'CO'))
-            action.innerHTML = document.getElementById('btnText').dataset.connect
-          }
-          else {
-            console.log('foireux')
-          }
-        })
-        .catch(e => alert(e))
+              action.setAttribute('id', action.getAttribute('id').replace('UN', 'CO'))
+              action.innerHTML = document.getElementById('btnText').dataset.connect
+            } else {
+              console.log('foireux')
+            }
+          })
+          .catch(e => alert(e))
         break
 
       default:
@@ -95,89 +91,86 @@ document.querySelectorAll('.btn-action').forEach(action =>
   })
 )
 
-// handle dropdown-item 
-document.querySelectorAll('.dropdown-item-action').forEach(item => 
-  item.addEventListener('click', (e) => { 
+// handle dropdown-item
+document.querySelectorAll('.dropdown-item-action').forEach(item =>
+  item.addEventListener('click', (e) => {
     e.preventDefault()
-    var clickItem = item.getAttribute('id').substring(0,2)
+    var clickItem = item.getAttribute('id').substring(0, 2)
     var userId = item.getAttribute('id').substring(item.getAttribute('id').indexOf('_', 1) + 1, item.getAttribute('id').length)
     var badgeId = 'B_' + userId
     switch (clickItem) {
-      case 'BL':  // Block user
+      case 'BL': // Block user
         sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'BL')
-        .then(response => {
-          if (response.success) {
+          .then(response => {
+            if (response.success) {
             // reset and hide badge
-            badge(badgeId, 'inline', 'none', '')
-            // change type and string of action for button
-            var suffixAction = 'ME'
-            if (document.getElementById('AC_' + userId)) {
-              suffixAction = 'AC'
+              badge(badgeId, 'inline', 'none', '')
+              // change type and string of action for button
+              var suffixAction = 'ME'
+              if (document.getElementById('AC_' + userId)) {
+                suffixAction = 'AC'
+              }
+              var btnAction = document.getElementById(suffixAction + '_' + userId)
+              btnAction.setAttribute('id', btnAction.getAttribute('id').replace(suffixAction, 'UN'))
+              if (suffixAction === 'ME') {
+              // set the right URL
+                btnAction.setAttribute('href', document.getElementById('btnText').dataset.url)
+                btnAction.setAttribute('href', btnAction.getAttribute('href').replace('resultId', userId))
+              }
+              btnAction.innerHTML = document.getElementById('btnText').dataset.unblock
+              // hide action item
+              if (document.getElementById('BG_' + userId).style.display === 'inline') {
+                document.getElementById('BG_' + userId).style.display = 'none'
+              }
+            } else {
+              console.log('foireux')
             }
-            var btnAction = document.getElementById(suffixAction + '_' + userId)
-            btnAction.setAttribute('id', btnAction.getAttribute('id').replace(suffixAction, 'UN'))
-            if (suffixAction == 'ME') {
+          })
+          .catch(e => alert(e))
+        break
+      case 'DE': // Delete the relation
+        sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'DE')
+          .then(response => {
+            if (response.success) {
+            // reset and hide badge
+              badge(badgeId, 'inline', 'none', '')
+              // change type and string of action for button
+              var btnAction = document.getElementById('ME' + '_' + userId)
+              btnAction.setAttribute('id', btnAction.getAttribute('id').replace('ME', 'CO'))
               // set the right URL
               btnAction.setAttribute('href', document.getElementById('btnText').dataset.url)
               btnAction.setAttribute('href', btnAction.getAttribute('href').replace('resultId', userId))
+              btnAction.innerHTML = document.getElementById('btnText').dataset.connect
+              // hide action item
+              if (document.getElementById('BG_' + userId).style.display === 'inline') {
+                document.getElementById('BG_' + userId).style.display = 'none'
+              }
+            } else {
+              console.log('foireux')
             }
-            btnAction.innerHTML = document.getElementById('btnText').dataset.unblock
-            // hide action item
-            if (document.getElementById('BG_' + userId).style.display == 'inline') {
-              document.getElementById('BG_' + userId).style.display = 'none'
-            }
-          }
-          else {
-            console.log('foireux')
-          }
-        })
-        .catch(e => alert(e))
+          })
+          .catch(e => alert(e))
         break
-      case 'DE':  // Delete the relation
-        sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'DE')
-        .then(response => {
-          if (response.success) {
-            // reset and hide badge
-            badge(badgeId, 'inline', 'none', '')
-            // change type and string of action for button
-            var btnAction = document.getElementById('ME' + '_' + userId)
-            btnAction.setAttribute('id', btnAction.getAttribute('id').replace('ME', 'CO'))
-            // set the right URL
-            btnAction.setAttribute('href', document.getElementById('btnText').dataset.url)
-            btnAction.setAttribute('href', btnAction.getAttribute('href').replace('resultId', userId))
-            btnAction.innerHTML = document.getElementById('btnText').dataset.connect
-            // hide action item
-            if (document.getElementById('BG_' + userId).style.display == 'inline') {
-              document.getElementById('BG_' + userId).style.display = 'none'
-            }
-          }
-          else {
-            console.log('foireux')
-          }
-        })
-        .catch(e => alert(e))
-        break
-      case 'RE':  // relation refused
+      case 'RE': // relation refused
         sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'RE')
-        .then(response => {
-          if (response.success) {
+          .then(response => {
+            if (response.success) {
             // reset and hide badge
-            badge(badgeId, 'inline', 'none', '')
-            // change type and string of action for button
-            var btnAction = document.getElementById('AC' + '_' + userId)
-            btnAction.setAttribute('id', btnAction.getAttribute('id').replace('AC', 'CO'))
-            btnAction.innerHTML = document.getElementById('btnText').dataset.connect
-            // hide action item
-            if (document.getElementById('BG_' + userId).style.display == 'inline') {
-              document.getElementById('BG_' + userId).style.display = 'none'
+              badge(badgeId, 'inline', 'none', '')
+              // change type and string of action for button
+              var btnAction = document.getElementById('AC' + '_' + userId)
+              btnAction.setAttribute('id', btnAction.getAttribute('id').replace('AC', 'CO'))
+              btnAction.innerHTML = document.getElementById('btnText').dataset.connect
+              // hide action item
+              if (document.getElementById('BG_' + userId).style.display === 'inline') {
+                document.getElementById('BG_' + userId).style.display = 'none'
+              }
+            } else {
+              console.log('foireux')
             }
-          }
-          else {
-            console.log('foireux')
-          }
-        })
-        .catch(e => alert(e))
-      break
+          })
+          .catch(e => alert(e))
+        break
       default:
         break
     }
@@ -194,18 +187,17 @@ document.querySelectorAll('.dropdown-item-action').forEach(item =>
     AC = Accept
 */
 
-function sendJsonRequest (href, theToken, action)
-{
+function sendJsonRequest (href, theToken, action) {
   return fetch(href, {
     method: 'POST',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({'_token': theToken, 'action': action})
+    body: JSON.stringify({ '_token': theToken, 'action': action })
   })
-  .then( response => response.json() )
-  .then(data => { return data })
+    .then(response => response.json())
+    .then(data => { return data })
 }
 
 /*
@@ -215,8 +207,7 @@ function sendJsonRequest (href, theToken, action)
   displayDest : value of style display after change
   textBadge : Text for badge
 */
-function badge (badgeId, displaySrc, displayDest, textBadge)
-{
+function badge (badgeId, displaySrc, displayDest, textBadge) {
   if (document.getElementById(badgeId).style.display === displaySrc) {
     document.getElementById(badgeId).innerHTML = textBadge
     document.getElementById(badgeId).style.display = displayDest

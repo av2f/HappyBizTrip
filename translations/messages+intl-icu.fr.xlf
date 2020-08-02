@@ -7,7 +7,7 @@
     <body>
       <trans-unit id="home.block_title">
         <source>home.block_title</source>
-        <target>Bienvenue</target>
+        <target>| Connectez-vous</target>
       </trans-unit>
       <trans-unit id="home.title">
         <source>home.title</source>
@@ -15,15 +15,15 @@
       </trans-unit>
       <trans-unit id="search.block_title">
         <source>search.block_title</source>
-        <target>Recherche</target>
+        <target>| Recherche</target>
       </trans-unit>
       <trans-unit id="visit.block_title">
         <source>visit.block_title</source>
-        <target>Nouvelles visites</target>
+        <target>| Nouvelles visites</target>
       </trans-unit>
       <trans-unit id="friend.block_title">
         <source>friend.block_title</source>
-        <target>HappyBizFriends</target>
+        <target>| Mes HappyBizFriends</target>
       </trans-unit>
       <trans-unit id="home.subtitle">
         <source>home.subtitle</source>
@@ -245,10 +245,6 @@
         <source>alt.avatar</source>
         <target>Avatar de</target>
       </trans-unit>
-      <trans-unit id="main.block_title">
-        <source>main.block_title</source>
-        <target>Bienvenue!</target>
-      </trans-unit>
       <trans-unit id="profile.register_date">
         <source>profile.register_date</source>
         <target>Inscrit(e) depuis le</target>
@@ -272,10 +268,6 @@
       <trans-unit id="profile.title_dashboard">
         <source>profile.title_dashboard</source>
         <target>Tableau de bord</target>
-      </trans-unit>
-      <trans-unit id="profile.block_title">
-        <source>profile.block_title</source>
-        <target>Mon profil</target>
       </trans-unit>
       <trans-unit id="profile.title.general_infos">
         <source>profile.title.general_infos</source>
@@ -345,16 +337,16 @@
         <source>modal.account.message_delete3</source>
         <target>merci de confirmer la suppression de votre compte.</target>
       </trans-unit>
+      <trans-unit id="update.avatar.msg.error_1">
+        <source>update.avatar.msg.error_1</source>
+        <target>Une erreur est survenue lors de la modification de l'image. Merci de réessayer.</target>
+      </trans-unit>
       <trans-unit id="update.avatar.msg.error_2">
         <source>update.avatar.msg.error_2</source>
-        <target>Une erreur est survenue lors de la modification de l'image. Merci de réessayer.</target>
+        <target>Token invalide. Merci de réessayer.</target>
       </trans-unit>
       <trans-unit id="update.avatar.msg.error_3">
         <source>update.avatar.msg.error_3</source>
-        <target>Token invalide. Merci de réessayer.</target>
-      </trans-unit>
-      <trans-unit id="update.avatar.msg.error_4">
-        <source>update.avatar.msg.error_4</source>
         <target>La taille de votre fichier dépasse la limite autorisée ({maxFileSize}).</target>
       </trans-unit>
       <trans-unit id="interest.type_culture">

@@ -140,6 +140,8 @@
             </div>
         </div>
     </div>
+    {# for datapicker customization #}
+    <input type="hidden" id="language" data-lang = "{{ app.request.locale }}"/>
 </div>
 {% endblock %}
 
@@ -149,6 +151,5 @@
     {% if app.request.locale == 'fr' %}
         {{ encore_entry_script_tags('js/datepicker/datepicker-fr') }}
     {% endif %}
-    {# management of datepicker options #}
-    {% include 'partials/_datepickerManagement.html.twig' %}
+    {{ encore_entry_script_tags('js/datepicker/datepicker-customization') }}
 {% endblock %}

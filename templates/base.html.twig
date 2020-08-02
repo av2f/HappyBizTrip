@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>HappyBizTrip - {% block title %}{% endblock %}</title>
+        <title>HappyBizTrip {% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('css/global') }}
             <link rel="stylesheet" href="/icon/fontawesome/css/all.min.css">
@@ -35,12 +35,14 @@
                 })
             
                 // formSearch - Cancel search if formSearch is empty
-                document.getElementById("btnFormSearch").addEventListener("click", function(e) {
-                    inputSearch = document.getElementById("formSearch").value
-                    if (inputSearch.trim().length === 0) {
-                        e.preventDefault();
-                    }
-                })
+                if (document.getElementById("btnFormSearch")) {
+                    document.getElementById("btnFormSearch").addEventListener("click", function(e) {
+                        inputSearch = document.getElementById("formSearch").value
+                        if (inputSearch.trim().length === 0) {
+                            e.preventDefault();
+                        }
+                    })
+                }
             </script>
 
             {# flash message management with toastr #}

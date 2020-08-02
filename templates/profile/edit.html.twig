@@ -5,7 +5,7 @@
 {# use macro to customize the render of the form #}
 {% import 'macros/formRender.html.twig' as fieldRender %}
 
-{% block title %}{{ 'profile.block_title'|trans|raw }}{% endblock %}
+{% block title %}| {{ user.pseudo }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('css/profile') }}
@@ -13,6 +13,10 @@
 {% endblock %}
 
 {% block body %}
+    
+    {# define max size of file uploaded (for error message) #}
+    {% set MAX_FILE_SIZE = "3Mb" %}
+
     <div class="container">
         {# modal window to update avatar #}
         {% include 'partials/modals/_modalUpdateAvatar.html.twig' %}
@@ -36,12 +40,21 @@
                         <div class="icon-edit">
                             <div class="update-icon-avatar"><i class="far fa-edit"></i></div>
                         </div>
-                        <input type="hidden" id="input-update-avatar" name="token" value="{{ csrf_token('update-avatar') }}"
-                        data-ref="{{ path('update_avatar', {'id':user.id}) }}" />
+                        <input type="hidden" id="input-update-avatar" name="token" data-token="{{ csrf_token('tok' ~ user.id) }}"
+                        data-ref="{{ path('update_avatar', {'id': user.id}) }}" />
                     </div>
                 </div>
             </div>
         </div>
+
+        {# set variable for javascript part #}
+        <input type="hidden" id="pictures" data-imgdefaultavatar = "{{ asset('img/library/defaultAvatar.png') }}"
+            data-useravatar = "{{ user.avatar }}"/>
+        <input type="hidden" id="msgerr" data-errone = "{{ 'update.avatar.msg.error_1'|trans|raw }}"
+            data-errtwo = "{{ 'update.avatar.msg.error_2'|trans|raw }}"
+            data-errthree = "{{ 'update.avatar.msg.error_3'|trans({ '%maxFileSize%': MAX_FILE_SIZE })|raw }}"/>
+        <input type="hidden" id="language" data-lang = "{{ app.request.locale }}"/>
+        {# end of set variable #}
 
         {# profile form #}
         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
@@ -95,198 +108,7 @@
     {% if app.request.locale == 'fr' %}
         {{ encore_entry_script_tags('js/datepicker/datepicker-fr') }}
     {% endif %}
+    {{ encore_entry_script_tags('js/datepicker/datepicker-customization') }}
+    {{ encore_entry_script_tags('js/editProfile') }}
     {{ encore_entry_script_tags('js/notificationToastr') }}
-    {# management of datepicker options #}
-    {% include 'partials/_datepickerManagement.html.twig' %}
-    <script>
-         // ***** manage interest choices *****
-        
-        // initialize value of profile_listInterest
-        window.addEventListener("load", (event) => {
-            // var listInterest = document.getElementById("profile_listInterest").value
-            var arrayListInterest = []
-            document.querySelectorAll(".control-interest").forEach(interest => {
-                if (interest.checked) {
-                    var strInterest = interest.getAttribute("id")
-                    var interestId = strInterest.substring(strInterest.indexOf("_",1) +  1, strInterest.length)
-                    arrayListInterest.push(interestId)
-                }
-            })
-            document.getElementById("profile_listInterest").value = arrayListInterest.join(";")
-        })
-        
-        // retrieve all interests and listen on click
-        document.querySelectorAll(".control-interest").forEach(interest => 
-            interest.addEventListener("click", () => { 
-            var listInterest = document.getElementById("profile_listInterest").value
-            // retrieve the id of interest
-            var strInterest = interest.getAttribute("id")
-            var interestId = strInterest.substring(strInterest.indexOf("_",1) + 1, strInterest.length)
-            // action following checked or not
-            if (interest.checked /*&& listInterest.indexOf(interestId) == -1*/) { // if checked
-                listInterest = updateListInterest(listInterest, interestId, "A")
-            }
-            else {
-                listInterest = updateListInterest(listInterest, interestId, "R")
-            }
-            document.getElementById("profile_listInterest").value = listInterest
-        }))
-        // ***** end of manage interest choices *****
-        
-         // ***** Management of avatar modal window **********
-        btnCancel = false // cancel button of modal avatar management
-
-        // load modal image when modal window is opened
-        $("#avatarProfileModal").on("show.bs.modal", function () {
-            document.getElementById("imgModalAvatar").setAttribute("src", document.getElementById("imgAvatarProfile").getAttribute("src"))
-        })
-
-        document.getElementById("btnCancelAvatar").addEventListener("click", function() {
-            btnCancel = true
-        })
-        
-        const fileInput = document.getElementById("uploadFile")
-
-        document.getElementById("btnDelAvatar").addEventListener("click", function() {
-            // if delete image, replace it by default avatar image
-            document.getElementById("imgModalAvatar").setAttribute("src", "{{ asset('img/library/defaultAvatar.png') }}")
-            fileInput.value=""
-        })
-        
-        // if click on change button
-        document.getElementById("btnChangeAvatar").addEventListener("click", function() {
-            fileInput.click()
-        })
-
-         // *** manage upload new file *** 
-        fileInput.addEventListener("change", function(e) {
-            // if file choose
-            fileAvatar = this.files[0]
-            if (fileAvatar) {
-                const reader = new FileReader();
-                reader.addEventListener("load", function() {
-                    document.getElementById("imgModalAvatar").setAttribute("src", this.result)
-                })
-                reader.readAsDataURL(fileAvatar)
-            }
-        })
-        $("#avatarProfileModal").on("hide.bs.modal", function (e) {
-            if (!btnCancel) { // if not cancel button
-                // if image change
-                let imgModalAvatar = document.getElementById("imgModalAvatar").getAttribute("src")
-                if (document.getElementById("imgAvatarProfile").getAttribute("src") != imgModalAvatar)
-                {
-                    {% set MAX_FILE_SIZE = "3Mb" %}
-                    
-                    let inputUpdateAvatar = document.getElementById("input-update-avatar") // token
-                    let form = new FormData();
-                    form.append("token", inputUpdateAvatar.value)
-                    
-                    // if avatar deleted
-                    if (fileInput.value === "") {
-                        form.append("image", "{{ user.avatar }}")
-                        form.append("action", "delete")
-                    }
-                    // else change with new image
-                    else {
-                        form.append("image", fileAvatar)
-                        form.append("action", "update")
-                    }
-                    // Send new image by json to update - name of file = fileAvatar['name']
-                    fetch(inputUpdateAvatar.getAttribute("data-ref"), {
-                        method: "POST",
-                        headers: {
-                            "X-Request-With": "XMLHttpRequest",
-                            "enctype": "multipart/form-data",
-                        },
-                            body: form
-                    })
-                    .then(function(response) {
-                        // retrieve the response in json
-                        return response.json()
-                    })
-                    .then (data => {
-                        if(!data.success) {
-                            switch(data.error) {
-                                case "2":
-                                    msgError = "{{ 'update.avatar.msg.error_2'|trans|raw }}"
-                                    break
-                                case "3":
-                                    msgError = "{{ 'update.avatar.msg.error_3'|trans|raw }}"
-                                    break
-                                case "4":
-                                    msgError = "{{ 'update.avatar.msg.error_4'|trans({ '%maxFileSize%': MAX_FILE_SIZE })|raw }}"
-                                    break
-                                default:
-                                    msgError = "{{ 'update.avatar.msg.error_2'|trans|raw }}"
-                                    break
-                            }
-                            toastMsg("error", msgError,"4000")
-                        }
-                        else {
-                            // success
-                            if (fileInput.value === "") {
-                                document.getElementById("imgAvatarProfile").setAttribute("src", "{{ asset('img/library/defaultAvatar.png') }}")
-                                document.getElementById("imgAvatarNav").setAttribute("src", "{{ asset('img/library/defaultAvatar.png') }}")
-                            }
-                            else {
-                                // Replace image of avatar in profile form
-                                document.getElementById("imgAvatarProfile").setAttribute("src", imgModalAvatar)
-                                document.getElementById("imgAvatarNav").setAttribute("src", imgModalAvatar)
-                            }
-                        }
-                    })
-                    .catch(e => toastMsg("error", "{{ 'update.avatar.msg.error_2'|trans|raw }}","4000"))
-                }
-            }
-            else {
-                btnCancel = false
-            }
-        })
-         // ***** end of management of avatar modal window **********
-
-        $('#deleteProfileModal').on("hidden.bs.modal", function () {
-            $("#btn-profile-delete").focus(function() {
-                // position at top of the page
-               $("html,body").animate({scrollTop: 0}, 300)
-            })
-        })
-        // *** end manage upload new file ***
-
-        function updateListInterest(listInterest, idToSearch, action) {
-            /*  update the list of interest checked
-            if action = R, remove the id from the list
-            if action = A, add the if in the list
-            
-            arrayListInterest : list of id cheched in an array
-            idToSearch : id to add or delete
-            action : R=Remove, A=Add 
-
-            return the list updated
-            Author : Frederic Parmentier
-            */
-            var arrayListInterest = []
-            if (listInterest.length > 0) {
-                arrayListInterest = listInterest.split(";")
-                var fund = false
-                var ind = -1
-                while (!fund && ind < arrayListInterest.length) {
-                    ind++
-                    if (arrayListInterest[ind] === idToSearch) {
-                        arrayListInterest.splice(ind,1)
-                        fund = true
-                    }
-                }
-            }
-            if (action === "A") { // add element
-                arrayListInterest.push(idToSearch)
-            }
-            if (arrayListInterest.length === 1 && action === "A") {
-                return idToSearch
-            }
-            else {
-                return arrayListInterest.join(";")
-            }
-        }
-    </script>
 {% endblock %}

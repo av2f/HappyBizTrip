@@ -136,7 +136,7 @@
     data-cancel="{{ 'generic.cancel'|trans|raw }}"
     data-message="{{ 'generic.message'|trans|raw }}"
     data-unblock="{{ 'generic.unblock'|trans|raw }}"
-    data-url= "{{ path('request_action', {'id': 'result.id'}) }}">
+    data-url= "{{ path('request_action', {'id': 'resultId'}) }}">
 {# input to transfer badge text to javascript #}
 <input type="hidden" id="badgeText" data-connection="{{ 'connection.requested'|trans|raw }}">
 {# input to transfer dropdown item text to javascript #}
@@ -148,7 +148,7 @@
 
 {% macro btn_action(id_user, btn_display, btn_id, btn_url, btn_message) %}
     <a class="btn btn-outline-happyDarkBlue btn-sm btn-action shadow-none" id="{{ btn_id }}_{{ id_user }}" href="{{ btn_url }}"
-        style="display: {{ btn_display }};" data-token="{{ csrf_token('tok'~id_user) }}">{{ btn_message }}
+        style="display: {{ btn_display }};" data-token="{{ csrf_token('tok' ~ id_user) }}">{{ btn_message }}
     </a>
 {% endmacro %}
 

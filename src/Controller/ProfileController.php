@@ -128,8 +128,8 @@ class ProfileController extends AbstractController
     {
         $MAX_FILE_SIZE = 3145728; // 3Mo Octets max
 
-        if (isset($_POST['token'])) {
-            if ($this->isCsrfTokenValid('update-avatar', $_POST['token'])) {
+        if (isset($_POST['_token'])) {
+            if ($this->isCsrfTokenValid('tok'.$profile->getId(), $_POST['_token'])) {
                 $oldAvatarFile = $profile->getAvatar();
                 if ($_POST['action'] === 'update') {
                     // update avatar image
