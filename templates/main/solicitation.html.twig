@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'visit.block_title'|trans|raw }}{% endblock %}
+{% block title %}{{ 'solicitation.block_title'|trans|raw }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}    
@@ -11,12 +11,12 @@
 <div class="container">
     <div class="row pt-4">
         <div class="col">
-            <span class="text-result float-left">{{ 'visit.result'|trans({count: tot_profile })|raw }}</span>
+            <span class="text-result float-left">{{ 'solicitation.result'|trans({count: tot_profile })|raw }}</span>
         </div>
     </div>
     <hr>
-    {# diplay the list of profiles - variable list = V = Visit #}
-    {% include 'partials/_listProfile.html.twig'  with {'route_name' : 'show_visits', 'list' : 'V'} %}   
+    {# diplay the list of profiles - variable list = F = Friend #}
+    {% include 'partials/_listProfile.html.twig'  with {'route_name' : 'show_solicitations', 'list' : 'R'} %}   
 </div>
 
 {% endblock %}

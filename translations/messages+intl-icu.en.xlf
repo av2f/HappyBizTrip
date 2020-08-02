@@ -25,6 +25,10 @@
         <source>friend.block_title</source>
         <target>| My HappyBizFriends</target>
       </trans-unit>
+      <trans-unit id="solicitation.block_title">
+        <source>solicitation.block_title</source>
+        <target>| My new solicitations</target>
+      </trans-unit>
       <trans-unit id="home.subtitle">
         <source>home.subtitle</source>
         <target>Make your trip a fun...</target>
@@ -524,6 +528,10 @@
       <trans-unit id="friend.result">
         <source>friend.result</source>
         <target>{count, plural, =0 {aucun résultat} =1 {My HappyBizFriend} other {My HappyBizFriends (#)}}</target>
+      </trans-unit>
+      <trans-unit id="solicitation.result">
+        <source>solicitation.result</source>
+        <target>{count, plural, =0 {aucun résultat} =1 {New solicitation} other {New solicitations (#)}}</target>
       </trans-unit>
       <trans-unit id="generic.you">
         <source>generic.you</source>

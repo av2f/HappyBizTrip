@@ -28,8 +28,7 @@ class MainPageController extends AbstractController
      * @isGranted("ROLE_USER")
      * 
      */
-    public function index(SubscriptionHistoryRepository $subHisto, UserRepository $userRepo)
-    {
+    public function index(SubscriptionHistoryRepository $subHisto, UserRepository $userRepo) {
         return new Response($this->twig->render('main/index.html.twig', [
             'user' => $this->getUser(),
             'last_subscription' => $subHisto->findLastSubscriptionHistory($this->getUser()),
@@ -40,14 +39,13 @@ class MainPageController extends AbstractController
     }
 
     /**
-     * @Route("/visit/{page<\d+>?1}", name="show_visit")
+     * @Route("/visits/{page<\d+>?1}", name="show_visits")
      * 
      * Can access only if login ok
      * @isGranted("ROLE_USER")
      * 
      */
-    public function showVisit(UserRepository $userRepo, VisitRepository $visitRepo, ConnectRepository $connectRepo, EntityManagerInterface $entityManager, int $page = 1)
-    {
+    public function showVisit(UserRepository $userRepo, VisitRepository $visitRepo, ConnectRepository $connectRepo, EntityManagerInterface $entityManager, int $page = 1) {
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $totProfile = $userRepo->myCountNewVisit($this->getUser()->getId());
         $paginator = $userRepo->myFindVisitors($this->getUser()->getId(), $offset);
@@ -90,8 +88,7 @@ class MainPageController extends AbstractController
      * @isGranted("ROLE_USER")
      * 
      */
-    public function showFriends(UserRepository $userRepo, int $page = 1)
-    {
+    public function showFriends(UserRepository $userRepo, int $page = 1) {
         $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
         $totProfile =  $userRepo->myCountFriends($this->getUser()->getId(), "C");
 
@@ -102,5 +99,28 @@ class MainPageController extends AbstractController
             'page' => $page,
             'user_id' => $this->getUser()->getId()
         ]));
+    }
+
+    /**
+     * show list of new requests submitted by users
+     * 
+     * @Route("/solicitations/{page<\d+>?1}", name="show_solicitations")
+     *
+     * @param UserRepository $userRepo
+     * @param integer $page
+     * @return void
+     */
+    public function showNewRequest(UserRepository $userRepo, int $page = 1) {
+        $offset = ($page-1) * $userRepo::PAGINATOR_PER_PAGE;
+        $totProfile = $userRepo->myCountNewRequest($this->getUser()->getId(), "W");
+
+        return new Response($this->twig->render('main/solicitation.html.twig', [
+            'paginator' => $userRepo->myFindListNewRequester($this->getUser()->getId(), "W"),
+            'tot_profile' => $totProfile,
+            'nb_page' => ceil(($totProfile) / $userRepo::PAGINATOR_PER_PAGE),
+            'page' => $page,
+            'user_id' => $this->getUser()->getId()
+        ]));
+
     }
 }
