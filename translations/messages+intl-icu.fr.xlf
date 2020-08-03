@@ -29,6 +29,10 @@
         <source>solicitation.block_title</source>
         <target>| Nouvelles sollicitations</target>
       </trans-unit>
+      <trans-unit id="messaging.block_title">
+        <source>messaging.block_title</source>
+        <target>| Messagerie</target>
+      </trans-unit>
       <trans-unit id="home.subtitle">
         <source>home.subtitle</source>
         <target>Prenez plaisir à vous déplacer</target>

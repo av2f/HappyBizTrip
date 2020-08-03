@@ -38,6 +38,8 @@ Encore
   .addStyleEntry('css/profile', './assets/css/profile.scss')
   .addStyleEntry('css/search', './assets/css/search.scss')
   .addStyleEntry('css/datepicker/datepicker', './assets/css/datepicker/bootstrap-datepicker.min.css')
+  .addStyleEntry('css/messaging', './assets/css/messaging.scss')
+
 
   .addEntry('js/app', './assets/js/app.js')
   .addEntry('js/datepicker/datepicker', './assets/js/datepicker/bootstrap-datepicker.min.js')
