@@ -31,10 +31,10 @@ document.querySelectorAll('.btn-action').forEach(action =>
               action.setAttribute('id', action.getAttribute('id').replace('CO', 'CA'))
               action.innerHTML = document.getElementById('btnText').dataset.cancel
             } else {
-              console.log('foireux')
+              toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
             }
           })
-          .catch(e => alert(e))
+          .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
         break
       case 'CA': // Cancel
         sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'CA')
@@ -46,10 +46,10 @@ document.querySelectorAll('.btn-action').forEach(action =>
               action.setAttribute('id', action.getAttribute('id').replace('CA', 'CO'))
               action.innerHTML = document.getElementById('btnText').dataset.connect
             } else {
-              console.log('foireux')
+              toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
             }
           })
-          .catch(e => alert(e))
+          .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
         break
       case 'AC': // Accept
         sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'AC')
@@ -66,10 +66,10 @@ document.querySelectorAll('.btn-action').forEach(action =>
               dropdownItem.setAttribute('id', dropdownItem.getAttribute('id').replace('RE', 'DE'))
               dropdownItem.innerHTML = document.getElementById('dropItemText').dataset.delrelation
             } else {
-              console.log('foireux')
+              toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
             }
           })
-          .catch(e => alert(e))
+          .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
         break
       case 'UN': // Unblock
         sendJsonRequest(action.getAttribute('href'), action.dataset.token, 'UN')
@@ -79,10 +79,10 @@ document.querySelectorAll('.btn-action').forEach(action =>
               action.setAttribute('id', action.getAttribute('id').replace('UN', 'CO'))
               action.innerHTML = document.getElementById('btnText').dataset.connect
             } else {
-              console.log('foireux')
+              toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
             }
           })
-          .catch(e => alert(e))
+          .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
         break
 
       default:
@@ -123,10 +123,10 @@ document.querySelectorAll('.dropdown-item-action').forEach(item =>
                 document.getElementById('BG_' + userId).style.display = 'none'
               }
             } else {
-              console.log('foireux')
+              toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
             }
           })
-          .catch(e => alert(e))
+          .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
         break
       case 'DE': // Delete the relation
         sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'DE')
@@ -146,10 +146,10 @@ document.querySelectorAll('.dropdown-item-action').forEach(item =>
                 document.getElementById('BG_' + userId).style.display = 'none'
               }
             } else {
-              console.log('foireux')
+              toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
             }
           })
-          .catch(e => alert(e))
+          .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
         break
       case 'RE': // relation refused
         sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'RE')
@@ -166,10 +166,10 @@ document.querySelectorAll('.dropdown-item-action').forEach(item =>
                 document.getElementById('BG_' + userId).style.display = 'none'
               }
             } else {
-              console.log('foireux')
+              toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
             }
           })
-          .catch(e => alert(e))
+          .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
         break
       default:
         break

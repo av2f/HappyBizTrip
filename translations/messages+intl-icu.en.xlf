@@ -353,6 +353,14 @@
         <source>update.avatar.msg.error_4</source>
         <target>Your file size exceeds the limit ({maxFileSize}).</target>
       </trans-unit>
+      <trans-unit id="list.profile.msg.error_1">
+        <source>list.profile.msg.error_1</source>
+        <target>Invalid token. Please, try again.</target>
+      </trans-unit>
+      <trans-unit id="list.profile.msg.error_2">
+        <source>list.profile.msg.error_2</source>
+        <target>An error occurred while doing your action. Please, try again.</target>
+      </trans-unit>
       <trans-unit id="interest.type_culture">
         <source>interest.type_culture</source>
         <target>Culture</target>
