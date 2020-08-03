@@ -121,6 +121,5 @@ class MainPageController extends AbstractController
             'page' => $page,
             'user_id' => $this->getUser()->getId()
         ]));
-
     }
 }

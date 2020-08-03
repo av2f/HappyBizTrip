@@ -27,7 +27,7 @@
       </trans-unit>
       <trans-unit id="solicitation.block_title">
         <source>solicitation.block_title</source>
-        <target>| My new solicitations</target>
+        <target>| New solicitations</target>
       </trans-unit>
       <trans-unit id="home.subtitle">
         <source>home.subtitle</source>

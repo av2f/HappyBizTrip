@@ -73,6 +73,9 @@
                             {% if list == 'F' %} {# if show friends #}
                                 {{ mListPro.btn_action(result.id, 'inline', 'ME', '#', 'generic.message'|trans|raw) }}
                                 {{ mListPro.btn_group(result.id, 'inline', result.pseudo, 'DE') }}
+                            {% elseif list == 'R' %} {# if show solicitations #}
+                                {{ mListPro.btn_action(result.id, 'inline', 'AC', path('request_action', {'id': result.id}), 'generic.accept'|trans|raw) }}
+                                {{ mListPro.btn_group(result.id, 'inline', result.pseudo, 'RE') }}
                             {% elseif result.id != user_id %}
                                 {% if flag_requested %} {# if user has requested for a connection #}
                                     {{ mListPro.btn_action(result.id, 'inline', 'CA', path('request_action', {'id': result.id}), 'generic.cancel'|trans|raw) }}
