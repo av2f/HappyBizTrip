@@ -18,8 +18,7 @@ class UserRepository extends ServiceEntityRepository
 {
     public const PAGINATOR_PER_PAGE = 10;
     
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, User::class);
     }
 
@@ -33,9 +32,7 @@ class UserRepository extends ServiceEntityRepository
      * @param [type] $criteria
      * @return void
      */
-    
-     public function myFindbyCriteria(string $criteria, int $offset) : Paginator
-     {
+     public function myFindbyCriteria(string $criteria, int $offset) : Paginator {
         $query = $this->createQueryBuilder('u')
             ->andWhere('(LOWER(u.pseudo) LIKE :criteria OR LOWER(u.lastName) LIKE :criteria OR LOWER(u.firstName) LIKE :criteria) AND (u.isActive = true AND u.isDeleted = false)')
             ->setParameter('criteria', '%'.strtolower($criteria).'%')
@@ -44,64 +41,7 @@ class UserRepository extends ServiceEntityRepository
             ->setFirstResult($offset)
             ->getQuery()
         ;
-
         return new Paginator($query);
-    }
-
-     /*
-    
-    */
-    /**
-     * Retrieve the list of new users who have visited the profile
-     * Author : F. Parmentier
-     * Date : 07/22/2020
-     * 
-     * mySql Request : SELECT id, pseudo, visit.viewed_at FROM user INNER JOIN visit ON user.id = visitor_id WHERE visited_id = 205
-     * AND (visit.viewed_at IS NULL OR visit.viewed_at=CURRENT_DATE())
-     *
-     * @param integer $id
-     * @param integer $offset
-     * @return Paginator
-     */
-    public function myFindVisitors(int $id, int $offset) : Paginator
-    {   
-        $today = new \DateTime(); 
-        $query = $this->createQueryBuilder('u')
-            ->join('u.visitors','v')
-            ->andwhere('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt BETWEEN :todayStart AND :todayEnd) AND (u.isActive = true AND u.isDeleted = false)')
-            ->setParameter('id', $id)
-            ->setParameter('todayStart', $today->format('Y-m-d 00:00:00'))
-            ->setParameter('todayEnd', $today->format('Y-m-d 23:59:59'))
-            ->orderBy('u.pseudo', 'ASC')
-            ->setMaxResults(self::PAGINATOR_PER_PAGE)
-            ->setFirstResult($offset)
-            ->getQuery()
-        ;
-         
-        return new Paginator($query);
-    }
-
-    /**
-     * Retrieve the number of new visit
-     * Author : F. Parmentier
-     * Date : 07/22/2020
-     * 
-     * @param integer $id
-     * @return void
-     */
-    public function myCountNewVisit(int $id) 
-    {
-        $today = new \DateTime(); 
-        return $this->createQueryBuilder('u')
-            ->join('u.visitors', 'v')
-            ->select('count(v.visitor)')
-            ->andWhere('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt BETWEEN :todayStart AND :todayEnd) AND (u.isActive = true AND u.isDeleted = false)')
-            ->setParameter('id', $id)
-            ->setParameter('todayStart', $today->format('Y-m-d 00:00:00'))
-            ->setParameter('todayEnd', $today->format('Y-m-d 23:59:59'))
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
     }
 
     /**
@@ -113,8 +53,7 @@ class UserRepository extends ServiceEntityRepository
      * @param string $state
      * @return void
      */
-    public function myCountNewRequest(int $id, string $state)
-    {
+    public function myCountNewRequest(int $id, string $state) {
         return $this->createQueryBuilder('u')
             ->join('u.requesters', 'c')
             ->select('count(c.requester)')
@@ -124,7 +63,6 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult()
         ;
-
     }
 
     /**
@@ -136,8 +74,7 @@ class UserRepository extends ServiceEntityRepository
      * @param string $state
      * @return void
      */
-    public function myCountFriends(int $id, string $state)
-    {
+    public function myCountFriends(int $id, string $state) {
         $sql = "SELECT (SELECT COUNT(u.id) AS cpt FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false))
         + (SELECT COUNT(u.id) AS cpt FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false))
         AS totalFriends";
@@ -160,9 +97,57 @@ class UserRepository extends ServiceEntityRepository
         $query->setParameter(3, $id);
         $query->setParameter(4, $state);
 
-        $result = $query->getSingleScalarResult();
+        return $query->getSingleScalarResult();
+    }
 
-        return $result;
+    /**
+     * Retrieve the number of new visit
+     * Author : F. Parmentier
+     * Date : 07/22/2020
+     * 
+     * @param integer $id
+     * @return void
+     */
+    public function myCountNewVisit(int $id) {
+        $today = new \DateTime(); 
+        return $this->createQueryBuilder('u')
+            ->join('u.visitors', 'v')
+            ->select('count(v.visitor)')
+            ->andWhere('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt BETWEEN :todayStart AND :todayEnd) AND (u.isActive = true AND u.isDeleted = false)')
+            ->setParameter('id', $id)
+            ->setParameter('todayStart', $today->format('Y-m-d 00:00:00'))
+            ->setParameter('todayEnd', $today->format('Y-m-d 23:59:59'))
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+     /**
+     * Retrieve the list of new users who have visited the profile
+     * Author : F. Parmentier
+     * Date : 07/22/2020
+     * 
+     * mySql Request : SELECT id, pseudo, visit.viewed_at FROM user INNER JOIN visit ON user.id = visitor_id WHERE visited_id = 205
+     * AND (visit.viewed_at IS NULL OR visit.viewed_at=CURRENT_DATE())
+     *
+     * @param integer $id
+     * @param integer $offset
+     * @return Paginator
+     */
+    public function myFindVisitors(int $id, int $offset) : Paginator {   
+        $today = new \DateTime(); 
+        $query = $this->createQueryBuilder('u')
+            ->join('u.visitors','v')
+            ->andwhere('v.visited = :id AND (v.viewedAt is NULL OR v.viewedAt BETWEEN :todayStart AND :todayEnd) AND (u.isActive = true AND u.isDeleted = false)')
+            ->setParameter('id', $id)
+            ->setParameter('todayStart', $today->format('Y-m-d 00:00:00'))
+            ->setParameter('todayEnd', $today->format('Y-m-d 23:59:59'))
+            ->orderBy('u.pseudo', 'ASC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery()
+        ;
+        return new Paginator($query);
     }
     
     /**
@@ -178,8 +163,7 @@ class UserRepository extends ServiceEntityRepository
      * @param integer $offset
      * @return void
      */
-    public function myFindFriends(int $id, string $state, int $offset)
-    {
+    public function myFindFriends(int $id, string $state, int $offset) {
         $sql = "SELECT u.id, u.pseudo, u.first_name, u.last_name, u.slug, u.avatar, u.profession, u.company FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 UNION SELECT u.id, u.pseudo, u.first_name, u.last_name, u.slug, u.avatar, u.profession, u.company FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 ORDER BY pseudo ASC LIMIT ?,?";
@@ -211,9 +195,29 @@ class UserRepository extends ServiceEntityRepository
         $query->setParameter(5, $offset);
         $query->setParameter(6, self::PAGINATOR_PER_PAGE);
 
-        $result = $query->getResult();
+        return $query->getResult();
+    }
 
-        return $result;
+    /**
+     * Retrieve new requesters
+     *
+     * @param integer $id
+     * @param integer $offset
+     * @param string $state
+     * @return Paginator
+     */
+    public function myFindNewRequest(int $id, int $offset, string $state) : Paginator {
+        $query = $this->createQueryBuilder('u')
+            ->join('u.requesters', 'c')
+            ->andWhere('c.requested = :id AND c.state = :state AND (u.isActive = true AND u.isDeleted = false)')
+            ->setParameter('id', $id)
+            ->setParameter('state', $state)
+            ->orderBy('u.pseudo', 'ASC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery()
+        ;
+        return new Paginator($query);
     }
 
     /**
@@ -225,8 +229,7 @@ class UserRepository extends ServiceEntityRepository
      * @param string $stateFriend
      * @return void
      */
-    public function myFindListFriends(int $id, string $stateFriend)
-    {
+    public function myFindListFriends(int $id, string $stateFriend) {
         $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 UNION SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 ORDER BY pseudo ASC";
@@ -250,13 +253,10 @@ class UserRepository extends ServiceEntityRepository
         $query->setParameter(2, $stateFriend);
         $query->setParameter(3, $id);
         $query->setParameter(4, $stateFriend);
-
-        $result = $query->getScalarResult();
         
-        return $result;
+        return$query->getScalarResult();
     }
 
-    
     /**
      * Retrieve list of users who request a connection
      *
@@ -264,8 +264,7 @@ class UserRepository extends ServiceEntityRepository
      * @param string $state
      * @return void
      */
-    public function myFindListNewRequester(int $id, string $state)
-    {
+    public function myFindListNewRequester(int $id, string $state) {
         $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 ORDER BY pseudo ASC";
         
@@ -285,10 +284,8 @@ class UserRepository extends ServiceEntityRepository
         $query = $this->_em->createNativeQuery($sql, $rsm);
         $query->setParameter(1, $id);
         $query->setParameter(2, $state);
-
-        $result = $query->getScalarResult();
         
-        return $result;
+        return $query->getScalarResult();
     }
 
     /**
@@ -298,8 +295,7 @@ class UserRepository extends ServiceEntityRepository
      * @param string $state
      * @return void
      */
-    public function myFindListNewRequested(int $id, string $state)
-    {
+    public function myFindListNewRequested(int $id, string $state) {
         $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requested_id WHERE requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 ORDER BY pseudo ASC";
         
@@ -319,38 +315,7 @@ class UserRepository extends ServiceEntityRepository
         $query = $this->_em->createNativeQuery($sql, $rsm);
         $query->setParameter(1, $id);
         $query->setParameter(2, $state);
-
-        $result = $query->getScalarResult();
         
-        return $result;
+        return $query->getScalarResult();
     }
-
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

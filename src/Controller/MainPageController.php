@@ -115,7 +115,7 @@ class MainPageController extends AbstractController
         $totProfile = $userRepo->myCountNewRequest($this->getUser()->getId(), "W");
 
         return new Response($this->twig->render('main/solicitation.html.twig', [
-            'paginator' => $userRepo->myFindListNewRequester($this->getUser()->getId(), "W"),
+            'paginator' => $userRepo->myFindNewRequest($this->getUser()->getId(), $offset, "W"),
             'tot_profile' => $totProfile,
             'nb_page' => ceil(($totProfile) / $userRepo::PAGINATOR_PER_PAGE),
             'page' => $page,
