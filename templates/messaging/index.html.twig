@@ -8,13 +8,12 @@
 
 {% block body %}
     <div class="container">
-        <div class="d-flex justify-content-center pt-2">
         <div class="row">
             {# diplay conversation list #}
             <div class="col-12 col-lg-4 col-md-6" >
-                <div class="mb-2">
+                <div class="mt-2 mb-4">
                     <form class="form-inline" action="#" method="POST"> 
-                        <div class="input-group mr-sm-2 messaging">
+                        <div class="input-group mr-sm-2 input-search">
                             <input type="search" class="form-control form-control-sm" id="formSearchMessaging" name="formSearchMessaging" placeholder="Search in messaging...">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary btn-sm btn-search shadow-none" type="submit" id="btnFormSearchMessaging"><i class="fas fa-search"></i></button>
@@ -23,88 +22,112 @@
                     </form>
                 </div>
                 <div class="conversation-list">
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                            </blockquote>
+                    {% for i in 0..10 %}
+                        <div class="media position-relative" id="media_{{ i }}">
+                            <img src="https://randomuser.me/api/portraits/{{ random(['men', 'women']) }}/{{ random(1,99) }}.jpg"
+                            class="avatar avatar-media mr-3 my-auto" alt="avatar" id="picture_{{ i }}">
+                            <div class="media-body">
+                                <p class="p-text-pseudo mt-0" id="pseudo_{{ i }}">{{ random(['Frederic', 'Victor', 'Valérie', 'Arthur', 'Pauline']) }}</p>
+                                <p class="{{ random(['p-msg-read', 'p-msg-unread']) }}">OK comment ça va...<span class="bullet">&bull;</span></p>
+                                <a href="#" class="stretched-link"></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            Quote
-                        </div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                            </blockquote>
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            Quote
-                        </div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                            </blockquote>
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            Quote
-                        </div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                            </blockquote>
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            Quote
-                        </div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                            </blockquote>
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            Quote
-                        </div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                            </blockquote>
-                        </div>
-                    </div>
+                        <hr>
+                    {% endfor %}
                 </div>
             </div>
             <div class="col-12 col-lg-8 col-md-6">
-                <div class="card mt-3">
+                <div class="card mt-2 mb-3">
                     <div class="card-header">
-                        Quote
+                        <img src="#" id="picture" class="avatar avatar-media mr-3 my-auto" alt="avatar" >
+                        <span id='pseudo'>Pseudo</span>
+                        <div class="btn-group float-right my-auto" id="BG_">
+                            <button class="btn btn-light btn-sm dropdown-toggle dropdown-action shadow-none" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                &bull;&bull;&bull;
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <button class="dropdown-item dropdown-item-action" id="SU" data-token="{{ csrf_token('tok') }}"
+                                    href="#">Supprimer la conversation
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <blockquote class="blockquote mb-0">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                        </blockquote>
+                </div>
+                <div class="discussion" id="discussion">
+                    {% for i in 0..10 %}
+                        <div class="card card-transmitter mb-3 ml-auto mr-2">
+                            <div class="card-body">
+                                <p class="text-right">25 juin &bull; 12:02</p>
+                                <hr>  
+                                <p>Fusce in libero sed nunc cursus dapibus a a tortor.
+                                    Etiam tincidunt, elit non congue porttitor, diam nibh pretium ex, in blandit eros quam quis ligula.
+                                    Cras sit amet auctor arcu. Suspendisse blandit orci eget risus gravida, a euismod lacus scelerisque.
+                                    Etiam luctus efficitur molestie
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card card-receiver mb-3 mr-auto">
+                            <div class="card-body pb-1">
+                                <p class="text-right">12 juillet &bull; 15:03</p>
+                                <hr style="border-color:  white;">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum vitae ligula a semper.
+                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                                    Vestibulum vel aliquet mauris, a lobortis ipsum. Maecenas finibus dignissim lacus, eget feugiat leo ullamcorper vel. Sed sem elit, sollicitudin vel commodo non, bibendum eu mi.
+                                    Sed malesuada luctus mauris. Sed sed nunc est. Proin semper enim ac feugiat posuere.
+                                </p>
+                                <hr class="mb-1" style="border-color:white;">
+                                <p class="mt-1 mb-0 text-right"><i class="fas fa-check" style="font-size: 0.8rem; color:#c9ead9;"></i></p>
+                            </div>
+                       </div>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control form-control-sm shadow-none p-1 mt-1" rows=2 id="newMessage" placeholder="Saisissez un message"
+                    style="resize: none"></textarea>
+                    <div class="float-right mt-1">
+                        <button class="btn btn-happyGrey btn-sm shadow-none" type="button">
+                            <i class="far fa-paper-plane"></i> {{ 'generic.send'|trans|raw }}
+                        </button>
+                        <button class="btn btn-happyGrey btn-sm shadow-none" type="button" id="btn-erase">
+                            <i class="fas fa-eraser"></i> {{ 'generic.erase'|trans|raw }}
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>  
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script>
+        // load the picture and pseudo of the firt profile of list in header of discussion
+        $(document).ready( () => {
+            changeHeaderDiscussion(document.querySelector('.media').getAttribute('id'))
+        })
+        document.querySelectorAll('.media').forEach(action =>
+            action.addEventListener('click', (e) => {
+                e.preventDefault()
+                changeHeaderDiscussion(action.getAttribute('id'))
+                //$('discussion').load(document.URL +  ' discussion') // reload div discussion à tester
+            })
+        )
+
+        // erase the content of the textarea which contains new message
+        document.getElementById('btn-erase').addEventListener('click', (e) => {
+            e.preventDefault()
+            document.getElementById('newMessage').value = ''
+        })
+
+        /*
+            Change picture and pseudo of header of discussion when
+            - page is loaded
+            - on click on profile in conversation list
+        */
+        function changeHeaderDiscussion(mediaId) {
+            userId = mediaId.substring(mediaId.indexOf('_', 1) + 1, mediaId.length)
+            document.getElementById('picture').setAttribute('src', document.getElementById('picture_' + userId).getAttribute('src'))
+            document.getElementById('pseudo').innerHTML =  document.getElementById('pseudo_' + userId).innerHTML
+            document.getElementById('discussion').scrollTop = document.getElementById('discussion').scrollHeight
+        }
+    </script>
 {% endblock %}

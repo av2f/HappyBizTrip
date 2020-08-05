@@ -577,6 +577,14 @@
         <source>generic.unblock</source>
         <target>Unblock</target>
       </trans-unit>
+      <trans-unit id="generic.send">
+        <source>generic.send</source>
+        <target>Send</target>
+      </trans-unit>
+      <trans-unit id="generic.erase">
+        <source>generic.erase</source>
+        <target>Erase</target>
+      </trans-unit>
       <trans-unit id="connection.requested">
         <source>connection.requested</source>
         <target>Connection requested</target>

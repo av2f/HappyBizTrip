@@ -7,9 +7,77 @@ $happyBlue: #415ba5;
 $HappyPurple: #3f4253;
 $happyOrange: #f5853b;
 $happyGrey: #f5f5f5;
+$happyDarkGrey: #a0a0a0;
+
+@media (max-width: 575.98px) {
+  .avatar-media {
+      max-width: 32px;
+      max-height: 32px;
+  }
+}
+
+@media (min-width: 576px) {
+  .avatar-media {
+      max-width: 48px;
+      max-height: 48px;
+  }
+}
+
+.dropdown-item-action {
+  font-size: 0.8rem;
+}
 
 .conversation-list {
-  height: 80vh;
+  height: 70vh;
   overflow-y: scroll;
   scrollbar-width: thin;
+}
+
+.discussion {
+  height: 60vh;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  border-bottom: solid 1px;
+}
+
+.input-search {
+  width: 95% !important;
+}
+
+.p-text-pseudo, .p-msg-read, .p-msg-unread {
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}  
+
+.p-text-pseudo {
+  color: $happyDarkBlue;
+  font-weight: 600;
+}
+
+.p-msg-read, .p-msg-unread {
+  color: $happyDarkGrey;
+}
+
+.p-msg-read {
+  font-weight: lighter;
+}
+
+.p-msg-unread {
+  font-weight: 600;
+}
+
+.bullet {
+  font-size: 1.2rem;
+  color: $happyDarkGrey;
+}
+
+.card-transmitter, .card-receiver {
+  width: 60%;
+  font-size: 0.8rem;
+}
+
+.card-receiver {
+  background-color: $happyDarkBlue;
+  color: white;
+
 }
