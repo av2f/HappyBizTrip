@@ -1,7 +1,7 @@
 {
     "devDependencies": {
         "@symfony/webpack-encore": "^0.28.2",
-        "bootstrap": "4.5.0",
+        "bootstrap": "^4.5.0",
         "bootstrap-icons": "^1.0.0-alpha3",
         "ckeditor": "^4.12.1",
         "core-js": "^3.0.0",

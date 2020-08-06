@@ -297,7 +297,7 @@ class AppFixtures extends Fixture
                 }
             }
         }
-        // manage visitor
+        // Handle visitor
         foreach ($entryUser as $u) {
             if (mt_rand(0,1) == 1) { // randomly if visited
                 $visitors = array_rand($entryUser, mt_rand(2, 20));
@@ -313,7 +313,7 @@ class AppFixtures extends Fixture
             }
         }
 
-        // Manage connect
+        // Handle connect
         foreach ($entryUser as $u) {
             if (mt_rand(0,1) == 1) { // randomly if connect
                 $requests = array_rand($entryUser, mt_rand(2, 20));
@@ -330,6 +330,11 @@ class AppFixtures extends Fixture
                     }
                 }
             }
+        }
+
+        // Handle messages
+        foreach($entryUser as $u) {
+            // do something
         }
 
         $manager->flush();

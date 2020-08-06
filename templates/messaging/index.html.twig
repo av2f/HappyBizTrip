@@ -28,7 +28,13 @@
                             class="avatar avatar-media mr-3 my-auto" alt="avatar" id="picture_{{ i }}">
                             <div class="media-body">
                                 <p class="p-text-pseudo mt-0" id="pseudo_{{ i }}">{{ random(['Frederic', 'Victor', 'Valérie', 'Arthur', 'Pauline']) }}</p>
-                                <p class="{{ random(['p-msg-read', 'p-msg-unread']) }}">OK comment ça va...<span class="bullet">&bull;</span></p>
+                                {% set msg_read = random(['p-msg-read', 'p-msg-unread']) %}
+                                <p class="{{ msg_read }}">OK comment ça va...
+                                    {% if msg_read == "p-msg-unread" %}
+                                        <span class="bullet"> &bull;</span>
+                                        <i class="fas fa-envelope"></i>
+                                    {% endif %}
+                                </p>
                                 <a href="#" class="stretched-link"></a>
                             </div>
                         </div>
@@ -76,7 +82,7 @@
                                     Sed malesuada luctus mauris. Sed sed nunc est. Proin semper enim ac feugiat posuere.
                                 </p>
                                 <hr class="mb-1" style="border-color:white;">
-                                <p class="mt-1 mb-0 text-right"><i class="fas fa-check" style="font-size: 0.8rem; color:#c9ead9;"></i></p>
+                                <p class="mt-1 mb-0 text-right"><i class="{{ random(["fas fa-check", "far fa-envelope"]) }}" style="font-size: 0.8rem; color:#c9ead9;"></i></p>
                             </div>
                        </div>
                     {% endfor %}
