@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\MessagingRepository;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MessagingRepository;
 
 /**
  * @ORM\Table(name="messaging")
  * @ORM\Entity
  * @ORM\Entity(repositoryClass=MessagingRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 
 class Messaging
@@ -49,15 +49,9 @@ class Messaging
     private $isReaded;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $deletedBySender;
-
-     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $deletedByReceiver;
-    
+    private $deletedBy;
 
     public function getSender(): ?user
     {
@@ -131,26 +125,14 @@ class Messaging
         return $this;
     }
 
-    public function getDeletedBySender(): ?bool
+    public function getDeletedBy(): ?string
     {
-        return $this->deletedBySender;
+        return $this->deletedBy;
     }
 
-    public function setDeletedBySender(bool $deletedBySender): self
+    public function setDeletedBy(string $deletedBy): self
     {
-        $this->deletedBySender = $deletedBySender;
-
-        return $this;
-    }
-
-    public function getDeletedByReceiver(): ?bool
-    {
-        return $this->deletedByReceiver;
-    }
-
-    public function setDeletedByReceiver(bool $deletedByReceiver): self
-    {
-        $this->deletedByReceiver = $deletedByReceiver;
+        $this->deletedBy = $deletedBy;
 
         return $this;
     }
@@ -165,14 +147,10 @@ class Messaging
      * @return void
      */
     public function setInitialMessaging() {
-        $this->createdAt = new \DateTime();
-        
+        //$this->createdAt = new \DateTime();
         // set isReaded to false
-        $this->setIsReaded(false);
-        // set deletedBySender to false
-        $this->setDeletedBySender(false);
-        // set deletedByReceiver to false
-        $this->setDeletedByReceiver(false);
+        //$this->setIsReaded(false);
+        
     }
 
     /**
