@@ -22,15 +22,16 @@
                     </form>
                 </div>
                 <div class="conversation-list">
-                    {% for i in 0..10 %}
-                        <div class="media position-relative" id="media_{{ i }}">
-                            <img src="https://randomuser.me/api/portraits/{{ random(['men', 'women']) }}/{{ random(1,99) }}.jpg"
-                            class="avatar avatar-media mr-3 my-auto" alt="avatar" id="picture_{{ i }}">
+                    {% for conversation in list_conversations %}
+                        <div class="media position-relative" id="media_{{ conversation.u_id }}">
+                            <img src="{{ conversation.u_avatar }}"
+                            class="avatar avatar-media mr-3 my-auto" alt="avatar" id="picture_{{ conversation.u_id }}">
                             <div class="media-body">
-                                <p class="p-text-pseudo mt-0" id="pseudo_{{ i }}">{{ random(['Frederic', 'Victor', 'Valérie', 'Arthur', 'Pauline']) }}</p>
-                                {% set msg_read = random(['p-msg-read', 'p-msg-unread']) %}
-                                <p class="{{ msg_read }}">OK comment ça va...
-                                    {% if msg_read == "p-msg-unread" %}
+                                <p class="p-text-pseudo mt-0" id="pseudo_{{ conversation.u_id }}">{{ conversation.u_pseudo }}</p>
+                                <p class="{% if conversation.m_sender_id != app.user.id and not conversation.m_isReaded %}p-msg-unread{% else %}p-msg-read{% endif %}">
+                                    {% if conversation.m_sender_id == app.user.id %}Vous : {% endif %}
+                                    {{ conversation.m_message|striptags|trim|slice(0, 15) }}...
+                                    {% if conversation.m_sender_id != app.user.id and not conversation.m_isReaded %}
                                         <span class="bullet"> &bull;</span>
                                         <i class="fas fa-envelope"></i>
                                     {% endif %}

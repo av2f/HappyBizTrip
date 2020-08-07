@@ -14,26 +14,19 @@ class MessagingController extends AbstractController
      */
     public function index(UserRepository $userRepo, MessagingRepository $messageRepo)
     {
+        // Retrieve list of users whom user has discussion
+        $listConversations = $userRepo->myFindConversationList($this->getUser()->getId());
         
-        $listConversation = $userRepo->myFindConversationList($this->getUser()->getId());
-        
-        dump(count($listConversation));
-
-        if (count($listConversation) > 0) {
-            foreach ($listConversation as $r) {
-                dump($r);
-            }
-            // retrieve the fisrt conversation of list
-            $discussion = $messageRepo->myFindDiscussion($this->getUser()->getId(), $listConversation[0]['u_id']);
-            foreach($discussion as $d) {
-                dump($d);
-            }
+        if (count($listConversations) > 0) {
+            // retrieve the fisrt conversation of list (last written)
+            $discussions = $messageRepo->myFindDiscussion($this->getUser()->getId(), $listConversations[0]['u_id']);
+        } else {
+            $discussions = [];
         }
-        
-        die();
 
         return $this->render('messaging/index.html.twig', [
-            'controller_name' => 'MessagingController',
+            'list_conversations' => $listConversations,
+            'discussions' => $discussions,
         ]);
     }
 }

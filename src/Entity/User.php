@@ -458,7 +458,7 @@ class User implements UserInterface
         // set isActive to true
         $this->setIsActive(true);
         // set isSubscribed to false
-        // $this->setIsSubscribed(false);
+        $this->setIsSubscribed(false);
         // set isDeleted to false
         $this->setIsDeleted(false);
         // set % completed of profile

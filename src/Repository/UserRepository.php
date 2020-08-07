@@ -321,9 +321,9 @@ class UserRepository extends ServiceEntityRepository
 
     public function myFindConversationList(int $id) {
         $sql = "SELECT * FROM (
-                SELECT u.id, u.pseudo, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at FROM user u INNER JOIN messaging m ON u.id = receiver_id WHERE sender_id = ? AND INSTR(m.deleted_by, ?) IS NULL
+                SELECT u.id, u.pseudo, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at, m.is_readed FROM user u INNER JOIN messaging m ON u.id = receiver_id WHERE sender_id = ? AND INSTR(m.deleted_by, ?) IS NULL
                 UNION
-                SELECT u.id, u.pseudo, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at FROM user u INNER JOIN messaging m ON u.id = sender_id WHERE receiver_id = ? AND INSTR(m.deleted_by, ?) IS NULL
+                SELECT u.id, u.pseudo, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at, m.is_readed FROM user u INNER JOIN messaging m ON u.id = sender_id WHERE receiver_id = ? AND INSTR(m.deleted_by, ?) IS NULL
                 ) AS RESULT
                 GROUP BY id HAVING MAX(created_at) ORDER BY created_at DESC";
 
@@ -342,6 +342,7 @@ class UserRepository extends ServiceEntityRepository
         $rsm->addMetaResult('m', 'sender_id', 'sender_id', true);
         $rsm->addFieldResult('m', 'message', 'message');
         $rsm->addFieldResult('m', 'created_at', 'createdAt');
+        $rsm->addFieldResult('m', 'is_readed', 'isReaded');
         $rsm->addFieldResult('m', 'deleted_by', 'deletedBy');
 
         $query = $this->_em->createNativeQuery($sql, $rsm);

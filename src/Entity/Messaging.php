@@ -139,7 +139,7 @@ class Messaging
 
     // lifecycleCallbacks functions
     /**
-     * Setup boolean values (isReaded, deletedBySender, deletedByReceiver)
+     * Setup default value of isReaded
      * and date of CreatedAt
      * 
      * @ORM\PrePersist
@@ -147,9 +147,9 @@ class Messaging
      * @return void
      */
     public function setInitialMessaging() {
-        //$this->createdAt = new \DateTime();
-        // set isReaded to false
-        //$this->setIsReaded(false);
+        $this->createdAt = new \DateTime();
+        //set isReaded to false
+        $this->setIsReaded(false);
         
     }
 

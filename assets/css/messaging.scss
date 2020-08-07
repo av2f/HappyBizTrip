@@ -29,13 +29,13 @@ $happyDarkGrey: #a0a0a0;
 
 .conversation-list {
   height: 70vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: thin;
 }
 
 .discussion {
   height: 60vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: thin;
   border-bottom: solid 1px;
 }
@@ -45,16 +45,17 @@ $happyDarkGrey: #a0a0a0;
 }
 
 .p-text-pseudo, .p-msg-read, .p-msg-unread {
-  font-size: 0.8rem;
   margin-bottom: 0.2rem;
 }  
 
 .p-text-pseudo {
+  font-size: 0.8rem;
   color: $happyDarkBlue;
   font-weight: 600;
 }
 
 .p-msg-read, .p-msg-unread {
+  font-size: 0.7rem;
   color: $happyDarkGrey;
 }
 

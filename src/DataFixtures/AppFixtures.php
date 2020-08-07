@@ -381,7 +381,7 @@ class AppFixtures extends Fixture
                             $message -> setSender($sender)
                                 -> setReceiver($receiver)
                                 -> setMessage($faker->paragraphs(mt_rand(1,4), true))
-                                -> setCreatedAt($faker->dateTimeBetween('+' . $j . 'hours', '+' . $j+1 . 'hours'))
+                                -> setCreatedAt($faker->dateTimeBetween('+' . $j . 'hours', '+' . $j+1 . 'days'))
                                 -> setIsReaded(false);
                             if ($j == $nbMessage) { // last Message ?
                                 if (mt_rand(0,1) == 1) { // last message has been readed
