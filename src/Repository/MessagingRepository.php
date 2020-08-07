@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Messaging;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -17,5 +18,31 @@ class MessagingRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Messaging::class);
+    }
+
+    public function myFindDiscussion(int $id1, int $id2) {
+
+        $sql = "SELECT sender_id, receiver_id, message, created_at, readed_at, is_readed FROM messaging m WHERE sender_id = ? AND receiver_id = ?
+            UNION
+            SELECT sender_id, receiver_id, message, created_at, readed_at, is_readed FROM messaging m WHERE sender_id = ? AND receiver_id = ?
+            ORDER BY created_at ASC";
+    
+        $rsm = new ResultSetMapping();
+
+        $rsm->addEntityResult('App\Entity\Messaging', 'm');
+        $rsm->addMetaResult('m', 'sender_id', 'sender_id', true);
+        $rsm->addMetaResult('m', 'receiver_id', 'receiver_id', true);
+        $rsm->addFieldResult('m', 'message', 'message');
+        $rsm->addFieldResult('m', 'created_at', 'createdAt');
+        $rsm->addFieldResult('m', 'readed_at', 'readedAt');
+        $rsm->addFieldResult('m', 'is_readed', 'isReaded');
+        
+        $query = $this->_em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $id1);
+        $query->setParameter(2, $id2);
+        $query->setParameter(3, $id2);
+        $query->setParameter(4, $id1);
+
+        return $query->getScalarResult();
     }
 }
