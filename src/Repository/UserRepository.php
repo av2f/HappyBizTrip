@@ -76,7 +76,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function myCountFriends(int $id, string $state) {
         $sql = "SELECT (SELECT COUNT(u.id) AS cpt FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false))
-        + (SELECT COUNT(u.id) AS cpt FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false))
+        + (SELECT COUNT(u.id) AS cpt FROM user u INNER JOIN user_connect c ON u.id = c.requester_id WHERE c.requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false))
         AS totalFriends";
 
         $rsm = new ResultSetMapping();
@@ -165,7 +165,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function myFindFriends(int $id, string $state, int $offset) {
         $sql = "SELECT u.id, u.pseudo, u.first_name, u.last_name, u.slug, u.avatar, u.profession, u.company FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
-                UNION SELECT u.id, u.pseudo, u.first_name, u.last_name, u.slug, u.avatar, u.profession, u.company FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
+                UNION SELECT u.id, u.pseudo, u.first_name, u.last_name, u.slug, u.avatar, u.profession, u.company FROM user u INNER JOIN user_connect c ON u.id = c.requester_id WHERE c.requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 ORDER BY pseudo ASC LIMIT ?,?";
         
         $rsm = new ResultSetMapping();
@@ -231,7 +231,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function myFindListFriends(int $id, string $stateFriend) {
         $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
-                UNION SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
+                UNION SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = c.requester_id WHERE c.requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 ORDER BY pseudo ASC";
         
         $rsm = new ResultSetMapping();
@@ -265,7 +265,7 @@ class UserRepository extends ServiceEntityRepository
      * @return void
      */
     public function myFindListNewRequester(int $id, string $state) {
-        $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requester_id WHERE requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
+        $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = c.requester_id WHERE c.requested_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 ORDER BY pseudo ASC";
         
         $rsm = new ResultSetMapping();
@@ -296,7 +296,7 @@ class UserRepository extends ServiceEntityRepository
      * @return void
      */
     public function myFindListNewRequested(int $id, string $state) {
-        $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = requested_id WHERE requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
+        $sql = "SELECT u.id, u.pseudo, c.action_at, c.state FROM user u INNER JOIN user_connect c ON u.id = c.requested_id WHERE c.requester_id = ? AND c.state = ? AND (u.is_active = true AND u.is_deleted = false)
                 ORDER BY pseudo ASC";
         
         $rsm = new ResultSetMapping();
