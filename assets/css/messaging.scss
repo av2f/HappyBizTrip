@@ -72,13 +72,20 @@ $happyDarkGrey: #a0a0a0;
   color: $happyDarkGrey;
 }
 
-.card-transmitter, .card-receiver {
+.card-sender, .card-receiver {
   width: 60%;
   font-size: 0.8rem;
 }
 
-.card-receiver {
+.card-sender {
   background-color: $happyDarkBlue;
   color: white;
+  hr {
+    border-color: white;
+  }
+}
 
+.icon-read {
+  font-size: 0.8rem;
+  color:#c9ead9;
 }

@@ -30,7 +30,7 @@
                                 <p class="p-text-pseudo mt-0" id="pseudo_{{ conversation.u_id }}">{{ conversation.u_pseudo }}</p>
                                 <p class="{% if conversation.m_sender_id != app.user.id and not conversation.m_isReaded %}p-msg-unread{% else %}p-msg-read{% endif %}">
                                     {% if conversation.m_sender_id == app.user.id %}Vous : {% endif %}
-                                    {{ conversation.m_message|striptags|trim|slice(0, 15) }}...
+                                    {{ conversation.m_message|striptags|trim|slice(0, 15)|raw }}...
                                     {% if conversation.m_sender_id != app.user.id and not conversation.m_isReaded %}
                                         <span class="bullet"> &bull;</span>
                                         <i class="fas fa-envelope"></i>
@@ -61,48 +61,47 @@
                     </div>
                 </div>
                 <div class="discussion" id="discussion">
-                    {% for i in 0..10 %}
-                        <div class="card card-transmitter mb-3 ml-auto mr-2">
-                            <div class="card-body">
-                                <p class="text-right">25 juin &bull; 12:02</p>
-                                <hr>  
-                                <p>Fusce in libero sed nunc cursus dapibus a a tortor.
-                                    Etiam tincidunt, elit non congue porttitor, diam nibh pretium ex, in blandit eros quam quis ligula.
-                                    Cras sit amet auctor arcu. Suspendisse blandit orci eget risus gravida, a euismod lacus scelerisque.
-                                    Etiam luctus efficitur molestie
-                                </p>
+                    {% for discussion in discussions %}
+                        {% set card_message = "card-receiver ml-auto mr-2" %}
+                        {% if discussion.m_sender_id == app.user.id %} {% set card_message = "card-sender mr-auto" %} {% endif %} 
+                        <div class="card {{ card_message }} mb-3">
+                            <div class="card-body pb-1">
+                                <p class="text-right">{{ discussion.m_createdAt|format_datetime('full', 'short', locale = app.request.locale) }}</p>
+                                <hr>
+                                <p>{{ discussion.m_message|striptags|raw }} </p>
+                                {% if discussion.m_sender_id == app.user.id %}
+                                    {% set icon = "fas fa-envelope" %}
+                                    {% if discussion.m_isReaded %} {% set icon = "fas fa-check" %} {% endif %}
+                                    <hr class="mb-1">
+                                    <p class="mt-1 mb-0 text-right icon-read"><i class="{{ icon }}" ></i></p>
+                                {% endif %}
                             </div>
                         </div>
-                        <div class="card card-receiver mb-3 mr-auto">
-                            <div class="card-body pb-1">
-                                <p class="text-right">12 juillet &bull; 15:03</p>
-                                <hr style="border-color:  white;">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum vitae ligula a semper.
-                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                                    Vestibulum vel aliquet mauris, a lobortis ipsum. Maecenas finibus dignissim lacus, eget feugiat leo ullamcorper vel. Sed sem elit, sollicitudin vel commodo non, bibendum eu mi.
-                                    Sed malesuada luctus mauris. Sed sed nunc est. Proin semper enim ac feugiat posuere.
-                                </p>
-                                <hr class="mb-1" style="border-color:white;">
-                                <p class="mt-1 mb-0 text-right"><i class="{{ random(["fas fa-check", "far fa-envelope"]) }}" style="font-size: 0.8rem; color:#c9ead9;"></i></p>
-                            </div>
-                       </div>
                     {% endfor %}
                 </div>
                 <div class="form-group">
                     <textarea class="form-control form-control-sm shadow-none p-1 mt-1" rows=2 id="newMessage" placeholder="Saisissez un message"
                     style="resize: none"></textarea>
                     <div class="float-right mt-1">
-                        <button class="btn btn-happyGrey btn-sm shadow-none" type="button">
-                            <i class="far fa-paper-plane"></i> {{ 'generic.send'|trans|raw }}
-                        </button>
                         <button class="btn btn-happyGrey btn-sm shadow-none" type="button" id="btn-erase">
                             <i class="fas fa-eraser"></i> {{ 'generic.erase'|trans|raw }}
+                        </button>
+                        <button class="btn btn-happyGrey btn-sm shadow-none" type="button" id="btn-send">
+                            <i class="far fa-paper-plane"></i> {{ 'generic.send'|trans|raw }}
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
+    {# template to write a new message #}
+    <div class="card card-sender mb-3" id="newMsg">
+        <div class="card-body pb-1">
+            <p class="text-right">{{ 'now'|format_datetime('full', 'short', locale = app.request.locale) }}</p>
+            <hr>
+            <p>ksksksk</p>
+        </div>
+    </div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -123,6 +122,17 @@
         document.getElementById('btn-erase').addEventListener('click', (e) => {
             e.preventDefault()
             document.getElementById('newMessage').value = ''
+        })
+
+         // handle a new message
+         document.getElementById('btn-send').addEventListener('click', (e) => {
+            e.preventDefault()
+            let newMessage = document.getElementById('newMessage').value
+            let clNewMessage = $('#newMsg').clone()
+            clNewMessage.appendTo(".discussion")
+
+            console.log(newMessage)
+            
         })
 
         /*
