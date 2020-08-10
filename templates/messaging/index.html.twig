@@ -60,8 +60,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="discussion" id="discussion">
-                    {% for discussion in discussions %}
+                <div class="discussion" id="discussion" data-discussions = "{{ discussions|json_encode }}">
+                    {# {% for discussion in discussions %}
                         {% set card_message = "card-receiver ml-auto mr-2" %}
                         {% if discussion.m_sender_id == app.user.id %} {% set card_message = "card-sender mr-auto" %} {% endif %} 
                         <div class="card {{ card_message }} mb-3">
@@ -77,7 +77,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                    {% endfor %}
+                    {% endfor %} #}
                 </div>
                 <div class="form-group">
                     <textarea class="form-control form-control-sm shadow-none p-1 mt-1" rows=2 id="newMessage" placeholder="Saisissez un message"
@@ -94,6 +94,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="datapage" data-userid = "{{ app.user.id }}" data-locale = "{{ app.request.locale }}">
     {# template to write a new message #}
     <div class="card card-sender mb-3" id="newMsg" style="display:none">
         <div class="card-body pb-1">
@@ -105,27 +106,10 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('js/messaging') }}
     <script>
-        // load the picture and pseudo of the firt profile of list in header of discussion
-        $(document).ready( () => {
-            changeHeaderDiscussion(document.querySelector('.media').getAttribute('id'))
-        })
-        document.querySelectorAll('.media').forEach(action =>
-            action.addEventListener('click', (e) => {
-                e.preventDefault()
-                changeHeaderDiscussion(action.getAttribute('id'))
-                //$('discussion').load(document.URL +  ' discussion') // reload div discussion à tester
-            })
-        )
-
-        // erase the content of the textarea which contains new message
-        document.getElementById('btn-erase').addEventListener('click', (e) => {
-            e.preventDefault()
-            document.getElementById('newMessage').value = ''
-        })
-
-         // handle a new message
-         document.getElementById('btn-send').addEventListener('click', (e) => {
+        // handle a new message
+        document.getElementById('btn-send').addEventListener('click', (e) => {
             e.preventDefault()
             let newMessage = document.getElementById('newMessage').value
             // clNewMessage = $('#newMsg').clone()
@@ -140,16 +124,7 @@
             document.getElementById('newMessage').value = ''
         })
 
-        /*
-            Change picture and pseudo of header of discussion when
-            - page is loaded
-            - on click on profile in conversation list
-        */
-        function changeHeaderDiscussion(mediaId) {
-            userId = mediaId.substring(mediaId.indexOf('_', 1) + 1, mediaId.length)
-            document.getElementById('picture').setAttribute('src', document.getElementById('picture_' + userId).getAttribute('src'))
-            document.getElementById('pseudo').innerHTML =  document.getElementById('pseudo_' + userId).innerHTML
-            document.getElementById('discussion').scrollTop = document.getElementById('discussion').scrollHeight
-        }
+        
     </script>
-{% endblock %}
+
+    {% endblock %}

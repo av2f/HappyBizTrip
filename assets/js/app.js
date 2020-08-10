@@ -11,7 +11,6 @@
 // import for taostr notification
 import toastr from 'toastr'
 window.toastr = toastr
-//
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
