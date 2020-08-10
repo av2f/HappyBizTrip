@@ -95,9 +95,9 @@
         </div>
     </div>
     {# template to write a new message #}
-    <div class="card card-sender mb-3" id="newMsg">
+    <div class="card card-sender mb-3" id="newMsg" style="display:none">
         <div class="card-body pb-1">
-            <p class="text-right">{{ 'now'|format_datetime('full', 'short', locale = app.request.locale) }}</p>
+            <p class="text-right"></p>
             <hr>
             <p>ksksksk</p>
         </div>
@@ -128,11 +128,16 @@
          document.getElementById('btn-send').addEventListener('click', (e) => {
             e.preventDefault()
             let newMessage = document.getElementById('newMessage').value
-            let clNewMessage = $('#newMsg').clone()
-            clNewMessage.appendTo(".discussion")
-
-            console.log(newMessage)
-            
+            // clNewMessage = $('#newMsg').clone()
+            clNewMessage = document.getElementById("newMsg").cloneNode(true);
+            clNewMessage.style.display='block'
+            let mdate = new Date()
+            bb = mdate.getDate() + '/' + (mdate.getMonth() + 1)  + '/' + mdate.getFullYear() + ' ' + mdate.getHours + ':' + mdate.getMinutes
+            clNewMessage.childNodes[1].childNodes[1].innerHTML="{{ '08/08/2020 12:21:23'|format_datetime('full', 'short', locale = app.request.locale) }}"
+            document.getElementById('discussion').appendChild(clNewMessage)
+            //clNewMessage.appendTo(".discussion")
+            console.log('oooo' + bb + 'ldkkdkdk')
+            document.getElementById('newMessage').value = ''
         })
 
         /*
