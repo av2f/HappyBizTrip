@@ -61,32 +61,16 @@
                     </div>
                 </div>
                 <div class="discussion" id="discussion" data-discussions = "{{ discussions|json_encode }}">
-                    {# {% for discussion in discussions %}
-                        {% set card_message = "card-receiver ml-auto mr-2" %}
-                        {% if discussion.m_sender_id == app.user.id %} {% set card_message = "card-sender mr-auto" %} {% endif %} 
-                        <div class="card {{ card_message }} mb-3">
-                            <div class="card-body pb-1">
-                                <p class="text-right">{{ discussion.m_createdAt|format_datetime('full', 'short', locale = app.request.locale) }}</p>
-                                <hr>
-                                <p>{{ discussion.m_message|striptags|raw }} </p>
-                                {% if discussion.m_sender_id == app.user.id %}
-                                    {% set icon = "fas fa-envelope" %}
-                                    {% if discussion.m_isReaded %} {% set icon = "fas fa-check" %} {% endif %}
-                                    <hr class="mb-1">
-                                    <p class="mt-1 mb-0 text-right icon-read"><i class="{{ icon }}" ></i></p>
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endfor %} #}
+                    {# discussion feed handled by javascript #}
                 </div>
                 <div class="form-group">
                     <textarea class="form-control form-control-sm shadow-none p-1 mt-1" rows=2 id="newMessage" placeholder="Saisissez un message"
-                    style="resize: none"></textarea>
+                    style="resize: none" data-token="{{ csrf_token('tok' ~ app.user.id) }}"></textarea>
                     <div class="float-right mt-1">
                         <button class="btn btn-happyGrey btn-sm shadow-none" type="button" id="btn-erase">
                             <i class="fas fa-eraser"></i> {{ 'generic.erase'|trans|raw }}
                         </button>
-                        <button class="btn btn-happyGrey btn-sm shadow-none" type="button" id="btn-send">
+                        <button class="btn btn-happyGrey btn-sm shadow-none" type="button" id="btn-send" href="{{ path('store_message') }}">
                             <i class="far fa-paper-plane"></i> {{ 'generic.send'|trans|raw }}
                         </button>
                     </div>
@@ -124,6 +108,19 @@
             document.getElementById('newMessage').value = ''
         })
 
+
+        function sendJsonRequest (href, theToken, newMessage, receiver) {
+            return fetch(href, {
+              method: 'POST',
+              headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ '_token': theToken, 'message': newMessage, 'receiver': receiver })
+            })
+              .then(response => response.json())
+              .then(data => { return data })
+        }
         
     </script>
 
