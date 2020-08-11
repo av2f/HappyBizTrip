@@ -7,6 +7,7 @@ use App\Repository\MessagingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MessagingController extends AbstractController
 {
@@ -35,18 +36,19 @@ class MessagingController extends AbstractController
     /**
      * Retrieve new message, store it and send the whole discussion feed
      *
-     * @Route("/api/storemsg", name="store_message", methods={"POST"})
+     * @Route("/api/storemsg", name="store_message", methods={"GET", "POST"})
      * 
      * @param MessagingRepository $messageRepo
      * @param EntityManagerInterface $em
      * @param User $profile
      * @return void
      */
-    public function storeNewMessage(MessagingRepository $messageRepo, EntityManagerInterface $em, User $profile) {
-        $discussions = $messageRepo->myFindDiscussion(41, 80);
-        $response = $this->json($discussions, 200,[],[]);
-        return $response;
-
+    public function storeNewMessage(MessagingRepository $messageRepo) {
+        $discussions = $messageRepo->myFindDiscussion(201, 318);
+        //$discussions = $messageRepo->findAll();
+        
+        // return = $this->json($discussions, 200,[],[]);
+        return new JsonResponse(['discussions' => $discussions, 'success' => '1'], 200);
     
     }
 }

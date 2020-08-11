@@ -25,7 +25,7 @@
                     {% for conversation in list_conversations %}
                         <div class="media position-relative" id="media_{{ conversation.u_id }}">
                             <img src="{{ conversation.u_avatar }}"
-                            class="avatar avatar-media mr-3 my-auto" alt="avatar" id="picture_{{ conversation.u_id }}">
+                            class="avatar avatar-media mr-3 my-auto" alt="{{ conversation.u_pseudo }}" id="picture_{{ conversation.u_id }}">
                             <div class="media-body">
                                 <p class="p-text-pseudo mt-0" id="pseudo_{{ conversation.u_id }}">{{ conversation.u_pseudo }}</p>
                                 <p class="{% if conversation.m_sender_id != app.user.id and not conversation.m_isReaded %}p-msg-unread{% else %}p-msg-read{% endif %}">
@@ -47,7 +47,7 @@
                 <div class="card mt-2 mb-3">
                     <div class="card-header">
                         <img src="#" id="picture" class="avatar avatar-media mr-3 my-auto" alt="avatar" >
-                        <span id='pseudo'>Pseudo</span>
+                        <span class="dial" id="dial_">Pseudo</span>
                         <div class="btn-group float-right my-auto" id="BG_">
                             <button class="btn btn-light btn-sm dropdown-toggle dropdown-action shadow-none" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 &bull;&bull;&bull;
@@ -95,17 +95,22 @@
         // handle a new message
         document.getElementById('btn-send').addEventListener('click', (e) => {
             e.preventDefault()
+            const dialId = document.querySelector('.dial').getAttribute('id')
+            const userId = dialId.substring(dialId.indexOf('_', 1) + 1, dialId.length)
             let newMessage = document.getElementById('newMessage').value
-            // clNewMessage = $('#newMsg').clone()
-            clNewMessage = document.getElementById("newMsg").cloneNode(true);
-            clNewMessage.style.display='block'
-            let mdate = new Date()
-            bb = mdate.getDate() + '/' + (mdate.getMonth() + 1)  + '/' + mdate.getFullYear() + ' ' + mdate.getHours + ':' + mdate.getMinutes
-            clNewMessage.childNodes[1].childNodes[1].innerHTML="{{ '08/08/2020 12:21:23'|format_datetime('full', 'short', locale = app.request.locale) }}"
-            document.getElementById('discussion').appendChild(clNewMessage)
-            //clNewMessage.appendTo(".discussion")
-            console.log('oooo' + bb + 'ldkkdkdk')
-            document.getElementById('newMessage').value = ''
+            sendJsonRequest(document.getElementById('btn-send').getAttribute('href'), document.getElementById('newMessage').dataset.token, newMessage, userId )
+            .then(response => {
+                if (response.success) {
+                // reset message
+                newMessage.value = ''
+                console.log(response.discussions)
+                } else {
+                    alert('erreur')
+                    //toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
+                }
+            })
+            //.catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000')) */
+            .catch(e => alert(e))
         })
 
 
