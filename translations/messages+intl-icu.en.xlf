@@ -357,13 +357,13 @@
         <source>update.avatar.msg.error_4</source>
         <target>Your file size exceeds the limit ({maxFileSize}).</target>
       </trans-unit>
-      <trans-unit id="list.profile.msg.error_1">
-        <source>list.profile.msg.error_1</source>
-        <target>Invalid token. Please, try again.</target>
+      <trans-unit id="json.msg.error_1">
+        <source>json.msg.error_1</source>
+        <target>Token invalide. Merci de réessayer.</target>
       </trans-unit>
-      <trans-unit id="list.profile.msg.error_2">
-        <source>list.profile.msg.error_2</source>
-        <target>An error occurred while doing your action. Please, try again.</target>
+      <trans-unit id="json.msg.error_2">
+        <source>json.msg.error_2</source>
+        <target>Une erreur est survenue lors de votre action. Merci de réessayer.</target>
       </trans-unit>
       <trans-unit id="interest.type_culture">
         <source>interest.type_culture</source>

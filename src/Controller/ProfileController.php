@@ -14,7 +14,6 @@ use App\Repository\UserRepository;
 use App\Repository\VisitRepository;
 use App\Repository\InterestRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Null_;
 use App\Repository\InterestTypeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

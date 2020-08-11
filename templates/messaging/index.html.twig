@@ -7,6 +7,12 @@
 {% endblock %}
 
 {% block body %}
+    {# loader #}
+    <div class="d-flex justify-content-center align-items-center load-spinner" id="unload">
+        <div class="spinner-grow text-primary" role="status" id="spinner" style="display:none;"> 
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             {# diplay conversation list #}
@@ -23,7 +29,7 @@
                 </div>
                 <div class="conversation-list">
                     {% for conversation in list_conversations %}
-                        <div class="media position-relative" id="media_{{ conversation.u_id }}">
+                        <div class="media position-relative" id="media_{{ conversation.u_id }}" data-token="{{ csrf_token('tok' ~ conversation.u_id) }}">
                             <img src="{{ conversation.u_avatar }}"
                             class="avatar avatar-media mr-3 my-auto" alt="{{ conversation.u_pseudo }}" id="picture_{{ conversation.u_id }}">
                             <div class="media-body">
@@ -36,7 +42,7 @@
                                         <i class="fas fa-envelope"></i>
                                     {% endif %}
                                 </p>
-                                <a href="#" class="stretched-link"></a>
+                                <a href="{{ path('discussion_feed', {'id': conversation.u_id}) }}" class="stretched-link" id="url_{{ conversation.u_id }}"></a>
                             </div>
                         </div>
                         <hr>
@@ -79,54 +85,10 @@
         </div>
     </div>
     <input type="hidden" id="datapage" data-userid = "{{ app.user.id }}" data-locale = "{{ app.request.locale }}">
-    {# template to write a new message #}
-    <div class="card card-sender mb-3" id="newMsg" style="display:none">
-        <div class="card-body pb-1">
-            <p class="text-right"></p>
-            <hr>
-            <p>ksksksk</p>
-        </div>
-    </div>
+    <input type="hidden" id="msgerr" data-errone = "{{ 'json.msg.error_1'|trans|raw }}"
+    data-errtwo = "{{ 'json.msg.error_2'|trans|raw }}"/>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('js/messaging') }}
-    <script>
-        // handle a new message
-        document.getElementById('btn-send').addEventListener('click', (e) => {
-            e.preventDefault()
-            const dialId = document.querySelector('.dial').getAttribute('id')
-            const userId = dialId.substring(dialId.indexOf('_', 1) + 1, dialId.length)
-            let newMessage = document.getElementById('newMessage').value
-            sendJsonRequest(document.getElementById('btn-send').getAttribute('href'), document.getElementById('newMessage').dataset.token, newMessage, userId )
-            .then(response => {
-                if (response.success) {
-                // reset message
-                newMessage.value = ''
-                console.log(response.discussions)
-                } else {
-                    alert('erreur')
-                    //toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
-                }
-            })
-            //.catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000')) */
-            .catch(e => alert(e))
-        })
-
-
-        function sendJsonRequest (href, theToken, newMessage, receiver) {
-            return fetch(href, {
-              method: 'POST',
-              headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ '_token': theToken, 'message': newMessage, 'receiver': receiver })
-            })
-              .then(response => response.json())
-              .then(data => { return data })
-        }
-        
-    </script>
-
-    {% endblock %}
+{% endblock %}
