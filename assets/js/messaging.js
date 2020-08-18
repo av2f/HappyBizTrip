@@ -1,5 +1,5 @@
 import moment from 'moment'
-moment().format();
+moment().format()
 moment.locale('fr')
 
 // load the picture and pseudo of the firt profile of list in header of discussion
@@ -10,6 +10,7 @@ $(document).ready(() => {
 })
 
 // when select a new profile in the list, change header with avatar and pseudo selected
+// if last message is unreaded, put it in read.
 // and display discussion
 document.querySelectorAll('.media').forEach(action =>
   action.addEventListener('click', (e) => {
@@ -23,10 +24,15 @@ document.querySelectorAll('.media').forEach(action =>
       if (response.success) {
            // remove the content of div discussion
           const divDiscussion = document.getElementById('discussion')
-          while(divDiscussion.firstChild) {
+          while (divDiscussion.firstChild) {
               divDiscussion.removeChild(divDiscussion.firstChild)
           }
-          buildDiscussion (response.discussions, document.getElementById('datapage').dataset.userid, false)
+          buildDiscussion(response.discussions, document.getElementById('datapage').dataset.userid, false)
+          // put last message as readed if unreaded
+          if (document.getElementById('last-message_' + userId).className === 'p-msg-unread') {
+            document.getElementById('last-message_' + userId).className = 'p-msg-read'
+            document.getElementById('envelope_' + userId).className = 'fas fa-envelope-open'
+          }
           // reset textarea for new message
           document.getElementById('newMessage').value = ''
           handleLoader(false)
@@ -34,7 +40,7 @@ document.querySelectorAll('.media').forEach(action =>
           toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
       }
     })
-    .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))  
+    .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
   })
 )
 
@@ -50,24 +56,35 @@ document.getElementById('btn-send').addEventListener('click', (e) => {
   handleLoader(true)
   const dialId = document.querySelector('.dial').getAttribute('id')
   const userId = dialId.substring(dialId.indexOf('_', 1) + 1, dialId.length)
-  let newMessage = document.getElementById('newMessage').value.trim()
-  sendJsonRequest(document.getElementById('btn-send').getAttribute('href'), document.getElementById('newMessage').dataset.token, newMessage, userId )
+  const newMessage = document.getElementById('newMessage').value.trim()
+  sendJsonRequest(document.getElementById('btn-send').getAttribute('href'), document.getElementById('newMessage').dataset.token, newMessage, userId)
   .then(response => {
       if (response.success) {
-           // remove the content of div discussion
-          const divDiscussion = document.getElementById('discussion')
-          while(divDiscussion.firstChild) {
-              divDiscussion.removeChild(divDiscussion.firstChild)
-          }
-          buildDiscussion (response.discussions, document.getElementById('datapage').dataset.userid, false)
-          // reset textarea for new message
-          document.getElementById('newMessage').value = ''
-          handleLoader(false)
+        // remove the content of div discussion
+        const divDiscussion = document.getElementById('discussion')
+        while (divDiscussion.firstChild) {
+          divDiscussion.removeChild(divDiscussion.firstChild)
+        }
+        buildDiscussion(response.discussions, document.getElementById('datapage').dataset.userid, false)
+        // reset textarea for new message
+        document.getElementById('newMessage').value = ''
+        // change last message in conversation list
+        document.getElementById('last-message_' + userId).className = 'p-msg-read'
+        document.getElementById('last-message_' + userId).innerHTML = 'Vous : ' + newMessage.substring(0, 15) + '...'
+        handleLoader(false)
       } else {
-          toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
+        toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
       }
   })
   .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
+})
+
+// delete current discussion with the profile in conversation list
+const delDiscussion = document.querySelector('.btn-del-discussion')
+delDiscussion.addEventListener('click', (e) => {
+  e.preventDefault()
+  const userId = delDiscussion.getAttribute('id').substring(delDiscussion.getAttribute('id').indexOf('_', 1) + 1, delDiscussion.getAttribute('id').length)
+  console.log('je supprime ' + userId)
 })
 
 /*
@@ -79,6 +96,7 @@ function changeHeaderDiscussion (mediaId) {
   const userId = mediaId.substring(mediaId.indexOf('_', 1) + 1, mediaId.length)
   document.getElementById('picture').setAttribute('src', document.getElementById('picture_' + userId).getAttribute('src'))
   document.querySelector('.dial').setAttribute('id', 'dial_' + userId)
+  document.querySelector('.btn-del-discussion').setAttribute('id', 'del_' + userId)
   document.getElementById('dial_' + userId).innerHTML = document.getElementById('pseudo_' + userId).innerHTML
   document.getElementById('discussion').scrollTop = document.getElementById('discussion').scrollHeight
 }
@@ -93,10 +111,11 @@ function changeHeaderDiscussion (mediaId) {
 function buildDiscussion (arrayDiscussion, userId, boolParse) {
   // setup lang for moment.js
   moment.locale(document.getElementById('datapage').dataset.locale)
+  var discussions
   if (boolParse) {
-    var discussions = JSON.parse(arrayDiscussion)
+    discussions = JSON.parse(arrayDiscussion)
   } else {
-    var discussions = arrayDiscussion
+    discussions = arrayDiscussion
   }
   let numMsg = 1
   discussions.forEach(function (discussion) {
@@ -109,10 +128,10 @@ function buildDiscussion (arrayDiscussion, userId, boolParse) {
     divCard.id = 'card_' + numMsg
     document.getElementById('discussion').appendChild(divCard) // Insertion du nouvel élément
     const divCardBody = document.createElement('div')
-    divCardBody.className='card-body pb-1'
+    divCardBody.className = 'card-body pb-1'
     divCardBody.id = 'cardbody_' + numMsg
     document.getElementById(divCard.id).appendChild(divCardBody)
-    document.getElementById(divCardBody.id).insertAdjacentHTML('afterBegin', '<p class="text-right">' + moment(discussion.m_createdAt['date']).format('LLLL') + '</p>')
+    document.getElementById(divCardBody.id).insertAdjacentHTML('afterBegin', '<p class="text-right">' + moment(discussion.m_createdAt.date).format('LLLL') + '</p>')
     document.getElementById(divCardBody.id).insertAdjacentHTML('beforeend', '<hr>')
     document.getElementById(divCardBody.id).insertAdjacentHTML('beforeend', '<p>' + discussion.m_message + '</p>')
     if (discussion.m_sender_id === userId) {
@@ -141,13 +160,15 @@ function sendJsonRequest (href, theToken, newMessage, receiver) {
     .then(data => { return data })
 }
 
-function handleLoader(activate) {
+/*
+  Activate or deactivate the load spinner
+*/
+function handleLoader (activate) {
   if (activate) {
     document.querySelector('.load-spinner').setAttribute('id', 'loader')
-    document.getElementById('spinner').style.display='block'
+    document.getElementById('spinner').style.display = 'block'
   } else {
     document.querySelector('.load-spinner').setAttribute('id', 'unload')
-    document.getElementById('spinner').style.display='none'
+    document.getElementById('spinner').style.display = 'none'
   }
 }
-

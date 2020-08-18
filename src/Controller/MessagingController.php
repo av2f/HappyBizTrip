@@ -63,7 +63,6 @@ class MessagingController extends AbstractController
             $em->persist($newMessage);
             $em->flush();
             // send new discussion feed
-            //$discussions = $messageRepo->myFindDiscussion($this->getUser()->getId(), $data['receiver']);
             return new JsonResponse(['discussions' => $messageRepo->myFindDiscussion($this->getUser()->getId(), $data['receiver']), 'success' => '1'], 200);
         } else {
             return new JsonResponse(['error' => '2'], 400);
@@ -71,19 +70,19 @@ class MessagingController extends AbstractController
     }
 
     /**
-     * Retrieve the discussion feed
+     * Retrieve the discussion feed for the user $profile
      * 
-     * @Route("/api/discussion/{id}", name="discussion_feed", methods={"POST", "GET"})
+     * @Route("/api/discussion/{id}", name="discussion_feed", methods={"POST"})
      *
      * @param Request $request
      * @param MessagingRepository $messageRepo
      * @param User $profile
      * @return void
      */
-    public function loadDiscussion(Request $request, MessagingRepository $messageRepo, User $profile){
+    public function loadDiscussion(Request $request, MessagingRepository $messageRepo, User $profile) {
         $data = json_decode($request->getContent(), true);
         if ($this->isCsrfTokenValid('tok'.$profile->getId(), $data['_token'])) {
-            // !!!!!! il faut mettre à jour les message comme quoi ils sont lu
+            $messageRepo -> updateMessageToRead($profile->getId(), $this->getUser()->getId());
             return new JsonResponse(['discussions' => $messageRepo->myFindDiscussion($this->getUser()->getId(), $profile->getId()), 'success' => '1'], 200);
         } else {
             return new JsonResponse(['error' => '2'], 400);

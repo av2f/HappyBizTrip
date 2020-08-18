@@ -45,4 +45,28 @@ class MessagingRepository extends ServiceEntityRepository
 
         return $query->getScalarResult();
     }
+
+    /**
+     * Update all messages not yet readed between sender and user connected to put
+     * isReaded to true
+     * readedAt to date now
+     *
+     * @param integer $senderId
+     * @param integer $id
+     * @return void
+     */
+    public function updateMessageToRead(int $senderId, int $id) {
+        $today = new \DateTime(); 
+        return $this->createQueryBuilder('m')
+            -> update()
+            -> set('m.isReaded', true)
+            -> set('m.readedAt', '?1')
+            -> where('(m.sender = :sender AND m.receiver = :receiver) AND m.isReaded = false')
+            -> setParameter('sender', $senderId)
+            -> setParameter('receiver', $id)
+            -> setParameter(1, $today)
+            ->getQuery()
+            ->execute() 
+        ;
+    }
 }

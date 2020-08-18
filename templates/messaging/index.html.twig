@@ -34,12 +34,14 @@
                             class="avatar avatar-media mr-3 my-auto" alt="{{ conversation.u_pseudo }}" id="picture_{{ conversation.u_id }}">
                             <div class="media-body">
                                 <p class="p-text-pseudo mt-0" id="pseudo_{{ conversation.u_id }}">{{ conversation.u_pseudo }}</p>
-                                <p class="{% if conversation.m_sender_id != app.user.id and not conversation.m_isReaded %}p-msg-unread{% else %}p-msg-read{% endif %}">
+                                <p id="last-message_{{ conversation.u_id }}" class="{% if conversation.m_sender_id != app.user.id and not conversation.m_isReaded %}p-msg-unread{% else %}p-msg-read{% endif %}">
                                     {% if conversation.m_sender_id == app.user.id %}Vous : {% endif %}
                                     {{ conversation.m_message|striptags|trim|slice(0, 15)|raw }}...
-                                    {% if conversation.m_sender_id != app.user.id and not conversation.m_isReaded %}
+                                    {% if conversation.m_sender_id != app.user.id %}
                                         <span class="bullet"> &bull;</span>
-                                        <i class="fas fa-envelope"></i>
+                                        <i id="envelope_{{ conversation.u_id }}"
+                                            class={% if not conversation.m_isReaded %}"fas fa-envelope"{% else %}"fas fa-envelope-open"{% endif %}>    
+                                        </i>
                                     {% endif %}
                                 </p>
                                 <a href="{{ path('discussion_feed', {'id': conversation.u_id}) }}" class="stretched-link" id="url_{{ conversation.u_id }}"></a>
@@ -59,7 +61,7 @@
                                 &bull;&bull;&bull;
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item dropdown-item-action" id="SU" data-token="{{ csrf_token('tok') }}"
+                                <button class="dropdown-item dropdown-item-action btn-del-discussion" id="DEL_" data-token="{{ csrf_token('tok') }}"
                                     href="#">Supprimer la conversation
                                 </button>
                             </div>
@@ -90,5 +92,6 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('js/notificationToastr') }}
     {{ encore_entry_script_tags('js/messaging') }}
 {% endblock %}
