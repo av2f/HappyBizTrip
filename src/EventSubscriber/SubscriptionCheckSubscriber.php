@@ -13,11 +13,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class SubscriptionCheckSubscriber implements EventSubscriberInterface
 {
     private $security;
+    private $subscriptionRepository;
+    private $em;
 
-    public function __construct(Security $security, SubscriptionRepository $repo, EntityManagerInterface $em)
+    public function __construct(Security $security, SubscriptionRepository $subscriptionRepository, EntityManagerInterface $em)
     {
         $this->security = $security;
-        $this->repo = $repo;
+        $this->subscriptionRepository = $subscriptionRepository;
         $this->em = $em;
     }
     
@@ -43,10 +45,9 @@ class SubscriptionCheckSubscriber implements EventSubscriberInterface
     {
         $user = new User();
         $user = $this->security->getUser();
-        //$user = $this->user->get_current_user();
 
         if ($user && $user->getIsSubscribed()) {
-            $subscription = $this->repo->findOneBy(['subscriber'=>$user]);
+            $subscription = $this->subscriptionRepository->findOneBy(['subscriber'=>$user]);
             $date = new \DateTime('now');
             $date = $date->format('Ymd');
             $endSubscriptionDate = $subscription->getSubscribEndAt()->format('Ymd');

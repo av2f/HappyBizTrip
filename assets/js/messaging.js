@@ -28,7 +28,15 @@ document.querySelectorAll('.media').forEach(action =>
               divDiscussion.removeChild(divDiscussion.firstChild)
           }
           buildDiscussion(response.discussions, document.getElementById('datapage').dataset.userid, false)
-          // put last message as readed if unreaded
+          // update unread messages in header
+          const updateUnreadMessage = parseInt(document.getElementById('unread-messages').innerHTML, 10) - response.unreadMessages
+          if (updateUnreadMessage <= 0) {
+            document.getElementById('unread-messages').style.display = 'none'
+          }
+          else {
+            document.getElementById('unread-messages').innerHTML = updateUnreadMessage
+          }
+          // put last message as readed if unreaded in conversation list
           if (document.getElementById('last-message_' + userId).className === 'p-msg-unread') {
             document.getElementById('last-message_' + userId).className = 'p-msg-read'
             document.getElementById('envelope_' + userId).className = 'fas fa-envelope-open'
@@ -61,10 +69,7 @@ document.getElementById('btn-send').addEventListener('click', (e) => {
   .then(response => {
       if (response.success) {
         // remove the content of div discussion
-        const divDiscussion = document.getElementById('discussion')
-        while (divDiscussion.firstChild) {
-          divDiscussion.removeChild(divDiscussion.firstChild)
-        }
+        deleteDiscussion(document.getElementById('discussion'))
         buildDiscussion(response.discussions, document.getElementById('datapage').dataset.userid, false)
         // reset textarea for new message
         document.getElementById('newMessage').value = ''
@@ -85,6 +90,8 @@ delDiscussion.addEventListener('click', (e) => {
   e.preventDefault()
   const userId = delDiscussion.getAttribute('id').substring(delDiscussion.getAttribute('id').indexOf('_', 1) + 1, delDiscussion.getAttribute('id').length)
   console.log('je supprime ' + userId)
+  console.log(document.querySelectorAll('.media').length)
+  console.log(document.querySelector('.conversation-list').firstChild.nodeName)
 })
 
 /*
@@ -99,6 +106,17 @@ function changeHeaderDiscussion (mediaId) {
   document.querySelector('.btn-del-discussion').setAttribute('id', 'del_' + userId)
   document.getElementById('dial_' + userId).innerHTML = document.getElementById('pseudo_' + userId).innerHTML
   document.getElementById('discussion').scrollTop = document.getElementById('discussion').scrollHeight
+}
+
+/*
+  Delete the discussion feed
+  input : id of div which contains the discussion to delete
+  Author : F. Parmentier
+*/
+function deleteDiscussion (idDiv) {
+  while (idDiv.firstChild) {
+    idDiv.removeChild(idDiv.firstChild)
+  }
 }
 
 /*

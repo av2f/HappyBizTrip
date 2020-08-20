@@ -69,4 +69,20 @@ class MessagingRepository extends ServiceEntityRepository
             ->execute() 
         ;
     }
+
+    /**
+     * Count the number of unreaded messaged for $id
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function myCountUnreadMessage(int $id) {
+        return $this->createQueryBuilder('m')
+            ->select('count(m.isReaded)')
+            ->andWhere('m.receiver = :id AND m.isReaded = false')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

@@ -82,8 +82,8 @@ class MessagingController extends AbstractController
     public function loadDiscussion(Request $request, MessagingRepository $messageRepo, User $profile) {
         $data = json_decode($request->getContent(), true);
         if ($this->isCsrfTokenValid('tok'.$profile->getId(), $data['_token'])) {
-            $messageRepo -> updateMessageToRead($profile->getId(), $this->getUser()->getId());
-            return new JsonResponse(['discussions' => $messageRepo->myFindDiscussion($this->getUser()->getId(), $profile->getId()), 'success' => '1'], 200);
+            $unreadMessages = $messageRepo -> updateMessageToRead($profile->getId(), $this->getUser()->getId());
+            return new JsonResponse(['discussions' => $messageRepo->myFindDiscussion($this->getUser()->getId(), $profile->getId()), 'unreadMessages' => $unreadMessages, 'success' => '1'], 200);
         } else {
             return new JsonResponse(['error' => '2'], 400);
         }
