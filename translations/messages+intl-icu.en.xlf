@@ -345,6 +345,10 @@
         <source>modal.account.message_delete3</source>
         <target>Please, confirm the deletion of your account.</target>
       </trans-unit>
+      <trans-unit id="modal.title.discussion_delete">
+        <source>modal.title.discussion_delete</source>
+        <target>Deletion of the discussion</target>
+      </trans-unit>
       <trans-unit id="update.avatar.msg.error_1">
         <source>update.avatar.msg.error_2</source>
         <target>An error occurred while editing the image. Please, try again.</target>

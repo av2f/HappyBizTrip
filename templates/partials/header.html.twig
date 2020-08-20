@@ -14,7 +14,7 @@
         <div class="navbar-nav">
             {% if app.user %}
                 <a class="nav-link" href="{{ path('messaging', {'slug':app.user.slug}) }}"><i class="fas fa-envelope-open"></i>&nbsp;Messages
-                    {% if unread_messages > 0 %}<span class="badge badge-danger" id="unread-messages" style="display: inline;">{{ unread_messages }}</span>{% endif %}
+                    {% if unread_messages > 0 %}<span class="badge badge-red" id="unread-messages" style="display: inline;">{{ unread_messages }}</span>{% endif %}
                 </a>
                 <a class="nav-link" href="#"><i class="fas fa-plane-departure"></i>&nbsp;Mes BizTrip</a>
             {% else %}

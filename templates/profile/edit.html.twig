@@ -41,7 +41,7 @@
                             <div class="update-icon-avatar"><i class="far fa-edit"></i></div>
                         </div>
                         <input type="hidden" id="input-update-avatar" name="token" data-token="{{ csrf_token('tok' ~ user.id) }}"
-                        data-ref="{{ path('update_avatar', {'id': user.id}) }}" />
+                        data-ref="{{ path('update_avatar', {'id': user.id}) }}">
                     </div>
                 </div>
             </div>
@@ -49,11 +49,11 @@
 
         {# set variable for javascript part #}
         <input type="hidden" id="pictures" data-imgdefaultavatar = "{{ asset('img/library/defaultAvatar.png') }}"
-            data-useravatar = "{{ user.avatar }}"/>
+            data-useravatar = "{{ user.avatar }}">
         <input type="hidden" id="msgerr" data-errone = "{{ 'update.avatar.msg.error_1'|trans|raw }}"
             data-errtwo = "{{ 'update.avatar.msg.error_2'|trans|raw }}"
-            data-errthree = "{{ 'update.avatar.msg.error_3'|trans({ '%maxFileSize%': MAX_FILE_SIZE })|raw }}"/>
-        <input type="hidden" id="language" data-lang = "{{ app.request.locale }}"/>
+            data-errthree = "{{ 'update.avatar.msg.error_3'|trans({ '%maxFileSize%': MAX_FILE_SIZE })|raw }}">
+        <input type="hidden" id="language" data-lang = "{{ app.request.locale }}">
         {# end of set variable #}
 
         {# profile form #}

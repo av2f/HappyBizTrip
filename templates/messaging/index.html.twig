@@ -14,6 +14,9 @@
         </div>
     </div>
     <div class="container">
+        {# modal window to confirm deletion of account #}
+        {% include 'partials/modals/_modalDeleteDiscussion.html.twig' %}
+
         <div class="row">
             {# diplay conversation list #}
             <div class="col-12 col-lg-4 col-md-6" >
@@ -27,7 +30,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="conversation-list">
+                <div class="conversation-list" id="conversation-list">
                     {% for conversation in list_conversations %}
                         <div class="media position-relative" id="media_{{ conversation.u_id }}" data-token="{{ csrf_token('tok' ~ conversation.u_id) }}">
                             <img src="{{ conversation.u_avatar }}"
@@ -47,7 +50,7 @@
                                 <a href="{{ path('discussion_feed', {'id': conversation.u_id}) }}" class="stretched-link" id="url_{{ conversation.u_id }}"></a>
                             </div>
                         </div>
-                        <hr>
+                        <hr id="hr_{{ conversation.u_id }}"> 
                     {% endfor %}
                 </div>
             </div>
@@ -63,6 +66,9 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <button class="dropdown-item dropdown-item-action btn-del-discussion" id="DEL_" data-token="{{ csrf_token('tok') }}"
                                     href="#">Supprimer la conversation
+                                </button>
+                                <button class="dropdown-item dropdown-item-action btn-del-discussion" id="SHO_" data-token="{{ csrf_token('tok') }}" data-toggle="modal" data-target="#deleteDiscussionModal">
+                                    Supprimer la conversation
                                 </button>
                             </div>
                         </div>
@@ -88,7 +94,7 @@
     </div>
     <input type="hidden" id="datapage" data-userid = "{{ app.user.id }}" data-locale = "{{ app.request.locale }}">
     <input type="hidden" id="msgerr" data-errone = "{{ 'json.msg.error_1'|trans|raw }}"
-    data-errtwo = "{{ 'json.msg.error_2'|trans|raw }}"/>
+    data-errtwo = "{{ 'json.msg.error_2'|trans|raw }}">
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

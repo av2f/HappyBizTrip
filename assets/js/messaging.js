@@ -22,11 +22,9 @@ document.querySelectorAll('.media').forEach(action =>
     sendJsonRequest(document.getElementById('url_' + userId).getAttribute('href'), document.getElementById(action.getAttribute('id')).dataset.token, '', '')
     .then(response => {
       if (response.success) {
-           // remove the content of div discussion
-          const divDiscussion = document.getElementById('discussion')
-          while (divDiscussion.firstChild) {
-              divDiscussion.removeChild(divDiscussion.firstChild)
-          }
+          // remove the content of div discussion
+          deleteDiscussion(document.getElementById('discussion'))
+          // Build new discussion
           buildDiscussion(response.discussions, document.getElementById('datapage').dataset.userid, false)
           // update unread messages in header
           const updateUnreadMessage = parseInt(document.getElementById('unread-messages').innerHTML, 10) - response.unreadMessages
@@ -88,10 +86,21 @@ document.getElementById('btn-send').addEventListener('click', (e) => {
 const delDiscussion = document.querySelector('.btn-del-discussion')
 delDiscussion.addEventListener('click', (e) => {
   e.preventDefault()
+  // mettre à jour la base de données => deletedBy
+  //
+  // remove profile in conversation list
   const userId = delDiscussion.getAttribute('id').substring(delDiscussion.getAttribute('id').indexOf('_', 1) + 1, delDiscussion.getAttribute('id').length)
+  document.getElementById('conversation-list').removeChild(document.getElementById('media_' + userId))
+  document.getElementById('conversation-list').removeChild(document.getElementById('hr_' + userId))
+  // remove the content of div discussion
+  deleteDiscussion(document.getElementById('discussion'))
+  // if it remains profiles in conversation list
+  if (document.querySelectorAll('.media').length > 0) {
+    changeHeaderDiscussion(document.querySelector('.conversation-list').firstElementChild.getAttribute('id'))
+  }
   console.log('je supprime ' + userId)
-  console.log(document.querySelectorAll('.media').length)
-  console.log(document.querySelector('.conversation-list').firstChild.nodeName)
+  // suppression de la conversation
+  // suppression du profil dans la liste
 })
 
 /*
