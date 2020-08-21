@@ -83,13 +83,13 @@ document.getElementById('btn-send').addEventListener('click', (e) => {
 })
 
 // delete current discussion with the profile in conversation list
-const delDiscussion = document.querySelector('.btn-del-discussion')
-delDiscussion.addEventListener('click', (e) => {
+
+document.getElementById('btn-confirm-del-discussion').addEventListener('click', (e) => {
   e.preventDefault()
   // mettre à jour la base de données => deletedBy
   //
   // remove profile in conversation list
-  const userId = delDiscussion.getAttribute('id').substring(delDiscussion.getAttribute('id').indexOf('_', 1) + 1, delDiscussion.getAttribute('id').length)
+  const userId = document.querySelector('.btn-del-discussion').getAttribute('id').substring(document.querySelector('.btn-del-discussion').getAttribute('id').indexOf('_', 1) + 1, document.querySelector('.btn-del-discussion').getAttribute('id').length)
   document.getElementById('conversation-list').removeChild(document.getElementById('media_' + userId))
   document.getElementById('conversation-list').removeChild(document.getElementById('hr_' + userId))
   // remove the content of div discussion
@@ -101,6 +101,11 @@ delDiscussion.addEventListener('click', (e) => {
   console.log('je supprime ' + userId)
   // suppression de la conversation
   // suppression du profil dans la liste
+})
+
+// load pseudo when modal window to confirm deletion of discussion is opened
+$('#deleteDiscussionModal').on('show.bs.modal', function () {
+  document.getElementById('pseudoDiscussionWith').innerHTML = '<strong>' + document.querySelector('.dial').textContent + '</strong>'
 })
 
 /*

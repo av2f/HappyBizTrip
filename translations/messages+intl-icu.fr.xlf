@@ -309,6 +309,10 @@
         <source>profile.btn_delete</source>
         <target>Supprimer mon compte</target>
       </trans-unit>
+      <trans-unit id="discussion.btn_delete">
+        <source>discussion.btn_delete</source>
+        <target>Supprimer la discussion</target>
+      </trans-unit>
       <trans-unit id="btn.cancel">
         <source>btn.cancel</source>
         <target>Annuler</target>
@@ -335,19 +339,23 @@
       </trans-unit>
       <trans-unit id="modal.account.message_delete1">
         <source>modal.account.message_delete1</source>
-        <target>Attention,</target>
+        <target>La suppression de votre compte est définitive et entraine la perte irréversible de vos données.</target>
       </trans-unit>
       <trans-unit id="modal.account.message_delete2">
         <source>modal.account.message_delete2</source>
-        <target>La suppression de votre compte est définitive et entraine la perte irréversible de vos données.</target>
-      </trans-unit>
-      <trans-unit id="modal.account.message_delete3">
-        <source>modal.account.message_delete3</source>
         <target>merci de confirmer la suppression de votre compte.</target>
       </trans-unit>
       <trans-unit id="modal.title.discussion_delete">
         <source>modal.title.discussion_delete</source>
         <target>Suppression de la discussion</target>
+      </trans-unit>
+      <trans-unit id="modal.discussion.message_delete1">
+        <source>modal.discussion.message_delete1</source>
+        <target>La suppression de la discussion est définitive.</target>
+      </trans-unit>
+      <trans-unit id="modal.discussion.message_delete2">
+        <source>modal.discussion.message_delete2</source>
+        <target>Merci de confirmer la suppression de la discussion avec</target>
       </trans-unit>
       <trans-unit id="update.avatar.msg.error_1">
         <source>update.avatar.msg.error_1</source>
@@ -564,6 +572,10 @@
       <trans-unit id="generic.cancel">
         <source>generic.cancel</source>
         <target>Annuler</target>
+      </trans-unit>
+      <trans-unit id="generic.warning">
+        <source>generic.warning</source>
+        <target>Attention</target>
       </trans-unit>
       <trans-unit id="generic.accept">
         <source>generic.accept</source>

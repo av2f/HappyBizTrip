@@ -64,11 +64,11 @@
                                 &bull;&bull;&bull;
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item dropdown-item-action btn-del-discussion" id="DEL_" data-token="{{ csrf_token('tok') }}"
-                                    href="#">Supprimer la conversation
-                                </button>
                                 <button class="dropdown-item dropdown-item-action btn-del-discussion" id="SHO_" data-token="{{ csrf_token('tok') }}" data-toggle="modal" data-target="#deleteDiscussionModal">
                                     Supprimer la conversation
+                                </button>
+                                <button class="dropdown-item dropdown-item-action" id="DEL_" data-token="{{ csrf_token('tok') }}"
+                                    href="#">Supprimer la conversation
                                 </button>
                             </div>
                         </div>
