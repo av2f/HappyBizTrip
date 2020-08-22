@@ -3,6 +3,8 @@ $happyDarkBlue: #7fadc5;
 $HappyPurple: #3f4253;
 $happyOrange: #f5853b;
 $happyGrey: #f5f5f5;
+$happyDarkGrey: #a0a0a0;
+$happyRed: #B81A18;
 
 // Additionnal font
 @font-face {
@@ -118,4 +120,27 @@ body {
 
 .badge-happyDarkBlue {
   color: #ffffff;
+}
+
+.badge-red {
+  background-color: #dc143c;
+  color: #ffffff;
+  font-weight: normal;
+}
+
+.btn {
+  &.btn-modal-confirm {
+    background-color: $happyRed;
+    color: #ffffff;
+    font-size: 0.8rem;
+  }
+  &.btn-modal-cancel {
+    background-color: $happyDarkGrey;
+    color: #ffffff;
+    font-size: 0.8rem;
+  }
+}
+
+.p-modal {
+  font-size: 0.8rem;
 }

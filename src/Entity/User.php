@@ -179,9 +179,9 @@ class User implements UserInterface
      */
     private $phoneNumber;
 
-     /**
+    /**
      * @ORM\OneToMany(targetEntity=Visit::class, mappedBy="visited")
-     */
+    */
     private $visits;
 
     /**
@@ -191,13 +191,24 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Connect::class, mappedBy="requester")
-     */
+    */
     private $requesters;
 
     /**
     * @ORM\OneToMany(targetEntity=Connect::class, mappedBy="requested")
     */
    private $requests;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Messaging::class, mappedBy="sender")
+    */
+    private $senders;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Messaging::class, mappedBy="receiver")
+    */
+    private $receivers;
+
 
     public function __construct()
     {
@@ -207,6 +218,8 @@ class User implements UserInterface
         $this->visitors = new ArrayCollection();
         $this->requesters = new ArrayCollection();
         $this->requests = new ArrayCollection();
+        $this->senders = new ArrayCollection();
+        $this->receivers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -552,7 +565,7 @@ class User implements UserInterface
 
     /**
      * @return Collection|interest[]
-     */
+    */
     public function getInterests(): Collection
     {
         return $this->interests;
@@ -578,7 +591,7 @@ class User implements UserInterface
 
     /**
      * @return Collection|Subscription[]
-     */
+    */
     public function getSubscriptions(): Collection
     {
         return $this->subscriptions;
@@ -619,9 +632,9 @@ class User implements UserInterface
         return $this;
     }
 
-     /**
+    /**
      * @return Collection|Visit[]
-     */
+    */
     public function getVisits(): Collection
     {
         return $this->visits;
@@ -647,7 +660,7 @@ class User implements UserInterface
 
     /**
      * @return Collection|Visit[]
-     */
+    */
     public function getVisitors(): Collection
     {
         return $this->visitors;
@@ -671,11 +684,11 @@ class User implements UserInterface
         return $this;
     }
 
-     /**
+    /**
      * @return Collection|Connect[]
      * list of users that $this->getUser() has requested as friends
      * $requester = $this->getUser()
-     */
+    */
     public function getRequesters(): Collection
     {
         return $this->requesters;
@@ -699,11 +712,11 @@ class User implements UserInterface
         return $this;
     }
 
-     /**
+    /**
      * @return Collection|Connect[]
      * list of users who have requested $this->getUser() as friend
      * $requested = $this->getUser() 
-     */
+    */
     public function getRequests(): Collection
     {
         return $this->requests;
@@ -722,6 +735,62 @@ class User implements UserInterface
     {
         if ($this->requests->contains($request)) {
             $this->requests->removeElement($request);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Messaging[]
+     * list of users who 
+     * A COMPLETER 
+    */
+    public function getSenders(): Collection
+    {
+        return $this->senders;
+    }
+
+    public function addSender(Messaging $sender): self
+    {
+        if (!$this->senders->contains($sender)) {
+            $this->senders[] = $sender;
+        }
+
+        return $this;
+    }
+
+    public function removeSender(Messaging $sender): self
+    {
+        if ($this->senders->contains($sender)) {
+            $this->senders->removeElement($sender);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Messaging[]
+     * list of users who 
+     * A COMPLETER 
+    */
+    public function getReceivers(): Collection
+    {
+        return $this->receivers;
+    }
+
+    public function addReceiver(Messaging $receiver): self
+    {
+        if (!$this->receivers->contains($receiver)) {
+            $this->receivers[] = $receiver;
+        }
+
+        return $this;
+    }
+
+    public function removeReceiver(Messaging $receiver): self
+    {
+        if ($this->receivers->contains($receiver)) {
+            $this->receivers->removeElement($receiver);
         }
 
         return $this;

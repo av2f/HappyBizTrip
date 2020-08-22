@@ -29,6 +29,10 @@
         <source>solicitation.block_title</source>
         <target>| Nouvelles sollicitations</target>
       </trans-unit>
+      <trans-unit id="messaging.block_title">
+        <source>messaging.block_title</source>
+        <target>| Messagerie</target>
+      </trans-unit>
       <trans-unit id="home.subtitle">
         <source>home.subtitle</source>
         <target>Prenez plaisir à vous déplacer</target>
@@ -305,6 +309,10 @@
         <source>profile.btn_delete</source>
         <target>Supprimer mon compte</target>
       </trans-unit>
+      <trans-unit id="discussion.btn_delete">
+        <source>discussion.btn_delete</source>
+        <target>Supprimer la discussion</target>
+      </trans-unit>
       <trans-unit id="btn.cancel">
         <source>btn.cancel</source>
         <target>Annuler</target>
@@ -331,15 +339,23 @@
       </trans-unit>
       <trans-unit id="modal.account.message_delete1">
         <source>modal.account.message_delete1</source>
-        <target>Attention,</target>
+        <target>La suppression de votre compte est définitive et entraine la perte irréversible de vos données.</target>
       </trans-unit>
       <trans-unit id="modal.account.message_delete2">
         <source>modal.account.message_delete2</source>
-        <target>La suppression de votre compte est définitive et entraine la perte irréversible de vos données.</target>
-      </trans-unit>
-      <trans-unit id="modal.account.message_delete3">
-        <source>modal.account.message_delete3</source>
         <target>merci de confirmer la suppression de votre compte.</target>
+      </trans-unit>
+      <trans-unit id="modal.title.discussion_delete">
+        <source>modal.title.discussion_delete</source>
+        <target>Suppression de la discussion</target>
+      </trans-unit>
+      <trans-unit id="modal.discussion.message_delete1">
+        <source>modal.discussion.message_delete1</source>
+        <target>La suppression de la discussion est définitive.</target>
+      </trans-unit>
+      <trans-unit id="modal.discussion.message_delete2">
+        <source>modal.discussion.message_delete2</source>
+        <target>Merci de confirmer la suppression de la discussion avec</target>
       </trans-unit>
       <trans-unit id="update.avatar.msg.error_1">
         <source>update.avatar.msg.error_1</source>
@@ -353,12 +369,12 @@
         <source>update.avatar.msg.error_3</source>
         <target>La taille de votre fichier dépasse la limite autorisée ({maxFileSize}).</target>
       </trans-unit>
-      <trans-unit id="list.profile.msg.error_1">
-        <source>list.profile.msg.error_1</source>
+      <trans-unit id="json.msg.error_1">
+        <source>json.msg.error_1</source>
         <target>Token invalide. Merci de réessayer.</target>
       </trans-unit>
-      <trans-unit id="list.profile.msg.error_2">
-        <source>list.profile.msg.error_2</source>
+      <trans-unit id="json.msg.error_2">
+        <source>json.msg.error_2</source>
         <target>Une erreur est survenue lors de votre action. Merci de réessayer.</target>
       </trans-unit>
       <trans-unit id="interest.type_culture">
@@ -557,6 +573,10 @@
         <source>generic.cancel</source>
         <target>Annuler</target>
       </trans-unit>
+      <trans-unit id="generic.warning">
+        <source>generic.warning</source>
+        <target>Attention</target>
+      </trans-unit>
       <trans-unit id="generic.accept">
         <source>generic.accept</source>
         <target>Accepter</target>
@@ -572,6 +592,14 @@
       <trans-unit id="generic.unblock">
         <source>generic.unblock</source>
         <target>Débloquer</target>
+      </trans-unit>
+      <trans-unit id="generic.send">
+        <source>generic.send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="generic.erase">
+        <source>generic.erase</source>
+        <target>Effacer</target>
       </trans-unit>
       <trans-unit id="connection.requested">
         <source>connection.requested</source>

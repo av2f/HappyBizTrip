@@ -318,4 +318,49 @@ class UserRepository extends ServiceEntityRepository
         
         return $query->getScalarResult();
     }
+
+    public function myFindConversationList(int $id) {
+        $sql = "SELECT * FROM (
+                SELECT u.id, u.pseudo, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at, m.is_readed FROM user u INNER JOIN messaging m ON u.id = receiver_id WHERE sender_id = ? AND (INSTR(m.deleted_by, ?) IS NULL) AND m.created_at =
+                (
+                    SELECT MAX(created_at) FROM messaging WHERE sender_id = ? AND receiver_id = id
+                )
+                UNION
+                SELECT u.id, u.pseudo, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at, m.is_readed FROM user u INNER JOIN messaging m ON u.id = sender_id WHERE receiver_id = ? AND (INSTR(m.deleted_by, ?) IS NULL) AND m.created_at =
+                (
+                    SELECT MAX(created_at) FROM messaging WHERE sender_id = id AND receiver_id = ?
+                )
+                ) AS RESULT
+                HAVING created_at IN (SELECT MAX(created_at) FROM messaging WHERE (sender_id = id AND receiver_id = ?) OR (receiver_id = id AND sender_id = ?) GROUP BY id) ORDER BY created_at DESC";
+
+        $rsm = new ResultSetMapping();
+
+        $rsm->addEntityResult('App\Entity\User', 'u');
+        $rsm->addFieldResult('u', 'id', 'id');
+        $rsm->addFieldResult('u', 'pseudo', 'pseudo');
+        $rsm->addFieldResult('u', 'avatar', 'avatar');
+        $rsm->addFieldResult('u', 'is_active', 'isActive');
+        $rsm->addFieldResult('u', 'is_deleted', 'isDeleted');
+        
+        $rsm->addJoinedEntityResult('App\Entity\Messaging', 'm', 'u', 'receivers');
+        $rsm->addJoinedEntityResult('App\Entity\Messaging', 'm', 'u', 'senders');
+
+        $rsm->addMetaResult('m', 'sender_id', 'sender_id', true);
+        $rsm->addFieldResult('m', 'message', 'message');
+        $rsm->addFieldResult('m', 'created_at', 'createdAt');
+        $rsm->addFieldResult('m', 'is_readed', 'isReaded');
+        $rsm->addFieldResult('m', 'deleted_by', 'deletedBy');
+
+        $query = $this->_em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $id);
+        $query->setParameter(2, $id);
+        $query->setParameter(3, $id);
+        $query->setParameter(4, $id);
+        $query->setParameter(5, $id);
+        $query->setParameter(6, $id);
+        $query->setParameter(7, $id);
+        $query->setParameter(8, $id);
+        
+        return $query->getScalarResult();
+    }
 }

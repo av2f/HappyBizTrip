@@ -4,6 +4,10 @@
 // BE CAREFUL : before performing fixtures, comment the line
 // $this->setIsSubscribed(false);
 // in User entity => function setInitialUser()
+// AND
+// $this->createdAt = new \DateTime();
+// $this->setIsReaded(false);
+// in Messaging entity => function setInitialMessaging()
 // *********************************************************
 
 namespace App\DataFixtures;
@@ -14,11 +18,13 @@ use App\Entity\User;
 use App\Entity\Visit;
 use App\Entity\Connect;
 use App\Entity\Interest;
+use App\Entity\Messaging;
 use App\Entity\InterestType;
 use App\Entity\Subscription;
 use App\Entity\SubscripType;
 use App\Entity\SubscriptionHistory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use phpDocumentor\Reflection\Types\Integer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -47,11 +53,30 @@ class AppFixtures extends Fixture
         $pseudo = preg_replace($search,'e',$pseudo);
         return $pseudo;
     }
+
+    /**
+     * Find the indice of user to delete from array and return it
+     *
+     * @param [type] $arrayUser
+     * @param [type] $dUser
+     * @return void
+     */
+    private function findUserToDelete($arrayUser, $dUser): int {
+        $ind = -1;
+        for ($i=0; $i<count($arrayUser); $i++) {
+            if ($dUser->getPseudo() == $arrayUser[$i]->getPseudo()) {
+                $ind = $i;
+            break;
+            }
+        }
+        return $ind;
+    }
     
     public function load(ObjectManager $manager)
     {
         $NB_USER = 200;
         $entryUser = array();
+        $messageUser = array(); // to handle message
         
         // interestType
         $type = array(
@@ -217,6 +242,7 @@ class AppFixtures extends Fixture
             if ($subscribed) { $user->setIsSubscribed(true); }
             $manager->persist($user);
             array_push($entryUser, $user);
+            array_push($messageUser, $user);
 
             // Create subscription  
             if ($subscribed){
@@ -264,7 +290,7 @@ class AppFixtures extends Fixture
                     $subscription=$subscriptionTypeArray[mt_rand(0, count($subscriptionTypeArray)-1)];
                     switch($subscription->getDurationType()){
                         case "W":
-                            $dateBegin=$faker->dateTimeBetween('-360 days','-9 day');
+                            $dateBegin=$faker->dateTimeBetween('-360 days','-9 days');
                             break;
                         case 'M':
                             switch($subscription->getDuration()){
@@ -297,7 +323,7 @@ class AppFixtures extends Fixture
                 }
             }
         }
-        // manage visitor
+        // Handle visitor
         foreach ($entryUser as $u) {
             if (mt_rand(0,1) == 1) { // randomly if visited
                 $visitors = array_rand($entryUser, mt_rand(2, 20));
@@ -313,7 +339,7 @@ class AppFixtures extends Fixture
             }
         }
 
-        // Manage connect
+        // Handle connect
         foreach ($entryUser as $u) {
             if (mt_rand(0,1) == 1) { // randomly if connect
                 $requests = array_rand($entryUser, mt_rand(2, 20));
@@ -321,9 +347,9 @@ class AppFixtures extends Fixture
                     $r = $entryUser[$requests[$i]];                    
                     if ($u->getPseudo() != $r->getPseudo()) {
                         $connect = new Connect();
-                        $connect -> setRequester($u);
-                        $connect -> setRequested($r);
-                        $connect -> setActionAt(new \DateTime());
+                        $connect -> setRequester($u)
+                            -> setRequested($r)
+                            -> setActionAt(new \DateTime());
                         $state=$states[mt_rand(0, count($states)-1)];
                         $connect -> setState($state);
                         $manager->persist($connect);
@@ -332,6 +358,43 @@ class AppFixtures extends Fixture
             }
         }
 
+        // Handle messages
+        foreach ($entryUser as $u) {
+            if (mt_rand(0,1) == 1) { // is user having messages ?
+                $delIndice = $this->findUserToDelete($messageUser, $u);
+                if ($delIndice != -1) { // if user exists, delete from array
+                    array_splice($messageUser, $delIndice,1);
+                }
+                if (count($messageUser) > 0) { // if not last user
+                    $max_correspondent = (count($messageUser) > 10 ? mt_rand(2,10) : count($messageUser));
+                    $correspondents = array_rand($messageUser, $max_correspondent); // number of correspondents
+                    for ($i=0; $i<count($correspondents); $i++) {
+                        $nbMessage = mt_rand(1,8); // randomly define number of messages
+                        for ($j=1; $j<=$nbMessage; $j++) {
+                            $sender = $u;
+                            $receiver = $messageUser[$correspondents[$i]];
+                            if ($j % 2 == 0) { // if number is even, inverse $sender and $receiver
+                                $sender = $messageUser[$correspondents[$i]];
+                                $receiver = $u;
+                            }
+                            $message = new Messaging();
+                            $message -> setSender($sender)
+                                -> setReceiver($receiver)
+                                -> setMessage($faker->paragraphs(mt_rand(1,4), true))
+                                -> setCreatedAt($faker->dateTimeBetween('+' . $j . 'hours', '+' . $j+1 . 'days'))
+                                -> setIsReaded(false);
+                            if ($j == $nbMessage) { // last Message ?
+                                if (mt_rand(0,1) == 1) { // last message has been readed
+                                    $message -> setIsReaded(true)
+                                        -> setReadedAt($faker->dateTimeBetween('+ 1 hour','+ 4 days'));
+                                }
+                            } 
+                            $manager->persist($message);
+                        }
+                    } 
+                }
+            }
+        }
         $manager->flush();
     }
 }

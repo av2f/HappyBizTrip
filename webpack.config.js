@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+var webpack = require('webpack');
 const { disableSingleRuntimeChunk } = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -38,6 +39,8 @@ Encore
   .addStyleEntry('css/profile', './assets/css/profile.scss')
   .addStyleEntry('css/search', './assets/css/search.scss')
   .addStyleEntry('css/datepicker/datepicker', './assets/css/datepicker/bootstrap-datepicker.min.css')
+  .addStyleEntry('css/messaging', './assets/css/messaging.scss')
+
 
   .addEntry('js/app', './assets/js/app.js')
   .addEntry('js/datepicker/datepicker', './assets/js/datepicker/bootstrap-datepicker.min.js')
@@ -46,6 +49,7 @@ Encore
   .addEntry('js/notificationToastr', './assets/js/notificationToastr.js')
   .addEntry('js/listProfile', './assets/js/listProfile.js')
   .addEntry('js/editProfile', './assets/js/editProfile.js')
+  .addEntry('js/messaging', './assets/js/messaging.js')
 
 
   //.addEntry('page1', './assets/js/page1.js')
@@ -94,4 +98,12 @@ Encore
 //.addEntry('admin', './assets/js/admin.js')
 ;
 
-module.exports = Encore.getWebpackConfig();
+// module.exports = Encore.getWebpackConfig();
+
+module.exports = Encore.getWebpackConfig(),
+{
+  plugins: [
+    // load `moment/locale/fr.js`. en is loaded by default
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /fr/),
+  ],
+};
