@@ -4,8 +4,8 @@
 // position of footer for screen >=768 px
 $(function () {
   if ($(window).width() >= 768) {
-    var bht = $('body').height()
-    var wht = $(window).height()
+    const bht = $('body').height()
+    const wht = $(window).height()
     if (bht < wht) {
       $('footer').css('position', 'absolute')
     }
@@ -16,9 +16,9 @@ $(function () {
 document.querySelectorAll('.btn-action').forEach(action =>
   action.addEventListener('click', (e) => {
     e.preventDefault()
-    var clickAction = action.getAttribute('id').substring(0, 2)
-    var userId = action.getAttribute('id').substring(action.getAttribute('id').indexOf('_', 1) + 1, action.getAttribute('id').length)
-    var badgeId = 'B_' + userId
+    const clickAction = action.getAttribute('id').substring(0, 2)
+    const userId = action.getAttribute('id').substring(action.getAttribute('id').indexOf('_', 1) + 1, action.getAttribute('id').length)
+    const badgeId = 'B_' + userId
     // handle action on click
     switch (clickAction) {
       case 'CO': // click on connect button
@@ -62,7 +62,7 @@ document.querySelectorAll('.btn-action').forEach(action =>
               action.setAttribute('href', '#')
               action.innerHTML = document.getElementById('btnText').dataset.message
               // change id and item of dropdown-item : DE and delete.relation
-              var dropdownItem = document.getElementById('RE_' + userId)
+              const dropdownItem = document.getElementById('RE_' + userId)
               dropdownItem.setAttribute('id', dropdownItem.getAttribute('id').replace('RE', 'DE'))
               dropdownItem.innerHTML = document.getElementById('dropItemText').dataset.delrelation
             } else {
@@ -95,9 +95,9 @@ document.querySelectorAll('.btn-action').forEach(action =>
 document.querySelectorAll('.dropdown-item-action').forEach(item =>
   item.addEventListener('click', (e) => {
     e.preventDefault()
-    var clickItem = item.getAttribute('id').substring(0, 2)
-    var userId = item.getAttribute('id').substring(item.getAttribute('id').indexOf('_', 1) + 1, item.getAttribute('id').length)
-    var badgeId = 'B_' + userId
+    const clickItem = item.getAttribute('id').substring(0, 2)
+    const userId = item.getAttribute('id').substring(item.getAttribute('id').indexOf('_', 1) + 1, item.getAttribute('id').length)
+    const badgeId = 'B_' + userId
     switch (clickItem) {
       case 'BL': // Block user
         sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'BL')
@@ -106,11 +106,11 @@ document.querySelectorAll('.dropdown-item-action').forEach(item =>
             // reset and hide badge
               badge(badgeId, 'inline', 'none', '')
               // change type and string of action for button
-              var suffixAction = 'ME'
+              let suffixAction = 'ME'
               if (document.getElementById('AC_' + userId)) {
                 suffixAction = 'AC'
               }
-              var btnAction = document.getElementById(suffixAction + '_' + userId)
+              const btnAction = document.getElementById(suffixAction + '_' + userId)
               btnAction.setAttribute('id', btnAction.getAttribute('id').replace(suffixAction, 'UN'))
               if (suffixAction === 'ME') {
               // set the right URL
@@ -135,7 +135,7 @@ document.querySelectorAll('.dropdown-item-action').forEach(item =>
             // reset and hide badge
               badge(badgeId, 'inline', 'none', '')
               // change type and string of action for button
-              var btnAction = document.getElementById('ME' + '_' + userId)
+              const btnAction = document.getElementById('ME' + '_' + userId)
               btnAction.setAttribute('id', btnAction.getAttribute('id').replace('ME', 'CO'))
               // set the right URL
               btnAction.setAttribute('href', document.getElementById('btnText').dataset.url)
@@ -155,10 +155,10 @@ document.querySelectorAll('.dropdown-item-action').forEach(item =>
         sendJsonRequest(item.getAttribute('href'), item.dataset.token, 'RE')
           .then(response => {
             if (response.success) {
-            // reset and hide badge
+              // reset and hide badge
               badge(badgeId, 'inline', 'none', '')
               // change type and string of action for button
-              var btnAction = document.getElementById('AC' + '_' + userId)
+              const btnAction = document.getElementById('AC' + '_' + userId)
               btnAction.setAttribute('id', btnAction.getAttribute('id').replace('AC', 'CO'))
               btnAction.innerHTML = document.getElementById('btnText').dataset.connect
               // hide action item

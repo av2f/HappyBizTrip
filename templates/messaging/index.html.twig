@@ -37,7 +37,7 @@
                             <div class="media-body">
                                 <p class="p-text-pseudo mt-0" id="pseudo_{{ conversation.u_id }}">{{ conversation.u_pseudo }}</p>
                                 <p id="last-message_{{ conversation.u_id }}" class="{% if conversation.m_sender_id != app.user.id and not conversation.m_isReaded %}p-msg-unread{% else %}p-msg-read{% endif %}">
-                                    {% if conversation.m_sender_id == app.user.id %}Vous : {% endif %}
+                                    {% if conversation.m_sender_id == app.user.id %}{{ 'generic.you'|trans|raw }} : {% endif %}
                                     {{ conversation.m_message|striptags|trim|slice(0, 15)|raw }}...
                                     {% if conversation.m_sender_id != app.user.id %}
                                         <span class="bullet"> &bull;</span>
@@ -67,7 +67,7 @@
                                     Supprimer la conversation
                                 </button>
                                 <button class="dropdown-item dropdown-item-action" id="DEL_" data-token="{{ csrf_token('tok') }}"
-                                    href="#">Supprimer la conversation
+                                    href="#">Voir le profil
                                 </button>
                             </div>
                         </div>
@@ -79,6 +79,10 @@
                 <div class="form-group">
                     <textarea class="form-control form-control-sm shadow-none p-1 mt-1" rows=2 id="newMessage" placeholder="Saisissez un message"
                     style="resize: none" data-token="{{ csrf_token('tok' ~ app.user.id) }}"></textarea>
+                    <input type="file" id="uploadFile" accept="image/png, image/jpeg, image/jpg" hidden="hidden">
+                    <button class="btn btn-white btn-sm shadow-none mt-1" type="button" data-toggle="tooltip" data-placement="top" title="Insérer une image">
+                        <i class="far fa-image"></i>
+                    </button>
                     <div class="float-right mt-1">
                         <button class="btn btn-happyGrey btn-sm shadow-none" type="button" id="btn-erase">
                             <i class="fas fa-eraser"></i> {{ 'generic.erase'|trans|raw }}
@@ -91,7 +95,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="datapage" data-userid = "{{ app.user.id }}" data-locale = "{{ app.request.locale }}">
+    <input type="hidden" id="datapage" data-userid = "{{ app.user.id }}" data-locale = "{{ app.request.locale }}" data-you = "{{ 'generic.you'|trans|raw }}">
     <input type="hidden" id="msgerr" data-errone = "{{ 'json.msg.error_1'|trans|raw }}"
     data-errtwo = "{{ 'json.msg.error_2'|trans|raw }}">
 {% endblock %}

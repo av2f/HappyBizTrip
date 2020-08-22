@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import moment from 'moment'
 moment().format()
 moment.locale('fr')
@@ -7,6 +8,7 @@ $(document).ready(() => {
   changeHeaderDiscussion(document.querySelector('.media').getAttribute('id'))
   buildDiscussion(document.getElementById('discussion').dataset.discussions, document.getElementById('datapage').dataset.userid, true)
   document.getElementById('discussion').dataset.discussions = ''
+  $('[data-toggle="tooltip"]').tooltip()
 })
 
 // when select a new profile in the list, change header with avatar and pseudo selected
@@ -73,7 +75,7 @@ document.getElementById('btn-send').addEventListener('click', (e) => {
         document.getElementById('newMessage').value = ''
         // change last message in conversation list
         document.getElementById('last-message_' + userId).className = 'p-msg-read'
-        document.getElementById('last-message_' + userId).innerHTML = 'Vous : ' + newMessage.substring(0, 15) + '...'
+        document.getElementById('last-message_' + userId).innerHTML = document.getElementById('datapage').dataset.you + ' : ' + newMessage.substring(0, 15) + '...'
         handleLoader(false)
       } else {
         toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
@@ -83,7 +85,6 @@ document.getElementById('btn-send').addEventListener('click', (e) => {
 })
 
 // delete current discussion with the profile in conversation list
-
 document.getElementById('btn-confirm-del-discussion').addEventListener('click', (e) => {
   e.preventDefault()
   // mettre à jour la base de données => deletedBy
@@ -97,6 +98,9 @@ document.getElementById('btn-confirm-del-discussion').addEventListener('click', 
   // if it remains profiles in conversation list
   if (document.querySelectorAll('.media').length > 0) {
     changeHeaderDiscussion(document.querySelector('.conversation-list').firstElementChild.getAttribute('id'))
+  } else {
+    // gérer si plus de profil dans le fil de discussion
+    console.log(' A GERER si plus de profils')
   }
   console.log('je supprime ' + userId)
   // suppression de la conversation
