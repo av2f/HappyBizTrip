@@ -38,9 +38,7 @@ $('#avatarProfileModal').on('show.bs.modal', function () {
   document.getElementById('imgModalAvatar').setAttribute('src', document.getElementById('imgAvatarProfile').getAttribute('src'))
 })
 
-document.getElementById('btnCancelAvatar').addEventListener('click', function () {
-  btnCancel = true
-})
+document.getElementById('btnCancelAvatar').addEventListener('click', () => { btnCancel = true })
 const fileInput = document.getElementById('uploadFile')
 
 document.getElementById('btnDelAvatar').addEventListener('click', function () {
