@@ -24,8 +24,7 @@ use App\Entity\Subscription;
 use App\Entity\SubscripType;
 use App\Entity\SubscriptionHistory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use phpDocumentor\Reflection\Types\Integer;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
