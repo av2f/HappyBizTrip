@@ -357,6 +357,14 @@
         <source>modal.discussion.message_delete2</source>
         <target>Merci de confirmer la suppression de la discussion avec</target>
       </trans-unit>
+      <trans-unit id="delete.discussion">
+        <source>delete.discussion</source>
+        <target>Supprimer la discussion</target>
+      </trans-unit>
+      <trans-unit id="show.profile">
+        <source>show.profile</source>
+        <target>Voir le profil de</target>
+      </trans-unit>
       <trans-unit id="update.avatar.msg.error_1">
         <source>update.avatar.msg.error_1</source>
         <target>Une erreur est survenue lors de la modification de l'image. Merci de réessayer.</target>

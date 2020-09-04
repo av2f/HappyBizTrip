@@ -124,6 +124,9 @@ function changeHeaderDiscussion (mediaId) {
   document.querySelector('.btn-del-discussion').setAttribute('id', 'del_' + userId)
   document.getElementById('dial_' + userId).innerHTML = document.getElementById('pseudo_' + userId).innerHTML
   document.getElementById('discussion').scrollTop = document.getElementById('discussion').scrollHeight
+  document.getElementById('show_profile').textContent = document.getElementById('datapage').dataset.showprofile + ' ' + document.getElementById('pseudo_' + userId).innerHTML
+  document.getElementById('show_profile').setAttribute('href', 'www.google.com')
+  console.log(document.getElementById('show_profile').textContent)
 }
 
 /*

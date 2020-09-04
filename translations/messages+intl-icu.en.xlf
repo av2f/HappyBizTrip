@@ -357,6 +357,14 @@
         <source>modal.discussion.message_delete2</source>
         <target>Please, confirm the deletion of the discussion with</target>
       </trans-unit>
+      <trans-unit id="delete.discussion">
+        <source>delete.discussion</source>
+        <target>Delete the discussion</target>
+      </trans-unit>
+      <trans-unit id="show.profile">
+        <source>show.profile</source>
+        <target>Show profile of</target>
+      </trans-unit>
       <trans-unit id="update.avatar.msg.error_1">
         <source>update.avatar.msg.error_2</source>
         <target>An error occurred while editing the image. Please, try again.</target>
