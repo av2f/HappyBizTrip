@@ -32,7 +32,14 @@
                 <div class="conversation-list" id="conversation-list">
                     {% for conversation in list_conversations %}
                         <div class="media position-relative" id="media_{{ conversation.u_id }}" data-token="{{ csrf_token('tok' ~ conversation.u_id) }}">
-                            <img src="{{ conversation.u_avatar }}"
+                            <img src=
+                                {% if conversation.u_avatar is empty %}
+                                    "{{ asset('img/library/defaultAvatar.png') }}"
+                                {% elseif result.avatar starts with 'https:' %}
+                                    "{{ conversation.u_avatar }}"
+                                {% else %}
+                                    "{{ asset('/uploads/avatars/' ~ conversation.u_avatar) }}"
+                                {% endif %}
                             class="avatar avatar-media mr-3 my-auto" alt="{{ conversation.u_pseudo }}" id="picture_{{ conversation.u_id }}">
                             <div class="media-body">
                                 <p class="p-text-pseudo mt-0" id="pseudo_{{ conversation.u_id }}">{{ conversation.u_pseudo }}</p>

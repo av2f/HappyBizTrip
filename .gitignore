@@ -29,3 +29,7 @@ yarn-error.log
 ###> images uploaded ###
 /public/uploads/
 ###> images uploaded ###
+
+###> .htaccess file ###
+/public/.htaccess
+###> .htaccess file ###
