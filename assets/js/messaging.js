@@ -103,8 +103,8 @@ document.getElementById('btn-confirm-del-discussion').addEventListener('click', 
     console.log(' A GERER si plus de profils')
   }
   console.log('je supprime ' + userId)
-  // suppression de la conversation
-  // suppression du profil dans la liste
+  // suppression de la conversation-> FAIT
+  // suppression du profil dans la liste -> FAIT
 })
 
 // load pseudo when modal window to confirm deletion of discussion is opened

@@ -15,7 +15,14 @@
 {% block body %}
     
     {# define max size of file uploaded (for error message) #}
-    {% set MAX_FILE_SIZE = "3Mb" %}
+    {% set MAX_FILE_SIZE = "5Mb" %}
+
+    {# loader #}
+    <div class="d-flex justify-content-center align-items-center load-spinner" id="unload">
+        <div class="spinner-grow text-primary" role="status" id="spinner" style="display:none;"> 
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
 
     <div class="container">
         {# modal window to update avatar #}

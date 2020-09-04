@@ -67,6 +67,7 @@ fileInput.addEventListener('change', function (e) {
 $('#avatarProfileModal').on('hide.bs.modal', function (e) {
   if (!btnCancel) { // if not cancel button
     // if image change
+    handleLoader(true)
     const imgModalAvatar = document.getElementById('imgModalAvatar').getAttribute('src')
     if (document.getElementById('imgAvatarProfile').getAttribute('src') !== document.getElementById('imgModalAvatar').getAttribute('src')) {
       const inputUpdateAvatar = document.getElementById('input-update-avatar') // token
@@ -96,6 +97,7 @@ $('#avatarProfileModal').on('hide.bs.modal', function (e) {
           return response.json()
         })
         .then (data => {
+          handleLoader(false)
           if (!data.success) {
             var msgError = ''
             switch (data.error) {
@@ -175,5 +177,18 @@ function updateListInterest (listInterest, idToSearch, action) {
     return idToSearch
   } else {
     return arrayListInterest.join(';')
+  }
+}
+
+/*
+  Activate or deactivate the load spinner
+*/
+function handleLoader (activate) {
+  if (activate) {
+    document.querySelector('.load-spinner').setAttribute('id', 'loader')
+    document.getElementById('spinner').style.display = 'block'
+  } else {
+    document.querySelector('.load-spinner').setAttribute('id', 'unload')
+    document.getElementById('spinner').style.display = 'none'
   }
 }

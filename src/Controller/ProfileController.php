@@ -125,7 +125,7 @@ class ProfileController extends AbstractController
      */
     public function updateAvatar(User $profile, string $avatarDir, EntityManagerInterface $em,  ImageOptimizer $imageOptimizer)
     {
-        $MAX_FILE_SIZE = 3145728; // 3Mo Octets max
+        $MAX_FILE_SIZE = 5242880; // 5Mo Octets max
 
         if (isset($_POST['_token'])) {
             if ($this->isCsrfTokenValid('tok'.$profile->getId(), $_POST['_token'])) {
