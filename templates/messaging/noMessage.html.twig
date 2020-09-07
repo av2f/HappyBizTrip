@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'messaging.block_title'|trans|raw }}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="alert alert-happyDarkBlue" role="alert" style="margin-top: 6rem;">
+            <h4 class="alert-heading">{{ 'messaging.empty_header'|trans|raw }}</h4>
+            <p>{{ 'messaging.empty_message'|trans|raw }}<p>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            if ($(window).width() >= 768) {
+                const bht = $('body').height()
+                const wht = $(window).height()
+                if (bht < wht) {
+                $('footer').css('position', 'absolute')
+                }
+            }
+        })
+    </script>
+{% endblock %}
