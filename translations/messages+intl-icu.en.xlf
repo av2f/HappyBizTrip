@@ -33,6 +33,14 @@
         <source>messaging.block_title</source>
         <target>| Messaging</target>
       </trans-unit>
+      <trans-unit id="messaging.empty_header">
+        <source>messaging.empty_header</source>
+        <target>Messaging</target>
+      </trans-unit>
+      <trans-unit id="messaging.empty_message">
+        <source>messaging.empty_message</source>
+        <target>You have no ongoing discussions...</target>
+      </trans-unit>
       <trans-unit id="home.subtitle">
         <source>home.subtitle</source>
         <target>Make your trip a fun...</target>

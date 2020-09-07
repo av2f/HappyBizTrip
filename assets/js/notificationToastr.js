@@ -11,7 +11,7 @@ window.toastMsg = function (criticity, message, timeout) {
     'showDuration': '300',
     'hideDuration': '1000',
     'timeOut': timeout,
-    'extendedTimeOut': "1000",
+    'extendedTimeOut': '1000',
     'showEasing': 'swing',
     'hideEasing': 'linear',
     'showMethod': 'fadeIn',

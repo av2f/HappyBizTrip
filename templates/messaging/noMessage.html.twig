@@ -15,15 +15,5 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        $(function () {
-            if ($(window).width() >= 768) {
-                const bht = $('body').height()
-                const wht = $(window).height()
-                if (bht < wht) {
-                $('footer').css('position', 'absolute')
-                }
-            }
-        })
-    </script>
+    {{ encore_entry_script_tags('js/adaptFooter') }}
 {% endblock %}

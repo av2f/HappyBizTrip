@@ -1,17 +1,6 @@
 // function to handle list of profile
 // Author : F. Parmentier
 
-// position of footer for screen >=768 px
-$(function () {
-  if ($(window).width() >= 768) {
-    const bht = $('body').height()
-    const wht = $(window).height()
-    if (bht < wht) {
-      $('footer').css('position', 'absolute')
-    }
-  }
-})
-
 // advanced search form visible or not
 document.getElementById("btnAdvancedSearch").addEventListener("click", function(){
   document.getElementById("advancedSearch").style.display

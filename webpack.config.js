@@ -41,7 +41,6 @@ Encore
   .addStyleEntry('css/datepicker/datepicker', './assets/css/datepicker/bootstrap-datepicker.min.css')
   .addStyleEntry('css/messaging', './assets/css/messaging.scss')
 
-
   .addEntry('js/app', './assets/js/app.js')
   .addEntry('js/datepicker/datepicker', './assets/js/datepicker/bootstrap-datepicker.min.js')
   .addEntry('js/datepicker/datepicker-fr', './assets/js/datepicker/bootstrap-datepicker.fr.min.js')
@@ -50,7 +49,7 @@ Encore
   .addEntry('js/listProfile', './assets/js/listProfile.js')
   .addEntry('js/editProfile', './assets/js/editProfile.js')
   .addEntry('js/messaging', './assets/js/messaging.js')
-
+  .addEntry('js/adaptFooter', './assets/js/adaptFooter.js')
 
   //.addEntry('page1', './assets/js/page1.js')
 

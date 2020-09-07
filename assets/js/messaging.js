@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import moment from 'moment'
 moment().format()
 moment.locale('fr')

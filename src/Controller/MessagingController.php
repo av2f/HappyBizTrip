@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Twig\Environment;
 use App\Entity\Messaging;
 use App\Repository\UserRepository;
 use App\Repository\MessagingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -15,6 +17,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MessagingController extends AbstractController
 {
+    private $twig;
+
+    public function __construct(Environment $twig) {
+        $this->twig = $twig;
+    }
+    
     /**
      * @Route("/messaging/{slug}", name="messaging")
      * 
@@ -29,14 +37,13 @@ class MessagingController extends AbstractController
         if (count($listConversations) > 0) {
             // retrieve the fisrt conversation of list (last written)
             $discussions = $messageRepo->myFindDiscussion($this->getUser()->getId(), $listConversations[0]['u_id']);
+            return new Response($this->twig->render('messaging/index.html.twig', [
+                'list_conversations' => $listConversations,
+                'discussions' => $discussions,
+            ]));
         } else {
-            $discussions = [];
+            return new Response($this->twig->render('messaging/noMessage.html.twig'));
         }
-
-        return $this->render('messaging/index.html.twig', [
-            'list_conversations' => $listConversations,
-            'discussions' => $discussions,
-        ]);
     }
 
     
