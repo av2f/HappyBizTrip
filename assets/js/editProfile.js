@@ -1,5 +1,6 @@
 // ***** manage interest choices *****
 // initialize value of profile_listInterest
+var fileAvatar
 window.addEventListener('load', (event) => {
   // var listInterest = document.getElementById("profile_listInterest").value
   var arrayListInterest = []
@@ -27,59 +28,59 @@ document.querySelectorAll('.control-interest').forEach(interest =>
       listInterest = updateListInterest(listInterest, interestId, 'R')
     }
     document.getElementById('profile_listInterest').value = listInterest
-  }))
+  })
+)
 // ***** end of manage interest choices *****
 
 // ***** Management of avatar modal window **********
 var btnCancel = false // cancel button of modal avatar management
 
 // load modal image when modal window is opened
-$('#avatarProfileModal').on('show.bs.modal', function () {
+$('#avatarProfileModal').on('show.bs.modal', () => {
   document.getElementById('imgModalAvatar').setAttribute('src', document.getElementById('imgAvatarProfile').getAttribute('src'))
 })
 
 document.getElementById('btnCancelAvatar').addEventListener('click', () => { btnCancel = true })
 const fileInput = document.getElementById('uploadFile')
 
-document.getElementById('btnDelAvatar').addEventListener('click', function () {
+document.getElementById('btnDelAvatar').addEventListener('click', () => {
   // if delete image, replace it by default avatar image
   document.getElementById('imgModalAvatar').setAttribute('src', document.getElementById('pictures').dataset.imgdefaultavatar)
   fileInput.value = ''
 })
 
 // if click on change button
-document.getElementById('btnChangeAvatar').addEventListener('click', function () {
+document.getElementById('btnChangeAvatar').addEventListener('click', () => {
   fileInput.click()
 })
 
 // *** manage upload new file ***
-fileInput.addEventListener('change', function (e) {
+fileInput.addEventListener('change', (e) => {
   // if file choose
   fileAvatar = this.files[0]
   if (fileAvatar) {
     const reader = new FileReader()
-    reader.addEventListener('load', function () {
+    reader.addEventListener('load', () => {
       document.getElementById('imgModalAvatar').setAttribute('src', this.result)
     })
     reader.readAsDataURL(fileAvatar)
   }
 })
-$('#avatarProfileModal').on('hide.bs.modal', function (e) {
+$('#avatarProfileModal').on('hide.bs.modal', (e) => {
   if (!btnCancel) { // if not cancel button
-    // if image change
-    handleLoader(true)
     const imgModalAvatar = document.getElementById('imgModalAvatar').getAttribute('src')
     if (document.getElementById('imgAvatarProfile').getAttribute('src') !== document.getElementById('imgModalAvatar').getAttribute('src')) {
+      // if image change
+      handleLoader(true)
       const inputUpdateAvatar = document.getElementById('input-update-avatar') // token
-      let form = new FormData();
+      let form = new FormData()
       form.append('_token', inputUpdateAvatar.dataset.token)
       // if avatar deleted
       if (fileInput.value === '') {
         form.append('image', document.getElementById('pictures').dataset.useravatar)
         form.append('action', 'delete')
-      }
-      // else change with new image
-      else {
+      } else {
+        // else change with new image
         form.append('image', fileAvatar)
         form.append('action', 'update')
       }
@@ -96,7 +97,7 @@ $('#avatarProfileModal').on('hide.bs.modal', function (e) {
           // retrieve the response in json
           return response.json()
         })
-        .then (data => {
+        .then(data => {
           handleLoader(false)
           if (!data.success) {
             var msgError = ''
@@ -115,8 +116,7 @@ $('#avatarProfileModal').on('hide.bs.modal', function (e) {
                 break
             }
             toastMsg('error', msgError, '4000')
-          }
-          else {
+          } else {
             // success
             if (fileInput.value === '') {
               document.getElementById('imgAvatarProfile').setAttribute('src', document.getElementById('pictures').dataset.imgdefaultavatar)
@@ -130,15 +130,14 @@ $('#avatarProfileModal').on('hide.bs.modal', function (e) {
         })
         .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000'))
     }
-  }
-  else {
+  } else {
     btnCancel = false
   }
 })
 // ***** end of management of avatar modal window **********
 
-$('#deleteProfileModal').on('hidden.bs.modal', function () {
-  $('#btn-profile-delete').focus(function () {
+$('#deleteProfileModal').on('hidden.bs.modal', () => {
+  $('#btn-profile-delete').focus(() => {
     // position at top of the page
     $('html,body').animate({ scrollTop: 0 }, 300)
   })

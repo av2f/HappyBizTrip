@@ -26,20 +26,22 @@ class MessagingController extends AbstractController
     /**
      * @Route("/messaging/{slug}", name="messaging")
      * 
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("edit", subject="profile")
      * 
      */
-    public function index(UserRepository $userRepo, MessagingRepository $messageRepo)
+    public function index(UserRepository $userRepo, MessagingRepository $messageRepo, User $profile)
     {
+         // Authorization managed by voter
+         $this->denyAccessUnlessGranted('edit', $profile);
+        
         // Retrieve list of users whom user has discussion
         $listConversations = $userRepo->myFindConversationList($this->getUser()->getId());
         
         if (count($listConversations) > 0) {
-            // retrieve the fisrt conversation of list (last written)
-            $discussions = $messageRepo->myFindDiscussion($this->getUser()->getId(), $listConversations[0]['u_id']);
+            // myFindDiscussion = retrieve the fisrt conversation of list (last written) 
             return new Response($this->twig->render('messaging/index.html.twig', [
                 'list_conversations' => $listConversations,
-                'discussions' => $discussions,
+                'discussions' => $messageRepo->myFindDiscussion($this->getUser()->getId(), $listConversations[0]['u_id']),
             ]));
         } else {
             return new Response($this->twig->render('messaging/noMessage.html.twig'));

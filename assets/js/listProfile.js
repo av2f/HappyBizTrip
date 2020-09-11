@@ -1,21 +1,6 @@
 // function to handle list of profile
 // Author : F. Parmentier
 
-// advanced search form visible or not
-document.getElementById("btnAdvancedSearch").addEventListener("click", function(){
-  document.getElementById("advancedSearch").style.display
-  if ( document.getElementById("advancedSearch").style.display === "none") {
-      $("#advancedSearch").show("slow")
-      document.getElementById("iconAdvancedSearch").className = "fas fa-caret-up"
-      document.getElementById("advancedSearch").style.display = "inline"
-  }
-  else {
-      $("#advancedSearch").hide("slow")
-      document.getElementById("iconAdvancedSearch").className = "fas fa-caret-down"
-      document.getElementById("advancedSearch").style.display = "none"
-  }
-})
-
 // handle connect button
 document.querySelectorAll('.btn-action').forEach(action =>
   action.addEventListener('click', (e) => {

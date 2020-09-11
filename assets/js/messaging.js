@@ -7,7 +7,7 @@ $(document).ready(() => {
   changeHeaderDiscussion(document.querySelector('.media').getAttribute('id'))
   buildDiscussion(document.getElementById('discussion').dataset.discussions, document.getElementById('datapage').dataset.userid, true)
   document.getElementById('discussion').dataset.discussions = ''
-  $('[data-toggle="tooltip"]').tooltip()
+  // $('[data-toggle="tooltip"]').tooltip() *** tooltip for upload image. feature in v2
 })
 
 // when select a new profile in the list, change header with avatar and pseudo selected
@@ -21,8 +21,8 @@ document.querySelectorAll('.media').forEach(action =>
     changeHeaderDiscussion(action.getAttribute('id'))
     // retrieve discussion feed
     sendJsonRequest(document.getElementById('url_' + userId).getAttribute('href'), document.getElementById(action.getAttribute('id')).dataset.token, '', '')
-    .then(response => {
-      if (response.success) {
+      .then(response => {
+        if (response.success) {
           // remove the content of div discussion
           deleteDiscussion(document.getElementById('discussion'))
           // Build new discussion
@@ -31,8 +31,7 @@ document.querySelectorAll('.media').forEach(action =>
           const updateUnreadMessage = parseInt(document.getElementById('unread-messages').innerHTML, 10) - response.unreadMessages
           if (updateUnreadMessage <= 0) {
             document.getElementById('unread-messages').style.display = 'none'
-          }
-          else {
+          } else {
             document.getElementById('unread-messages').innerHTML = updateUnreadMessage
           }
           // put last message as readed if unreaded in conversation list
@@ -43,11 +42,11 @@ document.querySelectorAll('.media').forEach(action =>
           // reset textarea for new message
           document.getElementById('newMessage').value = ''
           handleLoader(false)
-      } else {
+        } else {
           toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
-      }
-    })
-    .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
+        }
+      })
+      .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
   })
 )
 
@@ -65,7 +64,7 @@ document.getElementById('btn-send').addEventListener('click', (e) => {
   const userId = dialId.substring(dialId.indexOf('_', 1) + 1, dialId.length)
   const newMessage = document.getElementById('newMessage').value.trim()
   sendJsonRequest(document.getElementById('btn-send').getAttribute('href'), document.getElementById('newMessage').dataset.token, newMessage, userId)
-  .then(response => {
+    .then(response => {
       if (response.success) {
         // remove the content of div discussion
         deleteDiscussion(document.getElementById('discussion'))
@@ -79,8 +78,8 @@ document.getElementById('btn-send').addEventListener('click', (e) => {
       } else {
         toastMsg('error', document.getElementById('msgerr').dataset.errone, '4000')
       }
-  })
-  .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
+    })
+    .catch(e => toastMsg('error', document.getElementById('msgerr').dataset.errtwo, '4000'))
 })
 
 // delete current discussion with the profile in conversation list
@@ -102,12 +101,10 @@ document.getElementById('btn-confirm-del-discussion').addEventListener('click', 
     console.log(' A GERER si plus de profils')
   }
   console.log('je supprime ' + userId)
-  // suppression de la conversation-> FAIT
-  // suppression du profil dans la liste -> FAIT
 })
 
 // load pseudo when modal window to confirm deletion of discussion is opened
-$('#deleteDiscussionModal').on('show.bs.modal', function () {
+$('#deleteDiscussionModal').on('show.bs.modal', () => {
   document.getElementById('pseudoDiscussionWith').innerHTML = '<strong>' + document.querySelector('.dial').textContent + '</strong>'
 })
 
@@ -118,14 +115,17 @@ $('#deleteDiscussionModal').on('show.bs.modal', function () {
 */
 function changeHeaderDiscussion (mediaId) {
   const userId = mediaId.substring(mediaId.indexOf('_', 1) + 1, mediaId.length)
+  // Url to show profile
+  let urlProfile = document.getElementById('datapage').dataset.urlprofile
+  urlProfile = urlProfile.replace('here_slug', document.getElementById('slug_' + userId).value)
+  // load picture, pseudo and adapt dropdown menu
   document.getElementById('picture').setAttribute('src', document.getElementById('picture_' + userId).getAttribute('src'))
   document.querySelector('.dial').setAttribute('id', 'dial_' + userId)
   document.querySelector('.btn-del-discussion').setAttribute('id', 'del_' + userId)
   document.getElementById('dial_' + userId).innerHTML = document.getElementById('pseudo_' + userId).innerHTML
-  document.getElementById('discussion').scrollTop = document.getElementById('discussion').scrollHeight
   document.getElementById('show_profile').textContent = document.getElementById('datapage').dataset.showprofile + ' ' + document.getElementById('pseudo_' + userId).innerHTML
-  document.getElementById('show_profile').setAttribute('href', 'www.google.com')
-  console.log(document.getElementById('show_profile').textContent)
+  document.getElementById('show_profile').setAttribute('href', urlProfile)
+  document.getElementById('discussion').scrollTop = document.getElementById('discussion').scrollHeight
 }
 
 /*
@@ -156,7 +156,7 @@ function buildDiscussion (arrayDiscussion, userId, boolParse) {
     discussions = arrayDiscussion
   }
   let numMsg = 1
-  discussions.forEach(function (discussion) {
+  discussions.forEach(discussion => {
     let cardClass = 'card-receiver ml-auto mr-2'
     if (discussion.m_sender_id === userId) {
       cardClass = 'card-sender mr-auto'

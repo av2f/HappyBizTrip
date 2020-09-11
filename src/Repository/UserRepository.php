@@ -321,12 +321,12 @@ class UserRepository extends ServiceEntityRepository
 
     public function myFindConversationList(int $id) {
         $sql = "SELECT * FROM (
-                SELECT u.id, u.pseudo, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at, m.is_readed FROM user u INNER JOIN messaging m ON u.id = receiver_id WHERE sender_id = ? AND (INSTR(m.deleted_by, ?) IS NULL) AND m.created_at =
+                SELECT u.id, u.pseudo, u.slug, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at, m.is_readed FROM user u INNER JOIN messaging m ON u.id = receiver_id WHERE sender_id = ? AND (INSTR(m.deleted_by, ?) IS NULL) AND m.created_at =
                 (
                     SELECT MAX(created_at) FROM messaging WHERE sender_id = ? AND receiver_id = id
                 )
                 UNION
-                SELECT u.id, u.pseudo, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at, m.is_readed FROM user u INNER JOIN messaging m ON u.id = sender_id WHERE receiver_id = ? AND (INSTR(m.deleted_by, ?) IS NULL) AND m.created_at =
+                SELECT u.id, u.pseudo, u.slug, u.avatar, u.is_deleted, u.is_active, m.sender_id, m.message, m.created_at, m.is_readed FROM user u INNER JOIN messaging m ON u.id = sender_id WHERE receiver_id = ? AND (INSTR(m.deleted_by, ?) IS NULL) AND m.created_at =
                 (
                     SELECT MAX(created_at) FROM messaging WHERE sender_id = id AND receiver_id = ?
                 )
@@ -338,6 +338,7 @@ class UserRepository extends ServiceEntityRepository
         $rsm->addEntityResult('App\Entity\User', 'u');
         $rsm->addFieldResult('u', 'id', 'id');
         $rsm->addFieldResult('u', 'pseudo', 'pseudo');
+        $rsm->addFieldResult('u', 'slug', 'slug');
         $rsm->addFieldResult('u', 'avatar', 'avatar');
         $rsm->addFieldResult('u', 'is_active', 'isActive');
         $rsm->addFieldResult('u', 'is_deleted', 'isDeleted');

@@ -53,6 +53,7 @@
                                         </i>
                                     {% endif %}
                                 </p>
+                                <input type="hidden" id="slug_{{ conversation.u_id }}" value="{{ conversation.u_slug }}">
                                 <a href="{{ path('discussion_feed', {'id': conversation.u_id}) }}" class="stretched-link" id="url_{{ conversation.u_id }}"></a>
                             </div>
                         </div>
@@ -73,8 +74,7 @@
                                 <button class="dropdown-item dropdown-item-action btn-del-discussion" id="DEL_" data-token="{{ csrf_token('tok') }}" data-toggle="modal" data-target="#deleteDiscussionModal">
                                     {{ 'delete.discussion'|trans|raw }}
                                 </button>
-                                <button class="dropdown-item dropdown-item-action" id="show_profile" href="#">{{ 'show.profile'|trans|raw }}
-                                </button>
+                                <a class="dropdown-item dropdown-item-action"  id="show_profile" href="#">{{ 'show.profile'|trans|raw }}</a>
                             </div>
                         </div>
                     </div>
@@ -85,10 +85,11 @@
                 <div class="form-group">
                     <textarea class="form-control form-control-sm shadow-none p-1 mt-1" rows=2 id="newMessage" placeholder="Saisissez un message"
                     style="resize: none" data-token="{{ csrf_token('tok' ~ app.user.id) }}"></textarea>
+                    {# for version 2 - feature to upload image in message
                     <input type="file" id="uploadFile" accept="image/png, image/jpeg, image/jpg" hidden="hidden">
                     <button class="btn btn-white btn-sm shadow-none mt-1" type="button" data-toggle="tooltip" data-placement="top" title="Insérer une image">
                         <i class="far fa-image"></i>
-                    </button>
+                    </button> #}
                     <div class="float-right mt-1">
                         <button class="btn btn-happyGrey btn-sm shadow-none" type="button" id="btn-erase">
                             <i class="fas fa-eraser"></i> {{ 'generic.erase'|trans|raw }}
@@ -102,7 +103,7 @@
         </div>
     </div>
     <input type="hidden" id="datapage" data-userid = "{{ app.user.id }}" data-locale = "{{ app.request.locale }}" data-you = "{{ 'generic.you'|trans|raw }}"
-        data-showprofile = "{{ 'show.profile'|trans|raw }}">
+        data-showprofile = "{{ 'show.profile'|trans|raw }}" data-urlprofile = "{{ path('show_profile', {'slug':'here_slug'}) }}">
     <input type="hidden" id="msgerr" data-errone = "{{ 'json.msg.error_1'|trans|raw }}"
     data-errtwo = "{{ 'json.msg.error_2'|trans|raw }}">
 {% endblock %}
