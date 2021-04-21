@@ -2,7 +2,7 @@
     "devDependencies": {
         "@symfony/webpack-encore": "^0.28.2",
         "bootstrap": "4.5.2",
-        "bootstrap-icons": "^1.0.0-alpha3",
+        "bootstrap-icons": "^1.4.1",
         "ckeditor": "^4.12.1",
         "core-js": "^3.0.0",
         "jquery": "3.5.1",
@@ -26,7 +26,7 @@
         "ini": "^2.0.0",
         "is-svg": "^4.3.1",
         "mkdirp": "^1.0.4",
-        "moment": "^2.27.0",
+        "moment": "^2.29",
         "node-notifier": "^9.0.1",
         "object-path": "^0.11.5",
         "ssri": "^8.0.1",
