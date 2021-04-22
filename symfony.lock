@@ -139,6 +139,9 @@
     "egulias/email-validator": {
         "version": "2.1.17"
     },
+    "fakerphp/faker": {
+        "version": "v1.14.1"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.1"
     },
@@ -153,9 +156,6 @@
         "files": [
             "./config/packages/fos_ckeditor.yaml"
         ]
-    },
-    "fzaninotto/faker": {
-        "version": "v1.9.1"
     },
     "imagine/imagine": {
         "version": "1.2.3"
