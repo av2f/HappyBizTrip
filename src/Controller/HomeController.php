@@ -1,4 +1,13 @@
 <?php
+/**
+ * HomeController.php
+ * Manage the home page
+ * 
+ * @category Controller
+ * 
+ * @author Frederic Parmentier <fparmentier@free.fr>
+ * 
+ */
 
 namespace App\Controller;
 
@@ -37,7 +46,7 @@ class HomeController extends AbstractController
         // handle the submit
         $form->handleRequest($request);
         
-        if ($form -> isSubmitted() && $form -> isValid()){
+        if ($form -> isSubmitted() && $form -> isValid()) {
             // encode password
             $password=$passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
