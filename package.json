@@ -28,7 +28,7 @@
         "mkdirp": "^1.0.4",
         "moment": "^2.29",
         "node-notifier": "^9.0.1",
-        "object-path": "^0.11.5",
+        "object-path": "^0.11.8",
         "ssri": "^8.0.1",
         "y18n": "^5.0.8"
     }
